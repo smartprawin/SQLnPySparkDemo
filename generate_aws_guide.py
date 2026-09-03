@@ -123,6 +123,7 @@ navbar = '''  <nav class="navbar">
           <span class="hamburger__bar"></span>
         </span>
       </button>
+      <a href="../index.html" class="navbar__btn hub-mobile" title="Back to Hub Home">🏠 Hub</a>
     </div>
   </nav>'''
 
@@ -142,17 +143,12 @@ def make_page(title, active, content):
 <body>
 {nav_active}
   <div class="sidebar-overlay" id="mobile-overlay"></div>
-  <div class="sidebar" id="mobile-nav" style="transform:translateX(-100%);z-index:999;">
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
     <div style="padding:1.5rem 1.25rem 1rem;">
       <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">AWS Data Engineering</div>
-      <a href="index.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Home</a>
-      <a href="s3.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">S3</a>
-      <a href="glue.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Glue</a>
-      <a href="lambda.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Lambda</a>
-      <a href="redshift.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Redshift</a>
-      <a href="airflow.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Airflow</a>
+{sidebar_nav}
     </div>
-  </div>
+  </aside>
   <div class="search-overlay" id="search-overlay">
     <div class="search-modal">
       <div class="search-modal__input-wrapper">

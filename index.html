@@ -12,7 +12,7 @@
     .hub-hero { text-align:center; padding:4rem 2rem 3rem; }
     .hub-hero h1 { font-size:2.8rem; font-weight:800; margin:0; background: linear-gradient(135deg, #38bdf8, #818cf8, #a78bfa); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
     .hub-hero p { color:var(--text-muted); font-size:1.15rem; max-width:720px; margin:1rem auto 0; }
-    .hub-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:1.5rem; max-width:1100px; margin:2rem auto; padding:0 2rem; }
+    .hub-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; max-width:1100px; margin:2rem auto; padding:0 2rem; }
     .hub-card { background:var(--panel-bg); border:1px solid var(--panel-border); border-radius:16px; padding:2rem; backdrop-filter:blur(16px); transition:transform .2s, box-shadow .2s, border-color .2s; display:flex; flex-direction:column; }
     .hub-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.25); border-color:rgba(56,189,248,.3); }
     .hub-card__badge { display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; font-weight:600; padding:.3rem .7rem; border-radius:999px; margin-bottom:1rem; }
@@ -40,7 +40,7 @@
     .lesson-card__tag { font-size:.7rem; font-weight:600; padding:.2rem .5rem; border-radius:999px; display:inline-block; margin-bottom:.5rem; }
     .tag-sql { background:rgba(14,165,233,.15); color:#38bdf8; }
     .tag-pyspark { background:rgba(124,58,237,.15); color:#a78bfa; }
-    @media(max-width:768px){ .hub-hero h1{font-size:2rem} .hub-grid{grid-template-columns:1fr; padding:0 1rem} }
+    @media(max-width:768px){ .hub-hero h1{font-size:1.7rem} .hub-grid{grid-template-columns:1fr !important; padding:0 1rem !important} .lesson-grid{grid-template-columns:1fr !important} }
   </style>
 </head>
 <body>
@@ -60,7 +60,7 @@
     <p>Zero to interview-ready. Click a track to open its full guide — every lesson is available from the home page, and every card goes directly to that lesson. <strong>New: AWS Data Engineering</strong> added alongside existing SQL & PySpark — nothing overwritten.</p>
   </section>
 
-  <section class="hub-grid" style="grid-template-columns:repeat(auto-fit,minmax(360px,1fr));">
+  <section class="hub-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));">
     <!-- SQL Card -->
     <article class="hub-card hub-card--sql">
       <span class="hub-card__badge">📘 SQL Mastery • 12 Chapters • 67 Topics</span>

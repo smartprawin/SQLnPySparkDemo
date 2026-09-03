@@ -408,7 +408,10 @@
     function open() {
       if (burger) burger.classList.add('is-active');
       if (overlay) overlay.classList.add('is-visible');
-      if (nav) nav.classList.add('is-open');
+      if (nav) {
+        nav.classList.add('is-open');
+        if (nav.style.transform) nav.style.transform = '';
+      }
       document.body.style.overflow = 'hidden';
       isOpen = true;
     }

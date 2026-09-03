@@ -40,20 +40,106 @@
           <span class="hamburger__bar"></span>
         </span>
       </button>
+      <a href="../index.html" class="navbar__btn hub-mobile" title="Back to Hub Home">🏠 Hub</a>
     </div>
   </nav>
   <div class="sidebar-overlay" id="mobile-overlay"></div>
-  <div class="sidebar" id="mobile-nav" style="transform:translateX(-100%);z-index:999;">
+   <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
     <div style="padding:1.5rem 1.25rem 1rem;">
       <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">AWS Data Engineering</div>
-      <a href="index.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Home</a>
-      <a href="s3.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">S3</a>
-      <a href="glue.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Glue</a>
-      <a href="lambda.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Lambda</a>
-      <a href="redshift.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Redshift</a>
-      <a href="airflow.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Airflow</a>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- S3 -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>S3</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="s3.html#s3-features" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Features</a></li>
+          <li><a href="s3.html#s3-classes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Storage Classes</a></li>
+          <li><a href="s3.html#s3-security" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Security</a></li>
+          <li><a href="s3.html#s3-versioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Versioning</a></li>
+          <li><a href="s3.html#s3-folder-structure" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Folder Structure</a></li>
+          <li><a href="s3.html#s3-cross-account" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cross-Account</a></li>
+        </ul>
+      </div>
+      <!-- Glue -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
+          <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
+          <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
+          <li><a href="glue.html#glue-crawler" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Crawler Triggers</a></li>
+          <li><a href="glue.html#glue-jobs" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Jobs</a></li>
+          <li><a href="glue.html#glue-workflows" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Workflows & Bookmarks</a></li>
+        </ul>
+      </div>
+      <!-- Lambda -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Lambda</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="lambda.html#lambda-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="lambda.html#lambda-layers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Layers</a></li>
+          <li><a href="lambda.html#lambda-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+          <li><a href="lambda.html#boto3-invoke" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Boto3 Invoke</a></li>
+          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Trigger</a></li>
+        </ul>
+      </div>
+      <!-- SCD -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>SCD</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="scd.html#scd-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SCD Types</a></li>
+          <li><a href="scd.html#scd-2-example" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SCD2 Example</a></li>
+        </ul>
+      </div>
+      <!-- ETL / Incremental -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>ETL & Incremental</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="etl.html#etl-vs-elt" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL vs ELT</a></li>
+          <li><a href="etl.html#medallion" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Medallion</a></li>
+          <li><a href="etl.html#incremental-loads" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Incremental Loads</a></li>
+          <li><a href="etl.html#cdc-dms" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CDC & DMS</a></li>
+        </ul>
+      </div>
+      <!-- Redshift -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Redshift</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="redshift.html#redshift-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="redshift.html#redshift-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="redshift.html#redshift-spectrum" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spectrum</a></li>
+          <li><a href="redshift.html#redshift-distribution" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Distribution</a></li>
+          <li><a href="redshift.html#redshift-sort-keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort Keys</a></li>
+          <li><a href="redshift.html#redshift-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Airflow -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Airflow</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="airflow.html#airflow-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="airflow.html#airflow-operators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Operators</a></li>
+          <li><a href="airflow.html#airflow-sensors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sensors</a></li>
+          <li><a href="airflow.html#airflow-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG Example</a></li>
+          <li><a href="airflow.html#airflow-catchup" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catchup & Depends</a></li>
+          <li><a href="airflow.html#airflow-vs-stepfunctions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> vs Step Functions</a></li>
+        </ul>
+      </div>
+      <!-- DevOps -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>DevOps</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="devops.html#git-github" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Git & GitHub</a></li>
+          <li><a href="devops.html#secrets-manager" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Secrets Manager</a></li>
+          <li><a href="devops.html#status-codes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Status Codes</a></li>
+        </ul>
+      </div>
+    
+      </nav>
     </div>
-  </div>
+  </aside>
   <div class="search-overlay" id="search-overlay">
     <div class="search-modal">
       <div class="search-modal__input-wrapper">

@@ -434,6 +434,9 @@ hr {
 /* ============================================================
    SIDEBAR TOGGLE (HAMBURGER) — mobile-first
    ============================================================ */
+.hub-mobile {
+  display: none;
+}
 .sidebar-toggle {
   display: none;
   align-items: center;
@@ -1931,10 +1934,37 @@ div.progress-bar[style*="position:fixed"],
 
   /* Show hamburger, hide desktop sidebar toggle */
   .sidebar-toggle {
-    display: flex;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .navbar__actions {
+    display: flex !important;
+    align-items: center;
+    gap: .35rem;
+    margin-left: auto;
+  }
+  #hamburger {
+    display: flex !important;
+    order: 1;
+  }
+  /* Hub button inside actions: hidden on desktop, visible on mobile as 2nd item */
+  .hub-mobile {
+    display: inline-flex !important;
+    order: 2;
+  }
+  /* Existing Hub in pyspark index (inside actions) also order 2 on mobile */
+  .navbar__actions > a[href="../index.html"].navbar__btn {
+    order: 2;
+  }
+  #theme-toggle {
+    order: 3;
+  }
+  .search-trigger {
+    order: 4;
   }
 
-  /* Navbar adjustments */
+  /* Navbar adjustments — hide top links on mobile, keep hamburger */
   .navbar {
     padding: 0 1rem;
     gap: .5rem;
@@ -1948,19 +1978,50 @@ div.progress-bar[style*="position:fixed"],
     display: none;
   }
 
-  /* Sidebar off-canvas */
-  .sidebar {
-    transform: translateX(-100%);
-    z-index: var(--z-sidebar);
+  .navbar__links {
+    display: none !important;
   }
 
-  .sidebar.is-open {
-    transform: translateX(0);
+  /* Hide top nav link buttons on mobile — keep Hub/search/theme/hamburger */
+  .navbar__actions a.navbar__btn:has(.btn-label) {
+    display: none !important;
+  }
+
+  /* Hide progress bar in nav on mobile to avoid overflow */
+  .progress-bar--sm,
+  .progress-bar.progress-bar--sm {
+    display: none !important;
+  }
+
+  /* --- MOBILE: leftside content hidden, hamburger reveals it --- */
+  /* Hide desktop sidebar completely on mobile — content full width */
+  #sidebar {
+    display: none !important;
+    transform: translateX(-100%) !important;
+  }
+  #sidebar.is-open {
+    transform: translateX(-100%) !important;
+  }
+  /* Mobile drawer — hidden off-canvas until hamburger opens */
+  #mobile-nav {
+    display: block !important;
+    transform: translateX(-100%) !important;
+    z-index: var(--z-sidebar);
     box-shadow: var(--shadow-xl);
   }
-
+  #mobile-nav.is-open {
+    transform: translateX(0) !important;
+  }
   .sidebar-overlay {
     display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .sidebar-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   /* Mobile overlay navigation */
@@ -2015,28 +2076,44 @@ div.progress-bar[style*="position:fixed"],
     background: var(--color-primary-light);
   }
 
-  /* Main content full width on mobile */
-  .main {
-    margin-left: 0;
-    max-width: 100%;
-    padding: 1.5rem 1rem 3rem;
+  /* Main content full width on mobile — override inline margin-left */
+  .main,
+  .main[style] {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    padding: 1.5rem 1rem 3rem !important;
   }
 
-  .main-content.with-sidebar {
-    margin-left: 0;
-    max-width: 100%;
-    padding: 1.5rem 1rem 3rem;
+  .main-content.with-sidebar,
+  .main-content.with-sidebar[style] {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    padding: 1.5rem 1rem 3rem !important;
   }
 
-  /* Hero */
-  .hero {
-    padding: 2rem 1.25rem;
+  /* Footer — override inline margin-left:var(--sidebar-width) */
+  footer[style] {
+    margin-left: 0 !important;
+    padding: 1.5rem 1rem !important;
+  }
+
+  /* Progress bar was hidden, but if shown ensure it doesn't offset */
+  div.progress-bar[style] {
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  /* Hero — override inline padding/font-size on mobile */
+  .hero,
+  .hero[style] {
+    padding: 2rem 1.25rem !important;
     margin-bottom: 2rem;
     border-radius: var(--radius-lg);
   }
 
-  .hero__title {
-    font-size: 1.625rem;
+  .hero__title,
+  .hero h1[style] {
+    font-size: 1.625rem !important;
   }
 
   .hero__subtitle {
@@ -2056,13 +2133,37 @@ div.progress-bar[style*="position:fixed"],
     gap: .5rem;
   }
 
-  /* Grids stack to single column */
+  /* Grids stack to single column — override inline grid styles */
   .learning-paths__grid,
-  .concept-cards__grid {
-    grid-template-columns: 1fr;
+  .concept-cards__grid,
+  div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
   }
 
   /* Tables scroll horizontally (already handled by wrapper) */
+  .table-wrapper {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .code-block {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    font-size: .8125rem;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .diagram-container {
+    padding: 1rem;
+    overflow-x: auto;
+  }
 
   /* Footer stacks */
   .footer__inner {
