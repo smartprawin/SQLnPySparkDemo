@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Modeling - SQL Mastery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION BAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">SQL Mastery</span>
+    </a>
+
+    <div class="navbar__spacer"></div>
+
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="basics.html" class="navbar__btn">Basics</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="window.html" class="navbar__btn">Window</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="modeling.html" class="navbar__btn navbar__btn--primary">Modeling</a>
+      <a href="exercises.html" class="navbar__btn">Exercises</a>
+      <a href="interview.html" class="navbar__btn">Interview</a>
+    </div>
+
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & NAV ===== -->
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">SQL Mastery</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is SQL</a></li>
+          <li><a href="fundamentals.html#what-is-database" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Database</a></li>
+          <li><a href="fundamentals.html#tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tables</a></li>
+          <li><a href="fundamentals.html#sql-vs-nosql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SQL vs NoSQL</a></li>
+          <li><a href="fundamentals.html#keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Keys</a></li>
+          <li><a href="fundamentals.html#constraints" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Constraints</a></li>
+          <li><a href="fundamentals.html#practice-db" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Practice DB</a></li>
+        </ul>
+      </div>
+      <!-- Basics -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Basics</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="basics.html#select" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELECT</a></li>
+          <li><a href="basics.html#where" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE</a></li>
+          <li><a href="basics.html#distinct" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DISTINCT</a></li>
+          <li><a href="basics.html#order-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ORDER BY</a></li>
+          <li><a href="basics.html#limit" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIMIT / TOP</a></li>
+          <li><a href="basics.html#like" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIKE</a></li>
+          <li><a href="basics.html#in" class="sidebar__link"><span class="sidebar__link-icon">▸</span> IN</a></li>
+          <li><a href="basics.html#between" class="sidebar__link"><span class="sidebar__link-icon">▸</span> BETWEEN</a></li>
+          <li><a href="basics.html#null" class="sidebar__link"><span class="sidebar__link-icon">▸</span> NULL</a></li>
+        </ul>
+      </div>
+      <!-- CRUD -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>CRUD</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="crud.html#crud" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CRUD</a></li>
+          <li><a href="crud.html#insert" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INSERT</a></li>
+          <li><a href="crud.html#update" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UPDATE</a></li>
+          <li><a href="crud.html#delete" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE</a></li>
+        </ul>
+      </div>
+      <!-- Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="functions.html#aggregate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Aggregate</a></li>
+          <li><a href="functions.html#group-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY</a></li>
+          <li><a href="functions.html#having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> HAVING</a></li>
+          <li><a href="functions.html#where-vs-having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE vs HAVING</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#why-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Why JOIN</a></li>
+          <li><a href="joins.html#inner-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INNER JOIN</a></li>
+          <li><a href="joins.html#left-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEFT JOIN</a></li>
+          <li><a href="joins.html#right-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RIGHT JOIN</a></li>
+          <li><a href="joins.html#full-outer-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> FULL OUTER JOIN</a></li>
+          <li><a href="joins.html#self-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELF JOIN</a></li>
+          <li><a href="joins.html#cross-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CROSS JOIN</a></li>
+          <li><a href="joins.html#multi-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Multi-Table JOIN</a></li>
+        </ul>
+      </div>
+      <!-- Subqueries & CTE -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Subqueries & CTE</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="subqueries.html#subquery" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Subqueries</a></li>
+          <li><a href="subqueries.html#second-highest" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Second Highest</a></li>
+          <li><a href="subqueries.html#cte" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CTE</a></li>
+        </ul>
+      </div>
+      <!-- Window Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Window Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="window.html#window-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="window.html#group-by-vs-window" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY vs Window</a></li>
+          <li><a href="window.html#row-number" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ROW_NUMBER</a></li>
+          <li><a href="window.html#rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RANK</a></li>
+          <li><a href="window.html#dense-rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DENSE_RANK</a></li>
+          <li><a href="window.html#partition-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> PARTITION BY</a></li>
+          <li><a href="window.html#lag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LAG</a></li>
+          <li><a href="window.html#lead" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEAD</a></li>
+          <li><a href="window.html#running-total" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Running Total</a></li>
+        </ul>
+      </div>
+      <!-- Advanced -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Advanced</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="advanced.html#execution-order" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Order</a></li>
+          <li><a href="advanced.html#case" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CASE</a></li>
+          <li><a href="advanced.html#views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Views</a></li>
+          <li><a href="advanced.html#materialized-views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Materialized Views</a></li>
+          <li><a href="advanced.html#stored-procedures" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stored Procedures</a></li>
+          <li><a href="advanced.html#delete-vs-truncate-vs-drop" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE vs TRUNCATE vs DROP</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#indexing" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Indexing</a></li>
+          <li><a href="performance.html#optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> EXPLAIN</a></li>
+          <li><a href="performance.html#partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Partitioning</a></li>
+          <li><a href="performance.html#sharding" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sharding</a></li>
+        </ul>
+      </div>
+      <!-- Modeling -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Modeling</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="modeling.html#data-modeling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Modeling</a></li>
+          <li><a href="modeling.html#normalization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Normalization</a></li>
+          <li><a href="modeling.html#1nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 1NF</a></li>
+          <li><a href="modeling.html#2nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 2NF</a></li>
+          <li><a href="modeling.html#3nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 3NF</a></li>
+          <li><a href="modeling.html#oltp-vs-olap" class="sidebar__link"><span class="sidebar__link-icon">▸</span> OLTP vs OLAP</a></li>
+          <li><a href="modeling.html#fact-dimension" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Fact & Dimension</a></li>
+          <li><a href="modeling.html#star-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Star Schema</a></li>
+          <li><a href="modeling.html#snowflake-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Snowflake Schema</a></li>
+        </ul>
+      </div>
+      <!-- Interview -->
+            <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Exercises</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="exercises.html#basic-exercises" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basic (1-8)</a></li>
+          <li><a href="exercises.html#intermediate-exercises" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate (9-20)</a></li>
+          <li><a href="exercises.html#advanced-exercises" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced (21-40)</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#framework" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Framework</a></li>
+          <li><a href="interview.html#cheat-sheet" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cheat Sheet</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH OVERLAY ===== -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKMARKS PANEL ===== -->
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <!-- ===== PROGRESS INDICATOR ===== -->
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is SQL</a></li>
+          <li><a href="fundamentals.html#what-is-database" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Database</a></li>
+          <li><a href="fundamentals.html#tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tables</a></li>
+          <li><a href="fundamentals.html#sql-vs-nosql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SQL vs NoSQL</a></li>
+          <li><a href="fundamentals.html#keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Keys</a></li>
+          <li><a href="fundamentals.html#constraints" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Constraints</a></li>
+          <li><a href="fundamentals.html#practice-db" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Practice DB</a></li>
+        </ul>
+      </div>
+      <!-- Basics -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Basics</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="basics.html#select" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELECT</a></li>
+          <li><a href="basics.html#where" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE</a></li>
+          <li><a href="basics.html#distinct" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DISTINCT</a></li>
+          <li><a href="basics.html#order-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ORDER BY</a></li>
+          <li><a href="basics.html#limit" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIMIT / TOP</a></li>
+          <li><a href="basics.html#like" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIKE</a></li>
+          <li><a href="basics.html#in" class="sidebar__link"><span class="sidebar__link-icon">▸</span> IN</a></li>
+          <li><a href="basics.html#between" class="sidebar__link"><span class="sidebar__link-icon">▸</span> BETWEEN</a></li>
+          <li><a href="basics.html#null" class="sidebar__link"><span class="sidebar__link-icon">▸</span> NULL</a></li>
+        </ul>
+      </div>
+      <!-- CRUD -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>CRUD</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="crud.html#crud" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CRUD</a></li>
+          <li><a href="crud.html#insert" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INSERT</a></li>
+          <li><a href="crud.html#update" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UPDATE</a></li>
+          <li><a href="crud.html#delete" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE</a></li>
+        </ul>
+      </div>
+      <!-- Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="functions.html#aggregate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Aggregate</a></li>
+          <li><a href="functions.html#group-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY</a></li>
+          <li><a href="functions.html#having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> HAVING</a></li>
+          <li><a href="functions.html#where-vs-having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE vs HAVING</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#why-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Why JOIN</a></li>
+          <li><a href="joins.html#inner-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INNER JOIN</a></li>
+          <li><a href="joins.html#left-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEFT JOIN</a></li>
+          <li><a href="joins.html#right-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RIGHT JOIN</a></li>
+          <li><a href="joins.html#full-outer-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> FULL OUTER JOIN</a></li>
+          <li><a href="joins.html#self-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELF JOIN</a></li>
+          <li><a href="joins.html#cross-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CROSS JOIN</a></li>
+          <li><a href="joins.html#multi-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Multi-Table JOIN</a></li>
+        </ul>
+      </div>
+      <!-- Subqueries & CTE -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Subqueries & CTE</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="subqueries.html#subquery" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Subqueries</a></li>
+          <li><a href="subqueries.html#second-highest" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Second Highest</a></li>
+          <li><a href="subqueries.html#cte" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CTE</a></li>
+        </ul>
+      </div>
+      <!-- Window Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Window Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="window.html#window-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="window.html#group-by-vs-window" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY vs Window</a></li>
+          <li><a href="window.html#row-number" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ROW_NUMBER</a></li>
+          <li><a href="window.html#rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RANK</a></li>
+          <li><a href="window.html#dense-rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DENSE_RANK</a></li>
+          <li><a href="window.html#partition-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> PARTITION BY</a></li>
+          <li><a href="window.html#lag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LAG</a></li>
+          <li><a href="window.html#lead" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEAD</a></li>
+          <li><a href="window.html#running-total" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Running Total</a></li>
+        </ul>
+      </div>
+      <!-- Advanced -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Advanced</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="advanced.html#execution-order" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Order</a></li>
+          <li><a href="advanced.html#case" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CASE</a></li>
+          <li><a href="advanced.html#views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Views</a></li>
+          <li><a href="advanced.html#materialized-views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Materialized Views</a></li>
+          <li><a href="advanced.html#stored-procedures" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stored Procedures</a></li>
+          <li><a href="advanced.html#delete-vs-truncate-vs-drop" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE vs TRUNCATE vs DROP</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#indexing" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Indexing</a></li>
+          <li><a href="performance.html#optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> EXPLAIN</a></li>
+          <li><a href="performance.html#partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Partitioning</a></li>
+          <li><a href="performance.html#sharding" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sharding</a></li>
+        </ul>
+      </div>
+      <!-- Modeling -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Modeling</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="modeling.html#data-modeling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Modeling</a></li>
+          <li><a href="modeling.html#normalization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Normalization</a></li>
+          <li><a href="modeling.html#1nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 1NF</a></li>
+          <li><a href="modeling.html#2nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 2NF</a></li>
+          <li><a href="modeling.html#3nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 3NF</a></li>
+          <li><a href="modeling.html#oltp-vs-olap" class="sidebar__link"><span class="sidebar__link-icon">▸</span> OLTP vs OLAP</a></li>
+          <li><a href="modeling.html#fact-dimension" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Fact & Dimension</a></li>
+          <li><a href="modeling.html#star-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Star Schema</a></li>
+          <li><a href="modeling.html#snowflake-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Snowflake Schema</a></li>
+        </ul>
+      </div>
+      <!-- Interview -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#framework" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Framework</a></li>
+          <li><a href="interview.html#cheat-sheet" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cheat Sheet</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <section id="data-modeling" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="data-modeling">☆</button>
+            <button class="topic-complete-btn" data-topic-id="data-modeling">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Data Modeling</h2>
+<p>Conceptual → Logical → Physical</p><div class="diagram-container"><div class="diagram-container__title">Levels</div><div style="font-family:monospace;">Conceptual (Customer places Order)<br>↓<br>Logical (attributes, relationships, keys)<br>↓<br>Physical (tables, columns, indexes)</div></div>
+      </section>
+
+      <section id="normalization" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="normalization">☆</button>
+            <button class="topic-complete-btn" data-topic-id="normalization">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Normalization</h2>
+<p>Reduce duplication, improve integrity.</p>
+      </section>
+
+      <section id="1nf" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="1nf">☆</button>
+            <button class="topic-complete-btn" data-topic-id="1nf">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>First Normal Form — 1NF</h2>
+<p>Values atomic. Bad: student_id | courses = SQL, Python, Java → Better: one row per course.</p><div class="table-wrapper"><table class="comparison-table"><thead><tr><th>student_id</th><th>course</th></tr></thead><tbody><tr><td>1</td><td>SQL</td></tr><tr><td>1</td><td>Python</td></tr></tbody></table></div>
+      </section>
+
+      <section id="2nf" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="2nf">☆</button>
+            <button class="topic-complete-btn" data-topic-id="2nf">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Second Normal Form — 2NF</h2>
+<p>Be in 1NF + non-key attributes depend on entire primary key (no partial dependency, relevant for composite keys).</p>
+      </section>
+
+      <section id="3nf" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="3nf">☆</button>
+            <button class="topic-complete-btn" data-topic-id="3nf">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Third Normal Form — 3NF</h2>
+<p>Be in 2NF + no transitive dependency: employee_id → department_id → department_name (department_name belongs in department table).</p>
+      </section>
+
+      <section id="oltp-vs-olap" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="oltp-vs-olap">☆</button>
+            <button class="topic-complete-btn" data-topic-id="oltp-vs-olap">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>OLTP vs OLAP</h2>
+        <p>OLTP handles many small transactional writes, while OLAP handles large analytical reads and aggregations.</p>
+
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>OLTP</th><th>OLAP</th></tr></thead><tbody><tr><td>Many small transactions, INSERT/UPDATE/DELETE, operational</td><td>Large analytical queries, aggregations, historical, read-heavy</td></tr><tr><td>Banking, Orders</td><td>Reporting, BI</td></tr></tbody></table></div>
+
+      </section>
+
+      <section id="fact-dimension" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="fact-dimension">☆</button>
+            <button class="topic-complete-btn" data-topic-id="fact-dimension">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Fact & Dimension Tables</h2>
+<p><strong>Fact</strong>: measurable events (sales: sales_id, customer_id, product_id, quantity, sales_amount). <strong>Dimension</strong>: descriptive (customer: customer_id, name, city, country).</p>
+      </section>
+
+      <section id="star-schema" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="star-schema">☆</button>
+            <button class="topic-complete-btn" data-topic-id="star-schema">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Star Schema</h2>
+
+        <p>A Star Schema places a central fact table surrounded by dimension tables, enabling simple and fast analytical queries.</p><div class="diagram-container"><div class="diagram-container__title">Star Schema</div><div style="font-family:monospace;">Date<br>│<br>Customer ── Sales ── Product<br>│<br>Geography</div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://via.placeholder.com/700x250.png?text=STAR+SCHEMA+%7C+Fact+in+Center+%2B+Dimensions+Around" alt="Star Schema" style="max-width:100%;border-radius:12px;border:1px solid var(--color-border);" loading="lazy"></div></div><p>Central fact, dimensions around, simpler queries.</p>
+      </section>
+
+      <section id="snowflake-schema" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="snowflake-schema">☆</button>
+            <button class="topic-complete-btn" data-topic-id="snowflake-schema">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Snowflake Schema</h2>
+
+        <p>A Snowflake Schema further normalizes dimensions into multiple related tables, reducing redundancy at the cost of more joins.</p><div class="diagram-container"><div class="diagram-container__title">Snowflake</div><div style="font-family:monospace;">Product<br>│<br>Product Category<br>│<br>Customer ── Sales ── Date</div></div><p>More normalized dimensions, more joins.</p>
+      </section>
+
+      <section id="star-vs-snowflake" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="star-vs-snowflake">☆</button>
+            <button class="topic-complete-btn" data-topic-id="star-vs-snowflake">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Star vs Snowflake</h2>
+        <p>Compare Star and Snowflake schemas to understand the trade-offs between query simplicity, join count, and normalization.</p>
+<div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Star</th><th>Snowflake</th></tr></thead><tbody><tr><td>Less normalized, simpler, fewer joins</td><td>More normalized, more tables, more joins</td></tr></tbody></table></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>SQL Mastery — Learn SQL from Zero to Data Engineer Interview Level</p>
+    <p style="margin-top:.5rem;">© 2024 SQL Mastery. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

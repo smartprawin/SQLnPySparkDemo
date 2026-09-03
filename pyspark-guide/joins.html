@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joins - PySpark Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION BAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">PySpark Guide</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="architecture.html" class="navbar__btn">Architecture</a>
+      <a href="transformations.html" class="navbar__btn">Transformations</a>
+      <a href="programming.html" class="navbar__btn">Programming</a>
+      <a href="partitions.html" class="navbar__btn">Partitions</a>
+      <a href="joins.html" class="navbar__btn navbar__btn--primary">Joins</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="real-world.html" class="navbar__btn">Real-World Scenarios</a>
+      <a href="interview.html" class="navbar__btn">Interview Prep</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & NAV ===== -->
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">PySpark Guide</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH OVERLAY ===== -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKMARKS PANEL ===== -->
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <!-- ===== PROGRESS INDICATOR ===== -->
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+        <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <!-- Section: Join Types Overview -->
+      <span id="types"></span>
+    
+      <section id="sample-tables" class="topic-section">
+        <div class="section-header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <h2>Sample Tables — Simple Data</h2>
+          <div class="section-actions">
+            <button class="bookmark-btn" data-topic-id="sample-tables">☆</button>
+            <button class="topic-complete-btn" data-topic-id="sample-tables">Mark as Complete</button>
+          </div>
+        </div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Venn_diagram_for_inner_join.svg/800px-Venn_diagram_for_inner_join.svg.png" alt="Join Venn" style="max-width:100%;width:580px;border-radius:12px;border:1px solid var(--color-border);" loading="lazy"><p style="font-size:.8rem;color:var(--color-text-tertiary);">Venn view of 7 JOIN types — refer to df1 (4 rows) / df2 (3 rows) sample.</p></div>
+        <p>All PySpark JOIN examples use these two small DataFrames. Visualize them before reading each Venn diagram.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;">
+          <div>
+            <h3 style="font-size:.95rem;">df1 — employees</h3>
+            <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>id</th><th>name</th><th>dept_id</th></tr></thead><tbody><tr><td>1</td><td>Alice</td><td>10</td></tr><tr><td>2</td><td>Bob</td><td>20</td></tr><tr><td>3</td><td>Charlie</td><td>10</td></tr><tr><td>4</td><td>David</td><td>NULL</td></tr></tbody></table></div>
+          </div>
+          <div>
+            <h3 style="font-size:.95rem;">df2 — departments</h3>
+            <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>dept_id</th><th>dept_name</th></tr></thead><tbody><tr><td>10</td><td>HR</td></tr><tr><td>20</td><td>Engineering</td></tr><tr><td>30</td><td>Marketing</td></tr></tbody></table></div>
+          </div>
+        </div>
+        <div class="tip-card"><div class="tip-card__title">How to read</div><div class="tip-card__body">df1 has 4 rows (David has NULL), df2 has 3 rows (Marketing has no match). Every JOIN card shows which of the 4+3 rows survive.</div></div>
+      </section>
+
+      <section id="join-types" class="topic-section">
+        <div class="section-header">
+          <span class="badge badge-intermediate">🟡 Intermediate</span>
+          <h2>Spark Join Types</h2>
+          <div class="section-actions">
+            <button class="bookmark-btn" data-topic-id="join-types" aria-label="Bookmark">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+              </svg>
+            </button>
+            <button class="topic-complete-btn" data-topic-id="join-types" aria-label="Mark complete">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 12l2.5 2.5L16 9"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="section-intro">Spark supports several types of joins for combining DataFrames. Understanding when to use each type is crucial for both interviews and production code.</p>
+
+        <div class="join-types-grid">
+
+          <!-- Inner Join Card -->
+          <div class="topic-card" id="inner-join">
+            <div class="card-header">
+              <span class="badge badge-easy">🟢 Easy</span>
+              <h3>Inner Join</h3>
+            </div>
+            <p class="definition">Returns only rows that have matching keys in both DataFrames.</p>
+            <div class="venn-diagram">
+              <div class="venn-circle venn-left">
+                <span class="venn-label">DF1</span>
+              </div>
+              <div class="venn-circle venn-right">
+                <span class="venn-label">DF2</span>
+              </div>
+              <div class="venn-intersection">
+                <span>✓</span>
+              </div>
+            </div>
+            <div class="code-block">
+              <pre><code>df1.join(df2, df1.id == df2.id, "inner")</code></pre>
+            </div>
+            <div class="result-example">
+              <h4>Result Example:</h4>
+              <div class="result-table">
+                <div class="result-row header">
+                  <span>id</span>
+                  <span>name</span>
+                  <span>value</span>
+                </div>
+                <div class="result-row">
+                  <span>1</span>
+                  <span>Alice</span>
+                  <span>100</span>
+                </div>
+                <div class="result-row">
+                  <span>3</span>
+                  <span>Charlie</span>
+                  <span>300</span>
+                </div>
+              </div>
+            </div>
+            <div class="use-case">
+              <strong>Use case:</strong> When you need only matching records from both sides
+            </div>
+          </div>
+
+          <!-- Left Join Card -->
+          <div class="topic-card" id="left-join">
+            <div class="card-header">
+              <span class="badge badge-easy">🟢 Easy</span>
+              <h3>Left Join (Left Outer)</h3>
+            </div>
+            <p class="definition">Returns all rows from the left DataFrame, and matching rows from the right DataFrame. NULL for non-matching right rows.</p>
+            <div class="venn-diagram">
+              <div class="venn-circle venn-left venn-full">
+                <span class="venn-label">DF1</span>
+              </div>
+              <div class="venn-circle venn-right venn-partial">
+                <span class="venn-label">DF2</span>
+              </div>
+              <div class="venn-arrow left-arrow">→</div>
+            </div>
+            <div class="code-block">
+              <pre><code>df1.join(df2, df1.id == df2.id, "left")</code></pre>
+            </div>
+            <div class="result-example">
+              <h4>Result Example:</h4>
+              <div class="result-table">
+                <div class="result-row header">
+                  <span>id</span>
+                  <span>name</span>
+                  <span>value</span>
+                </div>
+                <div class="result-row">
+                  <span>1</span>
+                  <span>Alice</span>
+                  <span>100</span>
+                </div>
+                <div class="result-row">
+                  <span>2</span>
+                  <span>Bob</span>
+                  <span>NULL</span>
+                </div>
+                <div class="result-row">
+                  <span>3</span>
+                  <span>Charlie</span>
+                  <span>300</span>
+                </div>
+              </div>
+            </div>
+            <div class="use-case">
+              <strong>Use case:</strong> When you need all records from the left table with optional matching from right
+            </div>
+          </div>
+
+          <!-- Right Join Card -->
+          <div class="topic-card" id="right-join">
+            <div class="card-header">
+              <span class="badge badge-easy">🟢 Easy</span>
+              <h3>Right Join (Right Outer)</h3>
+            </div>
+            <p class="definition">Returns all rows from the right DataFrame, and matching rows from the left DataFrame. NULL for non-matching left rows.</p>
+            <div class="venn-diagram">
+              <div class="venn-circle venn-left venn-partial">
+                <span class="venn-label">DF1</span>
+              </div>
+              <div class="venn-circle venn-right venn-full">
+                <span class="venn-label">DF2</span>
+              </div>
+              <div class="venn-arrow right-arrow">←</div>
+            </div>
+            <div class="code-block">
+              <pre><code>df1.join(df2, df1.id == df2.id, "right")</code></pre>
+            </div>
+            <div class="result-example">
+              <h4>Result Example:</h4>
+              <div class="result-table">
+                <div class="result-row header">
+                  <span>id</span>
+                  <span>name</span>
+                  <span>value</span>
+                </div>
+                <div class="result-row">
+                  <span>1</span>
+                  <span>Alice</span>
+                  <span>100</span>
+                </div>
+                <div class="result-row">
+                  <span>3</span>
+                  <span>Charlie</span>
+                  <span>300</span>
+                </div>
+                <div class="result-row">
+                  <span>4</span>
+                  <span>NULL</span>
+                  <span>400</span>
+                </div>
+              </div>
+            </div>
+            <div class="use-case">
+              <strong>Use case:</strong> When you need all records from the right table with optional matching from left
+            </div>
+          </div>
+
+          <!-- Full Outer Join Card -->
+          <div class="topic-card" id="full-outer-join">
+            <div class="card-header">
+              <span class="badge badge-easy">🟢 Easy</span>
+              <h3>Full Outer Join</h3>
+            </div>
+            <p class="definition">Returns all rows from both DataFrames. NULL where there is no match.</p>
+            <div class="venn-diagram">
+              <div class="venn-circle venn-left venn-full">
+                <span class="venn-label">DF1</span>
+              </div>
+              <div class="venn-circle venn-right venn-full">
+                <span class="venn-label">DF2</span>
+              </div>
+              <div class="venn-union">
+                <span>∪</span>
+              </div>
+            </div>
+            <div class="code-block">
+              <pre><code>df1.join(df2, df1.id == df2.id, "outer")</code></pre>
+            </div>
+            <div class="use-case">
+              <strong>Use case:</strong> When you need all records from both tables, with NULLs for non-matches
+            </div>
+          </div>
+
+          <!-- Left Semi Join Card -->
+          <div class="topic-card" id="left-semi-join">
+            <div class="card-header">
+              <span class="badge badge-intermediate">🟡 Intermediate</span>
+              <h3>Left Semi Join</h3>
+            </div>
+            <p class="definition">Returns rows from the left DataFrame where a match exists in the right DataFrame, but returns only columns from the left side.</p>
+            <div class="venn-diagram">
+              <div class="venn-circle venn-left venn-highlighted">
+                <span class="venn-label">DF1</span>
+              </div>
+              <div class="venn-circle venn-right venn-dashed">
+                <span class="venn-label">DF2</span>
+              </div>
+              <div class="venn-semi-mark">⊆</div>
+            </div>
+            <div class="code-block">
+              <pre><code>df1.join(df2, df1.id == df2.id, "left_semi")</code></pre>
+            </div>
+            <div class="use-case">
+              <strong>Use case:</strong> Similar to EXISTS in SQL. Useful for filtering left DataFrame based on right.
+            </div>
+            <div class="result-example" style="margin-top:1rem;">
+              <h4>Expected Output (left_semi - only left columns, only matched):</h4>
+              <div class="result-table">
+                <div class="result-row header"><span>id</span><span>name</span></div>
+                <div class="result-row"><span>1</span><span>Alice</span></div>
+                <div class="result-row"><span>3</span><span>Charlie</span></div>
+              </div>
+              <p style="font-size:.85rem;color:var(--color-text-secondary);margin-top:.5rem;">Bob (id 2, no match) and David (id 4, NULL) excluded. Only left side columns returned.</p>
+            </div>
+          </div>
+
+          <!-- Left Anti Join Card -->
+          <div class="topic-card" id="left-anti-join">
+            <div class="card-header">
+              <span class="badge badge-intermediate">🟡 Intermediate</span>
+              <h3>Left Anti Join</h3>
+            </div>
+            <p class="definition">Returns rows from the left DataFrame where no match exists in the right DataFrame.</p>
+            <div class="venn-diagram">
+              <div class="venn-circle venn-left venn-highlighted">
+                <span class="venn-label">DF1</span>
+              </div>
+              <div class="venn-circle venn-right venn-dashed">
+                <span class="venn-label">DF2</span>
+              </div>
+              <div class="venn-anti-mark">⊘</div>
+            </div>
+            <div class="code-block">
+              <pre><code>df1.join(df2, df1.id == df2.id, "left_anti")</code></pre>
+            </div>
+            <div class="use-case">
+              <strong>Use case:</strong> Similar to NOT EXISTS in SQL. Useful for finding records in left that don't have matches in right.
+            </div>
+            <div class="result-example" style="margin-top:1rem;">
+              <h4>Expected Output (left_anti - only unmatched left):</h4>
+              <div class="result-table">
+                <div class="result-row header"><span>id</span><span>name</span></div>
+                <div class="result-row"><span>2</span><span>Bob</span></div>
+                <div class="result-row"><span>4</span><span>David</span></div>
+              </div>
+              <p style="font-size:.85rem;color:var(--color-text-secondary);margin-top:.5rem;">Alice and Charlie have matches, so excluded. Only Bob and David remain.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section: Broadcast Join -->
+      <span id="broadcast"></span>
+    <section id="broadcast-join" class="topic-section">
+        <div class="section-header">
+          <span class="badge badge-advanced">🔴 Advanced</span>
+          <h2>Broadcast Join</h2>
+          <div class="section-actions">
+            <button class="bookmark-btn" data-topic-id="broadcast-join" aria-label="Bookmark">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+              </svg>
+            </button>
+            <button class="topic-complete-btn" data-topic-id="broadcast-join" aria-label="Mark complete">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 12l2.5 2.5L16 9"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="section-intro">Broadcast join sends the smaller DataFrame to all executors so that the large DataFrame does not need to perform a large shuffle.</p>
+
+        <div class="interactive-diagram broadcast-diagram">
+          <div class="diagram-row">
+            <div class="diagram-box large-df">
+              <span class="diagram-label">Large DataFrame</span>
+              <div class="df-rows">
+                <div class="df-row">Row 1</div>
+                <div class="df-row">Row 2</div>
+                <div class="df-row">Row 3</div>
+                <div class="df-row">Row 4</div>
+                <div class="df-row">Row 5</div>
+              </div>
+            </div>
+            <div class="diagram-arrow">→</div>
+            <div class="diagram-box merge-point">
+              <span>JOIN</span>
+            </div>
+            <div class="diagram-arrow">→</div>
+            <div class="diagram-box result-box">
+              <span class="diagram-label">Result</span>
+            </div>
+          </div>
+          <div class="diagram-row broadcast-row">
+            <div class="diagram-box small-df">
+              <span class="diagram-label">Small DataFrame</span>
+              <div class="df-rows">
+                <div class="df-row">Key A</div>
+                <div class="df-row">Key B</div>
+              </div>
+            </div>
+            <div class="diagram-arrow broadcast-arrow">→ broadcast →</div>
+            <div class="executor-copies">
+              <div class="executor">
+                <span class="executor-label">Executor 1</span>
+                <div class="mini-df">Key A<br>Key B</div>
+              </div>
+              <div class="executor">
+                <span class="executor-label">Executor 2</span>
+                <div class="mini-df">Key A<br>Key B</div>
+              </div>
+              <div class="executor">
+                <span class="executor-label">Executor 3</span>
+                <div class="mini-df">Key A<br>Key B</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <pre><code>from pyspark.sql.functions import broadcast
+
+# Broadcast the smaller DataFrame
+result = large_df.join(
+    broadcast(small_df),
+    "key"
+)</code></pre>
+        </div>
+            <div class="result-example" style="margin-top:1rem;">
+              <h4>Expected Output (same as inner join, but faster):</h4>
+              <div class="result-table">
+                <div class="result-row header"><span>id</span><span>name</span><span>dept</span></div>
+                <div class="result-row"><span>1</span><span>Alice</span><span>HR</span></div>
+                <div class="result-row"><span>2</span><span>Bob</span><span>Engineering</span></div>
+                <div class="result-row"><span>3</span><span>Charlie</span><span>HR</span></div>
+              </div>
+              <p style="font-size:.85rem;color:var(--color-text-secondary);margin-top:.5rem;">Result identical to INNER JOIN on sample tables (David excluded), but no shuffle of small_df.</p>
+            </div>
+
+        <h4>Configuration:</h4>
+        <div class="code-block">
+          <pre><code># Set broadcast threshold (default 10MB)
+spark.conf.set("spark.sql.autoBroadcastJoinThreshold", "10m")</code></pre>
+        </div>
+
+        <div class="pros-cons-grid">
+          <div class="pros-card">
+            <h4>✅ Advantages</h4>
+            <ul>
+              <li>Can avoid large shuffle</li>
+              <li>Fast when the smaller DataFrame fits in executor memory</li>
+            </ul>
+          </div>
+          <div class="cons-card">
+            <h4>❌ Disadvantages</h4>
+            <ul>
+              <li>Not suitable if the supposedly small DataFrame is too large</li>
+              <li>Memory pressure can occur</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="use-case">
+          <strong>Use case:</strong> Large Transaction Data + Small Dimension Data
+        </div>
+
+        <div class="interview-tip">
+          <p>💡 Interview Tip: Broadcast joins are the fastest join strategy but only work when one side is small enough to fit in memory.</p>
+        </div>
+      </section>
+
+      <!-- Section: Sort-Merge Join -->
+      <span id="sort-merge"></span>
+    <section id="sort-merge-join" class="topic-section">
+        <div class="section-header">
+          <span class="badge badge-advanced">🔴 Advanced</span>
+          <h2>Sort-Merge Join</h2>
+          <div class="section-actions">
+            <button class="bookmark-btn" data-topic-id="sort-merge-join" aria-label="Bookmark">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+              </svg>
+            </button>
+            <button class="topic-complete-btn" data-topic-id="sort-merge-join" aria-label="Mark complete">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 12l2.5 2.5L16 9"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="section-intro">Sort-Merge Join is commonly used when joining two large DataFrames. Both sides are partitioned, sorted, and then merged.</p>
+
+        <div class="interactive-diagram sort-merge-diagram">
+          <div class="diagram-path">
+            <div class="diagram-box df-source">
+              <span class="diagram-label">DataFrame A</span>
+            </div>
+            <div class="diagram-arrow">→</div>
+            <div class="diagram-box step-box">
+              <span>Partition</span>
+            </div>
+            <div class="diagram-arrow">→</div>
+            <div class="diagram-box step-box">
+              <span>Sort</span>
+            </div>
+            <div class="diagram-arrow merge-join-arrow">→</div>
+          </div>
+          <div class="merge-point-diagram">
+            <div class="merge-label">Merge</div>
+            <div class="diagram-arrow">→</div>
+            <div class="diagram-box result-box">
+              <span class="diagram-label">Result</span>
+            </div>
+          </div>
+          <div class="diagram-path">
+            <div class="diagram-box df-source">
+              <span class="diagram-label">DataFrame B</span>
+            </div>
+            <div class="diagram-arrow">→</div>
+            <div class="diagram-box step-box">
+              <span>Partition</span>
+            </div>
+            <div class="diagram-arrow">→</div>
+            <div class="diagram-box step-box">
+              <span>Sort</span>
+            </div>
+            <div class="diagram-arrow merge-join-arrow">→</div>
+          </div>
+        </div>
+
+        <div class="process-steps">
+          <h4>Process Steps:</h4>
+          <ol>
+            <li>Both DataFrames are hash-partitioned on the join key</li>
+            <li>Each partition is sorted</li>
+            <li>Sorted partitions are merged</li>
+          </ol>
+        </div>
+            <div class="result-example" style="margin-top:1rem;">
+              <h4>Expected Output (same as inner, via sort-merge):</h4>
+              <div class="result-table">
+                <div class="result-row header"><span>id</span><span>name</span><span>dept</span></div>
+                <div class="result-row"><span>1</span><span>Alice</span><span>HR</span></div>
+                <div class="result-row"><span>2</span><span>Bob</span><span>Engineering</span></div>
+                <div class="result-row"><span>3</span><span>Charlie</span><span>HR</span></div>
+              </div>
+              <p style="font-size:.85rem;color:var(--color-text-secondary);margin-top:.5rem;">Both DataFrames were partitioned and sorted on dept_id before merging. David (NULL) excluded.</p>
+            </div>
+
+        <div class="pros-cons-grid">
+          <div class="pros-card">
+            <h4>✅ Advantages</h4>
+            <ul>
+              <li>Suitable for large datasets</li>
+              <li>Default join strategy for large-large joins</li>
+            </ul>
+          </div>
+          <div class="cons-card">
+            <h4>❌ Disadvantages</h4>
+            <ul>
+              <li>Requires sorting</li>
+              <li>Can require significant shuffling</li>
+              <li>Sorting/shuffling can increase execution time</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="interview-tip">
+          <p>💡 Interview Tip: Sort-merge join is Spark's default for large datasets. Understanding its mechanics helps optimize join performance.</p>
+        </div>
+      </section>
+
+      <!-- Section: Join Optimization -->
+      <section id="join-optimization" class="topic-section">
+        <div class="section-header">
+          <span class="badge badge-advanced">🔴 Advanced</span>
+          <h2>Join Optimization Tips</h2>
+          <div class="section-actions">
+            <button class="bookmark-btn" data-topic-id="join-optimization" aria-label="Bookmark">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+              </svg>
+            </button>
+            <button class="topic-complete-btn" data-topic-id="join-optimization" aria-label="Mark complete">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 12l2.5 2.5L16 9"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="optimization-cards">
+
+          <!-- Strategy 1: Use Broadcast when possible -->
+          <div class="optimization-card" id="opt-broadcast">
+            <div class="card-number">1</div>
+            <h3>Use Broadcast when possible</h3>
+            <p>Broadcast the smaller DataFrame to avoid shuffle.</p>
+            <div class="code-block">
+              <pre><code>from pyspark.sql.functions import broadcast
+
+# Force broadcast join
+result = large_df.join(broadcast(small_df), "key")</code></pre>
+            </div>
+          </div>
+
+          <!-- Strategy 2: Partition by join key -->
+          <div class="optimization-card" id="opt-partition">
+            <div class="card-number">2</div>
+            <h3>Partition by join key</h3>
+            <p>Pre-partition data to reduce shuffle.</p>
+            <div class="code-block">
+              <pre><code># Repartition by join key before joining
+df1_repartitioned = df1.repartition("join_key")
+df2_repartitioned = df2.repartition("join_key")
+
+result = df1_repartitioned.join(df2_repartitioned, "join_key")</code></pre>
+            </div>
+          </div>
+
+          <!-- Strategy 3: Handle data skew -->
+          <div class="optimization-card" id="opt-skew">
+            <div class="card-number">3</div>
+            <h3>Handle data skew</h3>
+            <p>Use salting for skewed join keys.</p>
+            <div class="code-block">
+              <pre><code>import pyspark.sql.functions as F
+import random
+
+# Add salt to handle skew
+salt_buckets = 10
+df1_salted = df1.withColumn(
+    "salted_key",
+    F.concat(F.col("key"), F.lit("_"), (F.rand() * salt_buckets).cast("int"))
+)
+
+# Explode the salted keys on the other side
+df2_exploded = df2.withColumn(
+    "salt", F.explode(F.array([F.lit(i) for i in range(salt_buckets)]))
+).withColumn(
+    "salted_key",
+    F.concat(F.col("key"), F.lit("_"), F.col("salt"))
+)
+
+result = df1_salted.join(df2_exploded, "salted_key")</code></pre>
+            </div>
+          </div>
+
+          <!-- Strategy 4: Use broadcast hint -->
+          <div class="optimization-card" id="opt-hint">
+            <div class="card-number">4</div>
+            <h3>Use broadcast hint</h3>
+            <p>Force broadcast join with hint.</p>
+            <div class="code-block">
+              <pre><code># Using broadcast hint
+result = df1.join(
+    df2.hint("broadcast"),
+    "key"
+)
+
+# Or using SQL hint
+df1.createOrReplaceTempView("table1")
+df2.createOrReplaceTempView("table2")
+
+result = spark.sql("""
+    SELECT /*+ BROADCAST(table2) */ *
+    FROM table1
+    JOIN table2 ON table1.key = table2.key
+""")</code></pre>
+            </div>
+          </div>
+
+          <!-- Strategy 5: Filter early -->
+          <div class="optimization-card" id="opt-filter">
+            <div class="card-number">5</div>
+            <h3>Filter early</h3>
+            <p>Reduce data before joining.</p>
+            <div class="code-block">
+              <pre><code># Filter before join to reduce data size
+df1_filtered = df1.filter(F.col("date") >= "2024-01-01")
+df2_filtered = df2.filter(F.col("status") == "active")
+
+result = df1_filtered.join(df2_filtered, "key")</code></pre>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="interview-tip">
+          <p>💡 Interview Tip: Always consider broadcast join first for small-large joins. It can improve performance by orders of magnitude.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>PySpark Interview Guide — Understand PySpark. Visualize Spark. Prepare for Interviews.</p>
+    <p style="margin-top:.5rem;">© 2024 PySpark Guide. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

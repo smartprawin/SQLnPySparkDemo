@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview Prep - PySpark Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">PySpark Guide</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="architecture.html" class="navbar__btn">Architecture</a>
+      <a href="transformations.html" class="navbar__btn">Transformations</a>
+      <a href="programming.html" class="navbar__btn">Programming</a>
+      <a href="partitions.html" class="navbar__btn">Partitions</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="real-world.html" class="navbar__btn">Real-World Scenarios</a>
+      <a href="interview.html" class="navbar__btn navbar__btn--primary">Interview Prep</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">PySpark Guide</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+        <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+        <!-- Section: Interview Preparation -->
+        <section id="interview-prep" class="topic-section">
+            <div class="section-header">
+                <span class="badge badge-intermediate">🟡 Intermediate</span>
+                <h2>Interview Preparation</h2>
+                <div class="section-actions">
+                    <button class="bookmark-btn" data-topic-id="interview-prep" aria-label="Bookmark">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+                        </svg>
+                    </button>
+                    <button class="topic-complete-btn" data-topic-id="interview-prep" aria-label="Mark complete">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12l2.5 2.5L16 9"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <p class="section-intro">Master PySpark interviews with these carefully curated questions organized by difficulty level. Each question includes a brief answer to help you prepare.</p>
+            <a href="#beginner" class="scenario-next-btn" style="display:inline-flex;margin-top:1rem;">Next: Beginner Questions →</a>
+        </section>
+
+        <!-- Section: Beginner Questions -->
+        <section id="beginner" class="topic-section">
+            <div class="section-header">
+                <span class="badge badge-easy">🟢 Easy</span>
+                <h2>Beginner Questions</h2>
+                <div class="section-actions">
+                    <button class="bookmark-btn" data-topic-id="beginner" aria-label="Bookmark">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+                        </svg>
+                    </button>
+                    <button class="topic-complete-btn" data-topic-id="beginner" aria-label="Mark complete">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12l2.5 2.5L16 9"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question 1: What is Spark? -->
+            <div class="expandable-section" id="q1">
+                <div class="expandable-header">
+                    <h3>What is Spark?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Apache Spark is a unified analytics engine for large-scale data processing. It provides high-level APIs in Java, Scala, Python, and R. Spark supports SQL queries, streaming data, machine learning, and graph processing. It processes data in memory, making it significantly faster than traditional MapReduce.</p>
+                </div>
+            </div>
+
+            <!-- Question 2: What is PySpark? -->
+            <div class="expandable-section" id="q2">
+                <div class="expandable-header">
+                    <h3>What is PySpark?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>PySpark is the Python API for Apache Spark. It allows Python developers to write Spark applications and leverage Spark's distributed computing capabilities. PySpark provides the SparkContext and SparkSession classes for interacting with Spark.</p>
+                </div>
+            </div>
+
+            <!-- Question 3: What is an RDD? -->
+            <div class="expandable-section" id="q3">
+                <div class="expandable-header">
+                    <h3>What is an RDD?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>RDD (Resilient Distributed Dataset) is the fundamental data structure of Spark. It is an immutable, distributed collection of objects that can be processed in parallel. RDDs support two types of operations: transformations (create new RDDs) and actions (return values to the driver).</p>
+                </div>
+            </div>
+
+            <!-- Question 4: What is a partition? -->
+            <div class="expandable-section" id="q4">
+                <div class="expandable-header">
+                    <h3>What is a partition?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A partition is a logical chunk of data in Spark. Spark divides datasets into partitions to enable parallel processing. Each partition is processed by a single task on a single executor core. The number of partitions determines the level of parallelism.</p>
+                </div>
+            </div>
+
+            <!-- Question 5: What is a transformation? -->
+            <div class="expandable-section" id="q5">
+                <div class="expandable-header">
+                    <h3>What is a transformation?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A transformation is an operation that creates a new dataset from an existing one. Transformations are lazily evaluated, meaning they are not executed immediately. Examples include map(), filter(), and join(). Transformations build up a lineage graph.</p>
+                </div>
+            </div>
+
+            <!-- Question 6: What is an action? -->
+            <div class="expandable-section" id="q6">
+                <div class="expandable-header">
+                    <h3>What is an action?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>An action is an operation that triggers Spark to execute the computation and returns a result to the driver or writes data to storage. Examples include collect(), count(), show(), and saveAsTextFile(). Actions trigger the execution of the DAG.</p>
+                </div>
+            </div>
+
+            <!-- Question 7: What is lazy evaluation? -->
+            <div class="expandable-section" id="q7">
+                <div class="expandable-header">
+                    <h3>What is lazy evaluation?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Lazy evaluation means that transformations are not executed immediately when they are called. Instead, Spark records the transformations and builds a lineage graph. Execution only happens when an action is called. This allows Spark to optimize the entire execution plan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Intermediate Questions -->
+        <section id="intermediate" class="topic-section">
+            <div class="section-header">
+                <span class="badge badge-intermediate">🟡 Intermediate</span>
+                <h2>Intermediate Questions</h2>
+                <div class="section-actions">
+                    <button class="bookmark-btn" data-topic-id="intermediate" aria-label="Bookmark">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+                        </svg>
+                    </button>
+                    <button class="topic-complete-btn" data-topic-id="intermediate" aria-label="Mark complete">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12l2.5 2.5L16 9"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question 1: Narrow vs Wide Transformations -->
+            <div class="expandable-section" id="q8">
+                <div class="expandable-header">
+                    <h3>What is the difference between narrow and wide transformations?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Narrow transformations (map, filter) process each input partition to produce one output partition - no data movement. Wide transformations (groupBy, join, reduceByKey) require data to be shuffled across partitions, creating new stages. Narrow is faster; wide is more expensive.</p>
+                </div>
+            </div>
+
+            <!-- Question 2: What is a shuffle? -->
+            <div class="expandable-section" id="q9">
+                <div class="expandable-header">
+                    <h3>What is a shuffle?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A shuffle is the process of redistributing data across partitions. It occurs during wide transformations when data needs to be moved between executors. Shuffles are expensive because they involve disk I/O, data serialization, and network I/O. They create new stage boundaries.</p>
+                </div>
+            </div>
+
+            <!-- Question 3: What is a DAG? -->
+            <div class="expandable-section" id="q10">
+                <div class="expandable-header">
+                    <h3>What is a DAG?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>DAG (Directed Acyclic Graph) is the logical execution plan that Spark creates for a job. It represents the sequence of transformations and actions as a graph of operations. Spark optimizes the DAG before execution and divides it into stages at shuffle boundaries.</p>
+                </div>
+            </div>
+
+            <!-- Question 4: What is a stage? -->
+            <div class="expandable-section" id="q11">
+                <div class="expandable-header">
+                    <h3>What is a stage?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A stage is a set of tasks that can be executed without data shuffle. Spark divides the DAG into stages at shuffle boundaries. Each stage contains tasks that process partitions in parallel. Stages are connected by shuffles.</p>
+                </div>
+            </div>
+
+            <!-- Question 5: What is a task? -->
+            <div class="expandable-section" id="q12">
+                <div class="expandable-header">
+                    <h3>What is a task?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A task is a unit of work that processes a single partition. It runs on a single executor core. The number of tasks in a stage equals the number of partitions. Tasks are the smallest unit of execution in Spark.</p>
+                </div>
+            </div>
+
+            <!-- Question 6: How does Spark execute a job? -->
+            <div class="expandable-section" id="q13">
+                <div class="expandable-header">
+                    <h3>How does Spark execute a job?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Spark execution flow: User code &rarr; Driver creates SparkSession &rarr; Logical plan &rarr; Catalyst optimization &rarr; DAG &rarr; Stages (split at shuffles) &rarr; Tasks &rarr; Cluster manager assigns tasks &rarr; Executors run tasks &rarr; Results returned to driver.</p>
+                </div>
+            </div>
+
+            <!-- Question 7: What is hash partitioning? -->
+            <div class="expandable-section" id="q14">
+                <div class="expandable-header">
+                    <h3>What is hash partitioning?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Hash partitioning uses a hash function on the partition key to determine which partition a record goes to. Formula: <code>partition = hash(key) % number_of_partitions</code>. Records with the same key always go to the same partition, which is useful for joins and aggregations.</p>
+                </div>
+            </div>
+
+            <!-- Question 8: What is range partitioning? -->
+            <div class="expandable-section" id="q15">
+                <div class="expandable-header">
+                    <h3>What is range partitioning?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Range partitioning divides data based on value ranges. Each partition covers a specific range (e.g., 0-100, 101-200). Useful for maintaining sorted order and efficient range queries. Spark can automatically determine ranges based on data distribution.</p>
+                </div>
+            </div>
+
+            <!-- Question 9: Cache vs Persist -->
+            <div class="expandable-section" id="q16">
+                <div class="expandable-header">
+                    <h3>What is the difference between cache and persist?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Cache stores data in memory (MEMORY_ONLY) for reuse. Persist allows choosing different storage levels (MEMORY_ONLY, MEMORY_AND_DISK, etc.). Both keep data for reuse across actions. Use cache for simple cases; persist when you need specific storage levels.</p>
+                </div>
+            </div>
+
+            <!-- Question 10: Broadcast Join -->
+            <div class="expandable-section" id="q17">
+                <div class="expandable-header">
+                    <h3>What is a broadcast join?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Broadcast join sends the smaller DataFrame to all executors, avoiding shuffle of the larger DataFrame. Useful when one side is small enough to fit in memory. Triggered automatically when the smaller side is below the broadcast threshold (default 10MB). Fastest join strategy.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Advanced Questions -->
+        <section id="advanced" class="topic-section">
+            <div class="section-header">
+                <span class="badge badge-advanced">🔴 Advanced</span>
+                <h2>Advanced Questions</h2>
+                <div class="section-actions">
+                    <button class="bookmark-btn" data-topic-id="advanced" aria-label="Bookmark">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+                        </svg>
+                    </button>
+                    <button class="topic-complete-btn" data-topic-id="advanced" aria-label="Mark complete">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12l2.5 2.5L16 9"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question 1: Data Skewness -->
+            <div class="expandable-section" id="q18">
+                <div class="expandable-header">
+                    <h3>What is data skewness?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Data skew occurs when data is unevenly distributed across partitions. Some partitions have significantly more data than others, causing those tasks to take much longer. This leads to OOM errors, slow jobs, and underutilized resources.</p>
+                </div>
+            </div>
+
+            <!-- Question 2: Solving Data Skew -->
+            <div class="expandable-section" id="q19">
+                <div class="expandable-header">
+                    <h3>How do you solve data skew?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Solutions: (1) Salting - add random prefix to skewed keys, (2) Repartition to redistribute data, (3) Broadcast join for small-large joins, (4) Use AQE skew join optimization, (5) Isolate and process skewed keys separately.</p>
+                </div>
+            </div>
+
+            <!-- Question 3: Explain Salting -->
+            <div class="expandable-section" id="q20">
+                <div class="expandable-header">
+                    <h3>Explain salting.</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Salting adds a random prefix to skewed keys to distribute data more evenly. Steps: (1) Add random salt to skewed key, (2) Aggregate with salted key, (3) Remove salt and aggregate again. This distributes the load across multiple partitions.</p>
+                </div>
+            </div>
+
+            <!-- Question 4: Sort-Merge Join -->
+            <div class="expandable-section" id="q21">
+                <div class="expandable-header">
+                    <h3>Explain sort-merge join.</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Sort-merge join is used for large-large joins. Both DataFrames are hash-partitioned on the join key, each partition is sorted, then sorted partitions are merged. Default strategy for large datasets. Requires shuffle and sort.</p>
+                </div>
+            </div>
+
+            <!-- Question 5: When to use broadcast join -->
+            <div class="expandable-section" id="q22">
+                <div class="expandable-header">
+                    <h3>When would you use broadcast join?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Use broadcast join when one DataFrame is small enough to fit in executor memory (typically &lt; 10MB). It avoids expensive shuffle of the larger DataFrame. Common for large transaction data with small dimension data.</p>
+                </div>
+            </div>
+
+            <!-- Question 6: Troubleshooting Slow Job -->
+            <div class="expandable-section" id="q23">
+                <div class="expandable-header">
+                    <h3>How do you troubleshoot a slow Spark job?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>(1) Check Spark UI for long stages, (2) Look for large shuffles, (3) Check data skew, (4) Verify partition count, (5) Check join strategies, (6) Review caching, (7) Check for unnecessary operations, (8) Optimize bottlenecks.</p>
+                </div>
+            </div>
+
+            <!-- Question 7: Troubleshooting OOM -->
+            <div class="expandable-section" id="q24">
+                <div class="expandable-header">
+                    <h3>How do you troubleshoot executor OOM?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>(1) Check Spark UI for task metrics, (2) Identify large partitions, (3) Increase executor memory, (4) Repartition to reduce partition size, (5) Use persist with MEMORY_AND_DISK, (6) Avoid collect() on large data, (7) Use broadcast joins.</p>
+                </div>
+            </div>
+
+            <!-- Question 8: Avoiding Driver Failure -->
+            <div class="expandable-section" id="q25">
+                <div class="expandable-header">
+                    <h3>How can you avoid driver failure?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>(1) Avoid collect() on large datasets, (2) Use take() or show() instead, (3) Increase driver memory, (4) Use broadcast variables for shared data, (5) Don't accumulate large results in driver, (6) Monitor driver metrics.</p>
+                </div>
+            </div>
+
+            <!-- Question 9: Catalyst Optimizer -->
+            <div class="expandable-section" id="q26">
+                <div class="expandable-header">
+                    <h3>What is Catalyst Optimizer?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Catalyst is Spark's query optimization framework. It optimizes logical plans through rule-based and cost-based optimization. Key optimizations: predicate pushdown, column pruning, constant folding, join reordering.</p>
+                </div>
+            </div>
+
+            <!-- Question 10: AQE -->
+            <div class="expandable-section" id="q27">
+                <div class="expandable-header">
+                    <h3>What is AQE?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Adaptive Query Execution optimizes queries at runtime based on actual data statistics. Features: coalescing shuffle partitions, converting sort-merge to broadcast joins, optimizing skew joins. Enabled by default in Spark 3.0+.</p>
+                </div>
+            </div>
+
+            <!-- Question 11: Optimizing Spark Job -->
+            <div class="expandable-section" id="q28">
+                <div class="expandable-header">
+                    <h3>How would you optimize a Spark job?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>(1) Use broadcast joins, (2) Cache reused data, (3) Reduce shuffles, (4) Handle data skew, (5) Tune partitions, (6) Use efficient file formats, (7) Filter early, (8) Use AQE, (9) Monitor Spark UI, (10) Profile and optimize bottlenecks.</p>
+                </div>
+            </div>
+
+            <!-- Question 12: Small File Problem -->
+            <div class="expandable-section" id="q29">
+                <div class="expandable-header">
+                    <h3>How would you handle the small-file problem?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>(1) Compact files using coalesce/repartition, (2) Use Parquet/ORC format, (3) Configure maxRecordsPerFile, (4) Use Hadoop input format for merging, (5) Schedule compaction jobs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Scenario-Based Interview Simulator -->
+        <section id="scenarios" class="topic-section">
+            <div class="section-header">
+                <span class="badge badge-advanced">🔴 Advanced</span>
+                <h2>Real-World Spark Interview Simulator</h2>
+                <div class="section-actions">
+                    <button class="bookmark-btn" data-topic-id="scenarios" aria-label="Bookmark">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"></path>
+                        </svg>
+                    </button>
+                    <button class="topic-complete-btn" data-topic-id="scenarios" aria-label="Mark complete">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12l2.5 2.5L16 9"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <p class="section-intro">Practice these real-world scenarios to prepare for system design and troubleshooting interviews.</p>
+
+            <!-- Scenario 1: Slow Job -->
+            <div class="scenario-card" id="scenario-slow">
+                <h3>Scenario: Your Spark job is taking 40 minutes instead of 5 minutes.</h3>
+                <div class="scenario-steps">
+                    <div class="scenario-step">
+                        <span class="step-number">Step 1</span>
+                        <strong>Check Spark UI</strong>
+                        <p>Open the Spark UI and navigate to the running or completed job. Look at the DAG visualization and stage details to understand where time is being spent.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 2</span>
+                        <strong>Look for long-running stages</strong>
+                        <p>Identify stages that take significantly longer than others. These are the bottleneck stages that need investigation.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 3</span>
+                        <strong>Check shuffle size</strong>
+                        <p>Large shuffle read/write indicates expensive data movement. Check if the shuffle partitions count is appropriate (default 200 may be too high or too low).</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 4</span>
+                        <strong>Check data skew</strong>
+                        <p>Look at task metrics - if some tasks take much longer than others, data skew is likely the cause. Check for keys with disproportionately large amounts of data.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 5</span>
+                        <strong>Check partition count</strong>
+                        <p>Too few partitions lead to underutilization; too many lead to overhead. Optimal partition size is 128MB-256MB per partition.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 6</span>
+                        <strong>Check joins</strong>
+                        <p>Verify if broadcast joins are being used where possible. Large-large joins using sort-merge may be slower than broadcast joins for small-large combinations.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 7</span>
+                        <strong>Check caching/persistence</strong>
+                        <p>Determine if data is being recomputed multiple times. Cache or persist data that is reused across multiple actions.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 8</span>
+                        <strong>Optimize the bottleneck</strong>
+                        <p>Apply the appropriate fix: repartition data, use broadcast joins, cache frequently accessed data, filter early, or tune configuration parameters.</p>
+                    </div>
+                    <button class="scenario-next-btn">Show Next Step &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Scenario 2: Data Skew -->
+            <div class="scenario-card" id="scenario-skew">
+                <h3>Scenario: One task in your Spark job takes 10x longer than others.</h3>
+                <div class="scenario-steps">
+                    <div class="scenario-step">
+                        <span class="step-number">Step 1</span>
+                        <strong>Identify the skewed key</strong>
+                        <p>Check the Spark UI task metrics. The slow task processes a partition with an disproportionately large amount of data, likely due to a single key with many records.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 2</span>
+                        <strong>Analyze the data distribution</strong>
+                        <p>Run a groupBy on the suspect key and count records per key. Identify if a few keys dominate the dataset.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 3</span>
+                        <strong>Apply salting technique</strong>
+                        <p>Add a random prefix to the skewed key to distribute it across multiple partitions. This spreads the load evenly.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 4</span>
+                        <strong>Aggregate with salted key</strong>
+                        <p>Perform the aggregation using the salted key instead of the original key. This ensures parallel processing across multiple partitions.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 5</span>
+                        <strong>Remove salt and re-aggregate</strong>
+                        <p>Strip the salt prefix from the keys and perform a final aggregation to get the correct results.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 6</span>
+                        <strong>Alternative: Use AQE skew join</strong>
+                        <p>Enable Adaptive Query Execution which can automatically detect and optimize skew joins in Spark 3.0+.</p>
+                    </div>
+                    <button class="scenario-next-btn">Show Next Step &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Scenario 3: OOM Error -->
+            <div class="scenario-card" id="scenario-oom">
+                <h3>Scenario: Your Spark executor throws OutOfMemoryError.</h3>
+                <div class="scenario-steps">
+                    <div class="scenario-step">
+                        <span class="step-number">Step 1</span>
+                        <strong>Check Spark UI for task metrics</strong>
+                        <p>Look at the failed tasks in the Spark UI. Identify which task failed and what data it was processing.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 2</span>
+                        <strong>Identify large partitions</strong>
+                        <p>Check if certain partitions are significantly larger than others. This is often the root cause of OOM errors.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 3</span>
+                        <strong>Increase executor memory</strong>
+                        <p>Adjust spark.executor.memory and spark.executor.memoryOverhead to allocate more memory per executor.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 4</span>
+                        <strong>Repartition to reduce partition size</strong>
+                        <p>Use repartition() to split large partitions into smaller ones. Aim for 128MB-256MB per partition.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 5</span>
+                        <strong>Use persist with MEMORY_AND_DISK</strong>
+                        <p>Instead of MEMORY_ONLY, use MEMORY_AND_DISK to spill data to disk when memory is insufficient.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 6</span>
+                        <strong>Avoid collect() on large data</strong>
+                        <p>collect() brings all data to the driver which can cause driver OOM. Use take(), show(), or write to storage instead.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 7</span>
+                        <strong>Use broadcast joins</strong>
+                        <p>Broadcast join avoids shuffling large DataFrames and reduces memory pressure on executors.</p>
+                    </div>
+                    <button class="scenario-next-btn">Show Next Step &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Scenario 4: Driver Failure -->
+            <div class="scenario-card" id="scenario-driver">
+                <h3>Scenario: Your Spark driver crashes when calling collect().</h3>
+                <div class="scenario-steps">
+                    <div class="scenario-step">
+                        <span class="step-number">Step 1</span>
+                        <strong>Identify the collect() call</strong>
+                        <p>Locate where collect() is being used in your code. This is typically the root cause of driver OOM.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 2</span>
+                        <strong>Replace with take() or show()</strong>
+                        <p>Use take(n) to get only a subset of records, or show() to display a preview. This avoids bringing all data to the driver.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 3</span>
+                        <strong>Increase driver memory</strong>
+                        <p>Adjust spark.driver.memory to allocate more memory to the driver process.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 4</span>
+                        <strong>Use broadcast variables</strong>
+                        <p>For shared lookup data, use broadcast variables instead of collecting data to the driver.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 5</span>
+                        <strong>Don't accumulate large results</strong>
+                        <p>Avoid accumulating results in driver-side variables. Write results directly to storage using write operations.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 6</span>
+                        <strong>Monitor driver metrics</strong>
+                        <p>Check driver metrics in Spark UI to track memory usage and identify when memory pressure builds up.</p>
+                    </div>
+                    <button class="scenario-next-btn">Show Next Step &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Scenario 5: Slow Joins -->
+            <div class="scenario-card" id="scenario-slow-joins">
+                <h3>Scenario: Your join operation is taking too long.</h3>
+                <div class="scenario-steps">
+                    <div class="scenario-step">
+                        <span class="step-number">Step 1</span>
+                        <strong>Check join strategy in Spark UI</strong>
+                        <p>Look at the query plan in the Spark UI to see which join strategy is being used (broadcast, sort-merge, or shuffle hash).</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 2</span>
+                        <strong>Determine if broadcast is possible</strong>
+                        <p>If one side of the join is small enough (typically &lt; 10MB), use broadcast join to avoid expensive shuffles.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 3</span>
+                        <strong>Check data skew in join keys</strong>
+                        <p>Skewed join keys cause uneven partition sizes. Some tasks will take much longer, slowing the overall join.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 4</span>
+                        <strong>Pre-partition by join key</strong>
+                        <p>Repartition both DataFrames by the join key before joining to reduce shuffle overhead.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 5</span>
+                        <strong>Filter data before joining</strong>
+                        <p>Apply filters as early as possible to reduce the amount of data being joined.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 6</span>
+                        <strong>Use broadcast hint</strong>
+                        <p>Force broadcast join using .hint("broadcast") or the broadcast() function if you know one side is small.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 7</span>
+                        <strong>Enable AQE</strong>
+                        <p>Adaptive Query Execution can automatically convert sort-merge to broadcast joins based on runtime statistics.</p>
+                    </div>
+                    <button class="scenario-next-btn">Show Next Step &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Scenario 6: Small Files -->
+            <div class="scenario-card" id="scenario-small-files">
+                <h3>Scenario: Your Spark job processes thousands of small files.</h3>
+                <div class="scenario-steps">
+                    <div class="scenario-step">
+                        <span class="step-number">Step 1</span>
+                        <strong>Identify the small files problem</strong>
+                        <p>Many small files cause excessive task overhead, slow job startup, and underutilized resources. Each file creates a separate task.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 2</span>
+                        <strong>Compact files using coalesce/repartition</strong>
+                        <p>Use coalesce() to reduce the number of partitions and combine small files into larger ones.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 3</span>
+                        <strong>Use Parquet/ORC format</strong>
+                        <p>Columnar formats like Parquet and ORC handle small files better and support predicate pushdown for faster queries.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 4</span>
+                        <strong>Configure maxRecordsPerFile</strong>
+                        <p>Set spark.sql.files.maxRecordsPerFile to limit the number of records per output file during writes.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 5</span>
+                        <strong>Use Hadoop input format for merging</strong>
+                        <p>Use combineInputFormat or similar to merge small files at the input level before processing.</p>
+                    </div>
+                    <div class="scenario-step">
+                        <span class="step-number">Step 6</span>
+                        <strong>Schedule compaction jobs</strong>
+                        <p>Set up periodic compaction jobs to merge small files into larger, optimized files.</p>
+                    </div>
+                    <button class="scenario-next-btn">Show Next Step &rarr;</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+  </main>
+
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>PySpark Interview Guide — Understand PySpark. Visualize Spark. Prepare for Interviews.</p>
+    <p style="margin-top:.5rem;">© 2024 PySpark Guide. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

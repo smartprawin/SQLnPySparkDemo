@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glue - AWS Data Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">AWS Data Engineering</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="s3.html" class="navbar__btn">S3</a>
+      <a href="glue.html" class="navbar__btn navbar__btn--primary">Glue</a>
+      <a href="lambda.html" class="navbar__btn">Lambda</a>
+      <a href="redshift.html" class="navbar__btn">Redshift</a>
+      <a href="airflow.html" class="navbar__btn">Airflow</a>
+      <a href="etl.html" class="navbar__btn">ETL</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <div class="sidebar" id="mobile-nav" style="transform:translateX(-100%);z-index:999;">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">AWS Data Engineering</div>
+      <a href="index.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Home</a>
+      <a href="s3.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">S3</a>
+      <a href="glue.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Glue</a>
+      <a href="lambda.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Lambda</a>
+      <a href="redshift.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Redshift</a>
+      <a href="airflow.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Airflow</a>
+    </div>
+  </div>
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- S3 -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>S3</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="s3.html#s3-features" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Features</a></li>
+          <li><a href="s3.html#s3-classes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Storage Classes</a></li>
+          <li><a href="s3.html#s3-security" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Security</a></li>
+          <li><a href="s3.html#s3-versioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Versioning</a></li>
+          <li><a href="s3.html#s3-folder-structure" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Folder Structure</a></li>
+          <li><a href="s3.html#s3-cross-account" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cross-Account</a></li>
+        </ul>
+      </div>
+      <!-- Glue -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
+          <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
+          <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
+          <li><a href="glue.html#glue-crawler" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Crawler Triggers</a></li>
+          <li><a href="glue.html#glue-jobs" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Jobs</a></li>
+          <li><a href="glue.html#glue-workflows" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Workflows & Bookmarks</a></li>
+        </ul>
+      </div>
+      <!-- Lambda -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Lambda</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="lambda.html#lambda-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="lambda.html#lambda-layers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Layers</a></li>
+          <li><a href="lambda.html#lambda-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+          <li><a href="lambda.html#boto3-invoke" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Boto3 Invoke</a></li>
+          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Trigger</a></li>
+        </ul>
+      </div>
+      <!-- SCD -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>SCD</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="scd.html#scd-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SCD Types</a></li>
+          <li><a href="scd.html#scd-2-example" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SCD2 Example</a></li>
+        </ul>
+      </div>
+      <!-- ETL / Incremental -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>ETL & Incremental</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="etl.html#etl-vs-elt" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL vs ELT</a></li>
+          <li><a href="etl.html#medallion" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Medallion</a></li>
+          <li><a href="etl.html#incremental-loads" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Incremental Loads</a></li>
+          <li><a href="etl.html#cdc-dms" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CDC & DMS</a></li>
+        </ul>
+      </div>
+      <!-- Redshift -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Redshift</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="redshift.html#redshift-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="redshift.html#redshift-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="redshift.html#redshift-spectrum" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spectrum</a></li>
+          <li><a href="redshift.html#redshift-distribution" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Distribution</a></li>
+          <li><a href="redshift.html#redshift-sort-keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort Keys</a></li>
+          <li><a href="redshift.html#redshift-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Airflow -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Airflow</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="airflow.html#airflow-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="airflow.html#airflow-operators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Operators</a></li>
+          <li><a href="airflow.html#airflow-sensors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sensors</a></li>
+          <li><a href="airflow.html#airflow-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG Example</a></li>
+          <li><a href="airflow.html#airflow-catchup" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catchup & Depends</a></li>
+          <li><a href="airflow.html#airflow-vs-stepfunctions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> vs Step Functions</a></li>
+        </ul>
+      </div>
+      <!-- DevOps -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>DevOps</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="devops.html#git-github" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Git & GitHub</a></li>
+          <li><a href="devops.html#secrets-manager" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Secrets Manager</a></li>
+          <li><a href="devops.html#status-codes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Status Codes</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <section id="glue-intro" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="glue-intro">☆</button>
+            <button class="topic-complete-btn" data-topic-id="glue-intro">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>AWS Glue — Serverless ETL</h2>
+
+        <p>Glue is serverless (no backend to maintain), scales automatically, supports Python/Scala/PySpark. Versions from file: Glue 4, Python 3.11-3.13, Spark 3.3, Pandas 1.3.</p>
+        <p>Sources: S3 (CSV/JSON/Parquet/Avro), JDBC (RDS/Redshift/MySQL/Postgres/SQL Server), DynamoDB, Kinesis, REST API, SFTP. Classifiers detect JSON/CSV/Parquet.</p>
+
+      </section>
+      <section id="glue-catalog" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="glue-catalog">☆</button>
+            <button class="topic-complete-btn" data-topic-id="glue-catalog">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Data Catalog, Crawlers & Schema Registry</h2>
+
+        <p><strong>Data Catalog</strong> = centralized metadata repository (data about data: types, size, format). <strong>Crawlers</strong> scan sources to infer schema and create/update tables (schema evolution). <strong>Schema Registry</strong> stores schema versions with compatibility modes:</p>
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Mode</th><th>Meaning</th></tr></thead><tbody><tr><td>Backward</td><td>New schema can read old data</td></tr><tr><td>Forward</td><td>Old schema can read new data</td></tr><tr><td>Full</td><td>Both</td></tr><tr><td>None</td><td>No checks</td></tr></tbody></table></div>
+        <h3>Crawler Triggers</h3>
+        <p><strong>Scheduled (12am daily → 12:30am crawler, cron <code>30 0 * * ? *</code>)</strong> — simple but not real-time, may run even if no data.</p>
+        <p><strong>Event-based (S3 PUT → Lambda → start_crawler)</strong> — real-time, only runs on upload.</p>
+        
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>import boto3
+def lambda_handler(event,context):
+    glue = boto3.client('glue')
+    glue.start_crawler(Name='name of the crawler')
+    return {'statusCode':200,'body':'Crawler started'}</code></pre>
+        </div>
+        <p>S3 → Event Notification (PUT on bucket) → Lambda → EventBridge (crawler Succeeded) → Glue Job. Alternative: Glue Workflows (crawler → job → notification).</p>
+
+      </section>
+      <section id="dynamic-frames" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="dynamic-frames">☆</button>
+            <button class="topic-complete-btn" data-topic-id="dynamic-frames">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>DynamicFrames vs DataFrames</h2>
+
+        <p>From file: DynamicFrames are flexible, DataFrames are strict.</p>
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Feature</th><th>DynamicFrame</th><th>DataFrame</th></tr></thead><tbody>
+          <tr><td>Schema flexible</td><td>Yes (choice type)</td><td>No (strict StructType)</td></tr>
+          <tr><td>Null tolerance</td><td>Yes</td><td>No</td></tr>
+          <tr><td>Nested JSON</td><td>Yes (builtin)</td><td>Manual flatten</td></tr>
+          <tr><td>Error handling</td><td>errorRecords</td><td>Manual try/except</td></tr>
+        </tbody></table></div>
+        <p>Example from file: order 103 has '300' (string) and 104 has 'na' — DataFrame fails, DynamicFrame creates choice type <code>int or string</code> and you resolve:</p>
+        
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://via.placeholder.com/700x220.png?text=DynamicFrame+%28flexible%29+vs+DataFrame+%28strict%29" alt="DynamicFrame vs DataFrame" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
+          <pre><code>dyf = dyf.resolveChoice(specs=[('amount', 'cast:int')])
+df = dyf.toDF()
+# Convert back
+# df to dyf: dyf = DynamicFrame.fromDF(df, glueContext, 'mydynamicframe')</code></pre>
+        </div>
+        <p>Flow: raw → Glue reads DynamicFrame → resolve choice → transform → convert to DataFrame → write to S3.</p>
+        <p>Also auto-merges schemas: file1 (orderid, amount) + file2 (orderid, amount, discount) → single schema.</p>
+
+      </section>
+      <section id="dpu-workers" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="dpu-workers">☆</button>
+            <button class="topic-complete-btn" data-topic-id="dpu-workers">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>DPU & Worker Types</h2>
+
+        <p>1 DPU = 4 vCPU + 16 GB RAM. Number of workers × DPU per worker = total DPUs.</p>
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Worker Type</th><th>DPU</th><th>Resources</th><th>Use Case</th></tr></thead><tbody>
+          <tr><td>G.1X</td><td>1</td><td>4 vCPU, 16GB</td><td>Small-medium, &lt;20GB, simple transforms, no heavy joins</td></tr>
+          <tr><td>G.2X</td><td>2</td><td>8 vCPU, 32GB</td><td>50-300GB, heavy joins, shuffles</td></tr>
+          <tr><td>G.4X</td><td>4</td><td>16 vCPU, 64GB</td><td>300GB-1TB, wide tables, skew</td></tr>
+          <tr><td>G.8X</td><td>8</td><td>32 vCPU, 128GB</td><td>TB scale, many joins, skew</td></tr>
+        </tbody></table></div>
+        <p>Example from file: 500GB daily, heavy joins → G.2X, 20 workers, 40 DPUs, auto-scaling true.</p>
+
+      </section>
+      <section id="glue-crawler" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="glue-crawler">☆</button>
+            <button class="topic-complete-btn" data-topic-id="glue-crawler">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Glue Crawler Details</h2>
+
+        <p>Crawlers infer schema and update Data Catalog, handling schema evolution. Scheduled vs event-based as above.</p>
+        <p>Give S3 permission to invoke Lambda, and Lambda permission to start crawler via IAM.</p>
+
+      </section>
+      <section id="glue-jobs" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="glue-jobs">☆</button>
+            <button class="topic-complete-btn" data-topic-id="glue-jobs">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Glue ETL Jobs</h2>
+
+        <p>Written in Python/Scala/PySpark: extract → transform (filter, join, deduplication) → load to S3/Redshift/Postgres/MySQL.</p>
+        
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>from awsglue.context import GlueContext
+from pyspark.context import SparkContext
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+
+dyf = glueContext.create_dynamic_frame.from_catalog(database='landingdb', table_name='sales')
+newdyf = dyf.dropDuplicates()
+df = newdyf.toDF()
+df.write.parquet('s3://finals3bucket', index=False)</code></pre>
+        </div>
+        <p>Flow: S3 PUT → Lambda → Crawler (EventBridge on Succeeded → Glue Job) or Workflows.</p>
+
+      </section>
+      <section id="glue-workflows" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="glue-workflows">☆</button>
+            <button class="topic-complete-btn" data-topic-id="glue-workflows">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Workflows, Bookmarks & CDC</h2>
+
+        <p><strong>Workflows</strong>: Glue Workflows orchestrate crawler → job → notification. Alternative to EventBridge.</p>
+        <p><strong>Job Bookmarks</strong>: Track last processed record (hidden table in Data Catalog, often via timestamp). Enable in Job parameters → enable job bookmarks → incremental loads.</p>
+        <p><strong>CDC</strong> via AWS DMS: full load + CDC, captures inserts/updates/deletes via timestamp columns (created_at, updated_at), avoids full scan, near real-time, lands to S3 then crawler → Redshift.</p>
+        <p>Other incremental methods from file: file timestamp & naming convention (<code>mydata_01012025.json</code>), Lambda on S3, prefix/suffix filtering.</p>
+
+      </section>
+    </div>
+  </main>
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>AWS Data Engineering — S3, Glue, Lambda, Redshift, Airflow</p>
+    <p style="margin-top:.5rem;">© 2024 AWS Guide. Built for Data Engineers.</p>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

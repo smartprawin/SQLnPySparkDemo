@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fundamentals - PySpark Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION BAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">PySpark Guide</span>
+    </a>
+
+    <div class="navbar__spacer"></div>
+
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn navbar__btn--primary">Fundamentals</a>
+      <a href="architecture.html" class="navbar__btn">Architecture</a>
+      <a href="transformations.html" class="navbar__btn">Transformations</a>
+      <a href="programming.html" class="navbar__btn">Programming</a>
+      <a href="partitions.html" class="navbar__btn">Partitions</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="real-world.html" class="navbar__btn">Real-World Scenarios</a>
+      <a href="interview.html" class="navbar__btn">Interview Prep</a>
+    </div>
+
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & NAV ===== -->
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">PySpark Guide</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH OVERLAY ===== -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKMARKS PANEL ===== -->
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <!-- ===== PROGRESS INDICATOR ===== -->
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+        <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <!-- ============================================================
+           SECTION: What is Spark?
+           ============================================================ -->
+      <div id="what-is-spark" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">What is Spark?</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="spark">☆</button>
+            <button class="topic-complete-btn" data-topic-id="spark">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Apache Spark is a unified analytics engine designed for large-scale data processing. It provides a simple programming interface for distributed computing and handles both batch processing and real-time streaming workloads.</p>
+
+        <p>Key characteristics of Spark:</p>
+        <ul>
+          <li><strong>In-memory computation</strong> — Data is kept in RAM across the cluster, making Spark up to 100x faster than disk-based engines like Hadoop MapReduce.</li>
+          <li><strong>Distributed processing</strong> — Data is split into partitions across multiple nodes, allowing parallel execution.</li>
+          <li><strong>Multi-language support</strong> — APIs are available for Python (PySpark), Scala, Java, R, and SQL.</li>
+          <li><strong>Rich ecosystem</strong> — Includes Spark SQL for structured data, Spark Streaming for real-time data, MLlib for machine learning, and GraphX for graph processing.</li>
+        </ul>
+
+        <p>Spark was developed at UC Berkeley's AMPLab in 2009 and later donated to the Apache Software Foundation. It has become the most widely used engine for big data processing in production environments worldwide.</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">Spark is 100x faster than Hadoop MapReduce because it processes data in memory rather than writing intermediate results to disk.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: What is PySpark?
+           ============================================================ -->
+      <div id="what-is-pyspark" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">What is PySpark?</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="pyspark">☆</button>
+            <button class="topic-complete-btn" data-topic-id="pyspark">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>PySpark is the Python API for Apache Spark. It allows Python developers to leverage Spark's distributed computing capabilities without writing Scala or Java code. PySpark provides a high-level abstraction over Spark's core RDD API and includes the DataFrame and Dataset APIs for working with structured data.</p>
+
+        <p>With PySpark you can:</p>
+        <ul>
+          <li>Process terabytes of data across a cluster using familiar Python syntax.</li>
+          <li>Use Spark SQL to run SQL queries on large datasets.</li>
+          <li>Build machine learning pipelines with Spark MLlib.</li>
+          <li>Stream real-time data with Structured Streaming.</li>
+          <li>Integrate with popular Python libraries like Pandas and NumPy via Pandas UDFs.</li>
+        </ul>
+
+        <p>PySpark communicates with the JVM-based Spark engine through a lightweight wrapper, so Python code is translated into Spark jobs that run on the cluster.</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-keyword">from</span> pyspark.sql <span class="token-keyword">import</span> SparkSession
+
+spark = SparkSession.builder \
+    .appName(<span class="token-string">"MyFirstApp"</span>) \
+    .master(<span class="token-string">"local[*]"</span>) \
+    .getOrCreate()
+
+<span class="token-builtin">print</span>(spark.version)</code></pre>
+        </div>
+
+        <p><code>SparkSession.builder</code> is the entry point for creating a Spark application. The <code>.master("local[*]")</code> call tells Spark to run locally using all available CPU cores. The <code>.getOrCreate()</code> method returns an existing SparkSession or creates a new one if none exists. After creating the session, you can read data, apply transformations, and run actions on distributed datasets.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: RDD — Resilient Distributed Dataset
+           ============================================================ -->
+      <div id="rdd" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">RDD — Resilient Distributed Dataset</h2>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&h=300&fit=crop" alt="Distributed cluster" style="max-width:100%;border-radius:12px;border:1px solid var(--color-border);object-fit:cover;" loading="lazy"><p style="font-size:.8rem;color:var(--color-text-tertiary);">RDD: Resilient, Distributed, Dataset</p></div>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="rdd">☆</button>
+            <button class="topic-complete-btn" data-topic-id="rdd">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>An RDD is the fundamental data structure in Spark. It is an immutable, partitioned collection of elements that can be operated on in parallel. Every RDD is characterized by three core properties:</p>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">RDD Properties</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;line-height:2;color:var(--color-text);text-align:left;max-width:400px;margin:0 auto;">
+            <div style="font-weight:700;font-size:1rem;margin-bottom:.5rem;">RDD</div>
+            <div style="padding-left:1.5rem;">├── <strong>Resilient</strong> <span style="color:var(--color-text-secondary);">(fault tolerant)</span></div>
+            <div style="padding-left:1.5rem;">├── <strong>Distributed</strong> <span style="color:var(--color-text-secondary);">(spread across nodes)</span></div>
+            <div style="padding-left:1.5rem;">└── <strong>Dataset</strong> <span style="color:var(--color-text-secondary);">(collection of data)</span></div>
+          </div>
+        </div>
+
+        <p><strong>Resilient:</strong> An RDD can recover lost partitions through its lineage graph. If a partition is lost due to a node failure, Spark recomputes it by replaying the sequence of transformations that originally created it.</p>
+
+        <p><strong>Distributed:</strong> The data stored in an RDD is spread across multiple nodes in the cluster. Each node holds a portion of the data called a partition, enabling parallel processing.</p>
+
+        <p><strong>Dataset:</strong> A collection of partitioned data with primitive values or values of values (e.g., tuples, objects). The data is split into partitions that are processed independently.</p>
+
+        <p>Additional properties of RDDs:</p>
+        <ul>
+          <li><strong>Immutability</strong> — Once created, an RDD cannot be modified. Each transformation produces a new RDD.</li>
+          <li><strong>Fault tolerance</strong> — Lost partitions are recomputed automatically via the lineage graph, without requiring data replication.</li>
+          <li><strong>Lazy evaluation</strong> — Transformations are not executed immediately. Spark builds a plan and only computes when an action is called.</li>
+          <li><strong>In-memory computation</strong> — Data is processed in RAM, which eliminates disk I/O overhead and dramatically improves performance.</li>
+          <li><strong>Parallel processing</strong> — Multiple partitions are processed simultaneously across the cluster's nodes.</li>
+        </ul>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code>rdd = spark.sparkContext.parallelize(
+    [<span class="token-number">1</span>, <span class="token-number">2</span>, <span class="token-number">3</span>, <span class="token-number">4</span>, <span class="token-number">5</span>]
+)
+
+<span class="token-builtin">print</span>(rdd.collect())  <span class="token-comment"># [1, 2, 3, 4, 5]</span>
+<span class="token-builtin">print</span>(rdd.count())    <span class="token-comment"># 5</span></code></pre>
+        </div>
+
+        <p><code>parallelize()</code> creates an RDD from a local Python collection. The data is distributed across partitions in the cluster. The <code>collect()</code> action returns all elements as a list, and <code>count()</code> returns the total number of elements. Note that <code>collect()</code> brings all data to the driver, so it should only be used on small result sets.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: RDD vs DataFrame vs Dataset
+           ============================================================ -->
+      <div id="rdd-vs-dataframe-vs-dataset" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">RDD vs DataFrame vs Dataset</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="rdd-vs-dataframe-vs-dataset">☆</button>
+            <button class="topic-complete-btn" data-topic-id="rdd-vs-dataframe-vs-dataset">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Apache Spark provides three core APIs for working with distributed data. Understanding their differences is one of the most asked interview questions.</p>
+
+        <div class="concept-cards">
+          <div class="concept-cards__grid">
+            <div class="concept-card">
+              <div class="concept-card__header"><h4 class="concept-card__title">RDD</h4></div>
+              <div class="concept-card__body">Resilient Distributed Dataset. Low-level API. Immutable distributed collection of objects. No schema, no optimization. Best for unstructured data and fine-grained control.</div>
+              <div class="concept-card__tags"><span class="concept-card__tag">Low-level</span><span class="concept-card__tag">No Schema</span></div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-card__header"><h4 class="concept-card__title">DataFrame</h4></div>
+              <div class="concept-card__body">Distributed collection with schema (like table). Built on RDD + Catalyst optimizer. Best for structured/semi-structured data. Most used in PySpark.</div>
+              <div class="concept-card__tags"><span class="concept-card__tag">Schema</span><span class="concept-card__tag">Optimized</span></div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-card__header"><h4 class="concept-card__title">Dataset</h4></div>
+              <div class="concept-card__body">Strongly-typed, object-oriented API. Combines RDD + DataFrame benefits. Type-safe at compile time. Only Scala/Java (not Python).</div>
+              <div class="concept-card__tags"><span class="concept-card__tag">Type-Safe</span><span class="concept-card__tag">Scala/Java</span></div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Comparison Table</h3>
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>RDD</th>
+                <th>DataFrame</th>
+                <th>Dataset</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>API Level</strong></td><td>Low-level</td><td>High-level</td><td>High-level</td></tr>
+              <tr><td><strong>Schema</strong></td><td>No</td><td>Yes (columns + types)</td><td>Yes</td></tr>
+              <tr><td><strong>Type Safety</strong></td><td>Compile-time</td><td>Runtime (Python)</td><td>Compile-time (Scala/Java)</td></tr>
+              <tr><td><strong>Optimization</strong></td><td>None (manual)</td><td>Catalyst + Tungsten</td><td>Catalyst + Tungsten</td></tr>
+              <tr><td><strong>Performance</strong></td><td>Slower</td><td>Fast (optimized)</td><td>Fast (optimized)</td></tr>
+              <tr><td><strong>Language Support</strong></td><td>Scala, Java, Python, R</td><td>Scala, Java, Python, R, SQL</td><td>Scala, Java only</td></tr>
+              <tr><td><strong>Use Case</strong></td><td>Unstructured, low-level control</td><td>Structured, ETL, SQL</td><td>Strong typing needed</td></tr>
+              <tr><td><strong>Interoperability</strong></td><td>Convert to DataFrame/Dataset</td><td>Convert to RDD, SQL</td><td>Convert to RDD/DataFrame</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block__header"><span class="code-block__lang">Python</span></div>
+          <pre><code><span class="token-comment"># RDD - no schema</span>
+rdd = spark.sparkContext.parallelize([(1, "Alice"), (2, "Bob")])
+rdd.map(lambda x: x[1].upper()).collect()
+
+<span class="token-comment"># DataFrame - with schema, optimized</span>
+df = spark.createDataFrame([(1, "Alice"), (2, "Bob")], ["id", "name"])
+df.filter(df.id > 1).show()
+df.explain()  <span class="token-comment"># shows Catalyst plan</span>
+
+<span class="token-comment"># Dataset - Scala only (type-safe)</span>
+<span class="token-comment"># case class Person(id: Int, name: String)</span>
+<span class="token-comment"># val ds = spark.createDataset(Seq(Person(1,"Alice")))</span></code></pre>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">In PySpark interviews: RDD = low-level, no optimization; DataFrame = most used, Catalyst optimized, schema-based; Dataset = not available in Python (Scala/Java only). If asked "which to use?" — answer: DataFrame for 95% of PySpark work.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Lazy Evaluation
+           ============================================================ -->
+      <div id="lazy-evaluation" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Lazy Evaluation</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="lazy-evaluation">☆</button>
+            <button class="topic-complete-btn" data-topic-id="lazy-evaluation">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Lazy evaluation means that Spark does not execute transformations immediately when they are called. Instead, Spark records the sequence of transformations as a lineage graph and only performs computation when an action (such as <code>collect()</code>, <code>count()</code>, or <code>show()</code>) is invoked.</p>
+
+        <p>This approach gives Spark the opportunity to optimize the entire execution plan before any data is actually processed. The Catalyst optimizer can reorder operations, combine steps, and eliminate unnecessary work.</p>
+
+        <p>Consider this transformation — it is recorded but not executed:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-comment"># Transformation - NOT executed yet</span>
+filtered_df = df.filter(df.salary > <span class="token-number">50000</span>)</code></pre>
+        </div>
+
+        <p>The following action triggers execution. Spark reads the lineage, applies optimizations, and runs the computation:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-comment"># Action - TRIGGERS execution</span>
+filtered_df.show()</code></pre>
+        </div>
+
+        <p>Lazy evaluation provides several benefits: it reduces unnecessary computation, enables query plan optimization, and allows Spark to minimize data movement across the cluster by fusing operations together.</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">Lazy evaluation allows Spark to optimize the entire execution plan before running it, eliminating redundant steps and reducing shuffle operations.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Transformations vs Actions
+           ============================================================ -->
+      <div id="transformations-actions" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Transformations vs Actions</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="transformations-actions">☆</button>
+            <button class="topic-complete-btn" data-topic-id="transformations-actions">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Spark operations are divided into two categories: <strong>transformations</strong> and <strong>actions</strong>. Understanding the distinction between them is essential for writing efficient Spark code and for explaining how Spark's execution model works.</p>
+
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th style="width:50%;">Transformations</th>
+                <th style="width:50%;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>map()</code></td><td><code>collect()</code></td></tr>
+              <tr><td><code>filter()</code></td><td><code>count()</code></td></tr>
+              <tr><td><code>reduceByKey()</code></td><td><code>save()</code></td></tr>
+              <tr><td><code>join()</code></td><td><code>show()</code></td></tr>
+              <tr><td><code>dropDuplicates()</code></td><td><code>take()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>Transformations</strong> are lazy operations that create a new dataset from an existing one. They build up the lineage graph but do not trigger any computation. Transformations can be narrow (each input partition contributes to at most one output partition, like <code>map()</code> and <code>filter()</code>) or wide (input partitions contribute to multiple output partitions, like <code>reduceByKey()</code> and <code>join()</code>, which require a shuffle).</p>
+
+        <p><strong>Actions</strong> are operations that trigger Spark to execute the lineage graph and produce a result. They either return data to the driver (<code>collect()</code>, <code>count()</code>, <code>take()</code>) or write data to external storage (<code>save()</code>). When an action is called, Spark optimizes the full chain of transformations and executes them in an efficient order.</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">Transformations create a new dataset from an existing one. Actions trigger computation and return results. A Spark job runs only when an action is called.</div>
+        </div>
+      </div>
+
+      <!-- ===== FOOTER ===== -->
+      <footer class="footer">
+        <div class="footer__inner">
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="fundamentals.html">Fundamentals</a></li>
+            <li><a href="architecture.html">Architecture</a></li>
+            <li><a href="interview.html">Interview Prep</a></li>
+          </ul>
+          <p class="footer__copyright">PySpark Interview Guide &copy; 2026. Built for Data Engineers.</p>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

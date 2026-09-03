@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Performance - PySpark Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION BAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">PySpark Guide</span>
+    </a>
+
+    <div class="navbar__spacer"></div>
+
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="architecture.html" class="navbar__btn">Architecture</a>
+      <a href="transformations.html" class="navbar__btn">Transformations</a>
+      <a href="programming.html" class="navbar__btn">Programming</a>
+      <a href="partitions.html" class="navbar__btn">Partitions</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="performance.html" class="navbar__btn navbar__btn--primary">Performance</a>
+      <a href="real-world.html" class="navbar__btn">Real-World Scenarios</a>
+      <a href="interview.html" class="navbar__btn">Interview Prep</a>
+    </div>
+
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & NAV ===== -->
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">PySpark Guide</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH OVERLAY ===== -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKMARKS PANEL ===== -->
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <!-- ===== PROGRESS INDICATOR ===== -->
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+        <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+            <!-- ============================================================
+           Section: Shuffle
+           ============================================================ -->
+      <section id="shuffle" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="shuffle">☆</button>
+            <button class="topic-complete-btn" data-topic-id="shuffle">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Shuffle</h2>
+
+        <div class="problem-card">
+          <div class="problem-card__icon">🔀</div>
+          <div class="problem-card__title">Definition</div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://via.placeholder.com/700x220.png?text=SHUFFLE+%7C+Redistribute+Across+Partitions" alt="Shuffle" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
+          <div class="problem-card__body">
+            Shuffle is the process of redistributing data across partitions. It occurs during wide transformations such as <code>groupByKey()</code>, <code>reduceByKey()</code>, <code>join()</code>, and <code>repartition()</code>.
+          </div>
+        </div>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">Shuffle Overview</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;flex-wrap:wrap;padding:1.5rem 1rem;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Partition 1</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Partition 2</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Partition 3</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 1rem;background:var(--color-info-bg,#dbeafe);border:1px solid var(--color-info-border,#93c5fd);border-radius:var(--radius-sm);font-weight:600;">SHUFFLE</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-success-bg,#dcfce7);border:1px solid var(--color-success-border,#86efac);border-radius:var(--radius-sm);">New Partition 1</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-success-bg,#dcfce7);border:1px solid var(--color-success-border,#86efac);border-radius:var(--radius-sm);">New Partition 2</div>
+          </div>
+        </div>
+
+        <h3>When Does Shuffle Happen?</h3>
+        <ul>
+          <li><code>groupByKey()</code>, <code>reduceByKey()</code>, <code>join()</code></li>
+          <li><code>repartition()</code>, <code>coalesce()</code> (with shuffle)</li>
+          <li><code>sortByKey()</code>, <code>distinct()</code></li>
+        </ul>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">
+            💡 Shuffle is expensive — it involves disk I/O, data serialization, and network transfer. Minimize wide transformations where possible.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section: Data Skewness
+           ============================================================ -->
+      <section id="data-skew" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="data-skew">☆</button>
+            <button class="topic-complete-btn" data-topic-id="data-skew">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Data Skewness</h2>
+
+        <div class="problem-card">
+          <div class="problem-card__icon">🚨</div>
+          <div class="problem-card__title">Definition</div>
+          <div class="problem-card__body">
+            Data skew occurs when data is unevenly distributed across partitions, causing some partitions to have significantly more data than others.
+          </div>
+        </div>
+
+        <!-- Skewed Partitions Visual -->
+        <div class="diagram-container">
+          <div class="diagram-container__title">Skewed Partition Distribution</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;padding:1rem;">
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <span style="min-width:110px;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">Partition 1</span>
+              <div style="flex:1;height:2rem;background:var(--color-error,#ef4444);border-radius:var(--radius-sm);display:flex;align-items:center;padding:0 0.75rem;color:#fff;font-weight:600;font-size:0.8125rem;">
+                1,000,000 records &nbsp;⚠️ OVERLOADED
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <span style="min-width:110px;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">Partition 2</span>
+              <div style="width:10%;min-width:80px;height:2rem;background:var(--color-success,#22c55e);border-radius:var(--radius-sm);display:flex;align-items:center;padding:0 0.75rem;color:#fff;font-weight:600;font-size:0.8125rem;">
+                100,000
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <span style="min-width:110px;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">Partition 3</span>
+              <div style="width:10%;min-width:80px;height:2rem;background:var(--color-success,#22c55e);border-radius:var(--radius-sm);display:flex;align-items:center;padding:0 0.75rem;color:#fff;font-weight:600;font-size:0.8125rem;">
+                100,000
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <span style="min-width:110px;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">Partition 4</span>
+              <div style="width:10%;min-width:80px;height:2rem;background:var(--color-success,#22c55e);border-radius:var(--radius-sm);display:flex;align-items:center;padding:0 0.75rem;color:#fff;font-weight:600;font-size:0.8125rem;">
+                100,000
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Problems Caused by Data Skew</h3>
+        <ul>
+          <li>Uneven workload across executors</li>
+          <li>Longer execution time</li>
+          <li>Out-of-memory errors</li>
+          <li>Slow jobs</li>
+        </ul>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">
+            💡 Data skew is one of the most common Spark performance issues. Always check partition sizes in the Spark UI.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section: Salting Technique
+           ============================================================ -->
+      <section id="salting" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="salting">☆</button>
+            <button class="topic-complete-btn" data-topic-id="salting">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Salting Technique</h2>
+
+        <div class="problem-card">
+          <div class="problem-card__icon">💡</div>
+          <div class="problem-card__title">Definition</div>
+          <div class="problem-card__body">
+            Salting is a technique to handle data skew by adding a random prefix (salt) to the skewed key, distributing data more evenly across partitions.
+          </div>
+        </div>
+
+        <h3>Step-by-Step Process</h3>
+        <ol>
+          <li><strong>Step 1:</strong> Identify the skewed key</li>
+          <li><strong>Step 2:</strong> Create a salt value (random prefix)</li>
+          <li><strong>Step 3:</strong> Redistribute the data</li>
+          <li><strong>Step 4:</strong> Run aggregation</li>
+          <li><strong>Step 5:</strong> Remove/merge the salt information</li>
+        </ol>
+
+        <!-- Visual Diagram -->
+        <div class="diagram-container">
+          <div class="diagram-container__title">Salting Flow</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;padding:1.5rem 1rem;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">
+            <div style="padding:0.5rem 1rem;background:var(--color-info-bg,#dbeafe);border:1px solid var(--color-info-border,#93c5fd);border-radius:var(--radius-sm);text-align:center;">
+              Original:<br><strong>A → 1,000,000 records</strong>
+            </div>
+            <div style="font-size:1.25rem;">↓ SALTING</div>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;">
+              <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">A_1 → Partition 1</div>
+              <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">A_2 → Partition 2</div>
+              <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">A_3 → Partition 3</div>
+              <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">A_4 → Partition 4</div>
+            </div>
+            <div style="font-size:1.25rem;">↓</div>
+            <div style="padding:0.5rem 1rem;background:var(--color-info-bg,#dbeafe);border:1px solid var(--color-info-border,#93c5fd);border-radius:var(--radius-sm);">Aggregation</div>
+            <div style="font-size:1.25rem;">↓</div>
+            <div style="padding:0.5rem 1rem;background:var(--color-success-bg,#dcfce7);border:1px solid var(--color-success-border,#86efac);border-radius:var(--radius-sm);">Combine Results</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code><span class="token-keyword">from</span> pyspark.sql.functions <span class="token-keyword">import</span> concat, lit, rand, floor, split
+
+<span class="token-comment"># Step 1: Add salt to skewed key</span>
+num_partitions = <span class="token-num">4</span>
+salted_df = skewed_df.<span class="token-fn">withColumn</span>(
+    <span class="token-str">"salted_key"</span>,
+    <span class="token-fn">concat</span>(<span class="token-fn">col</span>(<span class="token-str">"key"</span>), <span class="token-fn">lit</span>(<span class="token-str">"_"</span>), (<span class="token-fn">rand</span>() * num_partitions).<span class="token-fn">cast</span>(<span class="token-str">"int"</span>))
+)
+
+<span class="token-comment"># Step 2: Aggregate with salted key</span>
+result = salted_df.<span class="token-fn">groupBy</span>(<span class="token-str">"salted_key"</span>).<span class="token-fn">agg</span>(...)
+
+<span class="token-comment"># Step 3: Remove salt and final aggregation</span>
+final_result = result.<span class="token-fn">withColumn</span>(
+    <span class="token-str">"key"</span>,
+    <span class="token-fn">split</span>(<span class="token-fn">col</span>(<span class="token-str">"salted_key"</span>), <span class="token-str">"_"</span>)[<span class="token-num">0</span>]
+).<span class="token-fn">groupBy</span>(<span class="token-str">"key"</span>).<span class="token-fn">agg</span>(...)</code></pre>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">
+            💡 Salting is the go-to solution for data skew. Understanding this technique demonstrates advanced Spark knowledge.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section: Cache and Persist
+           ============================================================ -->
+      <section id="cache-persist" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="cache-persist">☆</button>
+            <button class="topic-complete-btn" data-topic-id="cache-persist">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Cache and Persist</h2>
+
+        <h3 id="cache">Cache</h3>
+        <div class="problem-card">
+          <div class="problem-card__icon">💡</div>
+          <div class="problem-card__title">Definition</div>
+          <div class="problem-card__body">
+            Cache keeps data in memory for reuse across multiple actions.
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>df.<span class="token-fn">cache</span>()  <span class="token-comment"># Same as df.persist(StorageLevel.MEMORY_ONLY)</span></code></pre>
+        </div>
+        <p><strong>When to use:</strong> When you plan to use the same DataFrame multiple times.</p>
+
+        <h3 id="persist">Persist</h3>
+        <div class="problem-card">
+          <div class="problem-card__icon">💡</div>
+          <div class="problem-card__title">Definition</div>
+          <div class="problem-card__body">
+            Persist allows you to choose different storage levels for caching.
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code><span class="token-keyword">from</span> pyspark <span class="token-keyword">import</span> StorageLevel
+
+<span class="token-comment"># Memory only</span>
+df.<span class="token-fn">persist</span>(StorageLevel.MEMORY_ONLY)
+
+<span class="token-comment"># Memory and disk</span>
+df.<span class="token-fn">persist</span>(StorageLevel.MEMORY_AND_DISK)
+
+<span class="token-comment"># Memory only serialized</span>
+df.<span class="token-fn">persist</span>(StorageLevel.MEMORY_ONLY_SER)</code></pre>
+        </div>
+
+        <h3>Storage Levels</h3>
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Storage Level</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>MEMORY_ONLY</code></td>
+                <td>Store as deserialized objects in JVM heap</td>
+              </tr>
+              <tr>
+                <td><code>MEMORY_AND_DISK</code></td>
+                <td>Spill to disk if doesn't fit in memory</td>
+              </tr>
+              <tr>
+                <td><code>MEMORY_ONLY_SER</code></td>
+                <td>Store as serialized objects (compact)</td>
+              </tr>
+              <tr>
+                <td><code>DISK_ONLY</code></td>
+                <td>Store only on disk</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Unpersist</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>df.<span class="token-fn">unpersist</span>()</code></pre>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">
+            💡 Cache/persist when you reuse a DataFrame. Unpersist when done to free memory.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section: Performance Optimization Checklist
+           ============================================================ -->
+      <span id="optimization"></span>
+    <section id="optimization-checklist" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="optimization-checklist">☆</button>
+            <button class="topic-complete-btn" data-topic-id="optimization-checklist">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Performance Optimization Checklist</h2>
+
+        <div class="problem-card">
+          <div class="problem-card__icon">✅</div>
+          <div class="problem-card__title">Checklist</div>
+          <div class="problem-card__body">
+            Use this interactive checklist to ensure your Spark jobs are optimized. Click each item to track your progress.
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:0.5rem;margin:1rem 0;">
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Reduce unnecessary shuffles</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Understand narrow/wide transformations</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Handle data skew</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Use salting when appropriate</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Use broadcast joins when appropriate</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Cache reused datasets</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Persist using appropriate storage level</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Avoid large collect()</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Tune partitions</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Monitor Spark UI</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Handle small files</span>
+          </label>
+          <label class="checklist-item" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--color-bg-secondary)'" onmouseout="this.style.background='transparent'">
+            <input type="checkbox" class="checklist-checkbox" style="width:1.125rem;height:1.125rem;accent-color:var(--color-primary,#6366f1);cursor:pointer;">
+            <span>Use appropriate file formats (Parquet/ORC over CSV)</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section: Catalyst Optimizer
+           ============================================================ -->
+      <section id="catalyst-optimizer" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="catalyst-optimizer">☆</button>
+            <button class="topic-complete-btn" data-topic-id="catalyst-optimizer">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Catalyst Optimizer</h2>
+
+        <div class="problem-card">
+          <div class="problem-card__icon">💡</div>
+          <div class="problem-card__title">Definition</div>
+          <div class="problem-card__body">
+            Catalyst is Spark's query optimization framework that automatically optimizes Spark SQL queries.
+          </div>
+        </div>
+
+        <!-- Flow Diagram -->
+        <div class="diagram-container">
+          <div class="diagram-container__title">Catalyst Optimization Flow</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;flex-wrap:wrap;padding:1.5rem 1rem;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Query</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Logical Plan</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-info-bg,#dbeafe);border:1px solid var(--color-info-border,#93c5fd);border-radius:var(--radius-sm);font-weight:600;">Catalyst Optimizer</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Optimized Plan</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-success-bg,#dcfce7);border:1px solid var(--color-success-border,#86efac);border-radius:var(--radius-sm);">Physical Execution</div>
+          </div>
+        </div>
+
+        <h3>Key Optimizations</h3>
+        <div class="concept-cards">
+          <div class="concept-cards__grid">
+            <div class="concept-card">
+              <div class="concept-card__header">
+                <h4 class="concept-card__title">Predicate Pushdown</h4>
+              </div>
+              <div class="concept-card__body">
+                Push filters as close to the data source as possible to reduce the amount of data read and processed.
+              </div>
+              <div class="concept-card__tags">
+                <span class="concept-card__tag">Filter Early</span>
+                <span class="concept-card__tag">Reduce I/O</span>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-card__header">
+                <h4 class="concept-card__title">Column Pruning</h4>
+              </div>
+              <div class="concept-card__body">
+                Only read columns that are needed for the query, dramatically reducing memory usage and I/O.
+              </div>
+              <div class="concept-card__tags">
+                <span class="concept-card__tag">Select Only Needed</span>
+                <span class="concept-card__tag">Reduce Memory</span>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-card__header">
+                <h4 class="concept-card__title">Constant Folding</h4>
+              </div>
+              <div class="concept-card__body">
+                Evaluate constant expressions at compile time rather than runtime. For example, <code>WHERE age > 5 + 3</code> becomes <code>WHERE age > 8</code>.
+              </div>
+              <div class="concept-card__tags">
+                <span class="concept-card__tag">Compile Time</span>
+                <span class="concept-card__tag">Simplify</span>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-card__header">
+                <h4 class="concept-card__title">Join Reordering</h4>
+              </div>
+              <div class="concept-card__body">
+                Optimize the order of joins to minimize intermediate result sizes. Smaller tables are joined first when possible.
+              </div>
+              <div class="concept-card__tags">
+                <span class="concept-card__tag">Cost-Based</span>
+                <span class="concept-card__tag">Minimize Shuffles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">
+            💡 Catalyst Optimizer automatically optimizes your queries. Understanding it helps you write better Spark code.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section: AQE - Adaptive Query Execution
+           ============================================================ -->
+      <section id="aqe-optimization" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="aqe-optimization">☆</button>
+            <button class="topic-complete-btn" data-topic-id="aqe-optimization">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Adaptive Query Execution (AQE)</h2>
+
+        <div class="problem-card">
+          <div class="problem-card__icon">💡</div>
+          <div class="problem-card__title">Definition</div>
+          <div class="problem-card__body">
+            AQE can use runtime information to adapt and optimize execution plans during the query.
+          </div>
+        </div>
+
+        <!-- Flow Diagram -->
+        <div class="diagram-container">
+          <div class="diagram-container__title">AQE Optimization Flow</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;flex-wrap:wrap;padding:1.5rem 1rem;font-family:'JetBrains Mono',monospace;font-size:0.8125rem;">
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Initial Plan</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-bg-secondary,#f1f5f9);border:1px solid var(--color-border,#e2e8f0);border-radius:var(--radius-sm);">Execution</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-info-bg,#dbeafe);border:1px solid var(--color-info-border,#93c5fd);border-radius:var(--radius-sm);">Runtime Statistics</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-info-bg,#dbeafe);border:1px solid var(--color-info-border,#93c5fd);border-radius:var(--radius-sm);font-weight:600;">Adaptive Optimization</div>
+            <div style="font-size:1.25rem;">→</div>
+            <div style="padding:0.5rem 0.75rem;background:var(--color-success-bg,#dcfce7);border:1px solid var(--color-success-border,#86efac);border-radius:var(--radius-sm);">Improved Execution</div>
+          </div>
+        </div>
+
+        <h3>Key Features</h3>
+        <div class="concept-cards">
+          <div class="concept-cards__grid">
+            <div class="concept-card">
+              <div class="concept-card__header">
+                <h4 class="concept-card__title">Coalescing Post-Shuffle Partitions</h4>
+              </div>
+              <div class="concept-card__body">
+                Automatically combines small partitions after a shuffle to reduce overhead and improve utilization.
+              </div>
+              <div class="concept-card__tags">
+                <span class="concept-card__tag">Reduce Partitions</span>
+                <span class="concept-card__tag">Better Utilization</span>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-card__header">
+                <h4 class="concept-card__title">Converting Sort-Merge Joins to Broadcast Joins</h4>
+              </div>
+              <div class="concept-card__body">
+                If one table turns out to be small at runtime, AQE can switch from sort-merge to broadcast join for better performance.
+              </div>
+              <div class="concept-card__tags">
+                <span class="concept-card__tag">Join Strategy</span>
+                <span class="concept-card__tag">Runtime Switch</span>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-card__header">
+                <h4 class="concept-card__title">Optimizing Skew Joins</h4>
+              </div>
+              <div class="concept-card__body">
+                Detects and handles data skew by splitting large partitions and redistributing work more evenly.
+              </div>
+              <div class="concept-card__tags">
+                <span class="concept-card__tag">Skew Detection</span>
+                <span class="concept-card__tag">Load Balancing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Configuration</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code><span class="token-comment"># Enable AQE</span>
+spark.conf.<span class="token-fn">set</span>(<span class="token-str">"spark.sql.adaptive.enabled"</span>, <span class="token-str">"true"</span>)</code></pre>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">
+            💡 AQE is one of the most powerful features in modern Spark. It can dynamically optimize your query at runtime.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>PySpark Interview Guide — Understand PySpark. Visualize Spark. Prepare for Interviews.</p>
+    <p style="margin-top:.5rem;">© 2024 PySpark Guide. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,2540 @@
+#features of s3 : simple storage service
+
+
+#1) scalable storage
+#2) it can store structured, semi strucutred and unstructured data
+#3) Durability: 99.99999999% durable
+#4) data is highly protected.
+#5) it stores copies of your data across different regions to make sure its available and to avoid redundancy.
+#6) security:
+#Encryption: your data will tranformed to something that humans cant read or understand. we need a key to decrpt this data and only the person with the right persmission will have the key.
+#access control: IAM (identity access management) : we can monitor who can access , what can they access and we can restrict to file level. Bucket policies.
+#7) data lifecycle management: we can set up lifecycle policies to automatically transition data from one type of storage to another.
+#8) even notifications: s3 can send notification for when ever you create an object or delete an object or change an object. (SNS -simple notificaion service)
+#9) Cross-region replication (CRR): s3 can replicate objects across different regions which mean when one site goes down another can start working like nothing happened. Disaster recovery
+#10) logging and monitoring: when you enable logging and monitoring for s3  - cloudwatch. every click or every move or every action in the bucket recorded and if something goes this is where we can check what went wronga nd why ?
+
+
+#s3 classes:
+
+
+#1) s3 standard: when we need data all the time. or very often access: frequently access data, cost is higher.
+#retrieval time : alwaysa available
+
+
+#2) s3 Intelligent Tiering: automatically move data between 2 types of buckets frequent and infrequent depending on patterns.
+#retrieval time is milliseconds
+#moving data between standard and infrequent access it is cheaper and cost optimised.
+
+
+#3) s3 glacier: used for archival data and we might need the data from mins to hours.
+# retrieval time is 1-12 hours
+# cost is very low compared to standard
+
+
+#4) s3 glacier deep archive: data is rarely accessed.
+#retrieval time: 12 hours
+#cost : very low.
+
+
+#5) s3 one zone Infrequent access: infrequent access that is store only in one zone.
+#same Intelligent tiering
+#acces:  milliseconds
+#low storage costs cmpared to standard.
+
+
+#S3 Security:
+
+
+#encryption:
+#server side encryption: data can be encrypted automatically  stored into s3.
+#encryption happens on client machine before data is sent to the server
+#client manages the keys
+#already encrypted data enters s3 and server only stores it
+#Example: whatsapp
+
+
+
+
+#client side encryption:
+
+
+# The encryption happens on the sever after the data is recieved
+# sever or cloud provider manages the keys (AWS)
+# the data comes in plain text and then encrypted on the server.
+# Examples:
+# AWS S3 SSE, SSE KMS
+
+
+#SSE s3: encryption algorithm AES 256
+#ss3 - kms: uses aws key manangement service to manage encryption keys. easily audit it.
+#Dual-layer server-side encryption with AWS Key Management Service keys (DSSE-KMS).
+
+
+
+#intransit : data is encrypting during the transportation only.
+#options:
+
+
+
+#acces control:
+
+
+#bucket policies: json document where you can specify who can access what in the bucket and what can they do with that access.
+
+
+{
+  version": "2012-10-17",
+  "statement": [
+    {
+      "effect": "Allow",
+      "principal": { "user",'role', account or *" },
+      "action": "s3:GetObject" ,'putobject',
+      "resource": 'arn"aws"s3:::mybucket'
+}
+
+
+#iam policies:  identity access management: this can be done at bucket level but controlled centrally.
+
+
+#user : user level access.
+#group: finance or sales
+#role : RBAC : your permissions based on your role.
+#policies.
+
+
+#ACL: access control lists: will give read and write permissions at object and bucket level. custom way of managing permissions and aws suggest we use iam.
+
+
+
+#versioning:upgrade or fixing bugs: V1, v1.1, v1.2, v2  (upgrades, all new features)
+
+
+#we need to enable verisioning: any new object that i uploaded will have a versionid
+#we can cancel verisioning : the objects in the bucket will not have newer versions. older version will remain and depends on lifecycle on how long it will remain.
+
+
+#how does it work:
+
+
+#1) when we upload a new version of hte object to a bucket with versiioning enabled , s3 assigns a unique version id to hte object. if the same object name is uploaded again,
+#the new object replaces the previous one. , but both versions exist in the bucket with different version id's.
+
+
+#2) S3 will not overwrite an object but will create a new version with  a new version id. each version is identifiable using its id.
+
+
+mydata.csv v1.1
+mydata1.csv
+
+
+
+
+#delete:
+
+
+#Deleting a oject in a versioned bucket does not remove all versions of the object. it will apply a delete marker to the object. it can be retrieved back you need to delete the entire object permanently then
+# delete the delete marker.
+
+
+#permanently delete: specify the versionid of the object then delete it. if you delete the current version it will not delete the older versions.
+
+
+#if you need to restores a previous version of an object you can do so by retrieving it using its version id.
+
+
+
+#logging and monitoring:it captures information about every event in my system.
+
+
+
+#AWS cloudwatch we can integrate with s3 and we can monitor all transactions on s3. it inclides messages, errors , system activities and operational data.
+#cloudwatch events or event bridge
+
+
+#Types of logs:
+
+
+#application logs: logs produced by your application. database queries, exceptions etc.
+
+
+#system logs: gernerated by you operating system or hardware components.
+
+
+#access logs: logs that capture incoming request, response times and other metrics.
+
+
+#security logs: any event related to security or authentication and authorisation.
+
+
+#Monitoring: watching what is happening, alerts
+
+
+#MFA: multifactor authentication
+
+
+
+#Folder Structure: hey i m wokring wwith ecommerce data and i m getting 10 csv files from a sftp folder and 2 rest api integrations
+#to google analytics and facebook insights and 15 tables cming in from a jdbc connection to our internal database.
+#can you please orgnise a folder structure in s3 so that the data can be easily accessed.
+
+
+
+
+"C:\Users\DESKTOP\Downloads\raw\finance\csv\finance_07032026.xlsx"
+
+
+s3://your-bucket-name/
++-- raw_data/
+    FINANCE/
+
+
+¦  +--   csv_files/
+
+
+¦  ¦  +-- 2025-03-07_file1.csv
+¦  ¦  +-- 2025-03-07_file2.csv
+¦  ¦  +-- ...
+      JSON_files/
+
+
+    SALES/
+
+
+¦  +-- google_analytics/
+¦  ¦  +-- 2025-03-07_google_analytics_data.json
+¦  ¦  +-- ...
+¦  +-- facebook_insights/
+¦  ¦  +-- 2025-03-07_facebook_insights_data.json
+¦  ¦  +-- ...
+¦  +-- jdbc_tables/
+¦  ¦  +-- table1/
+¦  ¦  ¦  +-- 2025-03-07_table1_part1.csv
+¦  ¦  ¦  +-- 2025-03-07_table1_part2.csv
+¦  ¦  +-- table2/
+¦  ¦  ¦  +-- 2025-03-07_table2.csv
+¦  ¦  +-- ...
++-- processed_data/
+¦  +-- cleaned/
+¦  ¦  +-- 2025-03-07_cleaned_file1.csv
+¦  ¦  +-- ...
+¦  +-- transformed/
+¦  ¦  +-- 2025-03-07_transformed_file1.csv
+¦  ¦  +-- ...
++-- staging_data/
+¦  +-- intermediate/
+¦  ¦  +-- 2025-03-07_intermediate_file1.csv
+¦  ¦  +-- ...
++-- archive/
+¦  +-- 2025-03/
+¦  ¦  +-- archived_file1.csv
+¦  ¦  +-- ...
++-- metadata/
+  +-- sftp_file_manifest.json
+  +-- api_data_status.json
+  +-- jdbc_table_metadata.json
+
+
+
+filename = 'finance'+ datetime.now().strftime('%d%m%y') + '.csv'
+link = 'c://myfolder/finance/csv/' +filename
+
+#how will a AWS Account A share resources with AWS account B
+
+
+# 1) Account A will add bucket policy to trust Account B
+# 2) Account B create access point linked to account A bucket
+# 3) Account B add access point policy granting IAM roles
+# 4) Account B attach the iam policy to the specific role
+# 5) account B use accoutn point ARN instead of bucket name
+
+
+
+#ETL vs ELT
+#Extract tranform and load
+#Extract load and transform: The tranformation happens at the destination so its faster. large amounts of data to be loaded at once then we use ELT.
+
+
+#when:0
+# clean and validated data before loading to warehouse
+# complex transformations
+# small to medium sized data
+
+
+#on premesis data: ETL
+#complex preload validation needed ETL
+
+
+
+#ELT:
+# no need to clean and validate data before loading to warehouse
+# simple transformations
+# large amounts of data to be loaded at once
+
+
+# large amount of data which needs less complex tranformation ELT (cloud)
+# faster for real time analytics
+# cloud based ELT tools: snowflake, databricks, bigquery
+
+
+#pros and cons
+#faster
+#needs lot of storage in warehouse
+#highly scalable
+
+
+#etl: extract tranform and load
+# the tranformation happens before loading to datawarehouse
+#it is mainly used with OLTP databases , where the data is more normalised
+#if we have a requirement to keep raw data before loading clean data.
+
+
+#pros and cons
+#slower
+#less storage needed
+#limited scalability.
+
+
+#versions:
+Glue: 4
+python : 3.11 - 3.13
+spark: 3.3
+pandas : 1.3
+
+
+
+#AWS Glue: ETL tool( extract tranform and load): large scalable data (we can use pyspark in glue).
+#serverless: no backend strucutre to be maintained.
+
+
+#Components:
+#Glue can import data from multiple sources:
+
+
+#1) Aws s3: datalake (csv, json, parquet, avro etc)
+#2) JDBC connections: AWS RDS, redshift, mysql, postgressql, sql server.
+#3) amazon dynamodb: Nosql database
+#4) AWS kinesis data streams: real time data source.
+#5) rest api, sftp
+
+
+#classifiers: JSON, CSV, parquet etc
+
+
+#AWS data catalog:
+#metadata: data about data (datatype, size, format)
+
+
+#Centralised metadata repository: metadata store that will hold all definitions of the data in the source. it stors the information about data sources, tables and data schemas.
+
+
+#automatic Schema discovery: AWS glue can automatically discover and catalog data schemas from variaous data sources. Crawlers
+
+
+#schema registry: is part of your data catalog it helps in managing schema versions. it will store and help evolve the schemas.
+
+
+#schema registry modes:
+backward: new schema can read old data
+forward :old schema can read new data
+full: both forward and backward
+none: no compatilibity checks
+
+
+
+
+
+#dynamicframes(glue): schema is flexible, we can also convert to dataframes and vice versa. Dataframes are strict on schema its not dynamic but dynamicframes are dynamic.
+#data frames: schema is fixed and strict.
+#dynamic frames: schema is flexible.
+
+
+order
+id | price
+101|100
+102|200
+
+
+
+orderid| price
+103|'300'
+104|na
+
+
+some values are integer and some values are string  some are invalid
+
+
+
+spark df > it will fail or we need use manual schema (structtype , structfield)
+
+
+
+dynamicframe can handle this automatically.
+
+
+
+orderid | amount
+101| 100
+102| 200
+103| 300
+104 | NA
+
+
+dynamic frame will create a something called choice type
+
+
+amount > int or string > it will not break the pipeline
+
+
+dyf = dyf.resolvechoice(specs = [(amount, cast:int)])
+
+
+
+df = dyf.toDF()
+
+
+raw data > glue jobs read > dynamicframe is created > resolve the schema issues> tranform data >convert to dataframe >write to s3
+
+
+
+
+
+use case 2:
+
+
+#reading data into glue
+
+
+#10 csv sales file
+#google analytics file
+#databse jdbc
+
+
+Automatically handle schema changes
+
+
+file1
+orderid | amount
+
+
+file2
+orderid | amount | discount
+
+
+dynamic frame will automatically merge the schema and make it single schema
+
+
+
+schema flexible
+dynamic frames: yes
+dataframes : no
+
+
+null type toleracnce : it more acceptable with null or missing values.
+dynamic frame: yes
+dataframe : no
+
+
+nested data : json:
+dynamic frame: yes (builtin)
+dataframe : no (we manually to flatten, json normalize)
+
+
+error handling:
+dynamic frames: supports errorrecords and errormapping.
+dataframes: not supported (manually set up error handling using try except)
+
+
+
+can i convert df to dyf?
+#convert dynamicframe to df
+df = dyf.toDF()
+
+
+#dataframe to dynamicframe
+dyf = dynamicFrame.FromDF(df,gluecontext,'mydynamicframe')
+
+
+
+
+
+
+#glue has dpu's
+1 DPU : 4cpu's + 16 GBRAM
+
+
+number of workers = 10
+worker types: g.1x
+10 executors
+each executor has 1 dpu
+
+
+G.1x : 1DPU : 4cpus 16gb ram : lightweigth or small to medium jobs : <10 | 20gb | simple tranformations | no heavy joins | less shuffles
+dailycsv > parquet conversion
+schema cleanup
+data quality checks
+dimenstion tables
+simple aggregation
+
+
+
+g.2x : 2 DPU : heavy joins : 8vcpus | 32 gbram | 50-300gb
+
+
+joins on large databases
+agregrations and groups by
+lot of shuffling (wide tranformations)
+
+
+examples:
+orders and customer joins
+deduplication
+
+
+
+g.4x : 4 DPU per worker : very large databases : 16 cpus and 64gb ram | 300-1tb
+wide tables
+heav shuffles
+skewed data on these tables
+
+
+examples:
+log data
+google clickstream data
+too many window functions
+
+
+g.8x : 8 DPU : tera byte scale | 32cpus, 128gb ram
+tb scale
+too many joins
+too much skewness
+too much shuffling
+
+
+examples:
+large log files
+real time logs
+huge data from legacy systems
+
+
+example:
+data :500gb everyday
+heavy joins
+multiple aggregrations
+
+
+worker type: g.2x
+number of workers = 20
+total DPU's : 40
+
+
+enable auto scaling = True
+add executors when needed automatically
+remove idle ones
+
+
+
+
+
+#how to trigger a crawler
+
+
+#if the data is coming at 12am every midnight , we will set the crawler to run at 12:30 (time based trigger)
+#awsglue> crawlers>edit your crawler> under schedule > run on schedule >set daily schedule like cron (30 0 * * ? * ) 12:30am
+
+
+pros
+#simple to setup
+#fully managed (AWS)
+
+
+cons:
+#not real time
+#can crawl even if data didnt come.
+
+
+#s3event+ lambda trigger (event based)
+
+
+set an s3 event notification to trigger a lambda function
+lambd will call start_crawler() to launch the crawler
+
+
+how?
+#create a s3 event notification
+#trigger on put to 'bucketname'
+
+
+#Lambda is used to trigger the crawler.
+goto lambda function
+crate a lambda function
+assign IAM
+
+
+#s3 bucket
+# goto s3 bucket in the aws console
+# properties
+# event notifications
+# create event notification
+
+
+# name: trigger_glue
+# event type: put
+# bucket: bucketname
+# desintation: lambda function
+# choose the lambda from your list
+# save
+
+
+#give s3 persmission to invoke lambda
+
+
+
+#second method:
+# goto lambda function
+# create lambda function
+# event: object created event
+# s3 bucket: select the s3 bucket that you are monitoring
+# event type: put
+# save
+
+
+
+
+
+
+#Create a lambda (object created event)
+import boto3
+
+
+def lambda_handler(event,context):
+ glue = boto3.client('glue')
+ glue.start_crawler(Name='name of the crawler')
+ return {
+   'statusCode': 200,
+   'body': json.dumps('Crawler started successfully')
+ }
+
+
+
+
+#status codes:
+1 series: informational
+2 series: success
+3 series: redirection
+4 series: client error
+5 series: server error
+
+
+
+#pros:
+# realtime
+# only runs if data is uploaded
+# event driven not time driven
+
+
+
+#Glue crawler:
+#crawlers scan the data source to infers schema and create and update tables in the glue data catalog
+#Schema Evolution: it will fix the change of schema from source data and crawlers will automatically update the catalog based on the schema changes.
+#crawlers can be scheduled to run  at regular intervals , ensuring the metadata is always up to date.
+
+
+
+#AWS glue studio: it is drag and drop tool to create jobs.
+
+
+#AWS Glue etl jobs: (glue jobs): can be written in python, scala, pyspark.
+#extract from source
+#tranform data using our tranformation logic (filtereing, joining, deduplication, fillna, dropna, joins, aggregrated columns)
+#load the data as well to our final destination (s3, redshift, postgressql, mysql)
+
+
+from aws.context import GlueContext
+from aws.job import Job
+from pyspark.context import SparkContext
+from awsglue.dynamicFrame import DynamicFrame
+
+
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init
+
+
+dyf = glueContext.create_dynamic_frame.from_catalog(database= 'landingdb',
+                          tablename='sales')
+
+
+#transformations
+newdyf = dyf.dropDuplicates()
+df = newdyf.toDF()
+df = df.dropna
+df = df.withColumn('region',upper(df['region']))
+
+
+#write the data to final s3
+
+
+df.write.parquet('finals3bucket', index= False)
+
+
+job.commit()
+
+
+#s3 event notification > put event > invoke the lambda > the lambda will trigger the crawler using boto3> glue will emit events when crawler changes state to success>
+#we will use cloudwatch events (eventbridge) and trigger a gluejob as soon as the crawler event is success.
+
+
+AWS console> eventbridge > rules>create rule
+
+
+target > glue job (select the glue job u want to run)
+
+
+provide iam roles to read the glue catalog, access to read /write to s3.
+
+
+
+#option 2
+#AWS Glue> workflows
+
+
+# create a workflow
+# add the crawler >first step
+# add you glue job as the next step
+# add a notification after
+
+
+lambda trigger after crawler
+
+
+#cloudwatch events (eventbridge) > it will monitor crawler completion and start glue job.
+
+
+
+#glue jobs: automatically scales based on data size and it is serveless.
+#pyspark support
+#job bookmarks: it will process data incrementally it will keep track of data thats been processed and it will only tranform data that has not been processed.
+
+
+#job bookmarks:  keep track of last processed record in a hidden table inside the glue data catalog. if timestamp is part of your data , it will remember the last processed timestamp.
+
+
+#Incremental loading: mainly used for incremental loads, it will use the bookmarks to fetch the records that havent been processed.
+
+
+#CDC: Change data capture : AWS DMS> it will update existing data in target or increment new data in the target. timestamp columns : created_at, updated_at
+
+
+#glue automatically manages the bookmarks for you. updating the bookmark state after each run is managed automatically.
+
+
+#Job parameters> enable job bookmarks.
+
+
+#dynamic frames:  core feature of glue.
+#1) schema is flexible: dynamic frames will handle the evolving schema. we use this when the scchema is very dynamic in real world pipelines.
+#2 it automatically infers the schema of incoming data and even if the data comes from multiple sources or if the schema is inconsistent.
+
+
+#Example
+#we are getting
+#Customer orders : a set of csv files from customers table
+#prodcut inforation: json files with nested data
+#customer activity logs : raw log data from the website.
+
+
+#load the data into aws glue
+#clean
+#join the data
+#store the final data into redshift.
+
+
+import boto3
+from awsglue.context import GlueContext
+from pyspark.context import SparkContext
+sc = SparkContext()
+gluecontext = GlueContext(sc)
+
+
+ordersdf = gluecontext.create_dynamic_frame.from_options(
+  connection_options = {'paths':['s3//path/orders/']}, format = 'csv'
+)
+
+
+#ordersdf = spark.read.csv('path',header=True, inferSchema=True)
+
+
+productsdf = gluecontext.create_dynamic_frame.from_options(
+  connection_type = 's3',
+  connection_options = {'paths':['s3//path/products/']}, format = 'csv'
+)
+
+
+activitydf = gluecontext.create_dynamic_frame.from_options(
+  connection_type = 's3',
+  connection_options = {'paths':['s3//path/activity/']}, format = 'json'
+)
+
+
+gluecontext.write_dynamic_frame.from_options(
+  finaldf, connecction_type = 'redshift',
+  connection_options= {
+    'url':jdbc,'user':username, 'password':password, dbtable:tablename
+  }
+)
+
+
+
+import pandas
+#lambda: Severless compute service provided by aws. it will run code and no need to manage servers. JAVA,Scala,python .it runs functions on the lambda environment.
+#Mainly used for triggers.
+#event based and time based.
+#event driven:  it executes code in response to triggers from components like s3, dynamodb, glue, cloudwatch events etc.
+#serverless: we dont need to manage any servers, aws handles everything.
+#auto scaling: it automaticaly scales the function based on incoming requests.
+#It supports python, node js, java, c#, go
+#statetless: it is independent and isolated and is not influencing an upcoming event.
+
+
+#layers: predefined packages that can be loaded to lambda to use withing lambda : eg. pandas layers
+#we can also load custom packages through aws cli(command line interface)
+
+
+
+#limitations of lambda
+# the maximum execution timeout is 15 minutes.
+# max memory allocation of 10GB
+# the deployment package in lamdda (code, libraries, dependencies) is limited to 50mb and if deployed through s3 250mb.
+# concurrency limit: by default lambda can have 1000 concurrent connections per region (can be increased if needed through aws contacts)
+# cold start latency: when i start lambda funtion for the first time it will take time to initiate.
+
+
+#how to invoke lambda using boto3.
+
+
+#boto3: the python library used to interact with aws components.
+
+
+import boto3
+
+
+lambda_client = boto3.client('s3', region_name = 'us-east-1')
+
+
+
+response = lambda_client.invoke(
+  FunctionName = 'my_lambda_function',
+  InvocationType = 'RequestResponse'
+)
+
+
+reponse_payload = json.loads(response['Payload'].read().decode('utf-8'))
+print(response_payload)
+
+
+
+
+#invoke a glue job using lambda function
+
+
+
+
+#event and context : gie yous incformation about the trigger and the environment it is running in.
+#it has all the information about the trigger for eg
+#data from an s3 file upload
+
+
+'''
+{
+ "Records": [
+  {
+   "s3": {
+    "bucket": {
+     "name": "my-bucket"
+    },
+    "object": {
+     "key": "data/file.csv"
+    }
+   }
+  }
+ ]
+}
+
+
+
+
+bucketname = event['records'][0]['s3']['bucket']['name']
+key = event['records'][0]['s3']['object']['key']
+'''
+#context : it is passed to the function automatically by aws during runtime.
+#function name
+#memory limit
+#remaining execution time
+#aws request id
+
+
+import boto3
+import json
+
+
+def lamda_handler(event, context):
+ glue_client = boto3.client('glue', region_name = 'us-east-1')
+
+
+ job_name = 'my_glue_job'
+
+
+ jobarguments = {
+   '--arg1': 'value1',
+   '--arg2': 'value2'
+ }
+
+
+ response = glue_client.start_job_run(
+   JobName = job_name,
+   Arguments = jobarguments
+ )
+
+
+ return {
+   'statuscode': 200,
+   'body': json.dumps('Glue job started successfully')
+ }
+
+
+#SCD Types: Slowly changing dimensions
+
+
+SCD 0) the table will not allow us to update. the table is fixed and will not allow to overwrite.
+
+
+SCD 1) i will write it on top of what we have
+
+
+SCD 2) I will create a new row i will add start date and end date and flag
+
+
+id | name   | address   | startdate| enddate| flag
+1 | indumati | 123 mg road | 01012025 | 03082025| N
+1 | indumati | 234 mg road | 03082025 | 31129999| Y
+
+
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import lit, current_date, col,  when
+from pyspark.sql.types import *
+
+
+
+spark = SparkSession.builder.appName('myapplication').getOrCreate()
+
+
+customerdfschema = ['id','name','address']
+
+
+newdf = customerdf.withColumn('startdate',current_date()).withColumn('enddate',lit('9999-12-31')).withColumn('FLAG',lit('Y'))
+
+
+
+SCD 3) i will add another new column and track previous or historical data.
+
+
+id | name    | address      | job title   |  previous job title
+1  |  indumati | 123 abc road  | lecturer |      data engineer |
+
+
+SCD 4) i will track the historical data on  different table.
+
+
+SCD 6) this is hybrid model which is a combination of 1 + 2 + 3
+
+
+# how did you handle incremental loads in your project?
+
+
+#1 we enabled job bookmarks which will only process the data that has not been processed yet and this was monitored based on timestamp column or the id column.
+
+
+
+
+#2 the files were saved in our landing bucket. we used a directory structure based on timestamps (yyyy_mm_dd) which helped in data management.
+
+
+#3 set up a system to indentiry which files are new or updated.
+
+
+#4)  using timestamp(lastupdated/ modified date)
+#store the max timestamp processed in config table
+#fetch only rows where lastupdated = max(timestamp)
+
+
+#pyspark
+lastprocessedtime= max(col('lastupdated'))
+df = spark.read.jdbc(sourceurl, 'table', properties = properties)
+df = df.filter(df['lastupdated'] == lastprocessedtime)
+
+
+#survive | sustain | scale | leave
+
+
+
+#CDC : change data capture
+#AWS DMS - data migration service
+
+
+#CDC is a technique that will identify and capture any changes (insert,update,delete) in the source database
+#avoid full table scan
+#it will be almost real time sync
+#ideal for incremental loads
+
+
+
+#AWS DMS> are trying to migrate data from one source to another.
+Step1: Source DB (mysql)
+Step 2: Change capture (AWS DMS): extract changes and move it to s3
+
+
+1) DMS source endpoint (mysql connection details)
+2) DMS target endpoint (s3 details)
+3) enable CDC mode (start with full load +CDC, CDC only)
+4) the data can be configured to json csv or parquet format
+
+
+
+AWS s3: landing zone
+Glue : will extract using crawlers
+Redshift : load the data to redshift
+
+
+
+#done using:
+
+
+#1 file timestamp: check for files with timestamps greater than the last load time.
+#2 we can also do this by having appropriate naming conventions.
+#3 we also handled this by using lambda which got triggered by new files in s3.
+#4 we would trigger the files based on our naming convention and prefix and suffix. mydata_01012025.json
+#5 WE also used CDC (change data capture) by ysing tools like aws dms to capture only the changed rows in the source database. the changes was pushed in redshift.
+#6 We used the upsert method (merge) in redshift to update existing rows and load new rows of data.
+
+
+##statucode
+#100: informational
+#200: success
+#300: redirection
+#400: client error
+#500: server error
+
+
+# prompt: print all status code
+
+
+status_codes = {
+  100: "Informational",
+  200: "Success",
+  300: "Redirection",
+  400: "Client Error",
+  500: "Server Error"
+}
+
+
+for code, description in status_codes.items():
+ print(f"{code}: {description}")
+
+
+
+ #medallion architecture
+ #bronze: raw layer (unstructure, semi, structured)
+ #silver: cleaning and enriching data (join, filter, cleaning)
+ #gold:answring business questions:  aggregration, daily revenue, total sales by region, total salary by department.
+
+
+#redshift: Datawarehouse: final tranformed data after all aggregations is stored in datawarehouse and it is used for analytical purposes.
+#Redshift | snowflake
+
+
+# Fully managed petabyte scale datawarehouse service which is part of aws.
+
+
+#Architecutre
+#leader node: manges all communications between client and the cluster.
+#coordinates query processing, compiles and optimises the query plan.
+#distributes the data across compute nodes. The leader node does not store data but handles metadata and query optimisation.
+
+
+#compute node: these nodes store data and execute the queries. a redshift cluster can have one or more compute nodes,
+#these nodes will handle the actuial procesing of queries. Each compute node is divided into slices with each slice handling a piece of the data.
+
+
+# Each slice stores a portion of the data and handles a portion of the query workload.
+
+
+#mpp archiecture: massively parallel processing.
+
+
+#it also uses columnar storage.
+
+
+#redshift: it support multiple databases within a single cluster.
+
+
+#psycopg2 is used to interact with redshift for jdbc connections or we can use boto3.
+
+
+
+#redshift also uses columnar storage. (like parquet, orc)
+#read optimised, run big data analytics very efficiently. (OLAP)
+
+
+
+#parallel query execution:
+#redshift divides queries into smaller parts that can be execcuted in parallel across multiple nodes.
+
+
+#Massively parallel processing: it uses mpp architecture. each node in the cluster works independently to perfom the query execution in parallel. optmises the query performance.
+
+
+#Redshift spectrum: like athena (servery sql enginer). We can run sql queries ddirectly against data stored in s3 without importing the data into redshift.
+#large exabytes of data stored in your datalake
+
+
+Athena vs redshift:
+
+
+Athena: serverless, fully managed | query data directly from source for eg: s3, glue data catalog,rds | mainly used for adhoc analysis or validations
+
+
+Redshift spectrum : it is extension of redshift | servers are managed in redshift (clusters) | when we want to mix redshift data with s3 data.
+
+
+for eg: join tables in s3 with tables in redshift. | benefits is joining data from redshift without bringing the data into redshift.
+
+
+#Features of redshift:
+#highly scalable.
+#columnar storage
+#data compression
+#sql query
+#mpp architecture (massively parallel processing)
+#cost effective (redshift spectrum)
+#cross database integration
+#parallel processing
+#automatic query optimisation
+
+
+
+
+#Limitations
+#it is not meant for small data
+#it does not support real time data streaming
+# it can be expensive depending on the size the data
+
+
+
+
+#data distribution:
+#when we push the data the data is distributed based on 3 primary methods
+
+
+#1) key based distribution : data is distributed to nodes and slices based on a specific column. easy to perform joins .
+#When we are frequently joining data or frequently used data.
+
+
+#2) even distribution : data is distributed evenly accross all slices. when we dont hve a key column to distribute on.
+
+
+#3) all distribution: i will copy the entire table in to eery slice. when the data is small enough to fit into slices. (joins happen within in the slice which mean no shuffling)
+
+
+
+#sort keys:
+#it define the order in which data is stored on the disk within each compute node.
+
+
+#types:
+
+
+#compound sort key:
+#consists of one or more columns with the data sorted in teh order the columns are listed.
+
+
+#Orders table: orderid | orderdate | productid | region| amount
+#sortkey(orderdate, productid, region)
+
+
+#effective when queries often filter or sort on the leading columns of sort key.
+
+
+
+#interleaved sort key: sort the data when we dont want to prioritse a specific column but sorts the data in balanced order.
+#best used multipole columns filtering
+
+
+#sales table : frequently query: region, orderdate, productid
+
+
+#mixed data with no priority of sorting then i will use interleaved otherwise we ll use compound.
+
+
+
+
+create table sales(
+  orderid bigint,
+  custid bigint
+  orderdate date,
+  amount decimal(10,2)
+)
+distkey(customerid)
+sortkey(orderdate)
+interleaved sortkey(orderdate, customerid)
+;
+
+
+#optmisation  techiques in redshift:
+
+
+#1) using the right distribution style
+#2) proper use of sort keys.
+#3) avoid select *
+#4) predication pushdown (applying where)
+#5) vaccum and analysing : analyze command to update the statistics to help the query planner optimise the query orders. vaccum to claim back all unused space
+#6) avoid unecessay join
+#7) inner join instead of left join
+#8) column pruning (same as avoiding select * , which is selecting columns that is needed)
+#9) paritioning data
+
+
+#what
+#why
+#when
+#how
+#where
+#whynot
+
+
+
+i am getting 100gb data every day build an architecture
+
+
+what are datasource?
+mysql
+API
+
+
+tranformation: i dont know.
+
+
+when: mid night everyday
+
+
+schema evolution: maybe
+
+
+final destination : redshift
+
+
+we dont have any budget constraints.
+
+
+sales data.
+
+
+
+sql > dms > incremental loading> CDC > s3
+API> request library> s3 (datalake | landingzone)
+
+
+event notifation >lambda function>trigger crawler
+
+
+crawler> metadata catalog>cloudwatch notification> lambda> glue jobs
+
+
+glue jobs> tranformation> s3bucket
+
+
+cloudwatch > logging and monitoring
+
+
+s3> s3keysensor>s3toredshiftoperator.
+
+
+orchestration> apache airflow.
+
+
+
+
+im getting 2 gb data from mysql
+
+
+same dms> s3>lambda (pandas)>s3>apache airflow (step functions)
+
+
+
+
+
+
+#Apache airflow: Orchestration tool. it open source.
+#scheduling, Workflow management, monitoring
+#we can manage complex data pipline
+
+
+
+
+#operators and sensors
+
+
+#operators: it is used for a specific task.
+#python operator: it is used to run python functions, trigger a python process, run a data processing script
+#bash operator : running bash commands (used to interact with core window commands) (ls(list all files) | cd | mkdir | cp | mv |rm )
+#s3toredshiftoperator: it moves data or files from s3 to redshift.
+#sql operator: to interact with sql objects.
+#emailoperator: used to send emails or used for notifications. It will send a success or failure notification after dag run
+#dummyoperator: it is dummy, does not do anything and is a placeholder. to show start of process or end of a process.
+
+
+#sensors :
+#filesensor: waits for a file to appear in a location
+#httpsensor: waits for http endpoint to become available.
+#sqlsensor: waits for a sql qwuery to finish running and give desired results.
+#s3keysensor: waits for a key to exist in a s3 bucket.
+
+
+
+dummy >> (12am) 60sec retries(3) filesensor(True) >>email operator>> (get the files) pythonoperator (read the file into pandas) df.write()>>
+s3keysensor(to monitor final s3 bucket) True>>s3toredshiftoperator>>dummy
+
+
+
+dummy>>pythonoperator(jdbcconnection, pysftp connection, request library)>>s3keysensor(final s3 bucket)>>s3toredshiftoperator>>dummy
+
+
+
+
+
+
+
+#hooks: easy access to 3rd party tools.
+#connect with postgres: postgreshook
+#mysqlhook
+#oraclehook
+#jdbchook
+
+
+
+
+
+#It allows u to execute sql queries and fetch data and perform database operations.
+
+
+#Xcom: cross communication : exchange data between tasks or operators
+#xcompush: send data and xcompull: import
+
+
+#DAG is a collection of tasks.
+
+
+#actual project workflow
+
+
+
+
+#pythonoperator
+
+
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
+from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
+from datetime import datetime, timedelta
+import pandas as pd
+import json
+import pysftp
+import requests
+
+
+
+default_args = {
+  'owner': 'airflow',
+  'depends_on_past': True,
+  'start_date': datetime(2026, 8, 4),
+  'retries': 3,}
+
+
+def extractfromjdbc(**kwargs):
+ df= pd.read_jdbc(sourceurl, 'table', properties = properties)
+ df.drop_duplicates(inplace = True)
+ df.dropna(inplace = True)
+ kwargs['ti'].xcom_push(key = 'jdbc_data', value = df.to_json()
+
+
+
+def extractfromsftp(**kwargs):
+ with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_username, password=sftp_password) as sftp:
+  sftp.get(sftp_remote_path, s3temppath)
+
+
+def extractfromapi(**kwargs):
+ response = requests.get('https://api.example.com/data')
+ df = pd.read_json(response.text)
+ df.write_csv(s3location)
+
+
+#s3keysensor
+
+
+
+#s3toredshiftoperator
+
+
+def loadtoredshift(**kwargs):
+ s3_to_redshift_task = S3ToRedshiftOperator(
+   task_id = 'load_to_redshift',
+   schema = 'myschema',
+   table = 'redshift table',
+   s3bucket = 'mybucket',
+   s3key = 'jdbc_data.parquet',
+   redshift_conn_id = 'redshift_conn',
+   aws_conn_id = 'aws_conn',
+   copy_options = ['parquet']
+ )
+ s3_to_redshift_task.execute(context = kwargs)
+
+
+
+dag = DAG(
+  default_args = default_args,
+  dag_id = 'my_dag',
+  schedule_interval = '@daily' # 0 0 * * * (daily midnight)
+)
+
+
+extract_jdbc_task = PythonOperator(
+  task_id = 'extract_from_jdbc',
+  python_callable = extractfromjdbc,
+  dag = dag
+)
+
+
+extract_api_task = PythonOperator(
+  task_id = 'extract_from_api',
+  python_callable = extractfromapi,
+  dag = dag
+)
+
+
+load_s3_task = PythonOperator(
+  task_id = 'load_to_s3',
+  python_callable = loadtos3,
+  dag = dag
+)
+
+
+load_redshift_task = PythonOperator(
+  task_id = 'load_to_redshift',
+  python_callable = loadtoredshift,
+  dag = dag
+)
+
+
+dummy>>pythonoperator>>s3keysensor>>s3toredshiftoperator
+
+
+
+
+
+
+#extract data from a jdbc connection and api  and then move the file to a s3 bucket and then from there to redshift.
+
+
+
+#create a dag so we can define the tasks
+
+
+#extract data from database : jdbc: jdbchook, pythonoperator (code to connect sql database using jdbc connection)
+#move the file to s3 bucket : python operator (df.write(s3 location))
+#move the file to redshift : s3toredshiftoperator
+
+
+
+#import dag
+#import pythonoperator
+#import s3toredshiftoperator
+#import datetime, timedelta
+#import pandas
+#import json
+
+
+
+dummy>>mysqlhook>>sqloperator>>sqlsensor>>python operator>>s3keysensor>>s3toredshiftoperator>>pythonoperator>>emailoperator>>dummy
+
+
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.http.sensors.http import HttpSensor
+from aiflow.providers.postgres import postgreshook
+from airflow.providers.amazon.aws.transfers.s3 import s3hook
+from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
+from datetime import datetime, timedelta
+import pandas as pd
+import json
+
+
+properties = {
+  url = 'myurl',
+  user = 'myuser',
+  password = 'mypassword',
+  driver = 'mydriver'
+  host= 'myhost'
+}
+
+
+#option 1
+def extractfromjdbc(**kwargs):
+ hook = PostgresHook(postgres_conn_id = 'my_postgres_conn')
+ sql = 'select * from employee'
+ df = hook.get_pandas_df(sql)
+ kwargs['ti'].xcom_push(key = 'jdbc_data', value = df.to_json())
+
+
+#option 2
+def extractfromjdbc(**kwargs):
+ df= pd.read_jdbc(sourceurl, 'table', properties = properties)
+ df.drop_duplicates(inplace = True)
+ df.dropna(inplace = True)
+ kwargs['ti'].xcom_push(key = 'jdbc_data', value = df.to_json()
+
+
+#option1
+def extractfromapi(**kwargs):
+ #api methods: put (update the entire table. ), patch (update a single col or row), post(send the new data to the database), get (extract data from api endpoint)
+ api_hook = HttpHook(http_conn_id = 'api connection url', method='GET')
+ response = api_hook.run()
+ kwargs['ti'].xcom_push(key = 'api_data', value = response.text)
+
+
+#option2
+import requests
+def extractfromapi(**kwargs):
+ response = requests.get('https://api.example.com/data')
+ kwargs['ti'].xcom_push(key = 'api_data', value = response.text)
+
+
+#option3
+import requests
+def extractfromapi(**kwargs):
+ response = requests.get('https://api.example.com/data')
+ df = pd.read_json(response.text)
+ df.write_csv(s3location)
+
+
+
+
+def loadtos3(**kwargs):
+ ti = kwargs['ti']
+ jdbc_data = ti.xcom_pull(task_ids = 'extract_from_jdbc', key = 'jdbc_data')
+ api_data = ti.xcom_pull(task_ids = 'extract_from_api', key = 'api_data')
+
+
+ s3_hook = S3Hook(aws_conn_id = 'aws_conn')
+ jdbc_data.to_csv(jdbcfile)
+ s3_hook.load_file(jdbcfile, 'my_bucket', 'jdbc_data.csv')
+ api_data.to_csv(apifile)
+ s3_hook.load_file(apifile, 'my_bucket', 'api_data.csv')
+
+
+
+
+
+def loadtoredshift(**kwargs):
+ s3_to_redshift_task = S3ToRedshiftOperator(
+   task_id = 'load_to_redshift',
+   schema = 'myschema',
+   table = 'redshift table',
+   s3bucket = 'mybucket',
+   s3key = 'jdbc_data.parquet',
+   redshift_conn_id = 'redshift_conn',
+   aws_conn_id = 'aws_conn',
+   copy_options = ['parquet']
+ )
+ s3_to_redshift_task.execute(context = kwargs)
+
+
+#Define the DAG
+
+
+Depends on past :
+jan1 : success
+jan2: failed
+jan3: will not run
+
+
+
+default_args = {
+  'owner': 'airflow',
+  'depends_on_past': True,
+  'start_date': datetime(2026, 3, 25),
+  'retries': 3,}
+
+
+#cron job
+
+
+dag = DAG(
+  default_args = default_args,
+  dag_id = 'my_dag',
+  schedule_interval = '@daily' # 0 0 * * * (daily midnight)
+)
+
+
+extract_jdbc_task = PythonOperator(
+  task_id = 'extract_from_jdbc',
+  python_callable = extractfromjdbc,
+  dag = dag
+)
+
+
+extract_api_task = PythonOperator(
+  task_id = 'extract_from_api',
+  python_callable = extractfromapi,
+  dag = dag
+)
+
+
+load_s3_task = PythonOperator(
+  task_id = 'load_to_s3',
+  python_callable = loadtos3,
+  dag = dag
+)
+
+
+load_redshift_task = PythonOperator(
+  task_id = 'load_to_redshift',
+  python_callable = loadtoredshift,
+  dag = dag
+)
+
+
+#task dependencies
+#>>bitwise operators: which is used to define dependencies.
+
+
+extract_jdbc_task >> load_s3_task
+extract_api_task >> load_s3_task
+load_s3_task >> load_redshift_task
+
+
+
+'''
+task1
+task2
+task3
+task4
+
+
+task1 >> [task2 , task3] >> task4
+'''
+[extract_jdbc_task,extract_api_task]>>load_s3_task>>>load_redshift_task
+
+
+
+#api lambda
+#python operator
+#s3toredshiftoperator
+
+
+
+
+
+#sending files (finance)
+#dump the files to a folder (sftp folder)
+#email ingestions (sftp folder)
+#collect files to s3 (python operator > pysftp lib)
+#api (lambda)
+
+
+#create a python operator to extract data from sftp using pysftp, from internal database using jdbc connection, rest api using request library.
+#once the data has been extracted push the data into s3 using bash operator
+#once the data has reached our final bucket use s3toredshift operator and move the data to redshift using copy command. Also use s3 keysensor to sense the data that is coming to our final s3 bucket.
+
+
+#Store all variables or credentials > admin> varaibles> create > s3_key
+#connections> admin>connections>fill the connections  (SFTP/JDBC/AWS)
+
+
+from airflow import dag
+pythonoperator, bashoperator, s3keysensor, s3toredshiftoperator
+httpsensor, datetime
+pandas
+json
+
+
+
+
+
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.aws.operators.s3_to_redshift import S3ToRedshiftOperator
+from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.providers.http.hooks.http import HttpHook
+from airflow.operators.bash import BashOperator
+
+
+import pysftp
+import requests
+import json
+from datetime import datetime
+
+
+
+
+#s3 redshift connection details
+
+
+s3_bucket = 'bucketname'
+s3finalkey = 'finaldata/data.csv'
+s3temppath= 'tmp/data.csv'
+
+
+
+redshifttable = 'mytable'
+redshiftschema ='public'
+redshiftconnid = 'redshift'
+
+
+
+#sftp connection details
+sftp_host = 'sftp.example.com'
+sftp_port = 22
+sftp_username = 'username'
+sftp_password = 'password'
+sftp_remote_path = '/path/to/remote/file.csv'
+
+
+
+#jdbc connection details
+jdbc_driver = 'path/driver.jar'
+jdbc_url = 'jdbc:db://hostname:port/dbname'
+jdbc_username = 'username'
+jdbc_password = 'password'
+jdbc_query = 'select * from mytable'
+
+
+#api details
+apiurl  = 'https://api.example.com/data'
+api_headers = {'Authorization': 'Bearer token'}
+
+
+default_args = {
+  'owner': 'airflow',
+  'depends_on_past': False,
+  'start_date': datetime(2026, 3, 25),
+  'retries': 3,}
+
+
+dag = DAG(
+  default_args = default_args,
+  dag_id = 'my_dag',
+  schedule_interval = '@daily' # 0 0 * * * (daily midnight),
+  catchup = False
+)
+
+
+#example:
+
+
+case 1 : catchup =True + depends on past =True
+
+
+#very sensitive combination
+airflow will create many past runs
+each task wait for your previous task
+one failure> entire pipeline waiting
+
+
+#use this only:
+data must be processed strictly in order
+we are closely monitoring the failures and rety logic
+
+
+
+case 2: catchup=False + depends on past = True
+
+
+no backfill
+make sure yesterdays tasks are complete before today
+most commonly used in production
+
+
+best used:
+we are workign with daily incemental loads
+cdc pipelines
+
+
+case : catchup = True and depennds on past - False
+
+
+backfills required
+tasks dont depend on past
+faster historical loads
+
+
+
+best used:
+full refresh
+independant daily loads
+we need to rebuild the analytics from the beginning
+
+
+case4:
+ catchup = False and depends on past =False
+
+
+ only latest data
+ no dependency on any task chain
+ easy to manage
+
+
+ best used:
+ daily dashboards
+ api data calls only for the day.
+
+
+
+
+
+# catchup: should we run for past scheduled dates?
+
+
+# DAG scheduled daily
+# startdate : 25032025
+# with catchup = True : airflow creates run for 25032025 - current
+# with catchup = False : airflow creates run for current and future
+
+
+
+# Dependsonpast: should todays task wait for yesterdays same task?
+
+
+# Task level transaction.
+# depends on task means the current dag run will only run if the previous task is successful.
+# Default False
+
+
+
+def extract_from_sftp(**kwargs):
+  with pysftp.Connection(sftp_host, port=sftp_port, username=sftp_username, password=sftp_password) as sftp:
+    sftp.get(sftp_remote_path, s3temppath)
+
+
+def extract_from_jdbc(**kwargs):
+  hook = PostgresHook(postgres_conn_id = 'jdbc_conn')
+  df = hook.get_pandas_df(jdbc_query)
+  df.to_csv(s3temppath, index=False)
+
+
+def extract_from_api(**kwargs):
+  response = requests.get(apiurl, headers=api_headers)
+  data = response.json()
+  with open(s3temppath, 'w') as f:
+    json.dump(data, f)
+
+
+
+s3_key_sensor = S3KeySensor(
+  task_id = 's3_key_sensor',
+  bucket_name = s3_bucket,
+  bucket_key = s3finalkey,
+  aws_conn_id = 'aws_conn',
+  dag = dag,
+  poke_interval = 60,
+  timeout = 3600
+)
+
+
+load_to_redshift = S3ToRedshiftOperator(
+  task_id = 'load_to_redshift',
+  schema = redshiftschema,
+  table = redshifttable,
+  s3_bucket = s3_bucket,
+  s3_key = s3finalkey,
+  redshift_conn_id = redshiftconnid,
+  aws_conn_id = 'aws_conn',
+  copy_options = ['csv'],
+  dag = dag,)
+
+
+extract_from_sftp_task = PythonOperator(
+  task_id = 'extract_from_sftp',
+  python_callable = extract_from_sftp,
+  dag = dag
+)
+
+
+extract_from_jdbc_task = PythonOperator(
+  task_id = 'extract_from_jdbc',
+  python_callable = extract_from_jdbc,
+  dag = dag
+)
+
+
+extract_from_api_task = PythonOperator(
+  task_id = 'extract_from_api',
+  python_callable = extract_from_api,
+  dag = dag
+)
+
+
+dummyoperator>>[extract_from_sftp_task, extract_from_jdbc_task, extract_from_api_task]  >> s3_key_sensor >> load_to_redshift>>emailoperator>>dummyoperator
+
+
+
+#step functions vs airflow
+#Stepfunctions is a product of AWS. It is also used for Orchestration.
+
+
+Stepfunctions: AWS Amanged , event driven its perfect for short orchestration and it is serverless. when we are working on AWS native components
+Step functions are perfect.
+
+
+Airflow: open source, it is perfect for ETL tasks and complex task dependencies.
+
+
+
+stepfunctions: fully managed by aws.
+airflow: self managed unless we are mwaa.
+
+
+
+stepfunctions: pay per transaction
+Airflow: free, u pay for the server where it is hosted.
+
+
+retries on errors:
+stepfuinctions: it has built in retries.
+Apache airflow : we can configure retires.
+
+
+execution times:
+
+
+Step function max of 1 year execution state.15 mins for lambda
+airflow: no limit but still 15 mins for lambda.
+
+
+set up:
+step functions: easy to set up
+airflow is complex
+
+
+parallel execution
+step functions cannot do parallel executions: it is stateless.
+Airflow can do parallel executions. controlled via dags. we can execute xcom push and pull.
+
+
+
+#all connection and credential details in aws is stored in aws secrets manager.
+#Git: it is a version contol system. it will help us track changes in the source code.
+#track changes
+#go back to older versions
+#collobrate with others
+#create branches for testng the code without affecting the main code.
+
+
+#Github: Code repository or hosting platform
+#stores the code online
+#colloborate with teams
+
+
+#git init (initilalizing a local git repository)
+#git add .(all all files to staging area)
+#git pull (download all updates from githb to local machine)
+#git commit -m 'message' (committing that our code is good to get deployed)
+#git push  -u origin main (push the code to the main branch)
+
+
+
+#git clone <url of repository> : copy the repo from github to your local system
+#git status : shows current status of wokring directory or staging area.
+#git add <file>  adds changes to the staging area
+#git add. : add all files to staging
+#git log : shows history of commits
+#git branch: it will show list of all branches
+#git branch <name> : create a new branch
+#git checkout <branch name> :switch from one branch to the other.
+#git checkout -m <branch name> to create a new feature branch
+#git pull : download all updates from githb to local machine
+#git stash: temporarily save chanes that are not committed
+#git rm: removes a files from git
+#git revert <commit> :this will revert a specific commit
+#git reset: undo commiuts or unstage the files.
+
+
+
+
+#issues we may face in git and how to resolve them
+
+
+#merge conflicts:
+
+
+#problem: 2 develops edit the same line in the file(orders.py) and try to merge>github cannot decide which version to keep
+
+
+Example
+developer A: df.filter(df.status == 'Completed')
+Developer B: df.filter(df.status=='paid')
+
+
+solution:
+#1) pull the latest changes before pushing the code
+
+
+bash command
+git pull origin develop
+
+
+#2) resolve conflicts manually in my editor(choose correct logic)
+
+
+#3) stage and commit again
+
+
+#how to avoid: small and frequent commits and pr's
+
+
+
+#2) when we try to upload large files.
+#github rejects files  > 100mb.
+
+
+solution:
+use .gitignore to exclude large files.
+store big files in s3 bucket.
+
+
+#dont talk about this
+#3) accidental push to main:
+#problem: they bypass the process codereview and push directly to main. it might break the production code.
+
+
+#solution:
+# branch protection rules:
+# require pr before merge
+# block any direct push to main
+
+
+#4) secrets/credentials pushed accidently
+
+
+problem : we pushed the aws access keys into github
+#someon can exploit this information
+#solution:
+immeiately revoke the keys in aws iam
+use git filter repo to remove secret from history.
+
+
+git filter-repo --path awskeys.txt -- invert-paths
+
+
+add .gitignore for credentials
+
+
+we store the secret credentials in aws secrets manger we should never hard code this to our code.
+
+
+#EMR: Elastic map reduce: ETL process: extract tranform and load
+#processes large amount of raw data : logs | transaction data | clickstream (google analytics)
+
+
+#Glue:
+#Serverless:we dont need any servers
+#scaling : automatic
+
+
+#EMR: spark on a cluster to tranform data. It uses EC2 instances.
+#WE decide how many nodes, what type of nodes and when to scale up or down.
+#more control on the nodes.
+
+
+
+usecase:
+
+
+#Glue:
+#ETL (extract transform and load)
+#dynamic schema: when we think the schema might change. (dynamicframes, crawler, schema registry)
+#serverless : quick set up and on-demand.
+
+
+cost:
+we only pay when jobs run (per second billing)
+idle : no charges
+best for medium or small etls
+
+
+
+
+#EMR:
+#heavy transaction or tranformation or complex heavy loaded analytics
+#Machine learning models, huge batch processing
+#10 tb of daily data.
+
+
+
+Cost:
+pay for ec2 instances + emr costs
+even if the cluster is idle we are charged
+but if the workload is very heavy and large amounts of data is procesed it can be cheaper than glue.
+we need to remember to shut down the clusters.
+
+
+
+#count the number of times the word cloud is mentioend in your books ( 1000 books)
+#100 friends - each guy few books and we are counting together.
+
+
+#process huge amount of data quickluy by parallel processing across nodes.
+
+
+#Why EMR
+#Cloud infrastrucutre like aws to prarallely process the data and then analyse
+#it distributes the data acorss different nodes (cluster) processing becomes faster
+
+
+
+#EMR Achitecture
+
+
+#master node:(team leader) it the leader node, he keeps track of progress, makes sure everyting is running smoothly
+#if the master node fails the entire project fails. Schedules, he monitors and assigns tasks
+
+
+#Core nodes: (team members): they store parts of data , they process that data by running tasks. if cored node fails then we might loose some data.
+
+
+#task nodes:(support workers) these are optional nodes which only support core node to process the data but they dont store the data.
+#u can add them when you need extra processing power. if the task node fails , no data is lost.
+
+
+
+
+#storage options:
+
+
+#HDFS : hadoop distributed file system: this is like storing files across multiple team members. its fast but its temporary,
+#whn the cluster finishes running or shutsdown the data disappears.
+#Amazon s3: this is like permanent library, when we can store data safely and even after cluster is done the data remain.
+#EMRFS: EMRfile system: this is like native memory, it is faster to read and write to s3 or it will make it easier.
+#local file system: this is individual memory in each core node. temporary calculation.
+
+
+
+
+#how does EMR work?
+
+
+#how many nodes?
+#how powerfull each computer should be??
+#what software tools we need (spark,hadoop)?
+#where is the data stored?
+
+
+#amazon will set up all the nodes with the right dependencies.
+
+
+#EMR will use a technique called distributed processing
+
+
+#hadoop mapreduce: break the big problem into smaller ones using : map: split the data and perform intial procesing and reduce: combines results into a final answer.
+#apache spark: faster alternative that keeps data in memory rather than writing to disk after each step.
+
+
+#example:
+#we want to count the words in millions of docs
+#1) the map could count words in each document
+#2) the reduce would add up all the counts for each unique word
+
+
+
+#the end:
+#results are saved to s3
+#we can keep the cluster running for more wrk or shut it down to save money
+#if you shut it down u only pay for the time that u used.
+
+
+
+#use emr to transform the data.
+
+
+#Extract: our data is log files in s3.
+
+
+#Transform: i want to find our hoursly product views in my website.
+
+
+#EMR for transoformation
+
+
+
+
+logs = spark.read.csv(path, header = False)
+logs = logs.toDF('timestamp', 'userid','action','device')\
+views = logs.filter(logs.action == 'view')\
+views = views.withColumn('hour', hour('timestamp'))\
+views = views.groupBy('hour').count()\
+views.write.csv(output_path, header = True)
+views.write.parquet(output_path)
+
+
+Load :  the tranformed data is now in s3, ready to be loaded into a datawarehouse or powerbi
+
+
+
+
+#EMR vs glue:
+
+
+#glue: if you tell what to process the entire this will be handled by glue. limited flexibility. use case is for simple and occasional tranformations
+#EMR: we need more technical expertise, we can customise the tranformation as we need, it is mainly for complex data and complex tranformations.
+
+
+# Advantages:
+# scalable
+# Cost effective
+# flexible
+# pay as you go
+# spark and hadoop
+# integrate with s3, redshift, athena
+
+
+# Cons - disadvantages:
+
+
+# cluster management (its not serverless)
+# technical expertise
+# limited support
+# cost for idle time
+# more complex than glue
+
+
+
+
+# EMR vs glue
+# EMR: cluster based
+# glue: serverless
+
+
+# EMR: spark and hadoop
+# glue: spark and python
+
+
+# EMR: complex transformations
+# glue: simple transformations
+
+
+# EMR: more flexible
+# glue: limited flexibility
+
+
+# EMR: more expensive
+# glue: less expensive
+
+
+# EMR: more technical expertise
+# glue: less technical expertise
+
+
+# EMR: more control
+# glue: less control
+
+
+# EMR: more scalable
+# glue: less scalable
+
+
+
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, hour
+
+
+spark = SparkSession.builder.appName('EMR').getOrCreate()
+
+
+logs = spark.read.csv('s3://bucket/logs.csv', header = True)
+dfclean = df.dropna().filter('age>18')
+
+
+dfclean.write.parquet('s3path')
+
+
+
+#Snowflake: Its a datawarehouse.
+#Can be built on AWS| Azure |GCP
+
+
+#multi cluster architecture : seperate storage, compute and services.
+
+
+#Architecture:
+
+
+#storage layer
+#data is stored in cloud object storage (s3 on aws, blob on Azure)
+#data is strored in micro partitions (compressed columnar format)
+#automatic indexing and metadata tracking.
+
+
+
+#compute layer:
+#compute is completely seperated from storage.
+#it follows MPP architecture. (massively parallel processing)
+#Virutal Warehouse (cluster)
+#they can work in parallel on same data without interfereing with each other.
+#it also supports Autoscaling.
+
+
+
+#Cloud service layer
+
+
+#coordination layer : authentication, metadata management , query optimisation, access control.
+#brain of snowflake
+
+
+
+#Advantages of snowflake:
+
+
+#1) seperate of storage from compute: pay only for what you use and scale independently
+#2) concurrency and multi cluster: multi teams can query the same data without any interference.
+#3) zero infrastructure management: fully managed , no servers or patching.
+#4) it can managed json, avro, parquet with sql queries by native
+#5) autmatic optimisation: automatic vaccum no need to initate vaccum, distribuion key is also automatic
+#6) security: very secure and supports cross region replication.
+
+
+#Limitations:
+
+
+#1) per second billing : can be expensive
+#2) less customisable, not much control over nodes or severs
+#3) sign up and sign out can be a lenghty process.
+#4) no manual optimisation possible as it is automatic. it is all taken care by snowflake optimiser
+
+
+
+#components of snowflake
+
+
+#storage layer:
+#supports Strutured and semi strucutred data ( json, avro, parquet, csv, orc)
+#data is automatically paritioned:( 16 - 64 mb)
+#columnar compressed
+#encrypted (aes 256)
+
+
+#Compute :
+#Virtual warehouse- individual computers (clusters)
+#MPP
+
+
+#Cloud service layer:
+
+
+#authenticaion: SSO, oauth, MFA
+#metadatamanagement : tracks data , paritions and clustering
+
+
+
+
+#Snowpipe: continuous realtime data ingestion (it loads data as soon as it arrives)
+#streams: CDC in snowflake
+#Tasks: scheduler : schedules when the sql query or pipeline should get executed
+#time travel : retrieves historical data (upto 90 days)
+#failsafe: 7 days disaster recovery protection
+# data sharing: share data across mulitple accounts.
+
+
+
+#lambda function code to trigger the glue crawler
+import json
+import boto3
+
+
+glue_client = boto3.client('glue')
+
+
+def lambda_handler(event, context):
+  crawler_name = 'landingbucket-crawler'
+  # TODO implement
+  print('event received: ', json.dumps(event))
+
+
+  try:
+    response = glue_client.start_crawler(Name=crawler_name)
+    print('Crawler started successfully')
+    return {
+      'statusCode': 200,
+      'body': json.dumps('Hello from Lambda!')
+    }
+  except glue_client.exceptions.CrawlerRunningException:
+    print('Crawler is already running')
+    return {
+      'statusCode': 200,
+      'body': json.dumps('Crawler is already running')
+    }
+  except Exception as e:
+    print('Error starting crawler: ', str(e))
+    return {
+      'statusCode': 500,
+      'body': json.dumps('Error starting crawler')
+    }
+
+
+Create a RDS : mysql
+connect using mysqlbench make sure we have edited the inbound rules in vpc setting
+once connected
+
+
+
+-- Create database
+CREATE DATABASE IF NOT EXISTS company_db;
+USE company_db;
+
+
+-- Create Employees table
+CREATE TABLE employees (
+  employee_id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(50),
+  last_name VARCHAR(50),
+  department VARCHAR(50),
+  salary DECIMAL(10,2),
+  hire_date DATE
+);
+
+
+-- Insert sample data
+INSERT INTO employees (first_name, last_name, department, salary, hire_date) VALUES
+('John', 'Doe', 'IT', 60000.00, '2020-05-12'),
+('Jane', 'Smith', 'HR', 55000.00, '2019-03-10'),
+('Mark', 'Lee', 'Finance', 72000.00, '2018-07-01'),
+('Sophia', 'Brown', 'IT', 65000.00, '2021-11-22'),
+('David', 'Wilson', 'Sales', 58000.00, '2022-01-15');
+
+
+
+
+create user on mysql
+
+
+CREATE USER 'dms_user'@'%' IDENTIFIED BY 'YourStrongPassword';
+GRANT SELECT, SHOW VIEW, REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'dms_user'@'%';
+FLUSH PRIVILEGES;
+
+
+#time and space complexity
+
+
+# time complexity: how long your code takes to run as the input increases
+# space complexity: how much ram does the code take as the inputs size increases
+
+
+# Big O Notations:
+# O(1), O(logn), O(n), O(nlogn), O(n^2), O(2^n), O(n!)
+
+
+for i in range(n):
+ print(i)
+
+
+the loop runs n times > time grows n times linearly with n
+time complexity : O(n)
+if n = 10 > time complexity = O(10)
+
+
+
+for i in range(n):
+ for j in range(n):
+  print(i,j)
+
+
+inner loop runs n times for every outer loop > n * n = n^2
+
+
+time complexity : O(n^2)
+
+
+if n > 10 > 100 steps
+
+
+
+print('hello world')
+
+
+runs once > time complexity = O(1)
+
+
+
+space complexity
+
+
+for i in range(n):
+ print(i)
+
+
+we only store one variable i > no matter what n is
+
+
+space complexity O(1)
+
+
+
+x = []
+
+
+for i in range(n):
+ x.append(i)
+
+
+space complexity O(n)
+
+
+
+def binarysearch(arr, target):
+ low = 0
+ high = len(arr) - 1
+
+
+ while low<=high:
+  mid = (low+high)//2
+  if arr[mid] == target:
+   return True
+  elif arr[mid] < target:
+   low = mid + 1
+  else:
+   high = mid - 1
+ return False
+
+
+#each step cuts search space in half steps
+
+
+#time complexity O(log n) (very efficient)
+
+
+
+
+
+
+
+
+
+
+
+

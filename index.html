@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL & PySpark Mastery Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .hub-hero { text-align:center; padding:4rem 2rem 3rem; }
+    .hub-hero h1 { font-size:2.8rem; font-weight:800; margin:0; background: linear-gradient(135deg, #38bdf8, #818cf8, #a78bfa); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .hub-hero p { color:var(--text-muted); font-size:1.15rem; max-width:720px; margin:1rem auto 0; }
+    .hub-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:1.5rem; max-width:1100px; margin:2rem auto; padding:0 2rem; }
+    .hub-card { background:var(--panel-bg); border:1px solid var(--panel-border); border-radius:16px; padding:2rem; backdrop-filter:blur(16px); transition:transform .2s, box-shadow .2s, border-color .2s; display:flex; flex-direction:column; }
+    .hub-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.25); border-color:rgba(56,189,248,.3); }
+    .hub-card__badge { display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; font-weight:600; padding:.3rem .7rem; border-radius:999px; margin-bottom:1rem; }
+    .hub-card--sql .hub-card__badge { background:rgba(14,165,233,.15); color:#38bdf8; border:1px solid rgba(14,165,233,.25); }
+    .hub-card--pyspark .hub-card__badge { background:rgba(124,58,237,.15); color:#a78bfa; border:1px solid rgba(124,58,237,.25); }
+    .hub-card h2 { margin:0 0 .5rem; font-size:1.6rem; }
+    .hub-card p { color:var(--text-muted); font-size:.95rem; flex:1; margin:0 0 1.25rem; line-height:1.6; }
+    .hub-card__stats { display:flex; gap:1.25rem; margin-bottom:1.25rem; font-size:.85rem; color:var(--text-muted); }
+    .hub-card__stats strong { color:var(--text); }
+    .hub-card__actions { display:flex; gap:.6rem; flex-wrap:wrap; }
+    .btn-primary { background:var(--accent); color:#0f172a; padding:.65rem 1.2rem; border-radius:8px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:.4rem; }
+    .btn-primary:hover { background:var(--accent-hover); }
+    .btn-secondary { background:rgba(255,255,255,.08); color:var(--text); padding:.65rem 1.2rem; border-radius:8px; font-weight:500; text-decoration:none; border:1px solid var(--panel-border); }
+    .btn-secondary:hover { background:rgba(255,255,255,.12); }
+    .lessons-section { max-width:1100px; margin:3rem auto; padding:0 2rem; }
+    .lessons-section h2 { text-align:center; margin-bottom:.5rem; }
+    .lessons-section > p { text-align:center; color:var(--text-muted); margin-bottom:2rem; }
+    .lesson-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+    .lesson-card { background:rgba(255,255,255,.04); border:1px solid var(--panel-border); border-radius:12px; padding:1.25rem; transition:background .2s; }
+    .lesson-card:hover { background:rgba(255,255,255,.07); }
+    .lesson-card h3 { margin:0 0 .35rem; font-size:1.05rem; }
+    .lesson-card p { margin:0 0 .75rem; color:var(--text-muted); font-size:.88rem; }
+    .lesson-card a { color:var(--accent); text-decoration:none; font-weight:500; font-size:.9rem; }
+    .lesson-card a:hover { text-decoration:underline; }
+    .lesson-card__tag { font-size:.7rem; font-weight:600; padding:.2rem .5rem; border-radius:999px; display:inline-block; margin-bottom:.5rem; }
+    .tag-sql { background:rgba(14,165,233,.15); color:#38bdf8; }
+    .tag-pyspark { background:rgba(124,58,237,.15); color:#a78bfa; }
+    @media(max-width:768px){ .hub-hero h1{font-size:2rem} .hub-grid{grid-template-columns:1fr; padding:0 1rem} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>SQL, PySpark & AWS Mastery Hub</h1>
+      <p class="tagline">Three complete interactive guides — pick a track and start learning. Every lesson has live examples, diagrams, and interview prep.</p>
+    </div>
+    <div class="header-links">
+      <a class="back-link" href="editor.html">↔ SQL ↔ PySpark Converter</a>
+      <a class="back-link" href="install.html">Install Notebooks</a>
+    </div>
+  </header>
+
+  <section class="hub-hero">
+    <h1>Choose Your Track</h1>
+    <p>Zero to interview-ready. Click a track to open its full guide — every lesson is available from the home page, and every card goes directly to that lesson. <strong>New: AWS Data Engineering</strong> added alongside existing SQL & PySpark — nothing overwritten.</p>
+  </section>
+
+  <section class="hub-grid" style="grid-template-columns:repeat(auto-fit,minmax(360px,1fr));">
+    <!-- SQL Card -->
+    <article class="hub-card hub-card--sql">
+      <span class="hub-card__badge">📘 SQL Mastery • 12 Chapters • 67 Topics</span>
+      <h2>SQL Mastery</h2>
+      <p>Learn SQL from Zero to Data Engineer interview level. From <code>SELECT</code> to Window Functions, Star Schema, and query optimization — all with the <code>employees</code>/<code>departments</code> practice DB.</p>
+      <div class="hub-card__stats"><span><strong>67</strong> topics</span><span><strong>15</strong> phases</span><span>~6 hrs</span></div>
+      <div class="hub-card__actions">
+        <a class="btn-primary" href="sql-guide/index.html">Explore SQL Guide →</a>
+        <a class="btn-secondary" href="sql-guide/fundamentals.html">Start Fundamentals</a>
+      </div>
+    </article>
+    <!-- PySpark Card -->
+    <article class="hub-card hub-card--pyspark">
+      <span class="hub-card__badge">⚡ PySpark Guide • 9 Chapters • 75 Topics</span>
+      <h2>PySpark Interview Guide</h2>
+      <p>Understand Spark through visuals — RDD vs DataFrame, Catalyst, DAG/Stages/Tasks, Partitions, Joins (Broadcast/Sort-Merge), Salting, and real-world troubleshooting.</p>
+      <div class="hub-card__stats"><span><strong>75</strong> topics</span><span><strong>9</strong> chapters</span><span>~7 hrs</span></div>
+      <div class="hub-card__actions">
+        <a class="btn-primary" href="pyspark-guide/index.html">Explore PySpark Guide →</a>
+        <a class="btn-secondary" href="pyspark-guide/fundamentals.html">Start Fundamentals</a>
+      </div>
+    </article>
+    <!-- AWS Card - NEW, does not overwrite existing -->
+    <article class="hub-card" style="border:1px solid rgba(245,158,11,.25);">
+      <span class="hub-card__badge" style="background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.25);">☁️ AWS Data Engineering • 8 Chapters • 39 Topics</span>
+      <h2>AWS Data Engineering</h2>
+      <p>New guide from <code>docs/AWS/AWS lessons.txt</code> — S3 features & storage classes, security, Glue DynamicFrames & DPU workers, Lambda triggers, SCD, Redshift distribution & sort keys, Airflow DAGs. Added alongside, nothing overwritten.</p>
+      <div class="hub-card__stats"><span><strong>39</strong> topics</span><span><strong>8</strong> chapters</span><span>~5 hrs</span></div>
+      <div class="hub-card__actions">
+        <a class="btn-primary" href="aws-guide/index.html" style="background:#f59e0b;">Explore AWS Guide →</a>
+        <a class="btn-secondary" href="aws-guide/s3.html">Start with S3</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="lessons-section">
+    <h2>Jump to Any Lesson</h2>
+    <p>Direct links to particular lessons — click to go straight there.</p>
+    <div class="lesson-grid">
+      <!-- SQL Lessons -->
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-sql">SQL • Basics</span>
+        <h3>SQL Basics — SELECT & WHERE</h3>
+        <p>SELECT, WHERE, AND/OR/NOT, DISTINCT, ORDER BY</p>
+        <a href="sql-guide/basics.html#select">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-sql">SQL • Joins</span>
+        <h3>JOINs — Simple Table Data</h3>
+        <p>INNER, LEFT, RIGHT, FULL OUTER, SELF, CROSS with 4×3 sample tables and expected outputs</p>
+        <a href="sql-guide/joins.html#sample-tables">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-sql">SQL • Window</span>
+        <h3>Window Functions</h3>
+        <p>ROW_NUMBER, RANK, DENSE_RANK, PARTITION BY, LAG/LEAD, Running Total</p>
+        <a href="sql-guide/window.html#row-number">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-sql">SQL • Interview</span>
+        <h3>Interview Mastery</h3>
+        <p>Second Highest Salary, Employees Above Dept Avg, Framework & Cheat Sheet</p>
+        <a href="sql-guide/interview.html#advanced">Go to lesson →</a>
+      </div>
+      <!-- PySpark Lessons -->
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-pyspark">PySpark • Fundamentals</span>
+        <h3>RDD vs DataFrame vs Dataset</h3>
+        <p>Low-level RDD vs optimized DataFrame vs type-safe Dataset</p>
+        <a href="pyspark-guide/fundamentals.html#rdd-vs-dataframe-vs-dataset">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-pyspark">PySpark • Joins</span>
+        <h3>Joins — Sample Tables & Outputs</h3>
+        <p>Inner, Left, Right, Full Outer, Left Semi/Anti with Venn diagrams and result tables</p>
+        <a href="pyspark-guide/joins.html#sample-tables">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-pyspark">PySpark • Performance</span>
+        <h3>Shuffle & Salting</h3>
+        <p>Data Skew visualization, Salting technique, Cache/Persist, AQE</p>
+        <a href="pyspark-guide/performance.html#salting">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag tag-pyspark">PySpark • Interview</span>
+        <h3>Real-World Interview Simulator</h3>
+        <p>Slow jobs, OOM, Data Skew — 8-step scenario reveal</p>
+        <a href="pyspark-guide/interview.html#scenarios">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(245,158,11,.15);color:#f59e0b;">AWS • S3</span>
+        <h3>S3 — Features & Storage Classes</h3>
+        <p>Scalable storage, 11x9 durability, Standard vs Intelligent-Tiering vs Glacier</p>
+        <a href="aws-guide/s3.html#s3-features">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(245,158,11,.15);color:#f59e0b;">AWS • Glue</span>
+        <h3>Glue — DynamicFrames & DPU</h3>
+        <p>Data Catalog, Crawlers, DynamicFrames choice type, G.1X/G.2X workers</p>
+        <a href="aws-guide/glue.html#dynamic-frames">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(245,158,11,.15);color:#f59e0b;">AWS • Redshift</span>
+        <h3>Redshift — MPP & Sort Keys</h3>
+        <p>Leader/compute nodes, Columnar, Distribution (key/even/all), Compound vs Interleaved</p>
+        <a href="aws-guide/redshift.html#redshift-sort-keys">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(245,158,11,.15);color:#f59e0b;">AWS • Airflow</span>
+        <h3>Airflow — DAG & Operators</h3>
+        <p>PythonOperator, S3KeySensor, Catchup vs DependsOnPast, vs Step Functions</p>
+        <a href="aws-guide/airflow.html#airflow-dag">Go to lesson →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align:center; padding:3rem 2rem; color:var(--text-muted); font-size:.9rem; border-top:1px solid var(--panel-border); margin-top:3rem;">
+    <p>SQL, PySpark & AWS Mastery Hub — Built for Data Engineers • <a href="pyspark-guide/index.html" style="color:var(--accent)">PySpark Guide</a> • <a href="sql-guide/index.html" style="color:var(--accent)">SQL Guide</a> • <a href="aws-guide/index.html" style="color:#f59e0b">AWS Guide</a> • <a href="editor.html" style="color:var(--accent)">Converter</a></p>
+    <p style="margin-top:.5rem;">© 2024 Mastery Hub. Learn SQL, PySpark & AWS interactively. AWS added alongside — no existing code overwritten.</p>
+  </footer>
+</body>
+</html>

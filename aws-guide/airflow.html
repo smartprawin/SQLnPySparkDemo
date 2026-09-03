@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airflow - AWS Data Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">AWS Data Engineering</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="s3.html" class="navbar__btn">S3</a>
+      <a href="glue.html" class="navbar__btn">Glue</a>
+      <a href="lambda.html" class="navbar__btn">Lambda</a>
+      <a href="redshift.html" class="navbar__btn">Redshift</a>
+      <a href="airflow.html" class="navbar__btn navbar__btn--primary">Airflow</a>
+      <a href="etl.html" class="navbar__btn">ETL</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <div class="sidebar" id="mobile-nav" style="transform:translateX(-100%);z-index:999;">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">AWS Data Engineering</div>
+      <a href="index.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Home</a>
+      <a href="s3.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">S3</a>
+      <a href="glue.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Glue</a>
+      <a href="lambda.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Lambda</a>
+      <a href="redshift.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Redshift</a>
+      <a href="airflow.html" style="display:block;padding:.5rem 0;color:var(--color-text-secondary);text-decoration:none;">Airflow</a>
+    </div>
+  </div>
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- S3 -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>S3</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="s3.html#s3-features" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Features</a></li>
+          <li><a href="s3.html#s3-classes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Storage Classes</a></li>
+          <li><a href="s3.html#s3-security" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Security</a></li>
+          <li><a href="s3.html#s3-versioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Versioning</a></li>
+          <li><a href="s3.html#s3-folder-structure" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Folder Structure</a></li>
+          <li><a href="s3.html#s3-cross-account" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cross-Account</a></li>
+        </ul>
+      </div>
+      <!-- Glue -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
+          <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
+          <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
+          <li><a href="glue.html#glue-crawler" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Crawler Triggers</a></li>
+          <li><a href="glue.html#glue-jobs" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Jobs</a></li>
+          <li><a href="glue.html#glue-workflows" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Workflows & Bookmarks</a></li>
+        </ul>
+      </div>
+      <!-- Lambda -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Lambda</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="lambda.html#lambda-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="lambda.html#lambda-layers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Layers</a></li>
+          <li><a href="lambda.html#lambda-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+          <li><a href="lambda.html#boto3-invoke" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Boto3 Invoke</a></li>
+          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Trigger</a></li>
+        </ul>
+      </div>
+      <!-- SCD -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>SCD</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="scd.html#scd-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SCD Types</a></li>
+          <li><a href="scd.html#scd-2-example" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SCD2 Example</a></li>
+        </ul>
+      </div>
+      <!-- ETL / Incremental -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>ETL & Incremental</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="etl.html#etl-vs-elt" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL vs ELT</a></li>
+          <li><a href="etl.html#medallion" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Medallion</a></li>
+          <li><a href="etl.html#incremental-loads" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Incremental Loads</a></li>
+          <li><a href="etl.html#cdc-dms" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CDC & DMS</a></li>
+        </ul>
+      </div>
+      <!-- Redshift -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Redshift</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="redshift.html#redshift-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="redshift.html#redshift-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="redshift.html#redshift-spectrum" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spectrum</a></li>
+          <li><a href="redshift.html#redshift-distribution" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Distribution</a></li>
+          <li><a href="redshift.html#redshift-sort-keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort Keys</a></li>
+          <li><a href="redshift.html#redshift-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Airflow -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Airflow</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="airflow.html#airflow-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="airflow.html#airflow-operators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Operators</a></li>
+          <li><a href="airflow.html#airflow-sensors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sensors</a></li>
+          <li><a href="airflow.html#airflow-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG Example</a></li>
+          <li><a href="airflow.html#airflow-catchup" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catchup & Depends</a></li>
+          <li><a href="airflow.html#airflow-vs-stepfunctions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> vs Step Functions</a></li>
+        </ul>
+      </div>
+      <!-- DevOps -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>DevOps</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="devops.html#git-github" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Git & GitHub</a></li>
+          <li><a href="devops.html#secrets-manager" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Secrets Manager</a></li>
+          <li><a href="devops.html#status-codes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Status Codes</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <section id="airflow-intro" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="airflow-intro">☆</button>
+            <button class="topic-complete-btn" data-topic-id="airflow-intro">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Airflow — Orchestration</h2>
+
+        <p>Open-source workflow management for complex data pipelines — scheduling, monitoring, managing. From file: handles 10 CSV via SFTP + 2 REST APIs + 15 JDBC tables.</p>
+        <p><strong>100GB daily</strong> example from file: MySQL + API → DMS incremental CDC → S3 → Lambda → Crawler (EventBridge) → Glue → S3 → Airflow (S3KeySensor → S3ToRedshiftOperator) → Redshift. Orchestrated via Airflow.</p>
+        <p><strong>2GB MySQL</strong> example: DMS → S3 → Lambda (pandas) → S3 → Airflow/Step Functions.</p>
+
+      </section>
+      <section id="airflow-operators" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="airflow-operators">☆</button>
+            <button class="topic-complete-btn" data-topic-id="airflow-operators">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Operators</h2>
+
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Operator</th><th>Use</th></tr></thead><tbody>
+          <tr><td>PythonOperator</td><td>Run Python functions, trigger processing</td></tr>
+          <tr><td>BashOperator</td><td>Run bash commands (ls, cd, mkdir, cp, mv, rm)</td></tr>
+          <tr><td>S3ToRedshiftOperator</td><td>Move S3 files to Redshift (COPY)</td></tr>
+          <tr><td>SqlOperator</td><td>Interact with SQL objects</td></tr>
+          <tr><td>EmailOperator</td><td>Send success/failure notifications</td></tr>
+          <tr><td>DummyOperator</td><td>Placeholder for start/end</td></tr>
+        </tbody></table></div>
+
+      </section>
+      <section id="airflow-sensors" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="airflow-sensors">☆</button>
+            <button class="topic-complete-btn" data-topic-id="airflow-sensors">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Sensors</h2>
+
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Sensor</th><th>Waits For</th></tr></thead><tbody>
+          <tr><td>FileSensor</td><td>File to appear</td></tr>
+          <tr><td>HttpSensor</td><td>HTTP endpoint available</td></tr>
+          <tr><td>SqlSensor</td><td>SQL query to return desired result</td></tr>
+          <tr><td>S3KeySensor</td><td>Key to exist in S3 bucket</td></tr>
+        </tbody></table></div>
+        <p>Example flow: <code>dummy >> FileSensor(True) >> EmailOperator >> PythonOperator(df.write) >> S3KeySensor(True) >> S3ToRedshiftOperator >> dummy</code></p>
+
+      </section>
+      <section id="airflow-dag" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="airflow-dag">☆</button>
+            <button class="topic-complete-btn" data-topic-id="airflow-dag">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>DAG Example (from file)</h2>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
+from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
+from datetime import datetime
+import pandas as pd, pysftp, requests, json
+
+default_args = {'owner':'airflow','depends_on_past':True,'start_date':datetime(2026,3,25),'retries':3}
+dag = DAG(dag_id='my_dag', default_args=default_args, schedule_interval='@daily', catchup=False)
+
+def extract_from_sftp(**kwargs):
+    with pysftp.Connection(sftp_host, port=22, username='user', password='pass') as sftp:
+        sftp.get('/remote/file.csv', 'tmp/data.csv')
+
+def extract_from_jdbc(**kwargs):
+    from airflow.providers.postgres.hooks.postgres import PostgresHook
+    hook = PostgresHook(postgres_conn_id='jdbc_conn')
+    df = hook.get_pandas_df('select * from mytable')
+    df.to_csv('tmp/data.csv', index=False)
+
+extract_sftp = PythonOperator(task_id='extract_from_sftp', python_callable=extract_from_sftp, dag=dag)
+extract_jdbc = PythonOperator(task_id='extract_from_jdbc', python_callable=extract_from_jdbc, dag=dag)
+sensor = S3KeySensor(task_id='s3_key_sensor', bucket_name='mybucket', bucket_key='finaldata/data.csv', poke_interval=60, timeout=3600, dag=dag)
+load = S3ToRedshiftOperator(task_id='load_to_redshift', schema='public', table='mytable', s3_bucket='mybucket', s3_key='finaldata/data.csv', redshift_conn_id='redshift', dag=dag)
+
+extract_sftp &gt;&gt; sensor
+extract_jdbc &gt;&gt; sensor
+sensor &gt;&gt; load</code></pre>
+        </div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://via.placeholder.com/700x220.png?text=DAG+%7C+PythonOperator+%E2%86%92+S3KeySensor+%E2%86%92+S3ToRedshiftOperator" alt="Airflow DAG" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
+        <p>Hooks: PostgresHook, MySqlHook, OracleHook, JdbcHook, HttpHook, S3Hook. XCom: <code>xcom_push</code>/<code>xcom_pull</code> to exchange data between tasks. DAG = collection of tasks with <code>>></code> dependencies.</p>
+        <p>Variables/Connections stored in Airflow Admin → Variables/Connections (e.g., s3_key, SFTP/JDBC/AWS).</p>
+
+      </section>
+      <section id="airflow-catchup" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="airflow-catchup">☆</button>
+            <button class="topic-complete-btn" data-topic-id="airflow-catchup">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Catchup & DependsOnPast</h2>
+
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Combo</th><th>Behavior</th><th>Use When</th></tr></thead><tbody>
+          <tr><td>catchup=True, depends=True</td><td>Creates many past runs, each waits for previous — sensitive, one failure blocks all</td><td>Strict order, monitoring retries</td></tr>
+          <tr><td>catchup=False, depends=True</td><td>No backfill, today waits for yesterday</td><td>Daily incremental, CDC — most common in production</td></tr>
+          <tr><td>catchup=True, depends=False</td><td>Backfills, no waiting</td><td>Full refresh, historical rebuild</td></tr>
+          <tr><td>catchup=False, depends=False</td><td>Only latest, no dependency</td><td>Daily dashboards, API daily calls</td></tr>
+        </tbody></table></div>
+        <p>From file: DAG daily, start_date 25032025, catchup True creates runs for past dates, False only for current/future. DependsOnPast = task waits for previous run's same task success.</p>
+
+      </section>
+      <section id="airflow-vs-stepfunctions" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="airflow-vs-stepfunctions">☆</button>
+            <button class="topic-complete-btn" data-topic-id="airflow-vs-stepfunctions">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Airflow vs Step Functions</h2>
+
+        <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Step Functions</th><th>Airflow</th></tr></thead><tbody>
+          <tr><td>AWS managed, serverless, event-driven, short orchestration, pay per transaction, built-in retries, max 1 year (15 min Lambda)</td><td>Open source, self-managed (or MWAA), perfect for ETL/complex dependencies, free (pay for server), configurable retries, no limit, parallel via XCom</td></tr>
+          <tr><td>Easy setup, stateless, no parallel XCom</td><td>Complex setup, parallel executions, XCom push/pull</td></tr>
+        </tbody></table></div>
+        <p>Choose Step Functions for AWS-native short workflows, Airflow for complex ETL with many dependencies.</p>
+
+      </section>
+    </div>
+  </main>
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>AWS Data Engineering — S3, Glue, Lambda, Redshift, Airflow</p>
+    <p style="margin-top:.5rem;">© 2024 AWS Guide. Built for Data Engineers.</p>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

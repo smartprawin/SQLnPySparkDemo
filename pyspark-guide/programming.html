@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programming - PySpark Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION BAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">PySpark Guide</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="architecture.html" class="navbar__btn">Architecture</a>
+      <a href="transformations.html" class="navbar__btn">Transformations</a>
+      <a href="programming.html" class="navbar__btn navbar__btn--primary">Programming</a>
+      <a href="partitions.html" class="navbar__btn">Partitions</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="real-world.html" class="navbar__btn">Real-World Scenarios</a>
+      <a href="interview.html" class="navbar__btn">Interview Prep</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & NAV ===== -->
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">PySpark Guide</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH OVERLAY ===== -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKMARKS PANEL ===== -->
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <!-- ===== PROGRESS INDICATOR ===== -->
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+        <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <!-- ============================================================
+           SECTION: SparkSession
+           ============================================================ -->
+      <div id="sparksession" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">SparkSession — Entry Point</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="sparksession">☆</button>
+            <button class="topic-complete-btn" data-topic-id="sparksession">Mark as Complete</button>
+          </div>
+        </div>
+        <p><code>SparkSession</code> is the main entry point for working with Spark DataFrames, SQL, and all Spark functionality. It replaces the older <code>SparkContext</code> and <code>SQLContext</code>.</p>
+        <pre><code>from pyspark.sql import SparkSession
+
+spark = (
+    SparkSession.builder
+    .appName("Practice")
+    .getOrCreate()
+)</code></pre>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">SparkSession is the single entry point for all Spark operations. It encapsulates SparkContext, SQLContext, and StreamingContext.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: RDD
+           ============================================================ -->
+      <div id="rdd" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">RDD — Resilient Distributed Dataset</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="rdd">☆</button>
+            <button class="topic-complete-btn" data-topic-id="rdd">Mark as Complete</button>
+          </div>
+        </div>
+        <p>RDD is a distributed, fault-tolerant, and immutable collection of objects that can be processed in parallel across a Spark cluster.</p>
+        <pre><code>rdd = spark.sparkContext.parallelize([1, 2, 3, 4, 5])
+print(rdd.collect())  # [1, 2, 3, 4, 5]</code></pre>
+        <p><strong>Key concepts:</strong></p>
+        <ul>
+          <li>RDD is distributed across partitions</li>
+          <li>RDDs are immutable — transformations create new RDDs</li>
+          <li>Actions trigger execution</li>
+          <li>Fault tolerance through lineage</li>
+        </ul>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">RDD is the fundamental data structure of Spark. Understanding it helps you grasp how Spark works internally.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Creating a DataFrame
+           ============================================================ -->
+      <div id="dataframe" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Creating a DataFrame</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="dataframe">☆</button>
+            <button class="topic-complete-btn" data-topic-id="dataframe">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>data = [
+    (1, "Krish"),
+    (2, "Ajay"),
+    (3, "James")
+]
+columns = ["id", "name"]
+
+df = spark.createDataFrame(data, columns)
+df.show()
+df.printSchema()</code></pre>
+        <p><strong>Output:</strong></p>
+        <pre><code>+---+-----+
+| id| name|
++---+-----+
+|  1|Krish|
+|  2| Ajay|
+|  3|James|
++---+-----+</code></pre>
+        <p><strong>Schema:</strong></p>
+        <pre><code>root
+ |-- id: long
+ |-- name: string</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Reading CSV Files
+           ============================================================ -->
+      <div id="read-csv" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Reading CSV Files</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="read-csv">☆</button>
+            <button class="topic-complete-btn" data-topic-id="read-csv">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>df = spark.read.csv(
+    "/content/data.csv",
+    header=True,
+    inferSchema=True
+)
+df.show()
+df.printSchema()</code></pre>
+        <p><strong><code>header=True</code></strong> — The first row is treated as column names. Without it, Spark generates <code>_c0</code>, <code>_c1</code>, etc.</p>
+        <p><strong><code>inferSchema=True</code></strong> — Spark attempts to determine appropriate data types from the data.</p>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">For production pipelines, explicitly defining the schema is often preferable to relying on schema inference.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Manual Schema
+           ============================================================ -->
+      <div id="manual-schema" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Defining Schema Manually</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="manual-schema">☆</button>
+            <button class="topic-complete-btn" data-topic-id="manual-schema">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>from pyspark.sql.types import (
+    StructType, StructField, IntegerType, StringType
+)
+
+customer_schema = StructType([
+    StructField("customer_id", IntegerType(), True),
+    StructField("customer_name", StringType(), True),
+    StructField("city", StringType(), True),
+    StructField("age", IntegerType(), True),
+    StructField("salary", IntegerType(), True)
+])
+
+df = spark.createDataFrame(data, customer_schema)</code></pre>
+        <p><strong>Why use an explicit schema?</strong></p>
+        <ul>
+          <li>Better data quality</li>
+          <li>Predictable data types</li>
+          <li>Avoid incorrect schema inference</li>
+          <li>Better production reliability</li>
+        </ul>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Filtering Data
+           ============================================================ -->
+      <div id="filter" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Filtering Data</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="filter">☆</button>
+            <button class="topic-complete-btn" data-topic-id="filter">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>newdf = df.filter(df["Duration"] > 60)
+newdf.show()
+
+# Alternative using col()
+from pyspark.sql.functions import col
+newdf = df.filter(col("Duration") > 60)</code></pre>
+        <p><strong>Pandas vs PySpark:</strong></p>
+        <pre><code># Pandas
+df[df["age"] > 18]
+
+# PySpark
+df.filter(col("age") > 18)</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: withColumn
+           ============================================================ -->
+      <div id="withcolumn" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">withColumn — Create or Replace Columns</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="withcolumn">☆</button>
+            <button class="topic-complete-btn" data-topic-id="withcolumn">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>from pyspark.sql.functions import col
+
+df = df.withColumn(
+    "difference_in_pulse",
+    col("Maxpulse") - col("Pulse")
+)
+df.show()</code></pre>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body"><code>withColumn</code> creates a new column or replaces an existing one. Use <code>col()</code> for column references.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: GroupBy
+           ============================================================ -->
+      <div id="groupby" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">GroupBy Aggregations</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="groupby">☆</button>
+            <button class="topic-complete-btn" data-topic-id="groupby">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>from pyspark.sql.functions import avg
+
+result = (
+    employee_df
+    .groupBy("department")
+    .agg(avg("salary").alias("avg_salary"))
+)
+result.show()</code></pre>
+        <p><strong>Output:</strong></p>
+        <pre><code>+----------+---------+
+|department|avg_salary|
++----------+---------+
+|HR        |50000.0  |
+|Engineering|65000.0|
++----------+---------+</code></pre>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body"><code>GROUP BY</code> reduces multiple rows into aggregated results. <code>PARTITION BY</code> in a window function does NOT reduce rows.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Sorting
+           ============================================================ -->
+      <div id="sorting" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Sorting Data</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="sorting">☆</button>
+            <button class="topic-complete-btn" data-topic-id="sorting">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code># Ascending
+df.orderBy(col("age").asc())
+
+# Descending
+df.orderBy(col("age").desc())</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Removing Duplicates
+           ============================================================ -->
+      <div id="duplicates" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">🟢 Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Removing Duplicates</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="duplicates">☆</button>
+            <button class="topic-complete-btn" data-topic-id="duplicates">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code># Remove complete duplicate rows
+new_df = df.dropDuplicates()
+
+# Remove duplicates based on specific column
+new_df = df.dropDuplicates(["customerid"])</code></pre>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body"><code>dropDuplicates()</code> removes exact row duplicates. Use column-specific deduplication for business key deduplication.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Joining DataFrames
+           ============================================================ -->
+      <div id="joins-code" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Joining DataFrames</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="joins-code">☆</button>
+            <button class="topic-complete-btn" data-topic-id="joins-code">Mark as Complete</button>
+          </div>
+        </div>
+        <p><strong>Example: Orders and Customers</strong></p>
+        <pre><code>merged_df = orders_df.join(
+    customer_df,
+    on="customerid",
+    how="inner"
+)
+
+new_df = merged_df.select("customerid", "amount", "age")
+new_df.show()</code></pre>
+        <p><strong>Pandas equivalent:</strong></p>
+        <pre><code>pd.merge(df1, df2, on="customerid", how="inner")</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Window Functions
+           ============================================================ -->
+      <div id="window-functions" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Window Functions</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="window-functions">☆</button>
+            <button class="topic-complete-btn" data-topic-id="window-functions">Mark as Complete</button>
+          </div>
+        </div>
+        <p>Window functions are extremely important for PySpark interviews. Common functions: <code>row_number()</code>, <code>rank()</code>, <code>dense_rank()</code>, <code>lag()</code>, <code>lead()</code>.</p>
+
+        <h3 style="margin-top:1.5rem;">Second Highest Salary Per Department</h3>
+
+        <p><strong>Step 1 — Create Window Specification:</strong></p>
+        <pre><code>from pyspark.sql.window import Window
+from pyspark.sql.functions import dense_rank, col
+
+window_spec = (
+    Window
+    .partitionBy("department")
+    .orderBy(col("salary").desc())
+)</code></pre>
+
+        <p><strong>Step 2 — Apply dense_rank():</strong></p>
+        <pre><code>ranked_df = employee_df.withColumn(
+    "rank",
+    dense_rank().over(window_spec)
+)</code></pre>
+
+        <p><strong>Step 3 — Filter Rank = 2:</strong></p>
+        <pre><code>second_highest = ranked_df.filter(col("rank") == 2)
+second_highest.show()</code></pre>
+
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">Window functions perform calculations across rows related to the current row without reducing the result set. <code>partitionBy</code> creates independent groups, <code>orderBy</code> defines the ranking order.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Spark SQL
+           ============================================================ -->
+      <div id="spark-sql" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Spark SQL</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="spark-sql">☆</button>
+            <button class="topic-complete-btn" data-topic-id="spark-sql">Mark as Complete</button>
+          </div>
+        </div>
+        <p>A DataFrame can be registered as a temporary SQL view, then queried using SQL.</p>
+        <pre><code>employee_df.createOrReplaceTempView("employee")
+
+spark.sql("""
+    SELECT * FROM employee
+    WHERE department = 'HR'
+""").show()
+
+spark.sql("""
+    SELECT department, AVG(salary) AS avg_salary
+    FROM employee
+    GROUP BY department
+""").show()</code></pre>
+
+        <h3 style="margin-top:1.5rem;">Second Highest Salary Using SQL</h3>
+        <pre><code>spark.sql("""
+    SELECT department, employee_name, salary
+    FROM (
+        SELECT department, employee_name, salary,
+            DENSE_RANK() OVER (
+                PARTITION BY department
+                ORDER BY salary DESC
+            ) AS rank
+        FROM employee
+    )
+    WHERE rank = 2
+""").show()</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: UDF
+           ============================================================ -->
+      <div id="udf" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">User Defined Functions (UDF)</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="udf">☆</button>
+            <button class="topic-complete-btn" data-topic-id="udf">Mark as Complete</button>
+          </div>
+        </div>
+        <p>A UDF allows you to apply custom Python logic to Spark columns.</p>
+        <pre><code>from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType
+
+def to_uppercase(name):
+    return name.upper()
+
+uppercase_udf = udf(to_uppercase, StringType())
+
+new_df = df.withColumn("uppercase_name", uppercase_udf(col("name")))</code></pre>
+
+        <h3 style="margin-top:1.5rem;">UDF vs Built-in Functions</h3>
+        <p><strong>Prefer built-in Spark functions</strong> whenever possible instead of Python UDFs because Python UDFs can introduce serialization and execution overhead.</p>
+        <pre><code># Instead of:
+profit_udf(col("revenue"), col("expenses"))
+
+# Prefer:
+col("revenue") - col("expenses")</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Handling Null Values
+           ============================================================ -->
+      <div id="null-handling" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Handling Null Values</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="null-handling">☆</button>
+            <button class="topic-complete-btn" data-topic-id="null-handling">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code># Fill nulls with default values
+df = df.fillna({"age": 30, "salary": 50000})
+
+# Drop rows containing nulls
+df = df.dropna()
+
+# Count nulls by column
+from pyspark.sql.functions import col, sum
+
+null_counts = df.select([
+    sum(col(c).isNull().cast("int")).alias(c)
+    for c in df.columns
+])
+null_counts.show()</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Conditional Columns
+           ============================================================ -->
+      <div id="conditional" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Creating Conditional Columns</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="conditional">☆</button>
+            <button class="topic-complete-btn" data-topic-id="conditional">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>from pyspark.sql.functions import when, col
+
+df = df.withColumn(
+    "salary_category",
+    when(col("salary") < 50000, "Low")
+    .when((col("salary") >= 50000) & (col("salary") < 60000), "Medium")
+    .otherwise("High")
+)</code></pre>
+        <p><strong>Logic:</strong> salary &lt; 50000 → Low, 50000–60000 → Medium, 60000+ → High</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Cache and Persist
+           ============================================================ -->
+      <div id="cache-persist" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Cache and Persist</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="cache-persist">☆</button>
+            <button class="topic-complete-btn" data-topic-id="cache-persist">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code># Cache (MEMORY_ONLY by default)
+df.cache()
+df.filter(col("age") > 30).show()
+df.groupBy("city").count().show()
+
+# Persist with specific storage level
+from pyspark import StorageLevel
+df.persist(StorageLevel.MEMORY_AND_DISK)
+
+# Remove cached data
+df.unpersist()</code></pre>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">Cache is a convenient way of persisting a DataFrame (defaults to MEMORY_ONLY). Persist allows specifying a storage level like MEMORY_AND_DISK.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Repartition vs Coalesce
+           ============================================================ -->
+      <div id="repartition-coalesce" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Repartition vs Coalesce</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="repartition-coalesce">☆</button>
+            <button class="topic-complete-btn" data-topic-id="repartition-coalesce">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code># Repartition — full shuffle, can increase or decrease
+df = df.repartition(20)
+
+# Coalesce — no shuffle, only reduce partitions
+df = df.coalesce(5)</code></pre>
+        <p><strong>Simple rule:</strong> repartition → increase/decrease + shuffle, coalesce → reduce + less shuffle</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Broadcast Join
+           ============================================================ -->
+      <div id="broadcast-join-code" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Broadcast Join in Practice</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="broadcast-join-code">☆</button>
+            <button class="topic-complete-btn" data-topic-id="broadcast-join-code">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>from pyspark.sql.functions import broadcast
+
+result = orders_df.join(
+    broadcast(products_df),
+    "product_id",
+    "inner"
+)</code></pre>
+        <p><strong>When to use:</strong> When one side of the join is small enough to fit in executor memory. This avoids shuffling the large dataset.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: ETL Pipeline
+           ============================================================ -->
+      <div id="etl-pipeline" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">ETL Pipeline — Most Important Interview Program</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="etl-pipeline">☆</button>
+            <button class="topic-complete-btn" data-topic-id="etl-pipeline">Mark as Complete</button>
+          </div>
+        </div>
+        <p><strong>Pipeline:</strong> Source → Read → Transform → Validate → Write</p>
+        <pre><code>from pyspark.sql import SparkSession
+from pyspark.sql.functions import lit
+
+spark = SparkSession.builder.appName("ETL").getOrCreate()
+
+# Read
+df = spark.read.csv("s3://bucket/raw/data.csv", header=True, inferSchema=True)
+
+# Transform
+df = df.dropDuplicates()
+df = df.withColumn("city", lit("Chennai"))
+
+# Write
+df.write.mode("overwrite").parquet("s3://bucket/transformed/")</code></pre>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">ETL pipelines are the most common pattern in data engineering. Practice this end-to-end flow: Read → Clean → Transform → Validate → Write.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: JDBC
+           ============================================================ -->
+      <div id="jdbc" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">JDBC — Database Integration</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="jdbc">☆</button>
+            <button class="topic-complete-btn" data-topic-id="jdbc">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>jdbc_url = "jdbc:mysql://localhost:3306/database"
+properties = {
+    "user": "root",
+    "password": "password",
+    "driver": "com.mysql.cj.jdbc.Driver"
+}
+
+employee_df = spark.read.jdbc(
+    url=jdbc_url,
+    table="employee",
+    properties=properties
+)
+
+department_df = spark.read.jdbc(
+    url=jdbc_url,
+    table="department",
+    properties=properties
+)
+
+merged_df = employee_df.join(
+    department_df,
+    employee_df.departmentid == department_df.departmentid,
+    "inner"
+)</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: S3 ETL
+           ============================================================ -->
+      <div id="s3-etl" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">S3 → Spark → Transformation → S3</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="s3-etl">☆</button>
+            <button class="topic-complete-btn" data-topic-id="s3-etl">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code>source = "s3://my-bucket/raw/data.csv"
+destination = "s3://my-bucket/transformed/"
+
+df = spark.read.csv(source, header=True, inferSchema=True)
+new_df = df.dropDuplicates()
+new_df.write.mode("overwrite").parquet(destination)
+spark.stop()</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Data Skew
+           ============================================================ -->
+      <div id="data-skew-code" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Data Skew — Detection and Solutions</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="data-skew-code">☆</button>
+            <button class="topic-complete-btn" data-topic-id="data-skew-code">Mark as Complete</button>
+          </div>
+        </div>
+        <p><strong>Detect skew:</strong></p>
+        <pre><code>from pyspark.sql.functions import desc
+
+df.groupBy("key") \
+  .count() \
+  .orderBy(desc("count")) \
+  .show()</code></pre>
+        <p><strong>Salting technique:</strong> Add a random prefix to skewed keys to distribute data evenly.</p>
+        <pre><code>Original: key=1 → 1,000,000 records
+
+After salting:
+1_0 → Partition 1
+1_1 → Partition 2
+1_2 → Partition 3
+1_3 → Partition 4</code></pre>
+        <div class="tip-card">
+          <div class="tip-card__title">💡 Interview Tip</div>
+          <div class="tip-card__body">I first identify skew by checking the distribution of records by join key. If skewed, I use salting, broadcast joins, or AQE skew handling.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Accumulators
+           ============================================================ -->
+      <div id="accumulators" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Accumulators</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="accumulators">☆</button>
+            <button class="topic-complete-btn" data-topic-id="accumulators">Mark as Complete</button>
+          </div>
+        </div>
+        <p>Accumulators allow executors to contribute values that can be read by the driver. Useful for counting bad records during processing.</p>
+        <pre><code>bad_records = spark.sparkContext.longAccumulator("bad_records")
+
+def validate(row):
+    if row.age < 18:
+        bad_records.add(1)
+
+print(bad_records.value)</code></pre>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Catalyst Optimizer
+           ============================================================ -->
+      <div id="catalyst-code" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Catalyst Optimizer</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="catalyst-code">☆</button>
+            <button class="topic-complete-btn" data-topic-id="catalyst-code">Mark as Complete</button>
+          </div>
+        </div>
+        <p>Catalyst is Spark SQL's query optimization framework.</p>
+        <pre><code>Spark Code / SQL
+       ↓
+Parsed Logical Plan
+       ↓
+Analyzed Logical Plan
+       ↓
+Optimized Logical Plan
+       ↓
+Physical Plan
+       ↓
+Execution</code></pre>
+        <p><strong>Key optimizations:</strong></p>
+        <ul>
+          <li><strong>Predicate Pushdown</strong> — Apply filters as early as possible</li>
+          <li><strong>Column Pruning</strong> — Read only required columns</li>
+        </ul>
+      </div>
+
+      <!-- ============================================================
+           SECTION: AQE
+           ============================================================ -->
+      <div id="aqe-code" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Adaptive Query Execution (AQE)</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="aqe-code">☆</button>
+            <button class="topic-complete-btn" data-topic-id="aqe-code">Mark as Complete</button>
+          </div>
+        </div>
+        <p>AQE allows Spark to adapt parts of query execution using runtime information.</p>
+        <pre><code>Initial Plan
+     ↓
+Execute
+     ↓
+Runtime Statistics
+     ↓
+AQE
+     ↓
+Adjusted Execution</code></pre>
+        <p><strong>Key features:</strong> coalescing shuffle partitions, changing join strategies, handling skewed joins.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: explain()
+           ============================================================ -->
+      <div id="explain" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Using explain() — Interview Essential</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="explain">☆</button>
+            <button class="topic-complete-btn" data-topic-id="explain">Mark as Complete</button>
+          </div>
+        </div>
+        <pre><code># Basic plan
+df.explain()
+
+# Detailed plan with all stages
+df.explain(True)</code></pre>
+        <p>Use <code>explain()</code> to inspect whether Spark is using BroadcastHashJoin, SortMergeJoin, Exchange/shuffle, filtering, or projection.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Interview Coding Checklist
+           ============================================================ -->
+      <div id="checklist" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">🟡 Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Interview Coding Checklist</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="checklist">☆</button>
+            <button class="topic-complete-btn" data-topic-id="checklist">Mark as Complete</button>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1rem;">Basic</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Create SparkSession</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Create RDD</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Create DataFrame</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Read CSV / JSON / Parquet</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Create manual schema</li>
+        </ul>
+
+        <h3 style="margin-top:1rem;">Transformations</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> filter, select, withColumn</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> groupBy, orderBy, join</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> dropDuplicates, unionByName</li>
+        </ul>
+
+        <h3 style="margin-top:1rem;">Functions</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> col, lit, when</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> sum, avg, max, min, count</li>
+        </ul>
+
+        <h3 style="margin-top:1rem;">Window Functions</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> row_number, rank, dense_rank</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> lag, lead, partitionBy</li>
+        </ul>
+
+        <h3 style="margin-top:1rem;">Advanced</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> UDF, Broadcast Join</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Cache, Persist, Repartition</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Data Skew, Salting, AQE</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> explain(), Accumulators</li>
+        </ul>
+
+        <h3 style="margin-top:1rem;">Data Engineering</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> JDBC, S3, ETL pipeline</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> Data validation, Parquet output</li>
+          <li style="padding:.375rem 0;"><input type="checkbox" style="margin-right:.5rem;"> SCD Type 2, Incremental loading</li>
+        </ul>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Production Scenarios
+           ============================================================ -->
+      <div id="scenarios-code" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Production Interview Scenarios</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="scenarios-code">☆</button>
+            <button class="topic-complete-btn" data-topic-id="scenarios-code">Mark as Complete</button>
+          </div>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 1 — One Join Key Has Millions of Records</h4>
+          <p><strong>Detect:</strong></p>
+          <pre><code>df.groupBy("key").count().orderBy(col("count").desc()).show()</code></pre>
+          <p><strong>Solutions:</strong> Broadcast join, Salting, AQE skew handling, Better partitioning</p>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 2 — 100,000 Small Files</h4>
+          <p><strong>Solutions:</strong> Compact files, use appropriate target file size, optimize partitioning, use Parquet/ORC format</p>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 3 — Incremental Load</h4>
+          <p><strong>Solutions:</strong> Timestamp filtering, File arrival metadata, Glue Job Bookmarks, CDC, S3 events, Ingestion tracking table</p>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 4 — Out Of Memory</h4>
+          <p><strong>Possible causes:</strong> Large partitions, Data skew, Large broadcast table, Too few partitions, Expensive joins</p>
+          <p><strong>Solutions:</strong> Increase parallelism, Handle skew, Avoid collect(), Review broadcast, Unpersist unused DataFrames, Increase executor memory</p>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 5 — 5 GB CSV Output</h4>
+          <p><strong>Avoid:</strong> <code>df.coalesce(1).write.csv(...)</code></p>
+          <p><strong>Prefer:</strong></p>
+          <pre><code>df.write.option("maxRecordsPerFile", 1000000).mode("overwrite").csv("s3://bucket/output/")</code></pre>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 6 — SCD Type 2</h4>
+          <p>Track historical changes using start_date, end_date, and is_current columns. Old record gets end_date populated and is_current=false. New record gets start_date=current and is_current=true.</p>
+        </div>
+      </div>
+
+    </div><!-- .main__content -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>PySpark Interview Guide — Understand PySpark. Visualize Spark. Prepare for Interviews.</p>
+    <p style="margin-top:.5rem;">© 2024 PySpark Guide. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

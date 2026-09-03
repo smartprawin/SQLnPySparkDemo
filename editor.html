@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL → PySpark Live Converter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>SQL &rarr; PySpark Converter</h1>
+      <p class="tagline">Type SQL on the left, get the equivalent PySpark DataFrame code live on the right.</p>
+    </div>
+    <div class="header-links">
+      <a class="back-link" href="index.html">&larr; Back to lessons</a>
+      <a class="back-link" href="install.html">How to install notebooks</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="example-bar" id="example-bar"></div>
+
+    <div class="editor-layout">
+      <section class="editor-col">
+        <h3>Your SQL</h3>
+        <textarea id="sql-in" spellcheck="false"></textarea>
+      </section>
+
+      <section class="editor-col">
+        <h3>PySpark (DataFrame API) &mdash; live</h3>
+        <button id="copy-btn">Copy PySpark</button>
+        <pre id="py-out" class="code-out">-- type SQL to see conversion --</pre>
+      </section>
+    </div>
+
+    <aside class="schema-box">
+      <h3>Available tables</h3>
+      <div id="schema"></div>
+    </aside>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/sql-to-pyspark.js"></script>
+  <script src="js/editor.js"></script>
+</body>
+</html>

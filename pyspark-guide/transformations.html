@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transformations - PySpark Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">PySpark Guide</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="architecture.html" class="navbar__btn">Architecture</a>
+      <a href="transformations.html" class="navbar__btn navbar__btn--primary">Transformations</a>
+      <a href="programming.html" class="navbar__btn">Programming</a>
+      <a href="partitions.html" class="navbar__btn">Partitions</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="real-world.html" class="navbar__btn">Real-World Scenarios</a>
+      <a href="interview.html" class="navbar__btn">Interview Prep</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">PySpark Guide</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+        <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <!-- ==========================================================
+           SECTION: Narrow Transformations
+           ========================================================== -->
+      <section class="topic-section animate-fade-in" id="narrow">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <h2>Narrow Transformations</h2>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="narrow">☆ Bookmark</button>
+            <button class="topic-complete-btn navbar__btn" data-topic-id="narrow">Mark as Complete</button>
+          </div>
+        </div>
+
+        <div class="topic-section__definition">
+          A <strong>narrow transformation</strong> does not require data to be shuffled between partitions. Each input partition contributes to at most one output partition.
+        </div>
+
+        <p>Common narrow transformations include:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-comment"># Narrow transformations — each partition maps to one output partition</span>
+<span class="token-fn">map</span>()          <span class="token-comment"># Apply function to each element</span>
+<span class="token-fn">filter</span>()       <span class="token-comment"># Keep elements matching condition</span>
+<span class="token-fn">flatMap</span>()      <span class="token-comment"># Map + flatten</span>
+<span class="token-fn">mapPartitions</span>()<span class="token-comment"># Apply function per partition</span>
+<span class="token-fn">union</span>()        <span class="token-comment"># Combine two RDDs</span></code></pre>
+        </div>
+
+        <!-- Interactive Diagram -->
+        <div class="interactive-diagram" id="narrow-diagram">
+          <div class="interactive-diagram__title">Partition-Level Operation — Click a component for details</div>
+
+          <div class="diagram-row">
+            <div class="diagram-partition diagram-partition--input diagram-component" data-explain="narrow-p1" role="button" tabindex="0">
+              Partition 1
+            </div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-partition diagram-partition--narrow diagram-component" data-explain="narrow-map" role="button" tabindex="0">
+              map()
+            </div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-partition diagram-partition--output diagram-component" data-explain="narrow-p1out" role="button" tabindex="0">
+              Partition 1'
+            </div>
+          </div>
+
+          <div class="diagram-row">
+            <div class="diagram-partition diagram-partition--input diagram-component" data-explain="narrow-p2" role="button" tabindex="0">
+              Partition 2
+            </div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-partition diagram-partition--narrow diagram-component" data-explain="narrow-map" role="button" tabindex="0">
+              map()
+            </div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-partition diagram-partition--output diagram-component" data-explain="narrow-p2out" role="button" tabindex="0">
+              Partition 2'
+            </div>
+          </div>
+
+          <div class="diagram-row">
+            <div class="diagram-partition diagram-partition--input diagram-component" data-explain="narrow-p3" role="button" tabindex="0">
+              Partition 3
+            </div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-partition diagram-partition--narrow diagram-component" data-explain="narrow-filter" role="button" tabindex="0">
+              filter()
+            </div>
+            <span class="diagram-arrow">→</span>
+            <div class="diagram-partition diagram-partition--output diagram-component" data-explain="narrow-p3out" role="button" tabindex="0">
+              Partition 3'
+            </div>
+          </div>
+
+          <!-- Explanations -->
+          <div class="diagram-explanation" id="explain-narrow-p1">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Input Partition 1</div>
+            <p>Contains a subset of the total dataset. Each partition is processed independently by a single task on an executor.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-narrow-p2">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Input Partition 2</div>
+            <p>Another independent slice of data. No dependency on Partition 1 or 3 — true parallelism.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-narrow-p3">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Input Partition 3</div>
+            <p>Each partition can even apply a different narrow transformation — Spark handles this transparently.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-narrow-map">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">map() — Narrow Transformation</div>
+            <p>Each input element produces exactly one output element. The function runs locally on the executor — no data movement across the network.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-narrow-filter">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">filter() — Narrow Transformation</div>
+            <p>Evaluates a predicate on each element. Elements that pass are kept; others are discarded. Still one-to-one — no shuffle.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-narrow-p1out">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Output Partition 1'</div>
+            <p>Result of applying map() to Partition 1. Same partition index, same executor — zero network I/O.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-narrow-p2out">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Output Partition 2'</div>
+            <p>Processed independently. If this transformation were pipelined with another narrow op, both would run in the same task.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-narrow-p3out">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Output Partition 3'</div>
+            <p>May have fewer elements than the input (filter removed some), but the partition boundary is preserved.</p>
+          </div>
+        </div>
+
+        <h3>Key Characteristics</h3>
+        <ul>
+          <li><strong>One-to-one</strong> partition relationship</li>
+          <li><strong>No data movement</strong> between partitions</li>
+          <li>Usually <strong>faster execution</strong></li>
+          <li>Can be <strong>pipelined</strong> together (fused into a single task)</li>
+        </ul>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">Narrow transformations are efficient because they don't require data movement across the network. Spark can pipeline multiple narrow transformations into a single stage, avoiding costly shuffle operations.</div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           SECTION: Wide Transformations
+           ========================================================== -->
+      <section class="topic-section animate-fade-in" id="wide" style="animation-delay:.1s">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <h2>Wide Transformations</h2>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="wide">☆ Bookmark</button>
+            <button class="topic-complete-btn navbar__btn" data-topic-id="wide">Mark as Complete</button>
+          </div>
+        </div>
+
+        <div class="topic-section__definition">
+          A <strong>wide transformation</strong> requires data to move between partitions (shuffle). Each input partition can contribute to multiple output partitions.
+        </div>
+
+        <p>Common wide transformations include:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-comment"># Wide transformations — data shuffle required</span>
+<span class="token-fn">groupByKey</span>()    <span class="token-comment"># Group values by key</span>
+<span class="token-fn">reduceByKey</span>()   <span class="token-comment"># Aggregate values by key</span>
+<span class="token-fn">join</span>()          <span class="token-comment"># Join two RDDs/DataFrames</span>
+<span class="token-fn">sortByKey</span>()     <span class="token-comment"># Sort by key</span>
+<span class="token-fn">distinct</span>()      <span class="token-comment"># Remove duplicates</span>
+<span class="token-fn">repartition</span>()   <span class="token-comment"># Change number of partitions</span>
+<span class="token-fn">coalesce</span>()      <span class="token-comment"># Reduce partitions (no full shuffle)</span></code></pre>
+        </div>
+
+        <!-- Interactive Diagram — Shuffle -->
+        <div class="interactive-diagram" id="wide-diagram">
+          <div class="interactive-diagram__title">Shuffle Operation — Click a component for details</div>
+
+          <div class="diagram-row">
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="diagram-partition diagram-partition--input diagram-component" data-explain="wide-p1" role="button" tabindex="0">
+                Partition 1
+              </div>
+              <div class="diagram-partition diagram-partition--input diagram-component" data-explain="wide-p2" role="button" tabindex="0">
+                Partition 2
+              </div>
+              <div class="diagram-partition diagram-partition--input diagram-component" data-explain="wide-p3" role="button" tabindex="0">
+                Partition 3
+              </div>
+            </div>
+
+            <span class="diagram-arrow">→</span>
+
+            <div class="diagram-partition diagram-partition--shuffle diagram-component" data-explain="wide-shuffle" role="button" tabindex="0">
+              ⚡ SHUFFLE
+            </div>
+
+            <span class="diagram-arrow">→</span>
+
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="diagram-partition diagram-partition--output diagram-component" data-explain="wide-new1" role="button" tabindex="0">
+                New Partition A
+              </div>
+              <div class="diagram-partition diagram-partition--output diagram-component" data-explain="wide-new2" role="button" tabindex="0">
+                New Partition B
+              </div>
+              <div class="diagram-partition diagram-partition--output diagram-component" data-explain="wide-new3" role="button" tabindex="0">
+                New Partition C
+              </div>
+            </div>
+          </div>
+
+          <!-- Explanations -->
+          <div class="diagram-explanation" id="explain-wide-p1">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Input Partition 1</div>
+            <p>Contains key-value pairs. During shuffle, data is re-partitioned by key — records with the same key must end up on the same output partition.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-wide-p2">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Input Partition 2</div>
+            <p>Data from this partition will be sent to multiple output partitions based on the partitioning key. This cross-partition data movement is the shuffle.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-wide-p3">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">Input Partition 3</div>
+            <p>Same as above — records are hashed by key to determine their target partition. Network I/O is proportional to data volume.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-wide-shuffle">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">⚡ The Shuffle</div>
+            <p>The most expensive operation in Spark. Data is serialized, written to disk, transferred across the network, and deserialized. This creates a <strong>stage boundary</strong> in the DAG.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-wide-new1">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">New Partition A</div>
+            <p>Contains all records (from all input partitions) whose key hashes to partition A. The number of output partitions is determined by <code>spark.sql.shuffle.partitions</code> (default 200).</p>
+          </div>
+          <div class="diagram-explanation" id="explain-wide-new2">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">New Partition B</div>
+            <p>After shuffle, each output partition is processed independently again. Wide transformations effectively "reset" the pipeline.</p>
+          </div>
+          <div class="diagram-explanation" id="explain-wide-new3">
+            <button class="diagram-close" aria-label="Close">&times;</button>
+            <div class="diagram-explanation__title">New Partition C</div>
+            <p>The new partitions may be on completely different executors than the original ones — this is why shuffle is expensive.</p>
+          </div>
+        </div>
+
+        <h3>Key Characteristics</h3>
+        <ul>
+          <li><strong>Many-to-many</strong> partition relationship</li>
+          <li>Requires <strong>data shuffle</strong> across network</li>
+          <li>Usually <strong>slower execution</strong></li>
+          <li>Creates new <strong>stage boundaries</strong> in the DAG</li>
+        </ul>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">Wide transformations cause shuffle and can create a new stage. Minimize them for better performance. When possible, use <code>reduceByKey</code> instead of <code>groupByKey</code> to reduce the amount of data shuffled.</div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           SECTION: Narrow vs Wide Comparison
+           ========================================================== -->
+      <section class="topic-section animate-fade-in" id="narrow-vs-wide" style="animation-delay:.15s">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <h2>Narrow vs Wide — Comparison</h2>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="narrow-vs-wide">☆ Bookmark</button>
+            <button class="topic-complete-btn navbar__btn" data-topic-id="narrow-vs-wide">Mark as Complete</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th style="color:var(--color-success)">Narrow</th>
+                <th style="color:var(--color-danger)">Wide</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Shuffle Required</strong></td>
+                <td>No</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><strong>Data Movement</strong></td>
+                <td>Low</td>
+                <td>High</td>
+              </tr>
+              <tr>
+                <td><strong>Performance</strong></td>
+                <td>Usually faster</td>
+                <td>Usually slower</td>
+              </tr>
+              <tr>
+                <td><strong>Relationship</strong></td>
+                <td>One-to-one</td>
+                <td>Many-to-many</td>
+              </tr>
+              <tr>
+                <td><strong>Stage Boundary</strong></td>
+                <td>No</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><strong>Examples</strong></td>
+                <td><code>map</code>, <code>filter</code>, <code>union</code></td>
+                <td><code>groupBy</code>, <code>join</code>, <code>reduceByKey</code></td>
+              </tr>
+              <tr>
+                <td><strong>Network I/O</strong></td>
+                <td>Minimal</td>
+                <td>Significant</td>
+              </tr>
+              <tr>
+                <td><strong>Pipelining</strong></td>
+                <td>Yes — fused into one task</td>
+                <td>No — creates stage boundary</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Visual Side-by-Side -->
+        <div class="side-by-side">
+          <div class="side-by-side__panel">
+            <div class="side-by-side__label" style="color:var(--color-success)">Narrow — One-to-One</div>
+            <div class="diagram-row" style="justify-content:center">
+              <div class="diagram-partition diagram-partition--input" style="min-width:80px;font-size:.75rem">P1</div>
+              <span class="diagram-arrow" style="font-size:1.125rem">→</span>
+              <div class="diagram-partition diagram-partition--narrow" style="min-width:80px;font-size:.75rem">map()</div>
+              <span class="diagram-arrow" style="font-size:1.125rem">→</span>
+              <div class="diagram-partition diagram-partition--output" style="min-width:80px;font-size:.75rem">P1'</div>
+            </div>
+            <div class="diagram-row" style="justify-content:center">
+              <div class="diagram-partition diagram-partition--input" style="min-width:80px;font-size:.75rem">P2</div>
+              <span class="diagram-arrow" style="font-size:1.125rem">→</span>
+              <div class="diagram-partition diagram-partition--narrow" style="min-width:80px;font-size:.75rem">map()</div>
+              <span class="diagram-arrow" style="font-size:1.125rem">→</span>
+              <div class="diagram-partition diagram-partition--output" style="min-width:80px;font-size:.75rem">P2'</div>
+            </div>
+          </div>
+
+          <div class="side-by-side__panel">
+            <div class="side-by-side__label" style="color:var(--color-danger)">Wide — Many-to-Many</div>
+            <div class="diagram-row" style="justify-content:center">
+              <div style="display:flex;flex-direction:column;gap:.375rem">
+                <div class="diagram-partition diagram-partition--input" style="min-width:60px;font-size:.75rem;padding:.375rem .625rem">P1</div>
+                <div class="diagram-partition diagram-partition--input" style="min-width:60px;font-size:.75rem;padding:.375rem .625rem">P2</div>
+              </div>
+              <span class="diagram-arrow" style="font-size:1.125rem">→</span>
+              <div class="diagram-partition diagram-partition--shuffle" style="font-size:.75rem;padding:.375rem .75rem">Shuffle</div>
+              <span class="diagram-arrow" style="font-size:1.125rem">→</span>
+              <div style="display:flex;flex-direction:column;gap:.375rem">
+                <div class="diagram-partition diagram-partition--output" style="min-width:60px;font-size:.75rem;padding:.375rem .625rem">A</div>
+                <div class="diagram-partition diagram-partition--output" style="min-width:60px;font-size:.75rem;padding:.375rem .625rem">B</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           SECTION: Common Transformations
+           ========================================================== -->
+      <section class="topic-section animate-fade-in" id="common-transformations" style="animation-delay:.2s">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <h2>Common Transformations</h2>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="common-transformations">☆ Bookmark</button>
+            <button class="topic-complete-btn navbar__btn" data-topic-id="common-transformations">Mark as Complete</button>
+          </div>
+        </div>
+
+        <div class="transform-grid">
+
+          <!-- map() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">map()</span>
+              <span class="transform-card__type transform-card__type--narrow">Narrow</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Applies a function to each element in the RDD and returns a new RDD.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([<span class="token-num">1</span>, <span class="token-num">2</span>, <span class="token-num">3</span>, <span class="token-num">4</span>, <span class="token-num">5</span>])
+mapped = rdd.<span class="token-fn">map</span>(<span class="token-kw">lambda</span> x: x * <span class="token-num">2</span>)
+<span class="token-builtin">print</span>(mapped.<span class="token-fn">collect</span>())  <span class="token-comment"># [2, 4, 6, 8, 10]</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- filter() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">filter()</span>
+              <span class="transform-card__type transform-card__type--narrow">Narrow</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Returns a new RDD containing only the elements that satisfy a given condition.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([<span class="token-num">1</span>, <span class="token-num">2</span>, <span class="token-num">3</span>, <span class="token-num">4</span>, <span class="token-num">5</span>])
+filtered = rdd.<span class="token-fn">filter</span>(<span class="token-kw">lambda</span> x: x > <span class="token-num">2</span>)
+<span class="token-builtin">print</span>(filtered.<span class="token-fn">collect</span>())  <span class="token-comment"># [3, 4, 5]</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- flatMap() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">flatMap()</span>
+              <span class="transform-card__type transform-card__type--narrow">Narrow</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Applies a function that returns an iterator for each element, then flattens the results into a single RDD.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([<span class="token-str">"hello world"</span>, <span class="token-str">"hi spark"</span>])
+flat = rdd.<span class="token-fn">flatMap</span>(<span class="token-kw">lambda</span> x: x.<span class="token-fn">split</span>(<span class="token-str">" "</span>))
+<span class="token-builtin">print</span>(flat.<span class="token-fn">collect</span>())
+<span class="token-comment"># ["hello", "world", "hi", "spark"]</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- reduceByKey() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">reduceByKey()</span>
+              <span class="transform-card__type transform-card__type--wide">Wide</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Aggregates values for each key using a reduce function. More efficient than <code>groupByKey()</code> because it combines data locally before shuffle.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([(<span class="token-str">"a"</span>, <span class="token-num">1</span>), (<span class="token-str">"b"</span>, <span class="token-num">2</span>), (<span class="token-str">"a"</span>, <span class="token-num">3</span>)])
+reduced = rdd.<span class="token-fn">reduceByKey</span>(<span class="token-kw">lambda</span> a, b: a + b)
+<span class="token-builtin">print</span>(reduced.<span class="token-fn">collect</span>())
+<span class="token-comment"># [("a", 4), ("b", 2)]</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- groupByKey() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">groupByKey()</span>
+              <span class="transform-card__type transform-card__type--wide">Wide</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Groups all values for each key into an iterable. Generally less efficient than <code>reduceByKey()</code> because it shuffles all data before aggregation.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([(<span class="token-str">"a"</span>, <span class="token-num">1</span>), (<span class="token-str">"b"</span>, <span class="token-num">2</span>), (<span class="token-str">"a"</span>, <span class="token-num">3</span>)])
+grouped = rdd.<span class="token-fn">groupByKey</span>()
+<span class="token-kw">for</span> key, values <span class="token-kw">in</span> grouped.<span class="token-fn">collect</span>():
+    <span class="token-builtin">print</span>(<span class="token-str">f"<span class="token-op">{</span>key<span class="token-op">}</span>: <span class="token-op">{</span><span class="token-builtin">list</span>(values)<span class="token-op">}</span>"</span>)
+<span class="token-comment"># a: [1, 3]</span>
+<span class="token-comment"># b: [2]</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- union() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">union()</span>
+              <span class="transform-card__type transform-card__type--narrow">Narrow</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Returns a new RDD containing all elements from both input RDDs. Does not deduplicate — use <code>distinct()</code> for that.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd1 = sc.parallelize([<span class="token-num">1</span>, <span class="token-num">2</span>, <span class="token-num">3</span>])
+rdd2 = sc.parallelize([<span class="token-num">3</span>, <span class="token-num">4</span>, <span class="token-num">5</span>])
+combined = rdd1.<span class="token-fn">union</span>(rdd2)
+<span class="token-builtin">print</span>(combined.<span class="token-fn">collect</span>())
+<span class="token-comment"># [1, 2, 3, 3, 4, 5]</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           SECTION: Actions
+           ========================================================== -->
+      <section class="topic-section animate-fade-in" id="actions" style="animation-delay:.25s">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <h2>Actions</h2>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="actions">☆ Bookmark</button>
+            <button class="topic-complete-btn navbar__btn" data-topic-id="actions">Mark as Complete</button>
+          </div>
+        </div>
+
+        <div class="topic-section__definition">
+          <strong>Actions</strong> trigger Spark execution and return results to the driver or write data to storage. Without actions, no computation actually happens — Spark builds a DAG of lazy transformations.
+        </div>
+
+        <h3>Common Actions</h3>
+
+        <div class="transform-grid" style="grid-template-columns:1fr">
+
+          <!-- collect() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">collect()</span>
+              <span class="transform-card__type transform-card__type--narrow">Action</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Returns all elements of the RDD as a list to the driver.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([<span class="token-num">1</span>, <span class="token-num">2</span>, <span class="token-num">3</span>, <span class="token-num">4</span>, <span class="token-num">5</span>])
+<span class="token-builtin">print</span>(rdd.<span class="token-fn">collect</span>())  <span class="token-comment"># [1, 2, 3, 4, 5]</span></code></pre>
+              </div>
+              <div class="warning-inline">
+                ⚠️ Avoid <code>collect()</code> on large datasets — it brings all data to the driver, which can cause out-of-memory errors.
+              </div>
+            </div>
+          </div>
+
+          <!-- count() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">count()</span>
+              <span class="transform-card__type transform-card__type--narrow">Action</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Returns the number of elements in the RDD.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([<span class="token-num">1</span>, <span class="token-num">2</span>, <span class="token-num">3</span>, <span class="token-num">4</span>, <span class="token-num">5</span>])
+<span class="token-builtin">print</span>(rdd.<span class="token-fn">count</span>())  <span class="token-comment"># 5</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- show() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">show()</span>
+              <span class="transform-card__type transform-card__type--narrow">Action</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Displays the first 20 rows of a DataFrame in a tabular format. Useful for quick inspection.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>df.<span class="token-fn">show</span>()
+<span class="token-comment"># +---+-----+</span>
+<span class="token-comment"># | id|name |</span>
+<span class="token-comment"># +---+-----+</span>
+<span class="token-comment"># |  1|Alice|</span>
+<span class="token-comment"># |  2|  Bob|</span>
+<span class="token-comment"># +---+-----+</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- take() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">take()</span>
+              <span class="transform-card__type transform-card__type--narrow">Action</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Returns the first <em>n</em> elements of the RDD. Safer than <code>collect()</code> for large datasets.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd = sc.parallelize([<span class="token-num">1</span>, <span class="token-num">2</span>, <span class="token-num">3</span>, <span class="token-num">4</span>, <span class="token-num">5</span>])
+<span class="token-builtin">print</span>(rdd.<span class="token-fn">take</span>(<span class="token-num">3</span>))  <span class="token-comment"># [1, 2, 3]</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- saveAsTextFile() -->
+          <div class="transform-card">
+            <div class="transform-card__header">
+              <span class="transform-card__name">saveAsTextFile()</span>
+              <span class="transform-card__type transform-card__type--narrow">Action</span>
+            </div>
+            <div class="transform-card__body">
+              <p class="transform-card__desc">Writes the RDD elements to a text file. Each partition creates one output file.</p>
+              <div class="code-block" style="margin:0">
+                <pre><code>rdd.<span class="token-fn">saveAsTextFile</span>(<span class="token-str">"output/path"</span>)
+<span class="token-comment"># Creates output/part-00000, output/part-00001, ...</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tip-card" style="margin-top:2rem">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">Actions are the <strong>only way to trigger Spark execution</strong>. Transformations alone do nothing — they just build a logical plan. When an action is called, Spark optimizes the full DAG and executes it.</div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           SECTION: Complete DAG Example
+           ========================================================== -->
+      <section class="topic-section animate-fade-in" id="complete-dag" style="animation-delay:.3s">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <h2>Complete DAG Example</h2>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="complete-dag">☆ Bookmark</button>
+            <button class="topic-complete-btn navbar__btn" data-topic-id="complete-dag">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Let's trace a complete example showing how Spark builds a DAG from transformations and actions:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <span class="code-block__filename">dag_example.py</span>
+          </div>
+          <pre><code><span class="token-comment"># Step 1: Read data (narrow)</span>
+rdd = sc.<span class="token-fn">textFile</span>(<span class="token-str">"data.txt"</span>)
+
+<span class="token-comment"># Step 2: Transform each line (narrow)</span>
+mapped = rdd.<span class="token-fn">map</span>(<span class="token-kw">lambda</span> x: (x.<span class="token-fn">split</span>(<span class="token-str">","</span>)[<span class="token-num">0</span>], x))
+
+<span class="token-comment"># Step 3: Filter (narrow)</span>
+filtered = mapped.<span class="token-fn">filter</span>(<span class="token-kw">lambda</span> x: x[<span class="token-num">0</span>] == <span class="token-str">"key"</span>)
+
+<span class="token-comment"># Step 4: Group by key (wide — triggers shuffle!)</span>
+grouped = filtered.<span class="token-fn">groupByKey</span>()
+
+<span class="token-comment"># Step 5: Map over groups (narrow)</span>
+result = grouped.<span class="token-fn">map</span>(<span class="token-fn">len</span>)
+
+<span class="token-comment"># Step 6: Trigger execution (action)</span>
+result.<span class="token-fn">collect</span>()</code></pre>
+        </div>
+
+        <h3>Visual DAG — Stages & Shuffle Boundaries</h3>
+
+        <div class="dag-visual">
+          <div class="dag-stage">
+            <span class="dag-stage__label">Stage 0</span>
+            <div class="dag-stage__op">├── textFile()</div>
+            <div class="dag-stage__op">├── map()</div>
+            <div class="dag-stage__op">└── filter()</div>
+          </div>
+
+          <div class="dag-arrow-down">↓</div>
+          <div class="dag-shuffle">⚡ SHUFFLE (groupByKey triggers exchange)</div>
+          <div class="dag-arrow-down">↓</div>
+
+          <div class="dag-stage">
+            <span class="dag-stage__label">Stage 1</span>
+            <div class="dag-stage__op">├── groupByKey()</div>
+            <div class="dag-stage__op">└── map(len)</div>
+          </div>
+
+          <div class="dag-arrow-down">↓</div>
+          <div class="dag-shuffle">⚡ SHUFFLE (result materialized to driver)</div>
+          <div class="dag-arrow-down">↓</div>
+
+          <div class="dag-stage">
+            <span class="dag-stage__label">Stage 2</span>
+            <div class="dag-stage__op">└── collect()</div>
+          </div>
+        </div>
+
+        <h3>How Spark Decides Stages</h3>
+        <ol>
+          <li>Spark scans transformations from the action backwards</li>
+          <li>Narrow transformations are <strong>pipelined</strong> into the same stage</li>
+          <li>When a <strong>wide transformation</strong> is encountered, a new stage boundary is created</li>
+          <li>Each stage runs tasks in parallel — one per partition</li>
+          <li>Stages are connected by <strong>shuffle dependencies</strong></li>
+        </ol>
+
+        <div class="success-card">
+          <div class="success-card__title">Key Takeaway</div>
+          <div class="success-card__body">
+            Understanding the DAG helps you predict performance. Every shuffle is a potential bottleneck. By knowing which transformations are narrow vs. wide, you can write code that minimizes data movement and maximizes parallelism.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>PySpark Interview Guide — Understand PySpark. Visualize Spark. Prepare for Interviews.</p>
+    <p style="margin-top:.5rem;">© 2024 PySpark Guide. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

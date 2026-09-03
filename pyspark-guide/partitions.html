@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partitions - PySpark Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION BAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">PySpark Guide</span>
+    </a>
+
+    <div class="navbar__spacer"></div>
+
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="architecture.html" class="navbar__btn">Architecture</a>
+      <a href="transformations.html" class="navbar__btn">Transformations</a>
+      <a href="programming.html" class="navbar__btn">Programming</a>
+      <a href="partitions.html" class="navbar__btn navbar__btn--primary">Partitions</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="real-world.html" class="navbar__btn">Real-World Scenarios</a>
+      <a href="interview.html" class="navbar__btn">Interview Prep</a>
+    </div>
+
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & NAV ===== -->
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">PySpark Guide</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH OVERLAY ===== -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKMARKS PANEL ===== -->
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <!-- ===== PROGRESS INDICATOR ===== -->
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+        <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-spark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Spark</a></li>
+          <li><a href="fundamentals.html#what-is-pyspark" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is PySpark</a></li>
+          <li><a href="fundamentals.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is RDD</a></li>
+          <li><a href="fundamentals.html#lazy-evaluation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Lazy Evaluation</a></li>
+          <li><a href="fundamentals.html#transformations-actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Transformations vs Actions</a></li>
+        
+          <li><a href="fundamentals.html#rdd-vs-dataframe-vs-dataset" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD vs DataFrame vs Dataset</a></li>
+        </ul>
+      </div>
+      <!-- Execution -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Execution</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="architecture.html#execution-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Architecture</a></li>
+          <li><a href="architecture.html#driver" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Driver</a></li>
+          <li><a href="architecture.html#logical-plan" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Logical Plan</a></li>
+          <li><a href="architecture.html#catalyst" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="architecture.html#dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DAG</a></li>
+          <li><a href="architecture.html#stages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stages</a></li>
+          <li><a href="architecture.html#tasks-executors" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tasks</a></li>
+          <li><a href="architecture.html#aqe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Adaptive Query Execution</a></li>
+        </ul>
+      </div>
+      <!-- Transformations -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Transformations</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="transformations.html#narrow" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow</a></li>
+          <li><a href="transformations.html#wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Wide</a></li>
+          <li><a href="transformations.html#narrow-vs-wide" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Narrow vs Wide</a></li>
+          <li><a href="transformations.html#common-transformations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Common Transformations</a></li>
+          <li><a href="transformations.html#actions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Actions</a></li>
+          <li><a href="transformations.html#complete-dag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Complete DAG</a></li>
+        </ul>
+      </div>
+      <!-- Programming -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Programming</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="programming.html#sparksession" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SparkSession</a></li>
+          <li><a href="programming.html#rdd" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RDD</a></li>
+          <li><a href="programming.html#dataframe" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DataFrame</a></li>
+          <li><a href="programming.html#read-csv" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Reading CSV</a></li>
+          <li><a href="programming.html#manual-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Manual Schema</a></li>
+          <li><a href="programming.html#filter" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Filtering</a></li>
+          <li><a href="programming.html#withcolumn" class="sidebar__link"><span class="sidebar__link-icon">▸</span> withColumn</a></li>
+          <li><a href="programming.html#groupby" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GroupBy</a></li>
+          <li><a href="programming.html#sorting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sorting</a></li>
+          <li><a href="programming.html#duplicates" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Duplicates</a></li>
+          <li><a href="programming.html#joins-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Joins</a></li>
+          <li><a href="programming.html#window-functions" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Window Functions</a></li>
+          <li><a href="programming.html#spark-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark SQL</a></li>
+          <li><a href="programming.html#udf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UDF</a></li>
+          <li><a href="programming.html#null-handling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Null Handling</a></li>
+          <li><a href="programming.html#conditional" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Conditional Columns</a></li>
+          <li><a href="programming.html#cache-persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache and Persist</a></li>
+          <li><a href="programming.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+          <li><a href="programming.html#broadcast-join-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast Join</a></li>
+          <li><a href="programming.html#etl-pipeline" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ETL Pipeline</a></li>
+          <li><a href="programming.html#jdbc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> JDBC</a></li>
+          <li><a href="programming.html#s3-etl" class="sidebar__link"><span class="sidebar__link-icon">▸</span> S3 ETL</a></li>
+          <li><a href="programming.html#data-skew-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="programming.html#accumulators" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Accumulators</a></li>
+          <li><a href="programming.html#catalyst-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="programming.html#aqe-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+          <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
+          <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
+          <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+      <!-- Partitions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Partitions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="partitions.html#partition-basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basics</a></li>
+          <li><a href="partitions.html#horizontal" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Horizontal</a></li>
+          <li><a href="partitions.html#vertical" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Vertical</a></li>
+          <li><a href="partitions.html#hash-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Hash</a></li>
+          <li><a href="partitions.html#range-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Range</a></li>
+          <li><a href="partitions.html#round-robin" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Round Robin</a></li>
+          <li><a href="partitions.html#custom-partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Custom</a></li>
+          <li><a href="partitions.html#repartition-coalesce" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Repartition vs Coalesce</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#join-types" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Types</a></li>
+          <li><a href="joins.html#broadcast-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Broadcast</a></li>
+          <li><a href="joins.html#sort-merge-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort-Merge</a></li>
+          <li><a href="joins.html#join-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Join Optimization</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#shuffle" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Shuffle</a></li>
+          <li><a href="performance.html#data-skew" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Skew</a></li>
+          <li><a href="performance.html#salting" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Salting</a></li>
+          <li><a href="performance.html#cache" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cache</a></li>
+          <li><a href="performance.html#persist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Persist</a></li>
+          <li><a href="performance.html#optimization-checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#catalyst-optimizer" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Catalyst Optimizer</a></li>
+          <li><a href="performance.html#aqe-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> AQE</a></li>
+        </ul>
+      </div>
+      <!-- Real-World Scenarios -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Real-World Scenarios</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="real-world.html#real-world-problems" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Real-World Problems</a></li>
+          <li><a href="real-world.html#execution-modes" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Modes</a></li>
+        </ul>
+      </div>
+      <!-- Interview Prep -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview Prep</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#interview-prep" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Overview</a></li>
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <!-- ============================================================
+           SECTION: What are Partitions?
+           ============================================================ -->
+      <span id="basics"></span>
+    <div id="partition-basics" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">&#128994; Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">What are Partitions?</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="partition-basics">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="partition-basics">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Spark divides a dataset into partitions so that data can be processed in parallel. Each partition is a logical chunk of data that is processed by a single task.</p>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">Dataset Partitioning Overview</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;font-family:'JetBrains Mono',monospace;font-size:.875rem;">
+            <div style="background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;padding:.75rem 2rem;border-radius:var(--radius-md);font-weight:600;box-shadow:var(--shadow-md);">Dataset</div>
+            <div style="color:var(--color-text-tertiary);font-size:1.25rem;">&#8595;</div>
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+              <div style="background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);padding:.625rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Partition 1</div>
+              <div style="background:var(--color-info-bg);border:1px solid var(--color-info-border);color:var(--color-info);padding:.625rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Partition 2</div>
+              <div style="background:var(--color-warning-bg);border:1px solid var(--color-warning-border);color:var(--color-warning);padding:.625rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Partition 3</div>
+              <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);color:var(--color-danger);padding:.625rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Partition 4</div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>Key relationships:</strong></p>
+        <ul>
+          <li><strong>1 Partition &#8594; 1 Task</strong> — Each partition is processed by exactly one task.</li>
+          <li><strong>1 Executor Core &#8594; 1 Task at a time</strong> — A core can process one partition concurrently.</li>
+          <li><strong>More partitions = more parallelism</strong> (but also more overhead).</li>
+        </ul>
+
+        <p><strong>Default partition count:</strong> When you read a file, Spark creates one partition per HDFS block (default 128 MB) or one partition per file. When using DataFrames, the default number of partitions is determined by <code>spark.sql.shuffle.partitions</code> (default 200).</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">&#128161; Interview Tip</div>
+          <div class="tip-card__body">The number of partitions determines the level of parallelism. Too few partitions underutilize resources; too many create overhead.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Horizontal Partitioning
+           ============================================================ -->
+      <div id="horizontal" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">&#128994; Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Horizontal Partitioning</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="horizontal">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="horizontal">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Divides rows across partitions. Each partition contains a subset of the total rows.</p>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">Horizontal Partitioning</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1.25rem;font-family:'JetBrains Mono',monospace;font-size:.875rem;">
+            <div style="text-align:center;">
+              <div style="font-weight:600;margin-bottom:.5rem;color:var(--color-heading);">Original Dataset</div>
+              <div style="display:flex;gap:.375rem;flex-wrap:wrap;justify-content:center;">
+                <span style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Row 1</span>
+                <span style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Row 2</span>
+                <span style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Row 3</span>
+                <span style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Row 4</span>
+                <span style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Row 5</span>
+                <span style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Row 6</span>
+              </div>
+            </div>
+            <div style="color:var(--color-text-tertiary);font-size:1.25rem;">&#8595;</div>
+            <div style="text-align:center;">
+              <div style="font-weight:600;margin-bottom:.5rem;color:var(--color-heading);">After Horizontal Partitioning</div>
+              <div style="display:flex;flex-direction:column;gap:.75rem;align-items:center;">
+                <div style="background:var(--color-success-bg);border:1px solid var(--color-success-border);border-radius:var(--radius-md);padding:.625rem 1rem;text-align:center;">
+                  <div style="font-weight:600;color:var(--color-success);font-size:.75rem;margin-bottom:.25rem;">Partition 1</div>
+                  <div style="display:flex;gap:.375rem;justify-content:center;">
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .625rem;border-radius:var(--radius-sm);">Row 1</span>
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .625rem;border-radius:var(--radius-sm);">Row 2</span>
+                  </div>
+                </div>
+                <div style="background:var(--color-info-bg);border:1px solid var(--color-info-border);border-radius:var(--radius-md);padding:.625rem 1rem;text-align:center;">
+                  <div style="font-weight:600;color:var(--color-info);font-size:.75rem;margin-bottom:.25rem;">Partition 2</div>
+                  <div style="display:flex;gap:.375rem;justify-content:center;">
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .625rem;border-radius:var(--radius-sm);">Row 3</span>
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .625rem;border-radius:var(--radius-sm);">Row 4</span>
+                  </div>
+                </div>
+                <div style="background:var(--color-warning-bg);border:1px solid var(--color-warning-border);border-radius:var(--radius-md);padding:.625rem 1rem;text-align:center;">
+                  <div style="font-weight:600;color:var(--color-warning);font-size:.75rem;margin-bottom:.25rem;">Partition 3</div>
+                  <div style="display:flex;gap:.375rem;justify-content:center;">
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .625rem;border-radius:var(--radius-sm);">Row 5</span>
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .625rem;border-radius:var(--radius-sm);">Row 6</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>Use case:</strong> Used by default in Spark for parallel processing of large datasets.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Vertical Partitioning
+           ============================================================ -->
+      <div id="vertical" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">&#128994; Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Vertical Partitioning</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="vertical">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="vertical">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Divides columns across partitions. Each partition contains a subset of the total columns.</p>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">Vertical Partitioning</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1.25rem;font-family:'JetBrains Mono',monospace;font-size:.875rem;">
+            <div style="text-align:center;">
+              <div style="font-weight:600;margin-bottom:.5rem;color:var(--color-heading);">Original Dataset</div>
+              <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:.5rem 1rem;display:inline-flex;gap:.75rem;">
+                <span style="padding:.25rem .625rem;border-radius:var(--radius-sm);background:var(--color-surface);">ID</span>
+                <span style="padding:.25rem .625rem;border-radius:var(--radius-sm);background:var(--color-surface);">Name</span>
+                <span style="padding:.25rem .625rem;border-radius:var(--radius-sm);background:var(--color-surface);">Age</span>
+                <span style="padding:.25rem .625rem;border-radius:var(--radius-sm);background:var(--color-surface);">Salary</span>
+                <span style="padding:.25rem .625rem;border-radius:var(--radius-sm);background:var(--color-surface);">Dept</span>
+              </div>
+            </div>
+            <div style="color:var(--color-text-tertiary);font-size:1.25rem;">&#8595;</div>
+            <div style="text-align:center;">
+              <div style="font-weight:600;margin-bottom:.5rem;color:var(--color-heading);">After Vertical Partitioning</div>
+              <div style="display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;">
+                <div style="background:var(--color-success-bg);border:1px solid var(--color-success-border);border-radius:var(--radius-md);padding:.625rem 1rem;text-align:center;">
+                  <div style="font-weight:600;color:var(--color-success);font-size:.75rem;margin-bottom:.375rem;">Partition 1</div>
+                  <div style="display:flex;gap:.375rem;flex-wrap:wrap;justify-content:center;">
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;border-radius:var(--radius-sm);">ID</span>
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;border-radius:var(--radius-sm);">Name</span>
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;border-radius:var(--radius-sm);">Age</span>
+                  </div>
+                </div>
+                <div style="background:var(--color-info-bg);border:1px solid var(--color-info-border);border-radius:var(--radius-md);padding:.625rem 1rem;text-align:center;">
+                  <div style="font-weight:600;color:var(--color-info);font-size:.75rem;margin-bottom:.375rem;">Partition 2</div>
+                  <div style="display:flex;gap:.375rem;flex-wrap:wrap;justify-content:center;">
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;border-radius:var(--radius-sm);">ID</span>
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;border-radius:var(--radius-sm);">Salary</span>
+                    <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;border-radius:var(--radius-sm);">Dept</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>Use case:</strong> Useful when you frequently access only a subset of columns.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Hash Partitioning
+           ============================================================ -->
+      <span id="hash"></span>
+    <div id="hash-partitioning" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">&#128992; Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Hash Partitioning</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="hash-partitioning">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="hash-partitioning">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Determines partition assignment by applying a hash function to the partition key.</p>
+
+        <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1rem 1.25rem;margin:1.5rem 0;font-family:'JetBrains Mono',monospace;font-size:.9rem;text-align:center;">
+          <code style="background:none;color:var(--color-primary);font-size:1rem;font-weight:600;">partition = hash(key) % number_of_partitions</code>
+        </div>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">Hash Partitioning Flow</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.75rem;font-family:'JetBrains Mono',monospace;font-size:.8125rem;">
+            <div style="background:var(--color-info-bg);border:1px solid var(--color-info-border);color:var(--color-info);padding:.5rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Customer ID</div>
+            <div style="color:var(--color-text-tertiary);">&#8595;</div>
+            <div style="background:var(--color-accent-light);border:1px solid rgba(124,58,237,.2);color:var(--color-accent);padding:.5rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Hash Function</div>
+            <div style="color:var(--color-text-tertiary);">&#8595;</div>
+            <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);color:var(--color-text);padding:.5rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Hash Value</div>
+            <div style="color:var(--color-text-tertiary);">&#8595;</div>
+            <div style="background:var(--color-warning-bg);border:1px solid var(--color-warning-border);color:var(--color-warning);padding:.5rem 1.25rem;border-radius:var(--radius-md);font-weight:500;">Modulo Partitions</div>
+            <div style="color:var(--color-text-tertiary);">&#8595;</div>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;">
+              <div style="background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);padding:.375rem .875rem;border-radius:var(--radius-md);font-weight:500;">Partition 0</div>
+              <div style="background:var(--color-info-bg);border:1px solid var(--color-info-border);color:var(--color-info);padding:.375rem .875rem;border-radius:var(--radius-md);font-weight:500;">Partition 1</div>
+              <div style="background:var(--color-warning-bg);border:1px solid var(--color-warning-border);color:var(--color-warning);padding:.375rem .875rem;border-radius:var(--radius-md);font-weight:500;">Partition 2</div>
+              <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);color:var(--color-danger);padding:.375rem .875rem;border-radius:var(--radius-md);font-weight:500;">Partition 3</div>
+            </div>
+          </div>
+        </div>
+
+        <p>Records with the same key are sent to the same partition, ensuring co-location of related data.</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-keyword">from</span> pyspark.sql.functions <span class="token-keyword">import</span> hash, col
+
+df = spark.createDataFrame([
+    (<span class="token-string">"Alice"</span>, <span class="token-number">100</span>), (<span class="token-string">"Bob"</span>, <span class="token-number">200</span>), (<span class="token-string">"Charlie"</span>, <span class="token-number">300</span>)
+], [<span class="token-string">"name"</span>, <span class="token-string">"amount"</span>])
+
+<span class="token-comment"># Hash partition by name</span>
+df.repartition(<span class="token-number">4</span>, <span class="token-string">"name"</span>)</code></pre>
+        </div>
+
+        <p><strong>Use case:</strong> Commonly used for joins and aggregations to co-locate related data.</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">&#128161; Interview Tip</div>
+          <div class="tip-card__body">Hash partitioning ensures records with the same key end up in the same partition, which is crucial for efficient joins.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Range Partitioning
+           ============================================================ -->
+      <span id="range"></span>
+    <div id="range-partitioning" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">&#128992; Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Range Partitioning</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="range-partitioning">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="range-partitioning">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Divides data according to value ranges. Each partition covers a specific range of values.</p>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">Range Partitioning</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.75rem;font-family:'JetBrains Mono',monospace;font-size:.875rem;">
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+              <div style="background:linear-gradient(135deg,var(--color-success-bg),var(--color-success-bg));border:2px solid var(--color-success-border);border-radius:var(--radius-md);padding:.75rem 1.5rem;text-align:center;min-width:120px;">
+                <div style="font-weight:600;color:var(--color-success);font-size:.75rem;margin-bottom:.25rem;">Partition 1</div>
+                <div style="font-weight:700;color:var(--color-heading);font-size:1.125rem;">0 &#8211; 100</div>
+              </div>
+              <div style="background:linear-gradient(135deg,var(--color-info-bg),var(--color-info-bg));border:2px solid var(--color-info-border);border-radius:var(--radius-md);padding:.75rem 1.5rem;text-align:center;min-width:120px;">
+                <div style="font-weight:600;color:var(--color-info);font-size:.75rem;margin-bottom:.25rem;">Partition 2</div>
+                <div style="font-weight:700;color:var(--color-heading);font-size:1.125rem;">101 &#8211; 200</div>
+              </div>
+              <div style="background:linear-gradient(135deg,var(--color-warning-bg),var(--color-warning-bg));border:2px solid var(--color-warning-border);border-radius:var(--radius-md);padding:.75rem 1.5rem;text-align:center;min-width:120px;">
+                <div style="font-weight:600;color:var(--color-warning);font-size:.75rem;margin-bottom:.25rem;">Partition 3</div>
+                <div style="font-weight:700;color:var(--color-heading);font-size:1.125rem;">201 &#8211; 300</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-keyword">from</span> pyspark.sql.functions <span class="token-keyword">import</span> col
+
+<span class="token-comment"># Range partition by age</span>
+df.repartitionByRange(<span class="token-number">3</span>, col(<span class="token-string">"age"</span>))</code></pre>
+        </div>
+
+        <p><strong>Use case:</strong> Useful for range-based queries and maintaining sorted order.</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">&#128161; Interview Tip</div>
+          <div class="tip-card__body">Range partitioning is useful when you need data sorted within partitions for efficient range queries.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Round-Robin Partitioning
+           ============================================================ -->
+      <div id="round-robin" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--easy">&#128994; Easy</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Round-Robin Partitioning</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="round-robin">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="round-robin">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Records are distributed sequentially across partitions in a circular manner.</p>
+
+        <div class="diagram-container">
+          <div class="diagram-container__title">Round-Robin Distribution</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;font-family:'JetBrains Mono',monospace;font-size:.875rem;">
+            <div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;">
+              <!-- Records column -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
+                <div style="font-weight:600;color:var(--color-heading);font-size:.75rem;margin-bottom:.25rem;">Records</div>
+                <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Record 1</div>
+                <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Record 2</div>
+                <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Record 3</div>
+                <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Record 4</div>
+                <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Record 5</div>
+                <div style="background:var(--color-bg-tertiary);border:1px solid var(--color-border);padding:.375rem .75rem;border-radius:var(--radius-sm);">Record 6</div>
+              </div>
+              <!-- Arrows -->
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--color-text-tertiary);font-size:1.25rem;padding-top:2rem;">
+                <span>&#8594;</span><span>&#8594;</span><span>&#8594;</span><span>&#8594;</span><span>&#8594;</span><span>&#8594;</span>
+              </div>
+              <!-- Partitions column -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
+                <div style="font-weight:600;color:var(--color-heading);font-size:.75rem;margin-bottom:.25rem;">Partitions</div>
+                <div style="background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);padding:.375rem .75rem;border-radius:var(--radius-sm);font-weight:500;">P1: R1</div>
+                <div style="background:var(--color-info-bg);border:1px solid var(--color-info-border);color:var(--color-info);padding:.375rem .75rem;border-radius:var(--radius-sm);font-weight:500;">P2: R2</div>
+                <div style="background:var(--color-warning-bg);border:1px solid var(--color-warning-border);color:var(--color-warning);padding:.375rem .75rem;border-radius:var(--radius-sm);font-weight:500;">P3: R3</div>
+                <div style="background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);padding:.375rem .75rem;border-radius:var(--radius-sm);font-weight:500;">P1: R4</div>
+                <div style="background:var(--color-info-bg);border:1px solid var(--color-info-border);color:var(--color-info);padding:.375rem .75rem;border-radius:var(--radius-sm);font-weight:500;">P2: R5</div>
+                <div style="background:var(--color-warning-bg);border:1px solid var(--color-warning-border);color:var(--color-warning);padding:.375rem .75rem;border-radius:var(--radius-sm);font-weight:500;">P3: R6</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-comment"># Round-robin distribution (default repartition behavior)</span>
+df = df.repartition(<span class="token-number">4</span>)</code></pre>
+        </div>
+
+        <p><strong>Use case:</strong> Used when there is no specific partitioning key and you want even distribution.</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">&#128161; Interview Tip</div>
+          <div class="tip-card__body">Round-robin ensures even data distribution but doesn't preserve key-based grouping.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Custom Partitioning
+           ============================================================ -->
+      <span id="custom"></span>
+    <div id="custom-partitioning" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">&#128308; Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Custom Partitioning</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="custom-partitioning">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="custom-partitioning">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>Custom partitioning allows developers to define their own partitioning logic according to application requirements.</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-keyword">from</span> pyspark.sql.functions <span class="token-keyword">import</span> udf
+<span class="token-keyword">from</span> pyspark.sql.types <span class="token-keyword">import</span> IntegerType
+
+<span class="token-keyword">def</span> <span class="token-function">custom_partitioner</span>(key):
+    <span class="token-comment"># Custom logic to determine partition</span>
+    <span class="token-keyword">if</span> key.startswith(<span class="token-string">"A"</span>):
+        <span class="token-keyword">return</span> <span class="token-number">0</span>
+    <span class="token-keyword">elif</span> key.startswith(<span class="token-string">"B"</span>):
+        <span class="token-keyword">return</span> <span class="token-number">1</span>
+    <span class="token-keyword">else</span>:
+        <span class="token-keyword">return</span> <span class="token-number">2</span></code></pre>
+        </div>
+
+        <p><strong>Use case:</strong> When standard partitioning strategies don't meet your specific data distribution needs.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Repartition vs Coalesce
+           ============================================================ -->
+      <div id="repartition-coalesce" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--intermediate">&#128992; Intermediate</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Repartition vs Coalesce</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="repartition-coalesce">&#9734;</button>
+            <button class="topic-complete-btn" data-topic-id="repartition-coalesce">Mark as Complete</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Repartition</th>
+                <th>Coalesce</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Operation</td><td>Full shuffle</td><td>Partial shuffle</td></tr>
+              <tr><td>Increase Partitions</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Decrease Partitions</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>Data Distribution</td><td>Even</td><td>May be uneven</td></tr>
+              <tr><td>Performance</td><td>Slower</td><td>Faster</td></tr>
+              <tr><td>Use Case</td><td>Increase parallelism</td><td>Reduce partitions</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+          </div>
+          <pre><code><span class="token-comment"># Repartition - full shuffle, creates new partitions</span>
+df = df.repartition(<span class="token-number">10</span>)
+
+<span class="token-comment"># Coalesce - no shuffle, merges existing partitions</span>
+df = df.coalesce(<span class="token-number">2</span>)</code></pre>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card__title">&#128161; Interview Tip</div>
+          <div class="tip-card__body">Use coalesce to reduce partitions (faster, no shuffle) and repartition to increase partitions (full shuffle, even distribution).</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>PySpark Interview Guide — Understand PySpark. Visualize Spark. Prepare for Interviews.</p>
+    <p style="margin-top:.5rem;">© 2024 PySpark Guide. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

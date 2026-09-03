@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install &amp; Run PySpark Notebooks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Install &amp; Run the PySpark Notebooks</h1>
+      <p class="tagline">PySpark runs locally on your machine (no server, no Colab). Follow these steps once.</p>
+    </div>
+    <div class="header-links">
+      <a class="back-link" href="index.html">&larr; Back to lessons</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="panel">
+      <h3>1. Prerequisites</h3>
+      <ul>
+        <li><strong>Python 3.8+</strong> &mdash; <a class="back-link" href="https://www.python.org/downloads/" target="_blank" rel="noopener">download</a></li>
+        <li><strong>Java 8 or newer (JDK)</strong> &mdash; PySpark needs a JVM. Install a JDK and set <code>JAVA_HOME</code>.</li>
+      </ul>
+      <p class="hint">Check versions:</p>
+      <pre class="code-out">python --version
+java -version</pre>
+    </section>
+
+    <section class="panel">
+      <h3>2. Install dependencies</h3>
+      <p>From the project root (where <code>requirements.txt</code> lives):</p>
+      <pre class="code-out"># (optional but recommended) create a virtual environment
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# macOS / Linux:
+source .venv/bin/activate
+
+# install PySpark + Jupyter
+pip install -r requirements.txt</pre>
+      <p class="hint"><code>requirements.txt</code> contains: <code>pyspark</code>, <code>jupyterlab</code>.</p>
+    </section>
+
+    <section class="panel">
+      <h3>3. Launch Jupyter and open a notebook</h3>
+      <pre class="code-out">jupyter lab</pre>
+      <p>This opens <code>http://localhost:8888</code> in your browser. Then:</p>
+      <ul>
+        <li>In the file browser, go to <code>notebooks/pyspark/</code>.</li>
+        <li>Open any <code>NN-*.ipynb</code> (e.g. <code>01-rdd-dataframe.ipynb</code>).</li>
+        <li>Menu <strong>Run &rarr; Run All Cells</strong> (or click play on each cell).</li>
+      </ul>
+      <p>You'll see real PySpark output (runs in <strong>local mode</strong> &mdash; no cluster needed).</p>
+    </section>
+
+    <section class="panel">
+      <h3>4. Verify PySpark works</h3>
+      <p>In a notebook cell, run:</p>
+      <pre class="code-out">from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("local[*]").appName("test").getOrCreate()
+df = spark.createDataFrame([(1, "alice"), (2, "bob")], ["id", "name"])
+df.show()
+spark.stop()</pre>
+    </section>
+
+    <section class="panel">
+      <h3>Troubleshooting</h3>
+      <ul>
+        <li><strong>"java not found" / JVM error:</strong> install a JDK and set <code>JAVA_HOME</code> to its path, then restart your terminal.</li>
+        <li><strong>"pyspark: command not found":</strong> make sure your virtual environment is activated and <code>pip install</code> finished without errors.</li>
+        <li><strong>Notebook download instead of opening:</strong> you opened the <code>.ipynb</code> from GitHub directly. Download it, then open via <code>jupyter lab</code> as above.</li>
+        <li><strong>Low memory:</strong> use <code>master("local[2]")</code> instead of <code>local[*]</code> to limit cores.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h3>Related</h3>
+      <p>
+        <a class="back-link" href="editor.html">SQL &rarr; PySpark live converter</a> &nbsp;·&nbsp;
+        <a class="back-link" href="index.html">Back to lessons</a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

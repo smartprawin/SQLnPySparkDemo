@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview Mastery - SQL Mastery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION BAR ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">SQL Mastery</span>
+    </a>
+
+    <div class="navbar__spacer"></div>
+
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="fundamentals.html" class="navbar__btn">Fundamentals</a>
+      <a href="basics.html" class="navbar__btn">Basics</a>
+      <a href="joins.html" class="navbar__btn">Joins</a>
+      <a href="window.html" class="navbar__btn">Window</a>
+      <a href="performance.html" class="navbar__btn">Performance</a>
+      <a href="modeling.html" class="navbar__btn">Modeling</a>
+      <a href="interview.html" class="navbar__btn navbar__btn--primary">Interview</a>
+    </div>
+
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== MOBILE OVERLAY & NAV ===== -->
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+    <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">SQL Mastery</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is SQL</a></li>
+          <li><a href="fundamentals.html#what-is-database" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Database</a></li>
+          <li><a href="fundamentals.html#tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tables</a></li>
+          <li><a href="fundamentals.html#sql-vs-nosql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SQL vs NoSQL</a></li>
+          <li><a href="fundamentals.html#keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Keys</a></li>
+          <li><a href="fundamentals.html#constraints" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Constraints</a></li>
+          <li><a href="fundamentals.html#practice-db" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Practice DB</a></li>
+        </ul>
+      </div>
+      <!-- Basics -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Basics</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="basics.html#select" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELECT</a></li>
+          <li><a href="basics.html#where" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE</a></li>
+          <li><a href="basics.html#distinct" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DISTINCT</a></li>
+          <li><a href="basics.html#order-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ORDER BY</a></li>
+          <li><a href="basics.html#limit" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIMIT / TOP</a></li>
+          <li><a href="basics.html#like" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIKE</a></li>
+          <li><a href="basics.html#in" class="sidebar__link"><span class="sidebar__link-icon">▸</span> IN</a></li>
+          <li><a href="basics.html#between" class="sidebar__link"><span class="sidebar__link-icon">▸</span> BETWEEN</a></li>
+          <li><a href="basics.html#null" class="sidebar__link"><span class="sidebar__link-icon">▸</span> NULL</a></li>
+        </ul>
+      </div>
+      <!-- CRUD -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>CRUD</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="crud.html#crud" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CRUD</a></li>
+          <li><a href="crud.html#insert" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INSERT</a></li>
+          <li><a href="crud.html#update" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UPDATE</a></li>
+          <li><a href="crud.html#delete" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE</a></li>
+        </ul>
+      </div>
+      <!-- Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="functions.html#aggregate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Aggregate</a></li>
+          <li><a href="functions.html#group-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY</a></li>
+          <li><a href="functions.html#having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> HAVING</a></li>
+          <li><a href="functions.html#where-vs-having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE vs HAVING</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#why-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Why JOIN</a></li>
+          <li><a href="joins.html#inner-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INNER JOIN</a></li>
+          <li><a href="joins.html#left-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEFT JOIN</a></li>
+          <li><a href="joins.html#right-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RIGHT JOIN</a></li>
+          <li><a href="joins.html#full-outer-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> FULL OUTER JOIN</a></li>
+          <li><a href="joins.html#self-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELF JOIN</a></li>
+          <li><a href="joins.html#cross-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CROSS JOIN</a></li>
+          <li><a href="joins.html#multi-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Multi-Table JOIN</a></li>
+        </ul>
+      </div>
+      <!-- Subqueries & CTE -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Subqueries & CTE</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="subqueries.html#subquery" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Subqueries</a></li>
+          <li><a href="subqueries.html#second-highest" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Second Highest</a></li>
+          <li><a href="subqueries.html#cte" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CTE</a></li>
+        </ul>
+      </div>
+      <!-- Window Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Window Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="window.html#window-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="window.html#group-by-vs-window" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY vs Window</a></li>
+          <li><a href="window.html#row-number" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ROW_NUMBER</a></li>
+          <li><a href="window.html#rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RANK</a></li>
+          <li><a href="window.html#dense-rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DENSE_RANK</a></li>
+          <li><a href="window.html#partition-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> PARTITION BY</a></li>
+          <li><a href="window.html#lag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LAG</a></li>
+          <li><a href="window.html#lead" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEAD</a></li>
+          <li><a href="window.html#running-total" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Running Total</a></li>
+        </ul>
+      </div>
+      <!-- Advanced -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Advanced</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="advanced.html#execution-order" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Order</a></li>
+          <li><a href="advanced.html#case" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CASE</a></li>
+          <li><a href="advanced.html#views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Views</a></li>
+          <li><a href="advanced.html#materialized-views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Materialized Views</a></li>
+          <li><a href="advanced.html#stored-procedures" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stored Procedures</a></li>
+          <li><a href="advanced.html#delete-vs-truncate-vs-drop" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE vs TRUNCATE vs DROP</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#indexing" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Indexing</a></li>
+          <li><a href="performance.html#optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> EXPLAIN</a></li>
+          <li><a href="performance.html#partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Partitioning</a></li>
+          <li><a href="performance.html#sharding" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sharding</a></li>
+        </ul>
+      </div>
+      <!-- Modeling -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Modeling</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="modeling.html#data-modeling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Modeling</a></li>
+          <li><a href="modeling.html#normalization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Normalization</a></li>
+          <li><a href="modeling.html#1nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 1NF</a></li>
+          <li><a href="modeling.html#2nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 2NF</a></li>
+          <li><a href="modeling.html#3nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 3NF</a></li>
+          <li><a href="modeling.html#oltp-vs-olap" class="sidebar__link"><span class="sidebar__link-icon">▸</span> OLTP vs OLAP</a></li>
+          <li><a href="modeling.html#fact-dimension" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Fact & Dimension</a></li>
+          <li><a href="modeling.html#star-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Star Schema</a></li>
+          <li><a href="modeling.html#snowflake-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Snowflake Schema</a></li>
+        </ul>
+      </div>
+      <!-- Interview -->
+            <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Exercises</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="exercises.html#basic-exercises" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Basic (1-8)</a></li>
+          <li><a href="exercises.html#intermediate-exercises" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate (9-20)</a></li>
+          <li><a href="exercises.html#advanced-exercises" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced (21-40)</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#framework" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Framework</a></li>
+          <li><a href="interview.html#cheat-sheet" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cheat Sheet</a></li>
+        </ul>
+      </div>
+    
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== SEARCH OVERLAY ===== -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+
+  <!-- ===== BOOKMARKS PANEL ===== -->
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--color-heading);">Bookmarks</h3>
+    <div id="bookmarks-list"></div>
+  </div>
+
+  <!-- ===== PROGRESS INDICATOR ===== -->
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <!-- Fundamentals -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Fundamentals</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="fundamentals.html#what-is-sql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is SQL</a></li>
+          <li><a href="fundamentals.html#what-is-database" class="sidebar__link"><span class="sidebar__link-icon">▸</span> What is Database</a></li>
+          <li><a href="fundamentals.html#tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Tables</a></li>
+          <li><a href="fundamentals.html#sql-vs-nosql" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SQL vs NoSQL</a></li>
+          <li><a href="fundamentals.html#keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Keys</a></li>
+          <li><a href="fundamentals.html#constraints" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Constraints</a></li>
+          <li><a href="fundamentals.html#practice-db" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Practice DB</a></li>
+        </ul>
+      </div>
+      <!-- Basics -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Basics</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="basics.html#select" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELECT</a></li>
+          <li><a href="basics.html#where" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE</a></li>
+          <li><a href="basics.html#distinct" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DISTINCT</a></li>
+          <li><a href="basics.html#order-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ORDER BY</a></li>
+          <li><a href="basics.html#limit" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIMIT / TOP</a></li>
+          <li><a href="basics.html#like" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LIKE</a></li>
+          <li><a href="basics.html#in" class="sidebar__link"><span class="sidebar__link-icon">▸</span> IN</a></li>
+          <li><a href="basics.html#between" class="sidebar__link"><span class="sidebar__link-icon">▸</span> BETWEEN</a></li>
+          <li><a href="basics.html#null" class="sidebar__link"><span class="sidebar__link-icon">▸</span> NULL</a></li>
+        </ul>
+      </div>
+      <!-- CRUD -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>CRUD</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="crud.html#crud" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CRUD</a></li>
+          <li><a href="crud.html#insert" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INSERT</a></li>
+          <li><a href="crud.html#update" class="sidebar__link"><span class="sidebar__link-icon">▸</span> UPDATE</a></li>
+          <li><a href="crud.html#delete" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE</a></li>
+        </ul>
+      </div>
+      <!-- Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="functions.html#aggregate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Aggregate</a></li>
+          <li><a href="functions.html#group-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY</a></li>
+          <li><a href="functions.html#having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> HAVING</a></li>
+          <li><a href="functions.html#where-vs-having" class="sidebar__link"><span class="sidebar__link-icon">▸</span> WHERE vs HAVING</a></li>
+        </ul>
+      </div>
+      <!-- Joins -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Joins</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="joins.html#sample-tables" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Tables</a></li>
+          <li><a href="joins.html#why-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Why JOIN</a></li>
+          <li><a href="joins.html#inner-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> INNER JOIN</a></li>
+          <li><a href="joins.html#left-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEFT JOIN</a></li>
+          <li><a href="joins.html#right-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RIGHT JOIN</a></li>
+          <li><a href="joins.html#full-outer-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> FULL OUTER JOIN</a></li>
+          <li><a href="joins.html#self-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> SELF JOIN</a></li>
+          <li><a href="joins.html#cross-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CROSS JOIN</a></li>
+          <li><a href="joins.html#multi-join" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Multi-Table JOIN</a></li>
+        </ul>
+      </div>
+      <!-- Subqueries & CTE -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Subqueries & CTE</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="subqueries.html#subquery" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Subqueries</a></li>
+          <li><a href="subqueries.html#second-highest" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Second Highest</a></li>
+          <li><a href="subqueries.html#cte" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CTE</a></li>
+        </ul>
+      </div>
+      <!-- Window Functions -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Window Functions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="window.html#window-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="window.html#group-by-vs-window" class="sidebar__link"><span class="sidebar__link-icon">▸</span> GROUP BY vs Window</a></li>
+          <li><a href="window.html#row-number" class="sidebar__link"><span class="sidebar__link-icon">▸</span> ROW_NUMBER</a></li>
+          <li><a href="window.html#rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> RANK</a></li>
+          <li><a href="window.html#dense-rank" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DENSE_RANK</a></li>
+          <li><a href="window.html#partition-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> PARTITION BY</a></li>
+          <li><a href="window.html#lag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LAG</a></li>
+          <li><a href="window.html#lead" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEAD</a></li>
+          <li><a href="window.html#running-total" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Running Total</a></li>
+        </ul>
+      </div>
+      <!-- Advanced -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Advanced</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="advanced.html#execution-order" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Execution Order</a></li>
+          <li><a href="advanced.html#case" class="sidebar__link"><span class="sidebar__link-icon">▸</span> CASE</a></li>
+          <li><a href="advanced.html#views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Views</a></li>
+          <li><a href="advanced.html#materialized-views" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Materialized Views</a></li>
+          <li><a href="advanced.html#stored-procedures" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Stored Procedures</a></li>
+          <li><a href="advanced.html#delete-vs-truncate-vs-drop" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DELETE vs TRUNCATE vs DROP</a></li>
+        </ul>
+      </div>
+      <!-- Performance -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Performance</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="performance.html#indexing" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Indexing</a></li>
+          <li><a href="performance.html#optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+          <li><a href="performance.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> EXPLAIN</a></li>
+          <li><a href="performance.html#partitioning" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Partitioning</a></li>
+          <li><a href="performance.html#sharding" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sharding</a></li>
+        </ul>
+      </div>
+      <!-- Modeling -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Modeling</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="modeling.html#data-modeling" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Modeling</a></li>
+          <li><a href="modeling.html#normalization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Normalization</a></li>
+          <li><a href="modeling.html#1nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 1NF</a></li>
+          <li><a href="modeling.html#2nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 2NF</a></li>
+          <li><a href="modeling.html#3nf" class="sidebar__link"><span class="sidebar__link-icon">▸</span> 3NF</a></li>
+          <li><a href="modeling.html#oltp-vs-olap" class="sidebar__link"><span class="sidebar__link-icon">▸</span> OLTP vs OLAP</a></li>
+          <li><a href="modeling.html#fact-dimension" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Fact & Dimension</a></li>
+          <li><a href="modeling.html#star-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Star Schema</a></li>
+          <li><a href="modeling.html#snowflake-schema" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Snowflake Schema</a></li>
+        </ul>
+      </div>
+      <!-- Interview -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Interview</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="interview.html#beginner" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Beginner</a></li>
+          <li><a href="interview.html#intermediate" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intermediate</a></li>
+          <li><a href="interview.html#advanced" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advanced</a></li>
+          <li><a href="interview.html#framework" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Framework</a></li>
+          <li><a href="interview.html#cheat-sheet" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Cheat Sheet</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <section id="beginner" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="beginner">☆</button>
+            <button class="topic-complete-btn" data-topic-id="beginner">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Beginner Interview Questions</h2>
+        
+        <p>Start with these foundational questions to build confidence in basic SQL concepts, syntax, and database fundamentals.</p>
+            <!-- Q1 -->
+            <div class="expandable-section" id="sql-q1">
+                <div class="expandable-header">
+                    <h3>1. What is SQL?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p><strong>SQL (Structured Query Language)</strong> is the language used to communicate with relational databases. You declare <em>what</em> you want, the optimizer decides <em>how</em>.</p>
+                    <p>With SQL you can: create tables, insert/read/update/delete data, join related tables, and analyze data.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT * FROM employees;</code></pre></div>
+                    <p>Returns all columns and rows from employees.</p>
+                </div>
+            </div>
+            <!-- Q2 -->
+            <div class="expandable-section" id="sql-q2">
+                <div class="expandable-header">
+                    <h3>2. What is a database?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>An organized collection of data, e.g., Company Database: <code>employees</code>, <code>departments</code>, <code>jobs</code>, <code>job_history</code>. Each database contains related tables, indexes, views, and procedures.</p>
+                </div>
+            </div>
+            <!-- Q3 -->
+            <div class="expandable-section" id="sql-q3">
+                <div class="expandable-header">
+                    <h3>3. What is a table, row, and column?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p><strong>Table</strong> stores data in rows and columns. <strong>Row</strong> = one record (e.g., 101 | John | 75000). <strong>Column</strong> = one attribute (e.g., salary).</p>
+                    <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>employee_id</th><th>first_name</th><th>salary</th></tr></thead><tbody><tr><td>101</td><td>John</td><td>75000</td></tr></tbody></table></div>
+                </div>
+            </div>
+            <!-- Q4 -->
+            <div class="expandable-section" id="sql-q4">
+                <div class="expandable-header">
+                    <h3>4. What is a primary key?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A column (or composite) that uniquely identifies a row. Properties: unique, NOT NULL, one per table.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE
+);</code></pre></div>
+                </div>
+            </div>
+            <!-- Q5 -->
+            <div class="expandable-section" id="sql-q5">
+                <div class="expandable-header">
+                    <h3>5. What is a foreign key?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A column that creates a relationship between tables, referencing a primary key in another table.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>FOREIGN KEY (department_id) REFERENCES departments(department_id)</code></pre></div>
+                    <p>Ensures referential integrity — you cannot insert a non-existent department_id.</p>
+                </div>
+            </div>
+            <!-- Q6 -->
+            <div class="expandable-section" id="sql-q6">
+                <div class="expandable-header">
+                    <h3>6. What is NULL?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>NULL means <em>unknown</em>, not zero or empty string. Never use <code>= NULL</code>.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT * FROM employees WHERE manager_id IS NULL; -- correct
+-- Wrong: WHERE manager_id = NULL</code></pre></div>
+                </div>
+            </div>
+            <!-- Q7 -->
+            <div class="expandable-section" id="sql-q7">
+                <div class="expandable-header">
+                    <h3>7. What is the difference between DELETE, TRUNCATE, and DROP?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Command</th><th>Deletes rows</th><th>Deletes structure</th><th>WHERE</th></tr></thead><tbody><tr><td>DELETE</td><td>Yes</td><td>No</td><td>Yes</td></tr><tr><td>TRUNCATE</td><td>All</td><td>No</td><td>No</td></tr><tr><td>DROP</td><td>Yes</td><td>Yes</td><td>No</td></tr></tbody></table></div>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>DELETE FROM employees WHERE employee_id=101;
+TRUNCATE TABLE employees;
+DROP TABLE employees;</code></pre></div>
+                </div>
+            </div>
+            <!-- Q8 -->
+            <div class="expandable-section" id="sql-q8">
+                <div class="expandable-header">
+                    <h3>8. What is the difference between WHERE and HAVING?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>WHERE</th><th>HAVING</th></tr></thead><tbody><tr><td>Filters rows before GROUP BY</td><td>Filters groups after GROUP BY</td></tr><tr><td>No aggregate</td><td>With aggregate (AVG>...)</td></tr></tbody></table></div>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT department_id, AVG(salary) FROM employees GROUP BY department_id HAVING AVG(salary) > 75000;</code></pre></div>
+                </div>
+            </div>
+            <!-- Q9 -->
+            <div class="expandable-section" id="sql-q9">
+                <div class="expandable-header">
+                    <h3>9. What is GROUP BY?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Groups rows sharing same values to calculate aggregates per group.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT department_id, AVG(salary) AS avg_sal
+FROM employees
+GROUP BY department_id;</code></pre></div>
+                    <p>One result row per department.</p>
+                </div>
+            </div>
+            <!-- Q10 -->
+            <div class="expandable-section" id="sql-q10">
+                <div class="expandable-header">
+                    <h3>10. What is DISTINCT?</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Removes duplicate values, returning only unique rows.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT DISTINCT department_id FROM employees;</code></pre></div>
+                </div>
+            </div>
+      </section>
+
+      <section id="intermediate" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="intermediate">☆</button>
+            <button class="topic-complete-btn" data-topic-id="intermediate">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Intermediate Interview Questions</h2>
+        
+        <p>These intermediate questions test your ability to join tables, aggregate data, and write subqueries and CTEs for common business problems.</p>
+            <div class="expandable-section" id="sql-q11">
+                <div class="expandable-header">
+                    <h3>1. Explain INNER JOIN</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Returns only matching rows from both tables.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT e.first_name, d.department_name
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.department_id;</code></pre></div>
+                    <p>With sample tables (Alice/10, Bob/20, Charlie/10, David NULL + HR/10, Engineering/20, Marketing/30) → 3 rows (Alice, Bob, Charlie). David and Marketing excluded.</p>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q12">
+                <div class="expandable-header">
+                    <h3>2. Explain LEFT JOIN</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Returns all rows from left table, plus matches from right (NULL if no match).</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT d.department_name, e.first_name
+FROM departments d
+LEFT JOIN employees e ON d.department_id = e.department_id;</code></pre></div>
+                    <p>Shows all departments, including Marketing (no employees) → first_name NULL.</p>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q13">
+                <div class="expandable-header">
+                    <h3>3. Explain SELF JOIN</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>A table joins to itself, aliasing as two copies (e and m) — essential for hierarchies.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT e.first_name AS employee, m.first_name AS manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.employee_id;</code></pre></div>
+                    <p>Key: <code>e.manager_id = m.employee_id</code>. Use LEFT JOIN to keep employees with no manager.</p>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q14">
+                <div class="expandable-header">
+                    <h3>4. Find the second highest salary</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Clarify distinct vs non-distinct. Two methods:</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>-- Method 1: MAX subquery
+SELECT MAX(salary) FROM employees WHERE salary &lt; (SELECT MAX(salary) FROM employees);
+
+-- Method 2: DENSE_RANK (clearer for distinct)
+WITH ranked AS (
+  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk FROM employees
+)
+SELECT salary FROM ranked WHERE rnk=2;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q15">
+                <div class="expandable-header">
+                    <h3>5. Find employees earning above company average</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT first_name, salary
+FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);</code></pre></div>
+                    <p>Subquery calculates average, outer query compares each salary.</p>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q16">
+                <div class="expandable-header">
+                    <h3>6. Find the highest salary in each department</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>WITH ranked AS (
+  SELECT *, DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rnk
+  FROM employees
+)
+SELECT * FROM ranked WHERE rnk=1;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q17">
+                <div class="expandable-header">
+                    <h3>7. Find duplicate records</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT first_name, last_name, email, COUNT(*) 
+FROM employees
+GROUP BY first_name, last_name, email
+HAVING COUNT(*) > 1;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q18">
+                <div class="expandable-header">
+                    <h3>8. Count employees by department</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT department_id, COUNT(*) AS cnt
+FROM employees
+GROUP BY department_id;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q19">
+                <div class="expandable-header">
+                    <h3>9. Find departments with no employees</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT d.department_name
+FROM departments d
+LEFT JOIN employees e ON d.department_id = e.department_id
+WHERE e.employee_id IS NULL;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q20">
+                <div class="expandable-header">
+                    <h3>10. Explain subqueries and CTEs</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p><strong>Subquery</strong>: query inside another (in WHERE/FROM). <strong>CTE</strong> (<code>WITH</code>) names a temporary result for readability.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>WITH high AS (SELECT * FROM employees WHERE salary>70000)
+SELECT * FROM high;</code></pre></div>
+                </div>
+            </div>
+      </section>
+
+      <section id="advanced" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="advanced">☆</button>
+            <button class="topic-complete-btn" data-topic-id="advanced">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Advanced Interview Questions</h2>
+        
+        <p>Advanced questions challenge you with window functions, execution order, and performance topics that distinguish senior data engineers.</p>
+            <div class="expandable-section" id="sql-q21">
+                <div class="expandable-header">
+                    <h3>1. ROW_NUMBER vs RANK vs DENSE_RANK</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Function</th><th>Ties</th><th>Gaps</th></tr></thead><tbody><tr><td>ROW_NUMBER</td><td>No shared rank</td><td>No</td></tr><tr><td>RANK</td><td>Shared rank</td><td>Yes (1,1,3)</td></tr><tr><td>DENSE_RANK</td><td>Shared rank</td><td>No (1,1,2)</td></tr></tbody></table></div>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT salary, ROW_NUMBER() OVER(ORDER BY salary DESC), RANK() OVER(ORDER BY salary DESC), DENSE_RANK() OVER(ORDER BY salary DESC) FROM employees;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q22">
+                <div class="expandable-header">
+                    <h3>2. Explain LAG and LEAD</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>LAG = previous row, LEAD = next row in ordered partition.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT customer_id, transaction_date, amount,
+       LAG(amount) OVER(PARTITION BY customer_id ORDER BY transaction_date) AS prev_amount,
+       LEAD(amount) OVER(PARTITION BY customer_id ORDER BY transaction_date) AS next_amount
+FROM transactions;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q23">
+                <div class="expandable-header">
+                    <h3>3. Employees earning more than their manager</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT e.first_name
+FROM employees e
+JOIN employees m ON e.manager_id = m.employee_id
+WHERE e.salary > m.salary;</code></pre></div>
+                    <p>Classic SELF JOIN on <code>e.manager_id = m.employee_id</code>.</p>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q24">
+                <div class="expandable-header">
+                    <h3>4. Employees above department average</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT * FROM (
+  SELECT *, AVG(salary) OVER(PARTITION BY department_id) AS dept_avg
+  FROM employees
+) x WHERE salary > dept_avg;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q25">
+                <div class="expandable-header">
+                    <h3>5. Previous transaction for each customer (LAG)</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT customer_id, transaction_date, amount,
+       LAG(amount) OVER(PARTITION BY customer_id ORDER BY transaction_date) AS prev_amount
+FROM transactions;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q26">
+                <div class="expandable-header">
+                    <h3>6. Next transaction (LEAD)</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT customer_id, transaction_date, amount,
+       LEAD(amount) OVER(PARTITION BY customer_id ORDER BY transaction_date) AS next_amount
+FROM transactions;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q27">
+                <div class="expandable-header">
+                    <h3>7. Calculate running totals</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT customer_id, transaction_date, amount,
+       SUM(amount) OVER(PARTITION BY customer_id ORDER BY transaction_date) AS running_total
+FROM transactions;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q28">
+                <div class="expandable-header">
+                    <h3>8. Remove duplicate records safely</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>WITH dup AS (
+  SELECT *, ROW_NUMBER() OVER(PARTITION BY first_name, last_name, email ORDER BY employee_id) AS rn
+  FROM employees
+)
+DELETE FROM employees WHERE employee_id IN (SELECT employee_id FROM dup WHERE rn>1);
+-- Or SELECT * FROM dup WHERE rn>1 to preview</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q29">
+                <div class="expandable-header">
+                    <h3>9. Explain SQL execution order</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Logical order: <code>FROM → JOIN → ON → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → LIMIT</code>. This explains why <code>WHERE annual_salary > 100000</code> fails if alias defined in SELECT.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>SELECT salary*12 AS annual FROM employees WHERE annual > 100000; -- fails
+-- Fix with CTE
+WITH a AS (SELECT salary*12 AS annual FROM employees) SELECT * FROM a WHERE annual>100000;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q30">
+                <div class="expandable-header">
+                    <h3>10. Explain indexes</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Indexes speed up reads (like book index) but slow writes and use storage.</p>
+                    <div class="code-block"><div class="code-block__header"><span class="code-block__lang">SQL</span><button class="code-block__copy">Copy</button></div><pre><code>CREATE INDEX idx_dept ON employees(department_id);
+EXPLAIN SELECT * FROM employees WHERE department_id=10;</code></pre></div>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q31">
+                <div class="expandable-header">
+                    <h3>11. Explain partitioning</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Split large table into smaller parts (e.g., by year: 2023, 2024) for faster queries and easier maintenance. Different from sharding (across servers).</p>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q32">
+                <div class="expandable-header">
+                    <h3>12. Explain OLTP vs OLAP</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p><strong>OLTP</strong>: many small transactions, writes, operational (banking). <strong>OLAP</strong>: large analytical reads, aggregations, historical (reporting, warehouse).</p>
+                </div>
+            </div>
+            <div class="expandable-section" id="sql-q33">
+                <div class="expandable-header">
+                    <h3>13. Explain Star vs Snowflake schema</h3>
+                    <span class="expandable-icon">▶</span>
+                </div>
+                <div class="expandable-content">
+                    <p><strong>Star</strong>: central fact + denormalized dimensions, fewer joins, simpler. <strong>Snowflake</strong>: normalized dimensions, more tables/joins, less redundancy.</p>
+                    <div class="table-wrapper"><table class="comparison-table"><thead><tr><th>Star</th><th>Snowflake</th></tr></thead><tbody><tr><td>Simpler, fewer joins</td><td>More normalized, more joins</td></tr></tbody></table></div>
+                </div>
+            </div>
+      </section>
+
+      <section id="framework" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="framework">☆</button>
+            <button class="topic-complete-btn" data-topic-id="framework">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>SQL Problem-Solving Framework</h2>
+        <p>Use this 8-step framework to systematically break down any SQL interview problem from output to final query.</p>
+
+        <ol><li><strong>Understand output</strong> — What columns?</li><li><strong>Identify tables</strong> — Where columns come from?</li><li><strong>Relationships</strong> — PK/FK</li><li><strong>JOIN?</strong> — Multiple tables?</li><li><strong>Filtering?</strong> — WHERE</li><li><strong>Aggregation?</strong> — GROUP BY</li><li><strong>Keep rows?</strong> — Window Function</li><li><strong>Multiple steps?</strong> — CTE</li></ol>
+        <div class="diagram-container"><div class="diagram-container__title">Decision Tree</div><div style="font-family:monospace;text-align:left;display:inline-block;">Do I need multiple tables? → JOIN<br>One result per group? → GROUP BY<br>Keep rows + group calc? → WINDOW<br>One query depends on another? → SUBQUERY/CTE</div></div>
+
+      </section>
+
+      <section id="cheat-sheet" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="cheat-sheet">☆</button>
+            <button class="topic-complete-btn" data-topic-id="cheat-sheet">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>SQL Cheat Sheet</h2>
+
+        <h3>Filtering</h3><p>WHERE, AND, OR, NOT, IN, BETWEEN, LIKE, IS NULL</p>
+        <h3>Sorting</h3><p>ORDER BY ASC/DESC</p>
+        <h3>Aggregation</h3><p>COUNT, SUM, AVG, MIN, MAX, GROUP BY, HAVING</p>
+        <h3>Joins</h3><p>INNER, LEFT, RIGHT, FULL OUTER, SELF, CROSS</p>
+        <h3>Advanced</h3><p>WITH, OVER, PARTITION BY, ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD</p>
+        <h3>Performance</h3><p>Index, EXPLAIN, Partitioning, Sharding</p>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>SQL Mastery — Learn SQL from Zero to Data Engineer Interview Level</p>
+    <p style="margin-top:.5rem;">© 2024 SQL Mastery. Built for Data Engineers.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

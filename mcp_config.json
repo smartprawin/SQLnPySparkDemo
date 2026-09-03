@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+        "ollama": {
+            "command": "C:\\Users\\JARVIS\\.gemini\\antigravity\\run_ollama.bat",
+            "args": []
+        }
+    }
+}
