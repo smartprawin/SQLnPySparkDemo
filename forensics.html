@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Recap — Digital Forensics Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .forensics-wrap { max-width: 980px; margin: 2rem auto; padding: 0 2rem 3rem; }
+    .forensics-badge { display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; font-weight:700; padding:.3rem .75rem; border-radius:999px; background:rgba(245,158,11,.15); color:#fbbf24; border:1px solid rgba(245,158,11,.3); margin-bottom:1rem; }
+    .forensics-toolbar { display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin:1rem 0 1.2rem; }
+    .forensics-toolbar input { flex:1; min-width:220px; background:rgba(0,0,0,.25); border:1px solid var(--panel-border); color:var(--text); padding:.6rem .9rem; border-radius:8px; font-size:.9rem; }
+    .forensics-toolbar input:focus { outline:none; border-color:#f59e0b; box-shadow:0 0 0 2px rgba(245,158,11,.2); }
+    .forensics-toolbar input::placeholder { color:var(--text-muted); }
+    .btn-amber { background:#f59e0b; color:#0f172a; padding:.6rem 1.1rem; border-radius:8px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:.4rem; border:none; cursor:pointer; font-size:.9rem; }
+    .btn-amber:hover { background:#d97706; }
+    .btn-ghost { background:rgba(255,255,255,.06); color:var(--text); border:1px solid var(--panel-border); padding:.6rem .9rem; border-radius:8px; font-weight:500; cursor:pointer; font-size:.85rem; }
+    .btn-ghost:hover { background:rgba(255,255,255,.1); }
+    .forensics-meta { color:var(--text-muted); font-size:.82rem; margin-bottom:1rem; }
+    .qa-count { color:#fbbf24; font-weight:700; }
+    .qa-list { display:flex; flex-direction:column; gap:.85rem; }
+    .qa { background:var(--panel-bg); border:1px solid var(--panel-border); border-radius:12px; overflow:hidden; backdrop-filter:blur(16px); }
+    .qa[open] { border-color:rgba(245,158,11,.32); box-shadow:0 6px 20px rgba(0,0,0,.18); }
+    .qa summary { list-style:none; cursor:pointer; padding:1rem 1.2rem; display:flex; align-items:center; gap:.8rem; user-select:none; }
+    .qa summary::-webkit-details-marker { display:none; }
+    .qa-num { flex-shrink:0; width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; background:rgba(245,158,11,.15); color:#fbbf24; font-weight:700; font-size:.82rem; border:1px solid rgba(245,158,11,.25); }
+    .qa[open] .qa-num { background:#f59e0b; color:#0f172a; border-color:#f59e0b; }
+    .qa-q { flex:1; color:var(--text); font-weight:600; font-size:.95rem; line-height:1.45; }
+    .qa-chevron { color:var(--text-muted); font-size:1.1rem; transition:transform .2s; flex-shrink:0; }
+    .qa[open] .qa-chevron { transform:rotate(180deg); color:#fbbf24; }
+    .qa-answer { padding:0 1.25rem 1.4rem; border-top:1px solid var(--panel-border); margin-top:.2rem; }
+    /* Docx-like formatting inside answer */
+    .qa-answer p { color:#cbd5e1; line-height:1.75; font-size:.93rem; margin:.7rem 0; }
+    .qa-answer strong { color:#f1f5f9; font-weight:700; }
+    .qa-answer em { color:#e2e8f0; font-style:italic; }
+    .qa-answer a { color:#38bdf8; word-break:break-all; text-decoration:none; border-bottom:1px dotted rgba(56,189,248,.35); }
+    .qa-answer a:hover { color:#7dd3fc; border-bottom-color:#7dd3fc; }
+    .qa-answer h1, .qa-answer h2, .qa-answer h3, .qa-answer h4 { color:#fbbf24; line-height:1.3; margin:1.4rem 0 .6rem; font-weight:700; }
+    .qa-answer h3 { color:#f59e0b; font-size:1.05rem; border-left:3px solid #f59e0b; padding-left:.6rem; }
+    .qa-answer ul, .qa-answer ol { margin:.7rem 0 .9rem 1.4rem; padding:0; color:#cbd5e1; }
+    .qa-answer li { margin:.35rem 0; line-height:1.65; font-size:.92rem; }
+    .qa-answer li::marker { color:#f59e0b; }
+    .qa-answer blockquote { border-left:3px solid #f59e0b; margin:1rem 0; padding:.7rem 1rem; background:rgba(245,158,11,.08); border-radius:0 8px 8px 0; color:var(--text-muted); }
+    .qa-answer hr { border:none; border-top:1px solid var(--panel-border); margin:1.4rem 0; }
+    .qa-answer table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:.88rem; border-radius:8px; overflow:hidden; border:1px solid var(--panel-border); }
+    .qa-answer th { background:rgba(245,158,11,.18); color:#fde68a; font-weight:700; text-align:left; padding:.65rem .7rem; border-bottom:1px solid rgba(245,158,11,.25); }
+    .qa-answer td { padding:.6rem .7rem; border-bottom:1px solid var(--panel-border); color:#e2e8f0; vertical-align:top; }
+    .qa-answer tr:nth-child(even) td { background:rgba(255,255,255,.03); }
+    .qa-answer tr:hover td { background:rgba(245,158,11,.06); }
+    .qa-answer img { max-width:100%; height:auto; border-radius:10px; border:1px solid var(--panel-border); margin:.8rem 0; box-shadow:0 4px 16px rgba(0,0,0,.2); background:#fff; }
+    .qa-answer code { font-family:var(--font-mono); background:rgba(0,0,0,.3); padding:.15rem .35rem; border-radius:4px; font-size:.82em; color:#e2e8f0; }
+    .qa-answer pre { background:rgba(0,0,0,.32); padding:1rem; border-radius:10px; border:1px solid var(--panel-border); overflow-x:auto; font-size:.84rem; white-space:pre-wrap; word-break:break-word; }
+    .qa-hidden { display:none !important; }
+    /* Password gate */
+    .lock-overlay { position:fixed; inset:0; background:rgba(10,15,30,.88); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); z-index:9999; display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+    .lock-overlay.hidden { display:none; }
+    .lock-card { background:rgba(30,41,59,.92); border:1px solid rgba(245,158,11,.3); border-radius:18px; padding:2rem 1.8rem; max-width:420px; width:100%; box-shadow:0 24px 48px rgba(0,0,0,.45); text-align:center; }
+    .lock-card h2 { margin:0 0 .3rem; color:#fbbf24; font-size:1.35rem; }
+    .lock-card p { color:var(--text-muted); font-size:.88rem; margin:.35rem 0 0; line-height:1.5; }
+    .lock-input { width:100%; padding:.8rem .95rem; border-radius:10px; border:1px solid var(--panel-border); background:rgba(0,0,0,.35); color:var(--text); font-size:1rem; margin:1.2rem 0 .6rem; text-align:center; letter-spacing:.02em; }
+    .lock-input:focus { outline:none; border-color:#f59e0b; box-shadow:0 0 0 2px rgba(245,158,11,.25); }
+    .lock-error { color:#f87171; font-size:.84rem; margin-top:.6rem; display:none; min-height:1.1rem; }
+    .lock-hint { color:var(--text-muted); font-size:.78rem; margin-top:.6rem; }
+    .forensics-wrap.locked { filter:blur(10px); pointer-events:none; user-select:none; }
+    @media(max-width:768px){ .forensics-wrap{padding:0 1rem 2rem} .qa summary{padding:.9rem 1rem} .qa-q{font-size:.9rem} .qa-answer{padding:0 1rem 1.1rem} }
+  </style>
+</head>
+<body>
+  <div id="lockOverlay" class="lock-overlay">
+    <div class="lock-card">
+      <div style="font-size:2rem; margin-bottom:.4rem;">🔒</div>
+      <h2>Protected Recap</h2>
+      <p>This forensics notes section is private.<br>Enter the default password to continue.</p>
+      <input id="lockInput" class="lock-input" type="password" placeholder="Enter password" autocomplete="current-password" autofocus />
+      <button id="lockBtn" type="button" class="btn-amber" style="width:100%; justify-content:center; padding:.8rem;">Unlock →</button>
+      <div id="lockError" class="lock-error">Incorrect password. Try again.</div>
+      <p style="margin-top:1rem;"><a href="index.html" style="color:var(--text-muted); font-size:.82rem; text-decoration:none;">← Back to Hub without unlocking</a></p>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-content">
+      <h1>🔒 My Recap — Digital Forensics</h1>
+      <p class="tagline">Questions visible • Answers hidden — formatted exactly like your .docx. Click to expand.</p>
+    </div>
+    <div class="header-links">
+      <a class="back-link" href="index.html">← Back to Hub</a>
+      <a class="back-link" href="Digital%20forensic.md" target="_blank" rel="noopener">Open .md</a>
+      <a class="back-link" id="lockLogout" href="#" style="display:none; background:rgba(239,68,68,.15); color:#f87171; border:1px solid rgba(239,68,68,.3);">🔒 Lock</a>
+    </div>
+  </header>
+
+  <div id="forensicsWrap" class="forensics-wrap locked">
+    <span class="forensics-badge">🔐 Private • Formatted from Digital forensic.md • Not indexed</span>
+    <div class="forensics-toolbar">
+      <input id="qa-search" type="search" placeholder="Search questions & answers… (e.g. STPI, Trichy, Section 63, cost, loan)" autocomplete="off" />
+      <button class="btn-ghost" id="btn-expand">Expand all</button>
+      <button class="btn-ghost" id="btn-collapse">Collapse all</button>
+      <a class="btn-amber" href="Digital%20forensic.md" download>⬇ Download .md</a>
+    </div>
+    <p class="forensics-meta"><span class="qa-count" id="qa-count">Locked — enter password to load</span> • Click any question to reveal the formatted answer (tables, bullets) • Source: <code>forensics_data.json</code> + <code>Digital forensic.md</code> (docx removed for fast load)</p>
+
+    <div id="qa-list" class="qa-list">
+      <p style="color:var(--text-muted);padding:1.5rem;text-align:center;">🔒 Locked — enter password above to load 60 Q&A</p>
+    </div>
+
+    <p style="text-align:center; margin-top:1.8rem; color:var(--text-muted); font-size:.85rem;">Tip: Answers keep the same tables, images & headings as your Word file. Bookmark this page — your one-click recap.</p>
+  </div>
+
+  <script>
+    // --- Password gate (default: dare2death) — simple, reliable ---
+    const PASS = "dare2death";
+    const overlay = document.getElementById('lockOverlay');
+    const wrap = document.getElementById('forensicsWrap');
+    const input = document.getElementById('lockInput');
+    const btn = document.getElementById('lockBtn');
+    const err = document.getElementById('lockError');
+    const logout = document.getElementById('lockLogout');
+    let unlocked = false;
+    try { unlocked = sessionStorage.getItem('forensics_unlocked') === '1'; } catch(_e){ unlocked = false; }
+    // allow ?pwd=dare2death auto-unlock (handy) and #dare2death hash
+    try {
+      const params = new URLSearchParams(location.search);
+      if(params.get('pwd') === PASS || params.get('password') === PASS) unlocked = true;
+      if(location.hash.slice(1) === PASS) unlocked = true;
+      if(unlocked) try{ sessionStorage.setItem('forensics_unlocked','1'); }catch(_e){}
+    } catch(_e){}
+    function setLocked(locked){
+      if(locked){
+        overlay.classList.remove('hidden');
+        wrap.classList.add('locked');
+        logout.style.display='none';
+      } else {
+        overlay.classList.add('hidden');
+        wrap.classList.remove('locked');
+        logout.style.display='inline-flex';
+      }
+    }
+    function tryUnlock(){
+      const val = (input.value || '').trim();
+      // debug: show typed length in console
+      console.log('tryUnlock val:', JSON.stringify(val), 'len', val.length);
+      if(!val){
+        err.textContent='Please enter password.';
+        err.style.display='block';
+        input.focus();
+        return;
+      }
+      // exact match, case-sensitive (also accept case-insensitive as fallback)
+      if(val === PASS){
+        try{ sessionStorage.setItem('forensics_unlocked','1'); }catch(_e){}
+        unlocked = true;
+        err.style.display='none';
+        setLocked(false);
+        input.value='';
+        loadData();
+        return;
+      }
+      if(val.toLowerCase() === PASS.toLowerCase()){
+        err.textContent='Password is case-sensitive — use all lowercase: dare2death';
+        err.style.display='block';
+        input.select(); input.focus();
+        return;
+      }
+      err.textContent='Incorrect password. Hint: dare2death (all lowercase, no spaces)';
+      err.style.display='block';
+      input.select(); input.focus();
+    }
+    btn.addEventListener('click', (e)=>{ e.preventDefault(); tryUnlock(); });
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); tryUnlock(); } });
+    // also listen for input to clear error as you type
+    input.addEventListener('input', ()=>{ err.style.display='none'; });
+    logout.addEventListener('click', e=>{ e.preventDefault(); try{ sessionStorage.removeItem('forensics_unlocked'); }catch(_e){} location.reload(); });
+    // auto-focus
+    setTimeout(()=>{ if(!unlocked) input.focus(); }, 250);
+    let dataLoaded = false;
+    async function loadData(){
+      if(dataLoaded) return;
+      dataLoaded = true;
+      const listEl = document.getElementById('qa-list');
+      const countEl = document.getElementById('qa-count');
+      const searchEl = document.getElementById('qa-search');
+      try {
+        const res = await fetch('forensics_data.json');
+        if (!res.ok) throw new Error('HTTP '+res.status+' — run via python -m http.server');
+        const qa = await res.json();
+        countEl.textContent = qa.length + ' Q&A found — ' + qa.length + ' questions (click to expand)';
+        listEl.innerHTML = '';
+        qa.forEach((item, idx)=>{
+          const details = document.createElement('details');
+          details.className = 'qa';
+          if (idx===0) details.open = true;
+          details.id = 'qa-'+(idx+1);
+          const num = String(idx+1).padStart(2,'0');
+          const summary = document.createElement('summary');
+          summary.innerHTML = '<span class="qa-num">'+num+'</span><span class="qa-q">'+escapeHtml(item.q)+'</span><span class="qa-chevron">▾</span>';
+          const answerDiv = document.createElement('div');
+          answerDiv.className = 'qa-answer';
+          // item.html is already formatted HTML from docx (tables/images/bullets preserved)
+          // Clean: remove the duplicated question header and the date paragraph that mammoth kept inside answer (we want pure answer)
+          let html = item.html;
+          // Strip first paragraph if it duplicates the question
+          // Also strip stray date line "4 September 2026" at top
+          html = html.replace(/^\s*<p>\s*4 September 2026\s*<\/p>/i,'');
+          // If html starts with <p>question text</p> duplicate, remove it (compare q)
+          const firstP = html.match(/^\s*<p[^>]*>(.*?)<\/p>/i);
+          if (firstP){
+            const txt = firstP[1].replace(/<[^>]+>/g,'').trim();
+            if (txt.toLowerCase().includes(item.q.slice(0,25).toLowerCase()) || item.q.toLowerCase().includes(txt.slice(0,25).toLowerCase())){
+              html = html.slice(firstP[0].length);
+              html = html.replace(/^\s*<p>\s*4 September 2026\s*<\/p>/i,'');
+              html = html.replace(/^\s*<p>.*?<\/p>/i, (m)=> m.includes('4 September') ? '' : m); // keep only if not date
+            }
+          }
+          answerDiv.innerHTML = html || '<p style="color:var(--text-muted)">No content.</p>';
+          details.appendChild(summary);
+          details.appendChild(answerDiv);
+          listEl.appendChild(details);
+        });
+
+        searchEl.addEventListener('input', ()=>{
+          const q = searchEl.value.toLowerCase().trim();
+          let visible=0;
+          document.querySelectorAll('.qa').forEach(d=>{
+            const text = d.textContent.toLowerCase();
+            const match = !q || text.includes(q);
+            d.classList.toggle('qa-hidden', !match);
+            if (match) visible++;
+          });
+          countEl.textContent = visible+' / '+qa.length+' shown';
+          if (q) document.querySelectorAll('.qa:not(.qa-hidden)').forEach(d=> d.open=true);
+        });
+        document.getElementById('btn-expand').onclick = ()=> document.querySelectorAll('.qa:not(.qa-hidden)').forEach(d=> d.open=true);
+        document.getElementById('btn-collapse').onclick = ()=> document.querySelectorAll('.qa').forEach(d=> d.open=false);
+      } catch(e){
+        countEl.textContent='Error';
+        listEl.innerHTML='<div class="qa" style="padding:1.2rem"><p style="color:#f87171">Could not load <code>forensics_data.json</code>: '+escapeHtml(e.message)+'</p><p style="color:var(--text-muted)">Run <code>python -m http.server 8000</code> and open <code>http://localhost:8000/forensics.html</code>. If you only have the .docx, re-run the build: <code>python __build.py</code></p><p><a href=\"Digital%20forensic.docx\" style=\"color:var(--accent)\">→ Open .docx directly</a></p></div>';
+      }
+    }
+    function escapeHtml(s){ return String(s).replace(/[&<>\"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c])); }
+    // init lock state
+    if(unlocked){ setLocked(false); loadData(); } else { setLocked(true); }
+  </script>
+</body>
+</html>
