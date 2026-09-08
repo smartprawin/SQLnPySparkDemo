@@ -58,10 +58,20 @@
 
   <section class="hub-hero">
     <h1>Choose Your Track</h1>
-    <p>Zero to interview-ready. Click a track to open its full guide — every lesson is available from the home page, and every card goes directly to that lesson. <strong>New: AWS Data Engineering</strong> added alongside existing SQL & PySpark — nothing overwritten.</p>
+    <p>Zero to interview-ready. Click a track to open its full guide — every lesson is available from the home page, and every card goes directly to that lesson.</p>
   </section>
 
   <section class="hub-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));">
+    <article class="hub-card" style="border:1px solid rgba(34,197,94,.25);">
+      <span class="hub-card__badge" style="background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.25);">🐍 Python for PySpark • 10 Chapters</span>
+      <h2>Python Basics for PySpark</h2>
+      <p>Learn Python fundamentals for PySpark — data types, strings, collections, functions, OOP, regex and 3 mini projects with hands-on examples and real outputs.</p>
+      <div class="hub-card__stats"><span><strong>10</strong> chapters</span><span><strong>45+</strong> topics</span><span>~5 hrs</span></div>
+      <div class="hub-card__actions">
+        <a class="btn-primary" href="python-guide/index.html" style="background:#22c55e;">Explore Python Guide →</a>
+        <a class="btn-secondary" href="python-guide/basics.html">Start with Basics</a>
+      </div>
+    </article>
     <!-- SQL Card -->
     <article class="hub-card hub-card--sql">
       <span class="hub-card__badge">📘 SQL Mastery • 12 Chapters • 67 Topics</span>
@@ -88,7 +98,7 @@
     <article class="hub-card" style="border:1px solid rgba(245,158,11,.25);">
       <span class="hub-card__badge" style="background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.25);">☁️ AWS Data Engineering • 8 Chapters • 39 Topics</span>
       <h2>AWS Data Engineering</h2>
-      <p>New guide from <code>docs/AWS/AWS lessons.txt</code> — S3 features & storage classes, security, Glue DynamicFrames & DPU workers, Lambda triggers, SCD, Redshift distribution & sort keys, Airflow DAGs. Added alongside, nothing overwritten.</p>
+      <p>S3 features & storage classes, security, Glue DynamicFrames & DPU workers, Lambda triggers, SCD, Redshift distribution & sort keys, Airflow DAGs.</p>
       <div class="hub-card__stats"><span><strong>39</strong> topics</span><span><strong>8</strong> chapters</span><span>~5 hrs</span></div>
       <div class="hub-card__actions">
         <a class="btn-primary" href="aws-guide/index.html" style="background:#f59e0b;">Explore AWS Guide →</a>
@@ -175,6 +185,30 @@
         <p>PythonOperator, S3KeySensor, Catchup vs DependsOnPast, vs Step Functions</p>
         <a href="aws-guide/airflow.html#airflow-dag">Go to lesson →</a>
       </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(34,197,94,.15);color:#22c55e;">Python • Basics</span>
+        <h3>Python Basics — Features & Variables</h3>
+        <p>6 features with pipeline context, naming rules (deduped 3×), PEP8, comments vs docstrings</p>
+        <a href="python-guide/basics.html#features">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(34,197,94,.15);color:#22c55e;">Python • Strings</span>
+        <h3>Data Types & String Methods</h3>
+        <p>Slicing visuals, every string method with before/after, phone validation chain</p>
+        <a href="python-guide/datatypes.html#string-methods">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(34,197,94,.15);color:#22c55e;">Python • Collections</span>
+        <h3>Lists, Dicts, Sets</h3>
+        <p>append vs extend, nested dict (Spark JSON), set unions</p>
+        <a href="python-guide/collections.html#list">Go to lesson →</a>
+      </div>
+      <div class="lesson-card">
+        <span class="lesson-card__tag" style="background:rgba(34,197,94,.15);color:#22c55e;">Python • OOP</span>
+        <h3>OOP — Encapsulation & Abstraction</h3>
+        <p>BankAccount private balance, ABC rulebook, 5 inheritance types + MRO</p>
+        <a href="python-guide/oop.html#encapsulation">Go to lesson →</a>
+      </div>
     </div>
   </section>
 
@@ -185,8 +219,8 @@
   </div>
 
   <footer style="text-align:center; padding:3rem 2rem; color:var(--text-muted); font-size:.9rem; border-top:1px solid var(--panel-border); margin-top:3rem;">
-    <p>SQL, PySpark & AWS Mastery Hub — Built for Data Engineers • <a href="pyspark-guide/index.html" style="color:var(--accent)">PySpark Guide</a> • <a href="sql-guide/index.html" style="color:var(--accent)">SQL Guide</a> • <a href="aws-guide/index.html" style="color:#f59e0b">AWS Guide</a> • <a href="editor.html" style="color:var(--accent)">Converter</a> • <a href="forensics.html" style="color:#fbbf24">Forensics Notes</a></p>
-    <p style="margin-top:.5rem;">© 2024 Mastery Hub. Learn SQL, PySpark & AWS interactively. AWS added alongside — no existing code overwritten.</p>
+    <p>SQL, PySpark, AWS & Python Mastery Hub — Built for Data Engineers • <a href="python-guide/index.html" style="color:#22c55e">Python Guide</a> • <a href="pyspark-guide/index.html" style="color:var(--accent)">PySpark Guide</a> • <a href="sql-guide/index.html" style="color:var(--accent)">SQL Guide</a> • <a href="aws-guide/index.html" style="color:#f59e0b">AWS Guide</a> • <a href="editor.html" style="color:var(--accent)">Converter</a> • <a href="forensics.html" style="color:#fbbf24">Forensics Notes</a></p>
+    <p style="margin-top:.5rem;">© 2024 Mastery Hub. Learn Python, SQL, PySpark & AWS interactively.</p>
   </footer>
 </body>
 </html>

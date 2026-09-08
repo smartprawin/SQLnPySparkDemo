@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python for PySpark — Home - Python for PySpark Guide</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar__brand">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" opacity=".9"/></svg>
+      <span class="navbar__title">Python for PySpark</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__actions">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub">🏠 Hub</a>
+      <a href="basics.html" class="navbar__btn"><span class="btn-label">Basics</span></a>
+      <a href="datatypes.html" class="navbar__btn"><span class="btn-label">Data Types</span></a>
+      <a href="operators.html" class="navbar__btn"><span class="btn-label">Operators</span></a>
+      <a href="collections.html" class="navbar__btn navbar__btn--primary"><span class="btn-label">Collections</span></a>
+      <a href="controlflow.html" class="navbar__btn"><span class="btn-label">Control Flow</span></a>
+      <a href="functions.html" class="navbar__btn"><span class="btn-label">Functions</span></a>
+      <a href="oop.html" class="navbar__btn"><span class="btn-label">OOP</span></a>
+      <a href="advanced.html" class="navbar__btn"><span class="btn-label">Advanced</span></a>
+      <a href="projects.html" class="navbar__btn"><span class="btn-label">Projects</span></a>
+      <a href="interview.html" class="navbar__btn"><span class="btn-label">Interview</span></a>
+      <button class="navbar__btn search-trigger" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle"><span class="icon-sun">☀️</span><span class="icon-moon" style="display:none">🌙</span></button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle"><span class="hamburger"><span class="hamburger__bar"></span><span class="hamburger__bar"></span><span class="hamburger__bar"></span></span></button>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile">
+    <div style="padding:1.5rem 1.25rem 1rem;"><div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">Python for PySpark</div><nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav></div>
+  </aside>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);"><button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;"><span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span><span style="font-size:.625rem;">◀</span></button></div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav>
+  </aside>
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true"><div class="search-modal"><div class="search-modal__input-wrapper"><span class="search-modal__icon">🔍</span><input class="search-modal__input" id="search-input" type="text" placeholder="Search topics..." autocomplete="off"><kbd class="search-modal__shortcut">Esc</kbd></div><div class="search-modal__results" id="search-results"></div></div></div>
+  <div class="bookmarks-panel" id="bookmarks-panel"><div class="bookmarks-panel__header"><h3>Bookmarks</h3><button class="bookmarks-panel__close" id="bookmarks-toggle">✕</button></div><div id="bookmarks-list"></div></div>
+  <main class="main">
+    <div class="main__content">
+<div id="list" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Lists — ordered, mutable, allows duplicates</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="list">☆</button><button class="topic-complete-btn" data-topic-id="list">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> A list is Python's workhorse — ordered, mutable (you can change it), and it allows duplicates — think of it as a Spark array column you can reshape row by row. <strong>Why it matters:</strong> ETL stages constantly build lists: collecting file paths, batching rows, or nesting results. Mixing up <code>append</code> vs <code>extend</code> silently creates the wrong shape — a nested list instead of a flat one — and downstream <code>explode()</code> or joins break. <strong>How to remember:</strong> <code>append</code> adds the whole object as one entry (nest), <code>extend</code> iterates and adds each element (flatten) — see the box diagram below.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">append vs extend — what happens inside the list</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;font-family:'JetBrains Mono',monospace;font-size:.82rem;">
+            <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:.8rem;text-align:center;">
+              <div style="font-weight:700;color:#ef4444;">a.append(['orange','berry'])</div>
+              <div style="margin:.5rem 0;display:flex;justify-content:center;gap:2px;flex-wrap:wrap;">
+                <span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">apple</span><span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">banana</span><span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">cherry</span><span style="border:2px solid #ef4444;border-radius:6px;padding:.2rem .4rem;background:rgba(239,68,68,.1);">[ orange , berry ]</span>
+              </div>
+              <div style="font-size:.72rem;color:var(--color-text-secondary);">length = 4, last element is a <strong>list</strong> → nested</div>
+            </div>
+            <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:.8rem;text-align:center;">
+              <div style="font-weight:700;color:#16a34a;">a.extend(['orange','watermelon'])</div>
+              <div style="margin:.5rem 0;display:flex;justify-content:center;gap:2px;flex-wrap:wrap;">
+                <span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">apple</span><span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">banana</span><span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">cherry</span><span style="border:1px solid #22c55e;border-radius:4px;padding:.2rem .4rem;background:rgba(34,197,94,.1);">orange</span><span style="border:1px solid #22c55e;border-radius:4px;padding:.2rem .4rem;background:rgba(34,197,94,.1);">watermelon</span>
+              </div>
+              <div style="font-size:.72rem;color:var(--color-text-secondary);">length = 5, each string is a <strong>separate entry</strong> → flat</div>
+            </div>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.78rem;color:var(--color-text-secondary);">Rule: <code>append(x)</code> → one slot, <code>extend([x,y])</code> → two slots &nbsp;|&nbsp; Spark: <code>array_append</code> vs <code>array_union</code></div>
+        </div>
+        <div class="tip-card"><div class="tip-card__title">💡 Also inside</div><div class="tip-card__body"><code>insert(1,'tomato')</code> splices at a position, <code>remove('kiwi')</code> deletes first match, <code>pop()</code> removes last, and <code>list(set(...))</code> de-duplicates — all building blocks for manual bucketing before you let Spark do it at scale.</div></div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>x = [1,2,3,4,'praveen',True,1.014]
+print(x[::-1])  # reversed
+
+a = ['apple','banana','cherry']
+a.append('coconut')          # ['apple','banana','cherry','coconut']
+a.append(['orange','berry']) # nests! [..., ['orange','berry']]
+print(a)
+
+a = ['apple','banana','cherry']
+b = ['orange','watermelon']
+a.extend(b)                # flattens: [...,'orange','watermelon']
+print(a)
+print([1,2,3] + [4,5,6])   # [1,2,3,4,5,6]
+
+a.insert(1, 'tomato')      # at index 1
+print(a)
+
+x = ['apple','banana',['mango','cherry',['watermelon','pencil','praveen'],'coconut'],'mouse']
+print(x[2][2][2])  # praveen
+
+x = ['apple','banana','kiwi','mango','orange','kiwi']
+x.remove('kiwi')  # first kiwi only
+print(x)
+x.pop()           # last
+print(x)
+x.pop(0)
+print(x)
+print(list(set(['apple','banana','apple','mango'])))  # dedup, order varies</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>[1.014, True, 'praveen', 4, 3, 2, 1]
+['apple', 'banana', 'cherry', 'coconut', ['orange', 'berry']]
+['apple', 'banana', 'cherry', 'orange', 'watermelon']
+[1, 2, 3, 4, 5, 6]
+['apple', 'tomato', 'banana', 'cherry', 'orange', 'watermelon']
+praveen
+['apple', 'banana', 'mango', 'orange', 'kiwi']
+['apple', 'banana', 'mango', 'orange']
+['banana', 'mango', 'orange']
+['mango', 'banana', 'apple'] (order varies)</code></pre></div>
+      </div>
+
+      <div id="tuple" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--easy">🟢 Easy</span><h2 style="margin-top:.5rem;margin-bottom:0;">Tuples — ordered, immutable</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="tuple">☆</button><button class="topic-complete-btn" data-topic-id="tuple">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> A tuple looks like a list — <code>(1,2,'praveen')</code> — but it is immutable, meaning once created you cannot add, remove, or change elements. <strong>Why it matters:</strong> In Data Engineering immutability is a safety feature: tuples are used as fixed records like <code>(employee_id, name)</code> in RDDs, as dictionary keys, or as broadcast lookup entries where accidental mutation would corrupt joins. <strong>How to remember:</strong> List = editable draft, Tuple = sealed envelope — if you need to "change" it you must open (convert to list), edit, and reseal (convert back to tuple).</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">List vs Tuple — mutability visual</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;text-align:center;font-size:.82rem;">
+            <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:.8rem;">
+              <div style="font-weight:700;color:#3b82f6;">list — mutable 🔓</div>
+              <div style="font-family:'JetBrains Mono',monospace;margin:.5rem 0;display:flex;justify-content:center;gap:4px;"><span style="border:1px dashed #3b82f6;border-radius:4px;padding:.2rem .4rem;">1</span><span style="border:1px dashed #3b82f6;border-radius:4px;padding:.2rem .4rem;">2</span><span style="border:1px dashed #3b82f6;border-radius:4px;padding:.2rem .4rem;">3</span></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--color-text-secondary);">x.append(10) ✓ &nbsp; x[0]=99 ✓</div>
+              <div style="margin-top:.4rem;font-size:.72rem;background:rgba(59,130,246,.1);display:inline-block;padding:.2rem .5rem;border-radius:999px;">Spark: array column — editable</div>
+            </div>
+            <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:.8rem;">
+              <div style="font-weight:700;color:#d97706;">tuple — immutable 🔒</div>
+              <div style="font-family:'JetBrains Mono',monospace;margin:.5rem 0;display:flex;justify-content:center;gap:4px;"><span style="border:2px solid #f59e0b;border-radius:4px;padding:.2rem .4rem;background:rgba(245,158,11,.1);">1</span><span style="border:2px solid #f59e0b;border-radius:4px;padding:.2rem .4rem;background:rgba(245,158,11,.1);">2</span><span style="border:2px solid #f59e0b;border-radius:4px;padding:.2rem .4rem;background:rgba(245,158,11,.1);">3</span></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#ef4444;">x.append(10) ✗ AttributeError</div>
+              <div style="margin-top:.4rem;font-size:.72rem;background:rgba(245,158,11,.12);display:inline-block;padding:.2rem .5rem;border-radius:999px;">Spark: struct key — safe to hash</div>
+            </div>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--color-text-secondary);">Workaround: <span style="background:white;border:1px solid #e2e8f0;padding:.15rem .4rem;border-radius:4px;">tuple → list → edit → tuple</span> &nbsp;|&nbsp; Unpack: <code>a,b,c = (1,2,3)</code></div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>x = (1,2,3,4,4,5,'praveen','apple')
+print(x[-1])  # apple
+# x.remove(1)  # AttributeError — no remove
+x = (1,2,3,4,5)
+y = list(x); y.append(10); x = tuple(y)
+print(x)  # (1, 2, 3, 4, 5, 10)
+a, b, c = (1,2,3)
+print(a, b, c)  # 1 2 3</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>apple
+(1, 2, 3, 4, 5, 10)
+1 2 3</code></pre></div>
+      </div>
+
+      <div id="dict" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Dictionaries — JSON-like (key:value)</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="dict">☆</button><button class="topic-complete-btn" data-topic-id="dict">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> A dictionary is Python's JSON — <code>{key: value}</code> pairs that store structured records like <code>{'fname':'praveen','city':'bangalore','phonenumbers':[123...,987...]}</code>. <strong>Why it matters:</strong> Every Spark JSON row, every API response, and every nested config is a dict of dicts — <code>students['student1']['sports']['morning'] → 'cricket'</code> is the same path you query with <code>get_json_object</code> or <code>col('student.sports.morning')</code> in Spark. <strong>How to remember:</strong> Keys are labels on drawers, values are what is inside; <code>x['phonenumbers'][1]</code> means open drawer "phonenumbers" then pick index 1.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Nested dict → mirrors Spark JSON</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;">
+            <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:stretch;">
+              <div style="background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:.7rem;min-width:160px;flex:1;">
+                <div style="font-weight:700;color:#3b82f6;text-align:center;margin-bottom:.4rem;">x</div>
+                <div style="display:grid;gap:3px;font-size:.75rem;">
+                  <div style="display:flex;justify-content:space-between;background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.25rem .4rem;"><span>fname</span><span style="color:#16a34a;">praveen</span></div>
+                  <div style="display:flex;justify-content:space-between;background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.25rem .4rem;"><span>city</span><span style="color:#16a34a;">bangalore</span></div>
+                  <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:4px;padding:.25rem .4rem;"><span>phonenumbers</span><span>[123..,987..]</span></div>
+                </div>
+                <div style="text-align:center;margin-top:.4rem;color:var(--color-text-secondary);font-size:.7rem;">x['phonenumbers'][1] → 987654321</div>
+              </div>
+              <div style="display:flex;align-items:center;font-size:1.2rem;color:var(--color-text-tertiary);">→</div>
+              <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:.7rem;min-width:190px;flex:1;">
+                <div style="font-weight:700;color:#16a34a;text-align:center;margin-bottom:.4rem;">students['student1']</div>
+                <div style="display:grid;gap:3px;font-size:.75rem;">
+                  <div style="display:flex;justify-content:space-between;background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.25rem .4rem;"><span>fname</span><span>praveen</span></div>
+                  <div style="display:flex;justify-content:space-between;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);border-radius:4px;padding:.25rem .4rem;"><span>sports</span><span>{ morning: cricket }</span></div>
+                  <div style="display:flex;justify-content:space-between;background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.25rem .4rem;"><span>courses</span><span>[math,science]</span></div>
+                </div>
+                <div style="text-align:center;margin-top:.4rem;color:var(--color-text-secondary);font-size:.7rem;">students['student1']['sports']['morning'] → cricket</div>
+              </div>
+            </div>
+            <div style="margin-top:.6rem;text-align:center;color:var(--color-text-secondary);">Spark: <code>spark.read.json("students.json")</code> creates the same nested schema — use <code>x.get('missing','not found')</code> to avoid KeyError.</div>
+          </div>
+        </div>
+        <div class="concept-cards"><div class="concept-cards__grid">
+          <div class="concept-card"><div class="concept-card__header"><h4 class="concept-card__title">keys / values / items</h4></div><div class="concept-card__body"><code>list(x.keys())</code> labels, <code>list(x.values())</code> contents, <code>list(x.items())</code> pairs — like Spark schema vs rows.</div></div>
+          <div class="concept-card"><div class="concept-card__header"><h4 class="concept-card__title">get() vs []</h4></div><div class="concept-card__body"><code>x['missing']</code> throws KeyError, <code>x.get('missing','not found')</code> returns default — always use <code>get</code> in ETL.</div></div>
+          <div class="concept-card"><div class="concept-card__header"><h4 class="concept-card__title">pop / popitem</h4></div><div class="concept-card__body"><code>pop('pancard')</code> removes by key, <code>popitem()</code> removes last inserted — LIFO cleanup.</div></div>
+        </div></div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>x = {'fname':'praveen','lname':'kumar','age':25, 'city':'bangalore','salary':10000,'phonenumbers':[123456789,987654321]}
+print(x['phonenumbers'][1])  # 987654321
+print(list(x.keys()))
+print(list(x.values()))
+print(list(x.items()))
+x['pancard'] = '2131321'
+x['pancard'] = '21313213212313'  # overwrite
+x.pop('pancard'); x.popitem()
+print(x)
+
+students = {
+  'student1': {'fname':'praveen','age':25,'courses':['math','science'], 'sports':{'morning':'cricket','evening':'golf'}},
+  'student2': {'fname':'ajay','age':26}
+}
+print(students['student1']['sports']['morning'])  # cricket
+print(x.get('missing','not found'))</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>987654321
+['fname', 'lname', 'age', 'city', 'salary', 'phonenumbers']
+['praveen', 'kumar', 25, 'bangalore', 10000, [123456789, 987654321]]
+[('fname', 'praveen'), ...]
+{... without pancard}
+cricket
+not found</code></pre></div>
+      </div>
+
+      <div id="set" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--easy">🟢 Easy</span><h2 style="margin-top:.5rem;margin-bottom:0;">Sets — unordered, no duplicates</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="set">☆</button><button class="topic-complete-btn" data-topic-id="set">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> A set is an unordered bag that keeps only unique values — <code>{'apple','banana','mango','mango'}</code> automatically collapses to three items, and you cannot index it like a list. <strong>Why it matters:</strong> In Data Engineering sets are your "distinct" gate before an expensive shuffle or join: collect keys into a set to see cardinality, then <code>list(set(ids))</code> to deduplicate, just like <code>df.dropDuplicates()</code> or <code>SELECT DISTINCT</code> in Spark. <strong>How to remember:</strong> Set = Venn circle — overlap is <code>intersection</code>, everything together is <code>union</code>, subtract is <code>A - B</code>.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Set ops — Venn at a glance</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;align-items:center;font-family:'JetBrains Mono',monospace;font-size:.82rem;">
+            <div style="position:relative;width:180px;height:110px;">
+              <div style="position:absolute;left:10px;top:10px;width:90px;height:90px;border-radius:50%;background:rgba(59,130,246,.15);border:2px solid #3b82f6;display:flex;align-items:center;justify-content:center;font-weight:700;color:#3b82f6;">A {1,2,3}</div>
+              <div style="position:absolute;left:80px;top:10px;width:90px;height:90px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;font-weight:700;color:#16a34a;">B {3,4,5}</div>
+              <div style="position:absolute;left:78px;top:38px;background:#f59e0b;color:white;font-size:.7rem;padding:.15rem .4rem;border-radius:999px;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,.15);">3</div>
+            </div>
+            <div style="display:grid;gap:.4rem;font-size:.78rem;">
+              <div style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:999px;padding:.3rem .6rem;text-align:center;"><code>A.union(B)</code> → {1,2,3,4,5}</div>
+              <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:999px;padding:.3rem .6rem;text-align:center;"><code>A.intersection(B)</code> → {3}</div>
+              <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:999px;padding:.3rem .6rem;text-align:center;"><code>A - B</code> → {1,2} &nbsp; <code>B - A</code> → {4,5}</div>
+            </div>
+          </div>
+          <div style="margin-top:.7rem;text-align:center;font-size:.78rem;color:var(--color-text-secondary);">Dedup: <code>list(set([1,2,3,4,4,4,5,1])) → [1,2,3,4,5]</code> (order varies) &nbsp;|&nbsp; Spark: <code>df.select('id').distinct().count()</code></div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>myset = {'apple','banana','mango','mango'}
+print(myset)  # {'apple','banana','mango'}
+myset.add('orange'); print(myset)
+myset.remove('banana'); print(myset)
+A={1,2,3}; B={3,4,5}
+print(A.union(B))         # {1,2,3,4,5}
+print(A.intersection(B))  # {3}
+print(A - B)              # {1,2}
+print(list(set([1,2,3,4,4,4,5,1,2,3])))  # [1,2,3,4,5] (order varies)</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>{'apple', 'banana', 'mango'}
+{'apple', 'banana', 'mango', 'orange'}
+{'apple', 'mango', 'orange'}
+{1, 2, 3, 4, 5}
+{3}
+{1, 2}
+[1, 2, 3, 4, 5]</code></pre></div>
+      </div>
+      <footer class="footer"><div class="footer__inner"><div><strong style="color:var(--color-heading);">Python for PySpark Guide</strong><p style="margin:.25rem 0 0;font-size:.8125rem;color:var(--color-text-tertiary);">Python for PySpark Guide</p></div><ul class="footer__links"><li><a href="basics.html">Basics</a></li><li><a href="collections.html">Collections</a></li><li><a href="oop.html">OOP</a></li><li><a href="projects.html">Projects</a></li></ul><p class="footer__copyright">© 2026 Python for PySpark Guide.</p></div></footer>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+</html>

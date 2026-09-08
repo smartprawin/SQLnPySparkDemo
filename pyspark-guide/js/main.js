@@ -536,6 +536,15 @@
           if (section) section.classList.toggle('is-collapsed');
         });
       });
+      var currentFile = location.pathname.split('/').pop() || 'index.html';
+      $$('.sidebar__section').forEach(function (section) {
+        var links = $$('a', section);
+        for (var i = 0; i < links.length; i++) {
+          var href = links[i].getAttribute('href') || '';
+          var filePart = href.split('#')[0].split('/').pop();
+          if (filePart === currentFile) { section.classList.remove('is-collapsed'); break; }
+        }
+      });
     }
     return { init: init };
   })();

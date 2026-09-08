@@ -97,7 +97,7 @@ spark = (
 )
 
 data = [
-    (1, "Krish"),
+    (1, "Praveen"),
     (2, "Ajay"),
     (3, "James")
 ]
@@ -116,7 +116,7 @@ df.printSchema()
 +---+-----+
 | id| name|
 +---+-----+
-|  1|Krish|
+|  1|Praveen|
 |  2| Ajay|
 |  3|James|
 +---+-----+
@@ -168,7 +168,7 @@ For example:
 ```text
 60       -> integer
 409.1    -> double
-"Krish"  -> string
+"Praveen"  -> string
 ```
 
 For production pipelines, explicitly defining the schema is often preferable to relying on schema inference.

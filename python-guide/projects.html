@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python for PySpark — Home - Python for PySpark Guide</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar__brand">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" opacity=".9"/></svg>
+      <span class="navbar__title">Python for PySpark</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__actions">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub">🏠 Hub</a>
+      <a href="basics.html" class="navbar__btn"><span class="btn-label">Basics</span></a>
+      <a href="datatypes.html" class="navbar__btn"><span class="btn-label">Data Types</span></a>
+      <a href="operators.html" class="navbar__btn"><span class="btn-label">Operators</span></a>
+      <a href="collections.html" class="navbar__btn"><span class="btn-label">Collections</span></a>
+      <a href="controlflow.html" class="navbar__btn"><span class="btn-label">Control Flow</span></a>
+      <a href="functions.html" class="navbar__btn"><span class="btn-label">Functions</span></a>
+      <a href="oop.html" class="navbar__btn"><span class="btn-label">OOP</span></a>
+      <a href="advanced.html" class="navbar__btn"><span class="btn-label">Advanced</span></a>
+      <a href="projects.html" class="navbar__btn navbar__btn--primary"><span class="btn-label">Projects</span></a>
+      <a href="interview.html" class="navbar__btn"><span class="btn-label">Interview</span></a>
+      <button class="navbar__btn search-trigger" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle"><span class="icon-sun">☀️</span><span class="icon-moon" style="display:none">🌙</span></button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle"><span class="hamburger"><span class="hamburger__bar"></span><span class="hamburger__bar"></span><span class="hamburger__bar"></span></span></button>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile">
+    <div style="padding:1.5rem 1.25rem 1rem;"><div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">Python for PySpark</div><nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav></div>
+  </aside>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);"><button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;"><span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span><span style="font-size:.625rem;">◀</span></button></div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav>
+  </aside>
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true"><div class="search-modal"><div class="search-modal__input-wrapper"><span class="search-modal__icon">🔍</span><input class="search-modal__input" id="search-input" type="text" placeholder="Search topics..." autocomplete="off"><kbd class="search-modal__shortcut">Esc</kbd></div><div class="search-modal__results" id="search-results"></div></div></div>
+  <div class="bookmarks-panel" id="bookmarks-panel"><div class="bookmarks-panel__header"><h3>Bookmarks</h3><button class="bookmarks-panel__close" id="bookmarks-toggle">✕</button></div><div id="bookmarks-list"></div></div>
+  <main class="main">
+    <div class="main__content">
+<div id="password" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--easy">🟢 Easy</span><h2 style="margin-top:.5rem;margin-bottom:0;">Password Generator</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="password">☆</button><button class="topic-complete-btn" data-topic-id="password">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> A password generator builds a secure string by guaranteeing at least one character from each required set — one uppercase, one lowercase, one digit, one special — filling the rest from the combined pool, then shuffling so the pattern is not predictable. <strong>Why it matters:</strong> It is the canonical example of "constraint satisfaction": you enforce business rules (complexity requirements) before randomisation, just like you enforce schema constraints before writing to a Delta table. <strong>How to remember:</strong> Pick the mandatory four first, fill to length, shuffle last — if you shuffle before filling, the guarantee is lost.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Recipe — guarantee → fill → shuffle</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;align-items:center;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;">
+            <span style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);padding:.4rem .6rem;border-radius:8px;"><strong style="color:#3b82f6;">A</strong> upper</span><span style="color:var(--color-text-tertiary);">+</span>
+            <span style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);padding:.4rem .6rem;border-radius:8px;"><strong style="color:#16a34a;">a</strong> lower</span><span style="color:var(--color-text-tertiary);">+</span>
+            <span style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);padding:.4rem .6rem;border-radius:8px;"><strong style="color:#d97706;">7</strong> digit</span><span style="color:var(--color-text-tertiary);">+</span>
+            <span style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);padding:.4rem .6rem;border-radius:8px;"><strong style="color:#9333ea;">@</strong> special</span>
+            <span>→</span>
+            <span style="background:rgba(100,116,139,.08);border:1px solid #cbd5e1;padding:.4rem .6rem;border-radius:8px;">fill to length<br><span style="font-size:.72rem;color:var(--color-text-secondary);">random from pool</span></span>
+            <span>→</span>
+            <span style="background:#22c55e;color:white;padding:.4rem .6rem;border-radius:8px;font-weight:700;">shuffle()</span>
+            <span>→</span>
+            <span style="background:var(--color-bg-secondary);border:1px solid var(--color-border);padding:.4rem .6rem;border-radius:8px;">A7@kQ9pL2!x</span>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.75rem;color:var(--color-text-secondary);">Pool = <code>upper + lower + digits + special</code> &nbsp;|&nbsp; Without shuffle the first 4 chars would always be Upper-lower-special-digit (predictable!)</div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>import random, string
+def gen_password(length=10):
+    upper = string.ascii_uppercase
+    lower = string.ascii_lowercase
+    digits = '0123456789'
+    special = '!@#$%^&amp;*'
+    pwd = [random.choice(upper), random.choice(lower), random.choice(special), random.choice(digits)]
+    pool = upper + lower + digits + special
+    pwd += [random.choice(pool) for _ in range(length - len(pwd))]
+    random.shuffle(pwd)
+    return ''.join(pwd)
+
+print(gen_password(10))
+print(gen_password(12))
+# Example outputs (random, yours will differ):
+# A7@kQ9pL2!x  /  Z3^mPq8&amp;bL1!</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>A7@kQ9pL2!x
+Z3^mPq8&amp;bL1!</code></pre></div>
+      </div>
+
+      <div id="banking" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Banking CLI — 7 operations (bug fixed)</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="banking">☆</button><button class="topic-complete-btn" data-topic-id="banking">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> The banking CLI is a miniature core-banking system built on a dictionary — <code>bankaccount = {accNo: {name, balance}}</code> — exposing seven operations: create, view, deposit, withdraw, transfer, list, and number generation. <strong>Why it matters:</strong> It forces you to handle the classic distributed-systems bug: transfer must debit one account and credit another atomically, with balance checks <em>before</em> mutation, otherwise a concurrent transfer can leave money duplicated or lost. <strong>How to remember:</strong> The fixed transfer bug is the lesson — check existence of <em>both</em> accounts, check sufficient funds on the sender, then mutate both in one step.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Architecture — 7 ops on one dict + the bug fix</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.5rem;font-family:'JetBrains Mono',monospace;font-size:.76rem;text-align:center;">
+            <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:.5rem;"><div style="font-weight:700;color:#3b82f6;">create</div><div style="font-size:.7rem;color:var(--color-text-secondary);">rand 100000-999999<br>unique check</div></div>
+            <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:.5rem;"><div style="font-weight:700;color:#3b82f6;">view</div><div style="font-size:.7rem;color:var(--color-text-secondary);">read balance<br>or "not exist"</div></div>
+            <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.5rem;"><div style="font-weight:700;color:#16a34a;">deposit</div><div style="font-size:.7rem;color:var(--color-text-secondary);">balance += amt</div></div>
+            <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.5rem;"><div style="font-weight:700;color:#d97706;">withdraw</div><div style="font-size:.7rem;color:var(--color-text-secondary);">check ≥ amt<br>then -=</div></div>
+            <div style="background:rgba(239,68,68,.07);border:2px solid rgba(239,68,68,.3);border-radius:8px;padding:.5rem;"><div style="font-weight:700;color:#ef4444;">transfer ★ fixed</div><div style="font-size:.7rem;color:var(--color-text-secondary);">both exist? →<br>sender ≥ amt? →<br>sender-=, receiver+=</div></div>
+            <div style="background:rgba(100,116,139,.06);border:1px solid #cbd5e1;border-radius:8px;padding:.5rem;"><div style="font-weight:700;color:#475569;">list</div><div style="font-size:.7rem;color:var(--color-text-secondary);">all accounts<br>or "none yet"</div></div>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.75rem;color:var(--color-text-secondary);"><code>bankaccount = { 443402: {name:'praveen', balance:10000}, 499572: {name:'kumar', balance:3000} }</code> — dict of dicts, like Spark JSON rows.</div>
+          <div class="tip-card" style="margin-top:.6rem;"><div class="tip-card__title">🐛 Bug that was fixed</div><div class="tip-card__body">Old transfer deducted from sender even if receiver did not exist. Fix: early-return if <code>fr not in bankaccount or to not in bankaccount</code> <em>before</em> touching balances.</div></div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>import random
+bankaccount = {}
+def generateaccountnumber():
+    while True:
+        n = random.randint(100000,999999)
+        if n not in bankaccount: return n
+def createaccount(name, initialbalance=0):
+    n = generateaccountnumber()
+    bankaccount[n] = {'name': name, 'balance': initialbalance}
+    print(f'account created, your number is {n}')
+    return n
+def viewbalance(n):
+    print(f'balance is {bankaccount[n]["balance"]}' if n in bankaccount else 'account does not exist')
+def depositmoney(n, amt):
+    if n in bankaccount:
+        bankaccount[n]['balance']+=amt; print('deposited')
+    else: print('account does not exist')
+def withdrawmoney(n, amt):
+    if n not in bankaccount: print('account does not exist')
+    elif bankaccount[n]['balance'] &lt; amt: print('insufficient funds')
+    else: bankaccount[n]['balance']-=amt; print('withdrawn')
+def transfermoney(fr,to,amt):
+    if fr not in bankaccount or to not in bankaccount:
+        print('account does not exist'); return
+    if bankaccount[fr]['balance'] &lt; amt:
+        print(f'insufficient funds, balance is {bankaccount[fr]["balance"]}'); return
+    bankaccount[fr]['balance']-=amt; bankaccount[to]['balance']+=amt
+    print(f'funds transferred, your balance is {bankaccount[fr]["balance"]}')
+def listaccounts():
+    print(list(bankaccount.items()) if bankaccount else 'No account yet')
+
+# Demo (numbers random)
+# a = createaccount('praveen', 10000)  # 443402
+# b = createaccount('kumar', 1000) # 499572
+# viewbalance(a)        # balance is 10000
+# depositmoney(a, 5000) # deposited → 15000
+# withdrawmoney(a,3000) # withdrawn → 12000
+# transfermoney(a,b,2000) # funds transferred → a:10000 b:3000</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>account created, your number is 443402
+account created, your number is 499572
+balance is 10000
+deposited
+withdrawn
+funds transferred, your balance is 10000</code></pre></div>
+      </div>
+
+      <div id="bubblesort" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Bubble Sort</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="bubblesort">☆</button><button class="topic-complete-btn" data-topic-id="bubblesort">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Bubble sort repeatedly walks the list, comparing each adjacent pair and swapping if they are out of order — the largest element "bubbles" to the end each pass, so the next pass can ignore the last sorted element. <strong>Why it matters:</strong> You will rarely sort in Python (use <code>sorted()</code> or Spark's <code>orderBy</code>), but bubble sort is the interview standard for proving you understand nested loops, the shrinking window <code>range(n-i-1)</code>, and in-place swapping <code>a,b = b,a</code>. <strong>How to remember:</strong> Outer loop = number of passes, inner loop = window that shrinks by <code>i</code> each time because the last <code>i</code> elements are already sorted.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Bubble sort — largest bubbles right, window shrinks</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;">
+            <div style="display:inline-block;background:var(--color-bg-secondary);border:1px solid var(--color-border);border-radius:10px;padding:.6rem .9rem;">
+              <div style="color:var(--color-text-secondary);font-size:.72rem;margin-bottom:.3rem;">Pass 1: window 0 → 6 &nbsp;|&nbsp; Pass 2: window 0 → 5 &nbsp;|&nbsp; Pass 3: window 0 → 4 …</div>
+              <div style="display:flex;gap:3px;justify-content:center;flex-wrap:wrap;align-items:center;">
+                <span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">100</span><span style="color:var(--color-text-tertiary);">↔</span><span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">32</span><span style="color:#ef4444;">→ swap</span>
+                <span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:#fef2f2;">32</span><span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:#fef2f2;">100</span><span style="color:var(--color-text-tertiary);">↔</span><span style="border:1px solid #cbd5e1;border-radius:4px;padding:.2rem .4rem;background:white;">5</span><span style="color:#ef4444;">→ swap …</span>
+              </div>
+              <div style="margin-top:.4rem;display:flex;gap:2px;justify-content:center;">
+                <span style="background:#e2e8f0;padding:.15rem .4rem;border-radius:4px;">5</span><span style="background:#e2e8f0;padding:.15rem .4rem;border-radius:4px;">6</span><span style="background:#e2e8f0;padding:.15rem .4rem;border-radius:4px;">9</span><span style="background:#e2e8f0;padding:.15rem .4rem;border-radius:4px;">12</span><span style="background:#e2e8f0;padding:.15rem .4rem;border-radius:4px;">32</span><span style="background:#22c55e;color:white;padding:.15rem .4rem;border-radius:4px;">60</span><span style="background:#22c55e;color:white;padding:.15rem .4rem;border-radius:4px;font-weight:700;">100 ✓ sorted</span>
+              </div>
+            </div>
+            <div style="margin-top:.5rem;font-size:.75rem;color:var(--color-text-secondary);"><code>for i in range(n): for j in range(n-i-1): if x[j] &gt; x[j+1]: x[j],x[j+1]=x[j+1],x[j]</code> — <code>n-i-1</code> is the shrinking window</div>
+          </div>
+        </div>
+        <div class="concept-cards"><div class="concept-cards__grid">
+          <div class="concept-card"><div class="concept-card__header"><h4 class="concept-card__title">palindrome</h4></div><div class="concept-card__body"><code>s == s[::-1]</code> — reverse and compare. <code>'mom' → True</code>.</div></div>
+          <div class="concept-card"><div class="concept-card__header"><h4 class="concept-card__title">count chars</h4></div><div class="concept-card__body"><code>out[c] = out.get(c,0)+1</code> — same pattern as word count in Spark.</div></div>
+          <div class="concept-card"><div class="concept-card__header"><h4 class="concept-card__title">fibonacci</h4></div><div class="concept-card__body"><code>a,b = b,a+b</code> — parallel assignment generates sequence iteratively.</div></div>
+        </div></div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>xlist = [100,32,5,6,12,9,60]
+n = len(xlist)
+for i in range(n):
+    for j in range(n-i-1):  # shrinks — last i elements already sorted
+        if xlist[j] &gt; xlist[j+1]:
+            xlist[j], xlist[j+1] = xlist[j+1], xlist[j]
+print(xlist)  # [5, 6, 9, 12, 32, 60, 100]
+
+def countofoccurence(s):
+    out={}
+    for c in s:
+        out[c] = out.get(c,0)+1
+    return out
+print(countofoccurence('aaabbaccddeeef'))
+# {'a':4,'b':2,'c':2,'d':2,'e':3,'f':1}
+
+def ispalindrome(s): return s == s[::-1]
+print(ispalindrome('mom'))   # True
+print(ispalindrome('praveen')) # False
+def fibonacci(n):
+    a,b, fib = 0,1,[]
+    for _ in range(n): fib.append(a); a,b = b, a+b
+    return fib
+print(fibonacci(8))  # [0, 1, 1, 2, 3, 5, 8, 13]</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>[5, 6, 9, 12, 32, 60, 100]
+{'a': 4, 'b': 2, 'c': 2, 'd': 2, 'e': 3, 'f': 1}
+True
+False
+[0, 1, 1, 2, 3, 5, 8, 13]</code></pre></div>
+      </div>
+
+      <div id="turtle" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--easy">🟢 Easy</span><h2 style="margin-top:.5rem;margin-bottom:0;">Turtle Race — GUI</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="turtle">☆</button><button class="topic-complete-btn" data-topic-id="turtle">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> The turtle race is a playful GUI simulation — six turtles (red, orange, yellow, green, blue, purple) start at <code>x=-230</code> on six lanes, then each step moves a random <code>0-10</code> forward until one crosses <code>x ≥ 230</code>. <strong>Why it matters:</strong> It is not a PySpark project but a teachable event loop: <code>while is_race_on:</code> with random progress and a single winner — the same pattern as polling a queue until a job finishes. <strong>How to remember:</strong> It needs a display (<code>Screen</code> + <code>Turtle</code>), so it only runs locally; on a headless cluster the loop still illustrates non-deterministic racing and bet comparison.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Track — 6 lanes, random steps, first to 230 wins</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.78rem;">
+            <div style="background:rgba(59,130,246,.04);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:.6rem;">
+              <div style="display:grid;grid-template-columns:80px 1fr 60px;gap:4px;align-items:center;font-size:.72rem;">
+                <div style="text-align:right;color:var(--color-text-secondary);">red</div><div style="background:#fee2e2;border-radius:999px;height:14px;position:relative;"><div style="position:absolute;left:30%;top:0;bottom:0;width:14px;background:#ef4444;border-radius:50%;"></div><div style="position:absolute;right:4px;top:1px;font-size:.6rem;">🏁 230</div></div><div style="color:var(--color-text-secondary);">y=-70</div>
+                <div style="text-align:right;color:var(--color-text-secondary);">orange</div><div style="background:#ffedd5;border-radius:999px;height:14px;position:relative;"><div style="position:absolute;left:55%;top:0;bottom:0;width:14px;background:#f97316;border-radius:50%;"></div></div><div style="color:var(--color-text-secondary);">y=-40</div>
+                <div style="text-align:right;color:var(--color-text-secondary);">yellow</div><div style="background:#fef9c3;border-radius:999px;height:14px;position:relative;"><div style="position:absolute;left:45%;top:0;bottom:0;width:14px;background:#eab308;border-radius:50%;"></div></div><div style="color:var(--color-text-secondary);">y=-10</div>
+                <div style="text-align:right;color:var(--color-text-secondary);">green</div><div style="background:#dcfce7;border-radius:999px;height:14px;position:relative;"><div style="position:absolute;left:70%;top:0;bottom:0;width:14px;background:#22c55e;border-radius:50%;"></div></div><div style="color:var(--color-text-secondary);">y=20</div>
+                <div style="text-align:right;color:var(--color-text-secondary);">blue</div><div style="background:#dbeafe;border-radius:999px;height:14px;position:relative;"><div style="position:absolute;left:20%;top:0;bottom:0;width:14px;background:#3b82f6;border-radius:50%;"></div></div><div style="color:var(--color-text-secondary);">y=50</div>
+                <div style="text-align:right;color:var(--color-text-secondary);">purple</div><div style="background:#f3e8ff;border-radius:999px;height:14px;position:relative;"><div style="position:absolute;left:60%;top:0;bottom:0;width:14px;background:#a855f7;border-radius:50%;"></div></div><div style="color:var(--color-text-secondary);">y=80</div>
+              </div>
+              <div style="margin-top:.5rem;text-align:center;color:var(--color-text-secondary);">Each loop: <code>t.forward(random.randint(0,10))</code> &nbsp;|&nbsp; Winner: first with <code>t.xcor() &gt;= 230</code> → compare to <code>user_bet</code></div>
+            </div>
+          </div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>from turtle import Turtle, Screen
+import random
+screen = Screen(); screen.setup(width=500, height=400)
+user_bet = screen.textinput(title="make your bet", prompt="Which turtle will win? Enter a colour: ")
+colors = ["red","orange","yellow","green","blue","purple"]
+y_positions = [-70,-40,-10,20,50,80]
+all_turtles = []
+for i in range(6):
+    t = Turtle(shape="turtle"); t.color(colors[i]); t.penup()
+    t.goto(x=-230, y=y_positions[i]); all_turtles.append(t)
+is_race_on = bool(user_bet)
+while is_race_on:
+    for t in all_turtles:
+        if t.xcor() &gt;= 230:
+            winning = t.pencolor()
+            print("You've won!" if winning==user_bet else f"winning is {winning}, you lost")
+            is_race_on=False; break
+        t.forward(random.randint(0,10))
+screen.exitonclick()
+# → (GUI) prints: You've won!  or: winning is blue, you lost</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>(GUI — run locally)
+You've won!  # if bet matched winner
+winning is blue, you lost</code></pre></div>
+      </div>
+      <footer class="footer"><div class="footer__inner"><div><strong style="color:var(--color-heading);">Python for PySpark Guide</strong><p style="margin:.25rem 0 0;font-size:.8125rem;color:var(--color-text-tertiary);">Python for PySpark Guide</p></div><ul class="footer__links"><li><a href="basics.html">Basics</a></li><li><a href="collections.html">Collections</a></li><li><a href="oop.html">OOP</a></li><li><a href="projects.html">Projects</a></li></ul><p class="footer__copyright">© 2026 Python for PySpark Guide.</p></div></footer>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+</html>

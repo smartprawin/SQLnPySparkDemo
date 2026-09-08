@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python for PySpark — Home - Python for PySpark Guide</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar__brand">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" opacity=".9"/></svg>
+      <span class="navbar__title">Python for PySpark</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__actions">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub">🏠 Hub</a>
+      <a href="basics.html" class="navbar__btn"><span class="btn-label">Basics</span></a>
+      <a href="datatypes.html" class="navbar__btn"><span class="btn-label">Data Types</span></a>
+      <a href="operators.html" class="navbar__btn"><span class="btn-label">Operators</span></a>
+      <a href="collections.html" class="navbar__btn"><span class="btn-label">Collections</span></a>
+      <a href="controlflow.html" class="navbar__btn"><span class="btn-label">Control Flow</span></a>
+      <a href="functions.html" class="navbar__btn"><span class="btn-label">Functions</span></a>
+      <a href="oop.html" class="navbar__btn navbar__btn--primary"><span class="btn-label">OOP</span></a>
+      <a href="advanced.html" class="navbar__btn"><span class="btn-label">Advanced</span></a>
+      <a href="projects.html" class="navbar__btn"><span class="btn-label">Projects</span></a>
+      <a href="interview.html" class="navbar__btn"><span class="btn-label">Interview</span></a>
+      <button class="navbar__btn search-trigger" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle"><span class="icon-sun">☀️</span><span class="icon-moon" style="display:none">🌙</span></button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle"><span class="hamburger"><span class="hamburger__bar"></span><span class="hamburger__bar"></span><span class="hamburger__bar"></span></span></button>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile">
+    <div style="padding:1.5rem 1.25rem 1rem;"><div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">Python for PySpark</div><nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav></div>
+  </aside>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);"><button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;"><span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span><span style="font-size:.625rem;">◀</span></button></div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav>
+  </aside>
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true"><div class="search-modal"><div class="search-modal__input-wrapper"><span class="search-modal__icon">🔍</span><input class="search-modal__input" id="search-input" type="text" placeholder="Search topics..." autocomplete="off"><kbd class="search-modal__shortcut">Esc</kbd></div><div class="search-modal__results" id="search-results"></div></div></div>
+  <div class="bookmarks-panel" id="bookmarks-panel"><div class="bookmarks-panel__header"><h3>Bookmarks</h3><button class="bookmarks-panel__close" id="bookmarks-toggle">✕</button></div><div id="bookmarks-list"></div></div>
+  <main class="main">
+    <div class="main__content">
+<div id="class-basics" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Classes & Objects — the blueprint</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="class-basics">☆</button><button class="topic-complete-btn" data-topic-id="class-basics">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> A class is a blueprint (like an architect's plan), and an object is what you build from it — <code>class Car</code> defines <em>what a car has</em> (brand, model, speed) and <em>what it does</em> (<code>drive()</code>, <code>stop()</code>), while <code>car1 = Car('mercedes',...)</code> is the real car parked outside. <strong>Why it matters:</strong> PySpark's <code>SparkSession.builder.getOrCreate()</code> is exactly this pattern: the class is the factory, <code>spark</code> is the object you call <code>spark.read.csv(...)</code> on. <strong>How to remember:</strong> <code>__init__</code> is the constructor — it runs automatically when you "build" the object and wires <code>self.brand = brand</code> as its personal data.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Blueprint → Objects (class vs instance)</div>
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:.6rem;align-items:center;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;">
+            <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:.7rem;">
+              <div style="font-weight:700;color:#3b82f6;">class Car — blueprint</div>
+              <div style="margin:.4rem 0;text-align:left;background:white;border:1px solid #e2e8f0;border-radius:6px;padding:.4rem;font-size:.76rem;">
+                <div style="color:#a855f7;">__init__(brand, model, speed, colour)</div>
+                <div>drive() → "brand model is driving"</div>
+                <div>stop() → "has stopped"</div>
+                <div style="margin-top:.3rem;border-top:1px dashed #e2e8f0;padding-top:.3rem;color:var(--color-text-secondary);">attributes: self.brand, self.model</div>
+              </div>
+            </div>
+            <div style="font-size:1.2rem;color:var(--color-text-tertiary);">→ builds →</div>
+            <div style="display:grid;gap:.4rem;">
+              <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.5rem;font-size:.78rem;"><strong>car1</strong> = Car('mercedes','e220','150','white')<br><span style="color:var(--color-text-secondary);">car1.drive() → mercedes e220 is driving</span></div>
+              <div style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25);border-radius:8px;padding:.5rem;font-size:.78rem;"><strong>Student('praveen',70)</strong><br><span style="color:var(--color-text-secondary);">.getgrade() → C (logic inside object)</span></div>
+            </div>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.75rem;color:var(--color-text-secondary);">Spark parallel: <code>class SparkSession</code> blueprint → <code>spark = SparkSession.builder.getOrCreate()</code> object → <code>spark.read</code> method</div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>class Car:
+    def __init__(self, brand, model, speed, colour):
+        self.brand, self.model, self.speed, self.colour = brand, model, speed, colour
+    def drive(self):
+        print(f'{self.brand} {self.model} is driving')
+    def stop(self):
+        print(f'{self.brand} {self.model} has stopped')
+
+car1 = Car('mercedes','e220','150','white')
+car1.drive()  # mercedes e220 is driving
+car1.stop()
+
+class Student:
+    def __init__(self, name, marks):
+        self.name, self.marks = name, marks
+    def getgrade(self):
+        return 'A' if self.marks&gt;=90 else 'B' if self.marks&gt;=80 else 'C'
+print(Student('praveen',70).getgrade())  # C</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>mercedes e220 is driving
+mercedes e220 has stopped
+C</code></pre></div>
+      </div>
+
+      <div id="encapsulation" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Encapsulation — hide balance, expose methods</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="encapsulation">☆</button><button class="topic-complete-btn" data-topic-id="encapsulation">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Encapsulation hides sensitive data behind controlled methods — <code>__balance</code> is private (name-mangled to <code>_BankAccount__balance</code>), so outsiders cannot do <code>acc.__balance = 999999</code>; they must use <code>deposit()</code> / <code>withdraw()</code> / <code>get_balance()</code> which enforce rules. <strong>Why it matters:</strong> It mirrors Spark's design: you never touch internal partitions directly, you use the safe API (<code>filter</code>, <code>map</code>); similarly, <code>setmarks()</code> validates <code>0 ≤ m ≤ 100</code> before storing, preventing bad data at the gate. <strong>How to remember:</strong> Double-underscore <code>__</code> = lock on the drawer, methods = the only keys with validation.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Encapsulation — locked drawer, only methods have the key</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;align-items:stretch;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;">
+            <div style="background:rgba(239,68,68,.06);border:2px solid rgba(239,68,68,.3);border-radius:10px;padding:.7rem;min-width:150px;">
+              <div style="font-size:1.1rem;">🔒</div><div style="font-weight:700;color:#ef4444;">__balance = 1000</div><div style="font-size:.72rem;color:var(--color-text-secondary);">private — mangled to <br><code>_BankAccount__balance</code></div><div style="margin-top:.4rem;background:rgba(239,68,68,.1);padding:.25rem .4rem;border-radius:999px;font-size:.72rem;">acc.__balance ✗ AttributeError</div>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;gap:.4rem;">
+              <span style="background:#22c55e;color:white;padding:.3rem .6rem;border-radius:999px;font-weight:700;">deposit() ✓</span><span style="background:#3b82f6;color:white;padding:.3rem .6rem;border-radius:999px;font-weight:700;">withdraw() ✓ with check</span><span style="background:#f59e0b;color:white;padding:.3rem .6rem;border-radius:999px;font-weight:700;">get_balance() ✓</span>
+            </div>
+            <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:.7rem;min-width:160px;display:flex;flex-direction:column;justify-content:center;">
+              <div style="font-weight:700;color:#16a34a;">Public API — safe</div><div style="font-size:.75rem;color:var(--color-text-secondary);margin-top:.3rem;">acc.deposit(500) → 1500<br>acc.withdraw(2000) → "insufficient"<br>acc.get_balance() → 1500</div><div style="margin-top:.4rem;font-size:.7rem;background:rgba(34,197,94,.1);padding:.2rem .4rem;border-radius:999px;">Validation lives inside</div>
+            </div>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.75rem;color:var(--color-text-secondary);">Access if you must: <code>acc._BankAccount__balance</code> (proof of mangling — but never do this in real code!)</div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance  # private — mangled
+    def deposit(self, amount):
+        self.__balance += amount
+    def withdraw(self, amount):
+        if amount &lt;= self.__balance:
+            self.__balance -= amount
+        else:
+            print('insufficient balance')
+    def get_balance(self):
+        return self.__balance
+
+acc = BankAccount(1000)
+acc.deposit(500); print(acc.get_balance())  # 1500
+acc.withdraw(2000)  # insufficient balance
+print(acc.get_balance())  # 1500
+print(acc._BankAccount__balance)  # 1500 — mangling proof
+
+class Student2:
+    def __init__(self): self.__marks = 0
+    def setmarks(self, m):
+        if 0 &lt;= m &lt;= 100: self.__marks = m
+        else: print('invalid marks')
+    def getmarks(self): return self.__marks
+s=Student2(); s.setmarks(95); print(s.getmarks())  # 95
+s.setmarks(200)  # invalid marks</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>1500
+insufficient balance
+1500
+1500
+95
+invalid marks</code></pre></div>
+      </div>
+
+      <div id="abstraction" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Abstraction — rulebook, not engine</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="abstraction">☆</button><button class="topic-complete-btn" data-topic-id="abstraction">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Abstraction is a rulebook: an abstract base class (<code>class Payment(ABC)</code>) declares <em>what</em> every payment must do (<code>pay()</code> + <code>authenticate()</code>) without saying <em>how</em> — concrete classes like <code>CreditCard</code> and <code>UPI</code> must fill in the details or Python refuses to instantiate them. <strong>Why it matters:</strong> In Data Engineering you define one contract for all sinks — "every sink must implement <code>write(df)</code>" — so S3, Delta, and JDBC writers are interchangeable, and a missing <code>write</code> fails fast at startup, not midnight in production. <strong>How to remember:</strong> <code>ABC</code> + <code>@abstractmethod</code> = "you cannot exist until you fulfil this promise."</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Abstraction — rulebook enforced at creation</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;">
+            <div style="display:inline-block;background:rgba(168,85,247,.07);border:2px solid rgba(168,85,247,.3);border-radius:10px;padding:.6rem 1rem;min-width:280px;">
+              <div style="font-weight:700;color:#a855f7;">abstract class Payment(ABC) — rulebook</div>
+              <div style="margin-top:.4rem;display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap;">
+                <span style="background:white;border:1px dashed #a855f7;padding:.25rem .5rem;border-radius:6px;">@abstractmethod<br><strong>pay(amount)</strong></span>
+                <span style="background:white;border:1px dashed #a855f7;padding:.25rem .5rem;border-radius:6px;">@abstractmethod<br><strong>authenticate()</strong></span>
+              </div>
+              <div style="margin-top:.4rem;font-size:.72rem;color:#9333ea;">Instantiating Payment() directly → TypeError ✗</div>
+            </div>
+            <div style="margin:.5rem 0;color:var(--color-text-tertiary);">▼ must implement both ▼</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;max-width:520px;margin:0 auto;">
+              <div style="background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.25);border-radius:8px;padding:.6rem;"><div style="font-weight:700;color:#3b82f6;">CreditCard(Payment)</div><div style="font-size:.75rem;text-align:left;margin-top:.3rem;">authenticate() → verifying card<br>pay(100) → credit card ✓</div></div>
+              <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:.6rem;"><div style="font-weight:700;color:#16a34a;">UPI(Payment)</div><div style="font-size:.75rem;text-align:left;margin-top:.3rem;">authenticate() → verifying UPI<br>pay(100) → UPI ✓</div></div>
+            </div>
+            <div style="margin-top:.5rem;font-size:.72rem;color:var(--color-text-secondary);">Loop <code>for p in [CreditCard(), UPI()]: p.pay(100)</code> works because both obey the same rulebook.</div>
+          </div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>from abc import ABC, abstractmethod
+class Payment(ABC):
+    @abstractmethod
+    def pay(self, amount): pass
+    @abstractmethod
+    def authenticate(self): pass
+
+class CreditCard(Payment):
+    def authenticate(self): print('verifying card')
+    def pay(self, amount):
+        self.authenticate()
+        print(f'Amount {amount} paid using credit card')
+
+class UPI(Payment):
+    def authenticate(self): print('verifying UPI')
+    def pay(self, amount):
+        self.authenticate()
+        print(f'Amount {amount} paid using UPI')
+
+for p in [CreditCard(), UPI()]:
+    p.pay(100)
+# verifying card / Amount 100 paid using credit card
+# verifying UPI / Amount 100 paid using UPI
+# class Bad(Payment): pass  # TypeError: Can't instantiate abstract class</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>verifying card
+Amount 100 paid using credit card
+verifying UPI
+Amount 100 paid using UPI</code></pre></div>
+      </div>
+
+      <div id="inheritance" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Inheritance — 5 types</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="inheritance">☆</button><button class="topic-complete-btn" data-topic-id="inheritance">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Inheritance lets a child class reuse and extend a parent — Single (Child → Parent), Multiple (Child inherits from Mother <em>and</em> Father), Multilevel (Grandparent → Parent → Child), and Hybrid combos. <strong>Why it matters:</strong> In Spark you extend base readers/writers or mix behaviours (a class that is both a <code>Logger</code> and a <code>MetricsEmitter</code>); understanding MRO (Method Resolution Order) tells you which parent's method wins when two parents define the same <code>show()</code>. <strong>How to remember:</strong> Python's MRO is left-to-right, depth-first — <code>class D(B,C)</code> checks B before C, and <code>D.mro()</code> literally prints the search order.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Inheritance shapes — with MRO</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;font-family:'JetBrains Mono',monospace;font-size:.78rem;text-align:center;">
+            <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:.6rem;">
+              <div style="font-weight:700;color:#3b82f6;">Single</div><div style="margin:.3rem 0;">Parent<br>▲<br><strong>Child</strong></div><div style="font-size:.7rem;color:var(--color-text-secondary);">Child inherits greet()</div>
+            </div>
+            <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.6rem;">
+              <div style="font-weight:700;color:#16a34a;">Multiple</div><div style="margin:.3rem 0;">Mother &nbsp; Father<br> ↘ &nbsp; ↙<br><strong>Child2</strong></div><div style="font-size:.7rem;color:var(--color-text-secondary);">Child2 has cooking+singing</div>
+            </div>
+            <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem;">
+              <div style="font-weight:700;color:#d97706;">Multilevel</div><div style="margin:.3rem 0;">Grandparent<br>▼<br>Parent2<br>▼<br><strong>Child3</strong></div><div style="font-size:.7rem;color:var(--color-text-secondary);">Chain of inheritance</div>
+            </div>
+            <div style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:8px;padding:.6rem;">
+              <div style="font-weight:700;color:#9333ea;">Hybrid + MRO</div><div style="margin:.3rem 0;font-size:.72rem;">A ← B &nbsp; A ← C<br> &nbsp; ↘ ↙<br> &nbsp; <strong>D(B,C)</strong></div><div style="background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.2rem;font-size:.68rem;margin-top:.3rem;">D → B → C → A → object</div>
+            </div>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.75rem;color:var(--color-text-secondary);"><code>D.mro() = [D, B, C, A, object]</code> &nbsp;|&nbsp; Conflict: <code>class C3(A2,B2): pass</code> → <code>C3().show()</code> calls A2 (left first)</div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code># Single: Child → Parent
+class Parent:
+    def greet(self): print('hello from parent')
+class Child(Parent):
+    def hello(self): print('hello from child')
+Child().greet()  # hello from parent
+
+# Multiple: Child(Mother, Father)
+class Mother:
+    def skill(self): print('cooking')
+class Father:
+    def talent(self): print('singing')
+class Child2(Mother, Father):
+    def hobby(self): print('dancing')
+Child2().talent()  # singing
+
+# Multilevel: Grandparent → Parent → Child
+class Grandparent:
+    def greet(self): print('hello from grandparent')
+class Parent2(Grandparent): pass
+class Child3(Parent2): pass
+Child3().greet()
+
+# Hybrid + MRO
+class A:
+    def show(self): print('A')
+class B(A): pass
+class C(A): pass
+class D(B,C): pass
+print(D.mro())  # [D, B, C, A, object]
+D().show()  # A
+
+class A2:
+    def show(self): print('A2')
+class B2:
+    def show(self): print('B2')
+class C3(A2, B2): pass
+C3().show()  # A2 (left first)</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>hello from parent
+singing
+hello from grandparent
+[&lt;class '__main__.D'&gt;, &lt;class '__main__.B'&gt;, &lt;class '__main__.C'&gt;, &lt;class '__main__.A'&gt;, &lt;class 'object'&gt;]
+A
+A2</code></pre></div>
+      </div>
+
+      <div id="polymorphism" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Polymorphism — same name, many forms</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="polymorphism">☆</button><button class="topic-complete-btn" data-topic-id="polymorphism">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Polymorphism means "same name, many forms" — the same <code>.sound()</code> or <code>.start()</code> call does something different depending on the object's class (Dog barks, Cat meows, Cow moos). <strong>Why it matters:</strong> A pipeline can loop over <code>[S3Sink(), DeltaSink(), JDBCSink()]</code> and call <code>sink.write(df)</code> without caring which one — duck typing says "if it has <code>write</code>, it is a sink." <strong>How to remember:</strong> Python has no true method overloading; the trick is default params — <code>def add(a,b=0,c=0)</code> handles <code>add(1)</code>, <code>add(1,2)</code>, and <code>add(1,2,3)</code> as one flexible method.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">One call, many behaviours — polymorphism</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;">
+            <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:.6rem;">
+              <div style="font-weight:700;color:#3b82f6;">Duck typing</div>
+              <div style="margin:.3rem 0;display:grid;gap:2px;font-size:.75rem;">
+                <div style="background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.2rem;">Dog.sound() → <strong>bark</strong></div>
+                <div style="background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.2rem;">Cat.sound() → <strong>meow</strong></div>
+                <div style="background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.2rem;">Cow.sound() → <strong>moo</strong></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--color-text-secondary);">for a in [Dog(),Cat(),Cow()]: a.sound()</div>
+            </div>
+            <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.6rem;">
+              <div style="font-weight:700;color:#16a34a;">Overriding</div>
+              <div style="margin:.3rem 0;display:grid;gap:2px;font-size:.75rem;">
+                <div style="background:white;border:1px solid #e2e8f0;border-radius:4px;padding:.2rem;">Vehicle.start() → generic</div>
+                <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:4px;padding:.2rem;">Car.start() → <strong>car</strong></div>
+                <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:4px;padding:.2rem;">Bike.start() → <strong>bike</strong></div>
+              </div>
+              <div style="font-size:.7rem;color:var(--color-text-secondary);">child replaces parent's method</div>
+            </div>
+            <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem;">
+              <div style="font-weight:700;color:#d97706;">Defaults = overloading</div>
+              <div style="margin:.3rem 0;font-size:.75rem;background:white;border:1px solid #e2e8f0;border-radius:6px;padding:.4rem;text-align:left;"><code>def add(a,b=0,c=0):</code><br>add(1) → 1<br>add(1,2) → 3<br>add(1,2,3) → 6</div>
+              <div style="font-size:.7rem;color:var(--color-text-secondary);">one method, many arities</div>
+            </div>
+          </div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>class Dog:
+    def sound(self): print('bark')
+class Cat:
+    def sound(self): print('meow')
+class Cow:
+    def sound(self): print('moo')
+for a in [Dog(), Cat(), Cow()]:
+    a.sound()  # bark meow moo
+
+class Vehicle:
+    def start(self): print('start the vehicle')
+class Car(Vehicle):
+    def start(self): print('start the car')
+class Bike(Vehicle):
+    def start(self): print('start the bike')
+for v in [Car(), Bike()]:
+    v.start()
+
+class Math:
+    def add(self, a,b=0,c=0): return a+b+c
+m=Math()
+print(m.add(1))      # 1
+print(m.add(1,2))    # 3
+print(m.add(1,2,3))  # 6</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>bark
+meow
+moo
+start the car
+start the bike
+1
+3
+6</code></pre></div>
+      </div>
+      <footer class="footer"><div class="footer__inner"><div><strong style="color:var(--color-heading);">Python for PySpark Guide</strong><p style="margin:.25rem 0 0;font-size:.8125rem;color:var(--color-text-tertiary);">Python for PySpark Guide</p></div><ul class="footer__links"><li><a href="basics.html">Basics</a></li><li><a href="collections.html">Collections</a></li><li><a href="oop.html">OOP</a></li><li><a href="projects.html">Projects</a></li></ul><p class="footer__copyright">© 2026 Python for PySpark Guide.</p></div></footer>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+</html>

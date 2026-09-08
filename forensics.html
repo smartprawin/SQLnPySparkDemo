@@ -160,12 +160,12 @@
         return;
       }
       if(val.toLowerCase() === PASS.toLowerCase()){
-        err.textContent='Password is case-sensitive — use all lowercase: dare2death';
+        err.textContent='Password is case-sensitive — check caps lock and try again.';
         err.style.display='block';
         input.select(); input.focus();
         return;
       }
-      err.textContent='Incorrect password. Hint: dare2death (all lowercase, no spaces)';
+      err.textContent='Incorrect password. Try again.';
       err.style.display='block';
       input.select(); input.focus();
     }

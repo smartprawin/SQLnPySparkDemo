@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python for PySpark — Home - Python for PySpark Guide</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar__brand">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" opacity=".9"/></svg>
+      <span class="navbar__title">Python for PySpark</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__actions">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub">🏠 Hub</a>
+      <a href="basics.html" class="navbar__btn"><span class="btn-label">Basics</span></a>
+      <a href="datatypes.html" class="navbar__btn"><span class="btn-label">Data Types</span></a>
+      <a href="operators.html" class="navbar__btn navbar__btn--primary"><span class="btn-label">Operators</span></a>
+      <a href="collections.html" class="navbar__btn"><span class="btn-label">Collections</span></a>
+      <a href="controlflow.html" class="navbar__btn"><span class="btn-label">Control Flow</span></a>
+      <a href="functions.html" class="navbar__btn"><span class="btn-label">Functions</span></a>
+      <a href="oop.html" class="navbar__btn"><span class="btn-label">OOP</span></a>
+      <a href="advanced.html" class="navbar__btn"><span class="btn-label">Advanced</span></a>
+      <a href="projects.html" class="navbar__btn"><span class="btn-label">Projects</span></a>
+      <a href="interview.html" class="navbar__btn"><span class="btn-label">Interview</span></a>
+      <button class="navbar__btn search-trigger" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle"><span class="icon-sun">☀️</span><span class="icon-moon" style="display:none">🌙</span></button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle"><span class="hamburger"><span class="hamburger__bar"></span><span class="hamburger__bar"></span><span class="hamburger__bar"></span></span></button>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile">
+    <div style="padding:1.5rem 1.25rem 1rem;"><div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">Python for PySpark</div><nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav></div>
+  </aside>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);"><button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;"><span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span><span style="font-size:.625rem;">◀</span></button></div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;"><div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="basics.html" style="text-decoration:none;color:inherit;"><span>Python Basics</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="basics.html#features" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Why Python for PySpark?</a></li>
+    <li><a href="basics.html#variables" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Variables & Naming</a></li>
+    <li><a href="basics.html#comments" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comments & Indentation</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="datatypes.html" style="text-decoration:none;color:inherit;"><span>Data Types & Strings</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="datatypes.html#types" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> The Four Core Types</a></li>
+    <li><a href="datatypes.html#strings-slicing" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Slicing & Indexing</a></li>
+    <li><a href="datatypes.html#string-methods" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> String Methods</a></li>
+    <li><a href="datatypes.html#find-logic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Find & Text Grouping</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading" style="color:var(--color-primary);"><a href="operators.html" style="text-decoration:none;color:inherit;"><span>Operators & Casting</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="operators.html#arithmetic" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Arithmetic Operators</a></li>
+    <li><a href="operators.html#comparison-logical" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comparison & Logical</a></li>
+    <li><a href="operators.html#assignment" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Assignment Shortcuts</a></li>
+    <li><a href="operators.html#casting" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Casting & Conversion</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="collections.html" style="text-decoration:none;color:inherit;"><span>Collections</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="collections.html#list" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lists</a></li>
+    <li><a href="collections.html#tuple" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Tuples</a></li>
+    <li><a href="collections.html#dict" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Dictionaries</a></li>
+    <li><a href="collections.html#set" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Sets</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="controlflow.html" style="text-decoration:none;color:inherit;"><span>Control Flow</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="controlflow.html#ifelse" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> if / elif / else</a></li>
+    <li><a href="controlflow.html#while" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> while Loops</a></li>
+    <li><a href="controlflow.html#for" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> for Loops</a></li>
+    <li><a href="controlflow.html#break-continue-pass" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> break / continue / pass</a></li>
+    <li><a href="controlflow.html#input-fstring" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> input & f-strings</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="functions.html" style="text-decoration:none;color:inherit;"><span>Functions & Comprehensions</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="functions.html#functions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Functions</a></li>
+    <li><a href="functions.html#args-kwargs" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> *args & **kwargs</a></li>
+    <li><a href="functions.html#lambda" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Lambda</a></li>
+    <li><a href="functions.html#comprehensions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Comprehensions</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="oop.html" style="text-decoration:none;color:inherit;"><span>OOP</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="oop.html#class-basics" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Classes & Objects</a></li>
+    <li><a href="oop.html#encapsulation" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Encapsulation</a></li>
+    <li><a href="oop.html#abstraction" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Abstraction</a></li>
+    <li><a href="oop.html#inheritance" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Inheritance — 5 Types</a></li>
+    <li><a href="oop.html#polymorphism" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Polymorphism</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="advanced.html" style="text-decoration:none;color:inherit;"><span>Advanced</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="advanced.html#exceptions" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Exception Handling</a></li>
+    <li><a href="advanced.html#files" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> File Handling</a></li>
+    <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
+    <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
+    <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="projects.html" style="text-decoration:none;color:inherit;"><span>Projects</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="projects.html#password" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Password Generator</a></li>
+    <li><a href="projects.html#banking" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Banking CLI</a></li>
+    <li><a href="projects.html#bubblesort" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Bubble Sort</a></li>
+    <li><a href="projects.html#turtle" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Turtle Race</a></li>
+  </ul>
+</div>
+<div class="sidebar__section is-collapsed">
+  <div class="sidebar__heading"><a href="interview.html" style="text-decoration:none;color:inherit;"><span>Interview Prep</span></a><span class="sidebar__heading-icon">▼</span></div>
+  <ul class="sidebar__links">
+    <li><a href="interview.html#STAR" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> STAR & Agile</a></li>
+    <li><a href="interview.html#coding-patterns" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Coding Patterns</a></li>
+    <li><a href="interview.html#sql-pyspark-aws-note" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Track Separation</a></li>
+  </ul>
+</div></nav>
+  </aside>
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true"><div class="search-modal"><div class="search-modal__input-wrapper"><span class="search-modal__icon">🔍</span><input class="search-modal__input" id="search-input" type="text" placeholder="Search topics..." autocomplete="off"><kbd class="search-modal__shortcut">Esc</kbd></div><div class="search-modal__results" id="search-results"></div></div></div>
+  <div class="bookmarks-panel" id="bookmarks-panel"><div class="bookmarks-panel__header"><h3>Bookmarks</h3><button class="bookmarks-panel__close" id="bookmarks-toggle">✕</button></div><div id="bookmarks-list"></div></div>
+  <main class="main">
+    <div class="main__content">
+<div id="arithmetic" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--easy">🟢 Easy</span><h2 style="margin-top:.5rem;margin-bottom:0;">Arithmetic Operators</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="arithmetic">☆</button><button class="topic-complete-btn" data-topic-id="arithmetic">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Arithmetic operators are the calculators of Python — <code>+ - * /</code> for basics, <code>%</code> (modulus) for remainders, <code>//</code> (floor division) for whole batches, and <code>**</code> for powers. <strong>Why it matters:</strong> In PySpark/Data Engineering, <code>%</code> decides partition assignment (<code>hash(key) % numPartitions</code> = even/odd or skew check), while <code>//</code> computes how many full batches fit (<code>total_rows // batch_size</code> without a leftover float). <strong>How to remember:</strong> <code>/</code> gives a float (9.5), <code>//</code> chops the decimal (9), <code>%</code> keeps only the left-over (1).</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Operators at a glance — with Data Engineering use</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;text-align:center;font-size:.82rem;">
+            <div style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);border-radius:10px;padding:.7rem;"><div style="font-weight:700;color:#3b82f6;font-family:'JetBrains Mono',monospace;">19 / 2</div><div style="font-family:'JetBrains Mono',monospace;font-size:1rem;margin:.2rem 0;">9.5</div><div style="font-size:.72rem;color:var(--color-text-secondary);">float division — exact</div></div>
+            <div style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:.7rem;"><div style="font-weight:700;color:#22c55e;font-family:'JetBrains Mono',monospace;">19 // 2</div><div style="font-family:'JetBrains Mono',monospace;font-size:1rem;margin:.2rem 0;">9</div><div style="font-size:.72rem;color:var(--color-text-secondary);">floor — batches of 2</div></div>
+            <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:.7rem;"><div style="font-weight:700;color:#f59e0b;font-family:'JetBrains Mono',monospace;">13 % 2</div><div style="font-family:'JetBrains Mono',monospace;font-size:1rem;margin:.2rem 0;">1 → odd</div><div style="font-size:.72rem;color:var(--color-text-secondary);">remainder — partition key</div></div>
+            <div style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);border-radius:10px;padding:.7rem;"><div style="font-weight:700;color:#a855f7;font-family:'JetBrains Mono',monospace;">2 ** 4</div><div style="font-family:'JetBrains Mono',monospace;font-size:1rem;margin:.2rem 0;">16</div><div style="font-size:.72rem;color:var(--color-text-secondary);">power — growth calc</div></div>
+          </div>
+          <div style="margin-top:.7rem;font-family:'JetBrains Mono',monospace;font-size:.78rem;text-align:center;color:var(--color-text-secondary);">Partition check: <span style="background:rgba(245,158,11,.15);padding:.15rem .4rem;border-radius:999px;border:1px solid rgba(245,158,11,.25);">row_id % 2 == 0 ? even partition : odd</span> &nbsp;|&nbsp; Batches: <span style="background:rgba(34,197,94,.12);padding:.15rem .4rem;border-radius:999px;border:1px solid rgba(34,197,94,.2);">1000 rows // 100 = 10 full batches</span></div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>print(1+1)     # 2 addition
+print(10-3)    # 7
+print(3*4)     # 12
+print(19/2)    # 9.5 division (float)
+print(19//2)   # 9 floor — round down
+print(13%2)    # 1 modulus — remainder
+print(2**4)    # 16 power
+x = 11
+print(x % 2 == 0)  # False — 11 is odd
+x = 0
+if x % 2 == 0:
+    print('even')
+else:
+    print('odd')</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>2
+7
+12
+9.5
+9
+1
+16
+False
+even</code></pre></div>
+      </div>
+
+      <div id="comparison-logical" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Comparison & Logical (truth tables added)</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="comparison-logical">☆</button><button class="topic-complete-btn" data-topic-id="comparison-logical">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Comparison operators (<code>== != &gt; &lt; &gt;= &lt;=</code>) answer yes/no about values, while logical operators (<code>and / or / not</code>) combine those answers — the exact logic behind every <code>df.filter((col('age') &gt; 30) &amp; (col('city') == 'bangalore'))</code> in PySpark. <strong>Why it matters:</strong> A single wrong <code>and</code> vs <code>or</code> can silently drop half your rows; data-quality gates live or die on these truth tables. <strong>How to remember:</strong> <code>and</code> needs both True, <code>or</code> needs just one True, and <code>is</code> checks identity (same object) not just equality — use the visual table below as your cheat sheet.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Truth table visual — and / or / not</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;font-size:.82rem;">
+            <div>
+              <div style="font-weight:700;margin-bottom:.4rem;text-align:center;color:#3b82f6;">AND — both must be True</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;font-family:'JetBrains Mono',monospace;font-size:.78rem;text-align:center;">
+                <div style="background:var(--color-bg-secondary);padding:.35rem;border-radius:4px;font-weight:600;">A</div><div style="background:var(--color-bg-secondary);padding:.35rem;border-radius:4px;font-weight:600;">B</div><div style="background:var(--color-bg-secondary);padding:.35rem;border-radius:4px;font-weight:600;">A and B</div>
+                <div style="background:rgba(239,68,68,.1);padding:.3rem;border-radius:4px;">T</div><div style="background:rgba(239,68,68,.1);padding:.3rem;border-radius:4px;">T</div><div style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);padding:.3rem;border-radius:4px;font-weight:700;color:#16a34a;">True ✓</div>
+                <div style="background:rgba(239,68,68,.08);padding:.3rem;border-radius:4px;">T</div><div style="background:rgba(239,68,68,.08);padding:.3rem;border-radius:4px;">F</div><div style="background:rgba(239,68,68,.1);padding:.3rem;border-radius:4px;">False</div>
+                <div style="background:rgba(239,68,68,.08);padding:.3rem;border-radius:4px;">F</div><div style="background:rgba(239,68,68,.08);padding:.3rem;border-radius:4px;">F</div><div style="background:rgba(239,68,68,.1);padding:.3rem;border-radius:4px;">False</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-weight:700;margin-bottom:.4rem;text-align:center;color:#f59e0b;">OR — one True is enough</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;font-family:'JetBrains Mono',monospace;font-size:.78rem;text-align:center;">
+                <div style="background:var(--color-bg-secondary);padding:.35rem;border-radius:4px;font-weight:600;">A</div><div style="background:var(--color-bg-secondary);padding:.35rem;border-radius:4px;font-weight:600;">B</div><div style="background:var(--color-bg-secondary);padding:.35rem;border-radius:4px;font-weight:600;">A or B</div>
+                <div style="background:rgba(34,197,94,.1);padding:.3rem;border-radius:4px;">T</div><div style="background:rgba(34,197,94,.1);padding:.3rem;border-radius:4px;">T</div><div style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);padding:.3rem;border-radius:4px;font-weight:700;color:#16a34a;">True ✓</div>
+                <div style="background:rgba(34,197,94,.1);padding:.3rem;border-radius:4px;">T</div><div style="background:rgba(34,197,94,.1);padding:.3rem;border-radius:4px;">F</div><div style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);padding:.3rem;border-radius:4px;font-weight:700;color:#16a34a;">True ✓</div>
+                <div style="background:rgba(239,68,68,.08);padding:.3rem;border-radius:4px;">F</div><div style="background:rgba(239,68,68,.08);padding:.3rem;border-radius:4px;">F</div><div style="background:rgba(239,68,68,.1);padding:.3rem;border-radius:4px;">False</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:.7rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;">
+            <span style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);padding:.3rem .6rem;border-radius:999px;"><code>not True → False</code></span>
+            <span style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);padding:.3rem .6rem;border-radius:999px;"><code>a == b</code> values equal</span>
+            <span style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);padding:.3rem .6rem;border-radius:999px;"><code>a is b</code> same object ✗</span>
+          </div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>print('praveen'=='praveen')  # True
+print(1==1, 1!=2, 5&gt;3, 3&lt;5, 5&gt;=5, 3&lt;=5)
+
+# True and True  → True
+# True and False → False
+# False and False→ False
+# True or False  → True
+# False or False → False
+x, y = 10, 20
+print(x&gt;10 or y==20)        # True
+print(not(x&gt;5 and y==20))   # False
+print(not(x&lt;5 or y==6))     # True
+
+a = [1,2]; b = [1,2]
+print(a == b)   # True — values equal
+print(a is b)   # False — different objects
+print(a is not b)  # True</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>True
+True True True True True True
+True
+False
+True
+True
+False
+True</code></pre></div>
+      </div>
+
+      <div id="assignment" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--easy">🟢 Easy</span><h2 style="margin-top:.5rem;margin-bottom:0;">Assignment Shortcuts</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="assignment">☆</button><button class="topic-complete-btn" data-topic-id="assignment">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Assignment shortcuts like <code>+= -= *= /= %=</code> are just shorthands — <code>x += 5</code> means <code>x = x + 5</code>, <code>x *= 2</code> means <code>x = x * 2</code>, but shorter and less error-prone. <strong>Why it matters:</strong> In Data Engineering you write accumulators constantly — <code>total += row_value</code> in a loop, <code>retry_count *= 2</code> for exponential back-off, or <code>offset %= partitions</code> to wrap around. <strong>How to remember:</strong> The symbol before <code>=</code> is the operation you want to repeat on the same variable — read <code>x += 5</code> as "add 5 to x, store back in x".</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Shortcut unfolding — long form vs short form</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.5rem;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-align:center;">
+            <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:.6rem;"><div style="color:var(--color-text-secondary);font-size:.72rem;">long form</div><div>x = x + 5</div><div style="color:var(--color-text-secondary);">↓</div><div style="background:#3b82f6;color:white;display:inline-block;padding:.15rem .5rem;border-radius:999px;font-weight:700;">x += 5</div></div>
+            <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.6rem;"><div style="color:var(--color-text-secondary);font-size:.72rem;">long form</div><div>x = x * 2</div><div style="color:var(--color-text-secondary);">↓</div><div style="background:#22c55e;color:white;display:inline-block;padding:.15rem .5rem;border-radius:999px;font-weight:700;">x *= 2</div></div>
+            <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:.6rem;"><div style="color:var(--color-text-secondary);font-size:.72rem;">long form</div><div>x = x % 3</div><div style="color:var(--color-text-secondary);">↓</div><div style="background:#f59e0b;color:white;display:inline-block;padding:.15rem .5rem;border-radius:999px;font-weight:700;">x %= 3</div></div>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.78rem;color:var(--color-text-secondary);">All shortcuts: <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code> <code>//=</code> <code>**=</code> — same pattern, different operator.</div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>x = 10
+x += 5; print(x)  # 15  (x = x+5)
+x *= 2; print(x)  # 30  (x = x*2)
+x -= 10; print(x) # 20
+x /= 4; print(x)  # 5.0
+x %= 3; print(x)  # 2.0</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>15
+30
+20
+5.0
+2.0</code></pre></div>
+      </div>
+
+      <div id="casting" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--intermediate">🟡 Intermediate</span><h2 style="margin-top:.5rem;margin-bottom:0;">Casting & Type Conversion</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="casting">☆</button><button class="topic-complete-btn" data-topic-id="casting">Mark as Complete</button></div>
+        </div>
+        <p><strong>What:</strong> Casting converts one type to another — <code>int(10.66) → 10</code> truncates, <code>float('1') → 1.0</code> adds a decimal, <code>str(10) → '10'</code> makes it text. <strong>Why it matters:</strong> PySpark's <code>spark.read.csv</code> often infers every column as string, so before you aggregate you must cast — <code>col('salary').cast('int')</code> — and dirty rows like <code>'praveen'</code> in a numeric column will fail just as <code>int('praveen')</code> throws <code>ValueError</code> here. <strong>How to remember:</strong> Think of casting as a gate: good strings pass (<code>'1' → 1</code>), bad strings are rejected (<code>'praveen' → error</code>), and the error itself is your data-quality signal.</p>
+        <div class="diagram-container" style="margin:1rem 0;">
+          <div class="diagram-container__title">Casting pipeline — CSV string → trusted type</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;align-items:center;font-family:'JetBrains Mono',monospace;font-size:.8rem;">
+            <span style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);padding:.4rem .6rem;border-radius:999px;">CSV: '10.66'</span><span>→</span><span style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);padding:.35rem .6rem;border-radius:999px;">int('10.66') ✗</span><span>→</span><span style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);padding:.35rem .6rem;border-radius:999px;">float→int ✓ 10</span>
+            <span style="margin:0 .3rem;color:var(--color-text-tertiary);">|</span>
+            <span style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);padding:.35rem .6rem;border-radius:999px;">'praveen' → int ✗ ValueError</span><span>→</span><span style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);padding:.35rem .6rem;border-radius:999px;">bad data → filter out</span>
+          </div>
+          <div style="margin-top:.6rem;text-align:center;font-size:.78rem;color:var(--color-text-secondary);">PySpark parallel: <code>F.col('age').cast('int')</code> &nbsp;|&nbsp; guard: <code>try: int(v) except ValueError: mark as null</code></div>
+        </div>
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code>print(int(10.66))    # 10 — truncates
+print(float('1'))   # 1.0
+print(str(10))      # '10'
+print(int('1'))     # 1
+print(bool(0), bool(1), bool(''))  # False True False
+
+try:
+    print(int('praveen'))
+except ValueError as e:
+    print('cannot cast:', e)</code></pre></div>
+        <div class="code-block" style="margin-top:.5rem;border-left:3px solid #22c55e;"><div class="code-block__header"><span class="code-block__lang">Output</span></div><pre><code>10
+1.0
+10
+1
+False True False
+cannot cast: invalid literal for int() with base 10: 'praveen'</code></pre></div>
+      </div>
+      <footer class="footer"><div class="footer__inner"><div><strong style="color:var(--color-heading);">Python for PySpark Guide</strong><p style="margin:.25rem 0 0;font-size:.8125rem;color:var(--color-text-tertiary);">Python for PySpark Guide</p></div><ul class="footer__links"><li><a href="basics.html">Basics</a></li><li><a href="collections.html">Collections</a></li><li><a href="oop.html">OOP</a></li><li><a href="projects.html">Projects</a></li></ul><p class="footer__copyright">© 2026 Python for PySpark Guide.</p></div></footer>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+</html>

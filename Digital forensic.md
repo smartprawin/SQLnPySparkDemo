@@ -2198,7 +2198,7 @@ Coimbatore is currently the leading hub in Tamil Nadu for undergraduate degrees 
 - [**CMS College of Science & Commerce**](https://cmscollege.edu.in/sc/digital-and-cyber-forensic-science/)**:** Offers a highly practical B.Sc. curriculum focused on cybercrime investigation techniques and digital storage parsing. [[1](https://cmscollege.edu.in/sc/digital-and-cyber-forensic-science/)]
 - [**Sree Saraswathi Thyagaraja College (STC)**](https://www.stc.ac.in/b-sc-digital-cyber-forensic-science/)**:** Located in Pollachi (Coimbatore district). They offer an industry-aligned **B.Sc. in Digital & Cyber Forensics Science** geared toward incident response and forensic analysis. [[1](https://www.stc.ac.in/b-sc-digital-cyber-forensic-science/)]
 - [**Nehru Arts and Science College**](https://nasccbe.ac.in/digital-and-cyber-forensic-science/)**:** Offers dedicated undergraduate frameworks under their Digital and Cyber Forensic Science wing. [[1](https://nasccbe.ac.in/digital-and-cyber-forensic-science/)]
-- [**Sri Ramakrishna College of Arts and Science**](https://www.shiksha.com/science/colleges/forensic-science-colleges-tamil-nadu)**:** Provides premium placement tracks for science and structural security students. [[1](https://www.shiksha.com/science/colleges/forensic-science-colleges-tamil-nadu)]
+- [**Sri Ramapraveen College of Arts and Science**](https://www.shiksha.com/science/colleges/forensic-science-colleges-tamil-nadu)**:** Provides premium placement tracks for science and structural security students. [[1](https://www.shiksha.com/science/colleges/forensic-science-colleges-tamil-nadu)]
 
  2. Top Universities & Colleges in the Chennai Region
 
