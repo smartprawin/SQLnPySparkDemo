@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
+  <script>try{var k="pyspark_theme";var v=localStorage.getItem(k);var t=v?JSON.parse(v):"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Performance - PySpark Interview Guide</title>
@@ -386,7 +387,7 @@
         <div class="problem-card">
           <div class="problem-card__icon">🔀</div>
           <div class="problem-card__title">Definition</div>
-<div style="text-align:center;margin:1.25rem 0;"><img src="https://via.placeholder.com/700x220.png?text=SHUFFLE+%7C+Redistribute+Across+Partitions" alt="Shuffle" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://placehold.co/700x220/png?text=SHUFFLE+%7C+Redistribute+Across+Partitions" alt="Shuffle" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
           <div class="problem-card__body">
             Shuffle is the process of redistributing data across partitions. It occurs during wide transformations such as <code>groupByKey()</code>, <code>reduceByKey()</code>, <code>join()</code>, and <code>repartition()</code>.
           </div>

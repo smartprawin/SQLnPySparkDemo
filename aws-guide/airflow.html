@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
+  <script>try{var k="pyspark_theme";var v=localStorage.getItem(k);var t=v?JSON.parse(v):"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Airflow - AWS Data Engineering</title>
@@ -358,7 +359,7 @@ extract_sftp &gt;&gt; sensor
 extract_jdbc &gt;&gt; sensor
 sensor &gt;&gt; load</code></pre>
         </div>
-<div style="text-align:center;margin:1.25rem 0;"><img src="https://via.placeholder.com/700x220.png?text=DAG+%7C+PythonOperator+%E2%86%92+S3KeySensor+%E2%86%92+S3ToRedshiftOperator" alt="Airflow DAG" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://placehold.co/700x220/png?text=DAG+%7C+PythonOperator+%E2%86%92+S3KeySensor+%E2%86%92+S3ToRedshiftOperator" alt="Airflow DAG" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
         <p>Hooks: PostgresHook, MySqlHook, OracleHook, JdbcHook, HttpHook, S3Hook. XCom: <code>xcom_push</code>/<code>xcom_pull</code> to exchange data between tasks. DAG = collection of tasks with <code>>></code> dependencies.</p>
         <p>Variables/Connections stored in Airflow Admin → Variables/Connections (e.g., s3_key, SFTP/JDBC/AWS).</p>
 

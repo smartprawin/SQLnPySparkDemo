@@ -156,7 +156,7 @@
 
     function init() {
       btn = $('#theme-toggle');
-      var current = storage(STORAGE_KEYS.theme, 'light');
+      var current = storage(STORAGE_KEYS.theme, 'dark');
       apply(current);
       on(btn, 'click', function () {
         var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';

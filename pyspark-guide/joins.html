@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
+  <script>try{var k="pyspark_theme";var v=localStorage.getItem(k);var t=v?JSON.parse(v):"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joins - PySpark Interview Guide</title>
@@ -379,7 +380,48 @@
             <button class="topic-complete-btn" data-topic-id="sample-tables">Mark as Complete</button>
           </div>
         </div>
-<div style="text-align:center;margin:1.25rem 0;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Venn_diagram_for_inner_join.svg/800px-Venn_diagram_for_inner_join.svg.png" alt="Join Venn" style="max-width:100%;width:580px;border-radius:12px;border:1px solid var(--color-border);" loading="lazy"><p style="font-size:.8rem;color:var(--color-text-tertiary);">Venn view of 7 JOIN types — refer to df1 (4 rows) / df2 (3 rows) sample.</p></div>
+<div style="text-align:center;margin:1.25rem 0;">
+  <svg viewBox="0 0 640 200" role="img" aria-label="Join Venn" style="max-width:100%;width:580px;border-radius:12px;border:1px solid var(--color-border);background:var(--color-surface);">
+    <rect width="640" height="200" rx="12" fill="var(--color-surface)"/>
+    <defs>
+      <clipPath id="py-clip-l1"><circle cx="110" cy="100" r="42"/></clipPath>
+      <clipPath id="py-clip-r1"><circle cx="150" cy="100" r="42"/></clipPath>
+      <clipPath id="py-clip-l2"><circle cx="250" cy="100" r="42"/></clipPath>
+      <clipPath id="py-clip-r3"><circle cx="430" cy="100" r="42"/></clipPath>
+      <clipPath id="py-clip-l4"><circle cx="530" cy="100" r="42"/></clipPath>
+    </defs>
+    <text x="320" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="var(--color-text-secondary)">Venn view — df1 (4) • df2 (3)</text>
+    <circle cx="110" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <circle cx="150" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <g clip-path="url(#py-clip-l1)"><circle cx="150" cy="100" r="42" fill="#38bdf8"/></g>
+    <circle cx="110" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <circle cx="150" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <text x="130" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="var(--color-heading)">INNER</text>
+    <text x="130" y="183" text-anchor="middle" font-size="9" fill="var(--color-text-tertiary)">only overlap</text>
+    <circle cx="250" cy="100" r="42" fill="#38bdf8" opacity="0.85" stroke="#64748b" stroke-width="2"/>
+    <circle cx="290" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <g clip-path="url(#py-clip-l2)"><circle cx="290" cy="100" r="42" fill="#38bdf8"/></g>
+    <circle cx="250" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <circle cx="290" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <text x="270" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="var(--color-heading)">LEFT</text>
+    <text x="270" y="183" text-anchor="middle" font-size="9" fill="var(--color-text-tertiary)">all left</text>
+    <circle cx="390" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <circle cx="430" cy="100" r="42" fill="#a78bfa" opacity="0.85" stroke="#64748b" stroke-width="2"/>
+    <g clip-path="url(#py-clip-r3)"><circle cx="390" cy="100" r="42" fill="#a78bfa"/></g>
+    <circle cx="390" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <circle cx="430" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <text x="410" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="var(--color-heading)">RIGHT</text>
+    <text x="410" y="183" text-anchor="middle" font-size="9" fill="var(--color-text-tertiary)">all right</text>
+    <circle cx="530" cy="100" r="42" fill="#38bdf8" opacity="0.45" stroke="#64748b" stroke-width="2"/>
+    <circle cx="570" cy="100" r="42" fill="#a78bfa" opacity="0.45" stroke="#64748b" stroke-width="2"/>
+    <g clip-path="url(#py-clip-l4)"><circle cx="570" cy="100" r="42" fill="#818cf8" opacity="0.95"/></g>
+    <circle cx="530" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <circle cx="570" cy="100" r="42" fill="none" stroke="#64748b" stroke-width="2"/>
+    <text x="550" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="var(--color-heading)">FULL OUTER</text>
+    <text x="550" y="183" text-anchor="middle" font-size="9" fill="var(--color-text-tertiary)">all rows</text>
+  </svg>
+  <p style="font-size:.8rem;color:var(--color-text-tertiary);">Venn view of 7 JOIN types — refer to df1 (4 rows) / df2 (3 rows) sample.</p>
+</div>
         <p>All PySpark JOIN examples use these two small DataFrames. Visualize them before reading each Venn diagram.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;">
           <div>

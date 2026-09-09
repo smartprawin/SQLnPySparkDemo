@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
+  <script>try{var k="pyspark_theme";var v=localStorage.getItem(k);var t=v?JSON.parse(v):"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Glue - AWS Data Engineering</title>
@@ -328,7 +329,7 @@ def lambda_handler(event,context):
             <span class="code-block__lang">Python</span>
             <button class="code-block__copy" aria-label="Copy code">Copy</button>
           </div>
-<div style="text-align:center;margin:1.25rem 0;"><img src="https://via.placeholder.com/700x220.png?text=DynamicFrame+%28flexible%29+vs+DataFrame+%28strict%29" alt="DynamicFrame vs DataFrame" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
+<div style="text-align:center;margin:1.25rem 0;"><img src="https://placehold.co/700x220/png?text=DynamicFrame+%28flexible%29+vs+DataFrame+%28strict%29" alt="DynamicFrame vs DataFrame" style="max-width:100%;border-radius:8px;border:1px solid var(--color-border);" loading="lazy"></div>
           <pre><code>dyf = dyf.resolveChoice(specs=[('amount', 'cast:int')])
 df = dyf.toDF()
 # Convert back
