@@ -16,7 +16,7 @@
     .hub-card { background:var(--panel-bg); border:1px solid var(--panel-border); border-radius:16px; padding:2rem; backdrop-filter:blur(16px); transition:transform .2s, box-shadow .2s, border-color .2s; display:flex; flex-direction:column; }
     .hub-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.25); border-color:rgba(56,189,248,.3); }
     .hub-card__badge { display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; font-weight:600; padding:.3rem .7rem; border-radius:999px; margin-bottom:1rem; }
-    .hub-card--sql .hub-card__badge { background:rgba(14,165,233,.15); color:#38bdf8; border:1px solid rgba(14,165,233,.25); }
+    .hub-card--sql .hub-card__badge { background:rgba(56,189,248,.15); color:#38bdf8; border:1px solid rgba(56,189,248,.25); }
     .hub-card--pyspark .hub-card__badge { background:rgba(124,58,237,.15); color:#a78bfa; border:1px solid rgba(124,58,237,.25); }
     .hub-card h2 { margin:0 0 .5rem; font-size:1.6rem; }
     .hub-card p { color:var(--text-muted); font-size:.95rem; flex:1; margin:0 0 1.25rem; line-height:1.6; }
@@ -25,6 +25,8 @@
     .hub-card__actions { display:flex; gap:.6rem; flex-wrap:wrap; }
     .btn-primary { background:var(--accent); color:#0f172a; padding:.65rem 1.2rem; border-radius:8px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:.4rem; }
     .btn-primary:hover { background:var(--accent-hover); }
+    .hub-card--pyspark .btn-primary { background:#7c3aed; color:#fff; }
+    .hub-card--pyspark .btn-primary:hover { background:#6d28d9; }
     .btn-secondary { background:rgba(255,255,255,.08); color:var(--text); padding:.65rem 1.2rem; border-radius:8px; font-weight:500; text-decoration:none; border:1px solid var(--panel-border); }
     .btn-secondary:hover { background:rgba(255,255,255,.12); }
     .lessons-section { max-width:1100px; margin:3rem auto; padding:0 2rem; }
