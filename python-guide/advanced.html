@@ -108,6 +108,7 @@
     <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
     <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
     <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+    <li><a href="advanced.html#complexity" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Time & Space Complexity</a></li>
   </ul>
 </div>
 <div class="sidebar__section is-collapsed">
@@ -202,6 +203,7 @@
     <li><a href="advanced.html#regex" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Regex</a></li>
     <li><a href="advanced.html#json-api" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> JSON & APIs</a></li>
     <li><a href="advanced.html#decorators-generators" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Decorators & Generators</a></li>
+    <li><a href="advanced.html#complexity" class="sidebar__link sidebar__link--sub" style="padding-left:1.4rem;font-size:.82rem;"><span class="sidebar__link-icon" style="font-size:.65rem;">›</span> Time & Space Complexity</a></li>
   </ul>
 </div>
 <div class="sidebar__section is-collapsed">
@@ -495,6 +497,67 @@ idli is hot
 after
 [0, 1, 2]</code></pre></div>
       </div>
+
+      <div id="complexity" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div><span class="badge badge--red">🔴 Advanced</span><h2 style="margin-top:.5rem;margin-bottom:0;">Time & Space Complexity — Big O Notation</h2></div>
+          <div style="display:flex;gap:.5rem;align-items:center;"><button class="bookmark-btn" data-topic-id="complexity">☆</button><button class="topic-complete-btn" data-topic-id="complexity">Mark as Complete</button></div>
+        </div>
+        <p><strong>Time complexity:</strong> How long your code takes to run as the input increases.<br><strong>Space complexity:</strong> How much RAM the code takes as the input size increases.</p>
+
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:.9rem;margin:1rem 0;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--color-border);">
+                <th style="text-align:left;padding:.75rem;color:var(--color-heading);">Big O</th>
+                <th style="text-align:left;padding:.75rem;color:var(--color-heading);">Name</th>
+                <th style="text-align:left;padding:.75rem;color:var(--color-heading);">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--color-border);"><td style="padding:.75rem;font-weight:600;">O(1)</td><td style="padding:.75rem;">Constant</td><td style="padding:.75rem;"><code>print('hello')</code></td></tr>
+              <tr style="border-bottom:1px solid var(--color-border);"><td style="padding:.75rem;font-weight:600;">O(log n)</td><td style="padding:.75rem;">Logarithmic</td><td style="padding:.75rem;">Binary search</td></tr>
+              <tr style="border-bottom:1px solid var(--color-border);"><td style="padding:.75rem;font-weight:600;">O(n)</td><td style="padding:.75rem;">Linear</td><td style="padding:.75rem;"><code>for i in range(n)</code></td></tr>
+              <tr style="border-bottom:1px solid var(--color-border);"><td style="padding:.75rem;font-weight:600;">O(n log n)</td><td style="padding:.75rem;">Linearithmic</td><td style="padding:.75rem;">Merge sort</td></tr>
+              <tr style="border-bottom:1px solid var(--color-border);"><td style="padding:.75rem;font-weight:600;">O(n^2)</td><td style="padding:.75rem;">Quadratic</td><td style="padding:.75rem;">Nested loops</td></tr>
+              <tr style="border-bottom:1px solid var(--color-border);"><td style="padding:.75rem;font-weight:600;">O(2^n)</td><td style="padding:.75rem;">Exponential</td><td style="padding:.75rem;">Recursive Fibonacci</td></tr>
+              <tr><td style="padding:.75rem;font-weight:600;">O(n!)</td><td style="padding:.75rem;">Factorial</td><td style="padding:.75rem;">Permutations</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block"><div class="code-block__header"><span class="code-block__lang">Python</span></div><pre><code># O(n) — loop runs n times
+for i in range(n):
+    print(i)
+
+# O(n^2) — inner loop runs n times for every outer loop
+for i in range(n):
+    for j in range(n):
+        print(i, j)
+
+# O(1) — runs once
+print('hello world')
+
+# Space complexity O(1) — only one variable
+for i in range(n):
+    print(i)
+
+# Space complexity O(n) — list grows with n
+x = []
+for i in range(n):
+    x.append(i)
+
+# O(log n) — binary search (very efficient)
+def binarysearch(arr, target):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target: return True
+        elif arr[mid] < target: low = mid + 1
+        else: high = mid - 1
+    return False</code></pre></div>
+      </div>
+
       <footer class="footer"><div class="footer__inner"><div><strong style="color:var(--color-heading);">Python for PySpark Guide</strong><p style="margin:.25rem 0 0;font-size:.8125rem;color:var(--color-text-tertiary);">Python for PySpark Guide</p></div><ul class="footer__links"><li><a href="basics.html">Basics</a></li><li><a href="collections.html">Collections</a></li><li><a href="oop.html">OOP</a></li><li><a href="projects.html">Projects</a></li></ul><p class="footer__copyright">© 2026 Python for PySpark Guide.</p></div></footer>
     </div>
   </main>

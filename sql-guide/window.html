@@ -144,6 +144,8 @@
           <li><a href="window.html#partition-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> PARTITION BY</a></li>
           <li><a href="window.html#lag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LAG</a></li>
           <li><a href="window.html#lead" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEAD</a></li>
+          <li><a href="window.html#previous-transaction" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Previous Transaction</a></li>
+          <li><a href="window.html#next-transaction" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Next Transaction</a></li>
           <li><a href="window.html#running-total" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Running Total</a></li>
         </ul>
       </div>
@@ -319,6 +321,8 @@
           <li><a href="window.html#partition-by" class="sidebar__link"><span class="sidebar__link-icon">▸</span> PARTITION BY</a></li>
           <li><a href="window.html#lag" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LAG</a></li>
           <li><a href="window.html#lead" class="sidebar__link"><span class="sidebar__link-icon">▸</span> LEAD</a></li>
+          <li><a href="window.html#previous-transaction" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Previous Transaction</a></li>
+          <li><a href="window.html#next-transaction" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Next Transaction</a></li>
           <li><a href="window.html#running-total" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Running Total</a></li>
         </ul>
       </div>
@@ -543,6 +547,60 @@ FROM employees;</code></pre>
           <pre><code>SELECT employee_id, salary, LEAD(salary) OVER (ORDER BY hire_date) AS next_salary
 FROM employees;</code></pre>
         </div><p>Next row value.</p>
+      </section>
+
+      <section id="previous-transaction" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="previous-transaction">☆</button>
+            <button class="topic-complete-btn" data-topic-id="previous-transaction">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Previous Transaction</h2>
+        <p>For each customer, show the amount from their previous transaction using LAG with PARTITION BY.</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">SQL</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>SELECT
+    customer_id,
+    transaction_date,
+    amount,
+    LAG(amount) OVER (
+        PARTITION BY customer_id
+        ORDER BY transaction_date
+    ) AS previous_amount
+FROM transactions;</code></pre>
+        </div>
+      </section>
+
+      <section id="next-transaction" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="next-transaction">☆</button>
+            <button class="topic-complete-btn" data-topic-id="next-transaction">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Next Transaction</h2>
+        <p>For each customer, show the amount from their next transaction using LEAD with PARTITION BY.</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">SQL</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>SELECT
+    customer_id,
+    transaction_date,
+    amount,
+    LEAD(amount) OVER (
+        PARTITION BY customer_id
+        ORDER BY transaction_date
+    ) AS next_amount
+FROM transactions;</code></pre>
+        </div>
       </section>
 
       <section id="running-total" class="topic-section">

@@ -24,6 +24,8 @@
       <a href="glue.html" class="navbar__btn">Glue</a>
       <a href="lambda.html" class="navbar__btn navbar__btn--primary">Lambda</a>
       <a href="redshift.html" class="navbar__btn">Redshift</a>
+      <a href="emr.html" class="navbar__btn">EMR</a>
+      <a href="snowflake.html" class="navbar__btn">Snowflake</a>
       <a href="airflow.html" class="navbar__btn">Airflow</a>
       <a href="etl.html" class="navbar__btn">ETL</a>
     </div>
@@ -84,7 +86,8 @@
           <li><a href="lambda.html#lambda-layers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Layers</a></li>
           <li><a href="lambda.html#lambda-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
           <li><a href="lambda.html#boto3-invoke" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Boto3 Invoke</a></li>
-          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Trigger</a></li>
+          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Job Trigger</a></li>
+          <li><a href="lambda.html#lambda-crawler-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Crawler Trigger</a></li>
         </ul>
       </div>
       <!-- SCD -->
@@ -115,6 +118,29 @@
           <li><a href="redshift.html#redshift-distribution" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Distribution</a></li>
           <li><a href="redshift.html#redshift-sort-keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort Keys</a></li>
           <li><a href="redshift.html#redshift-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+        </ul>
+      </div>
+      <!-- EMR -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>EMR</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="emr.html#emr-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="emr.html#emr-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="emr.html#emr-storage" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Storage Options</a></li>
+          <li><a href="emr.html#emr-how" class="sidebar__link"><span class="sidebar__link-icon">▸</span> How EMR Works</a></li>
+          <li><a href="emr.html#emr-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Code Example</a></li>
+          <li><a href="emr.html#emr-vs-glue" class="sidebar__link"><span class="sidebar__link-icon">▸</span> EMR vs Glue</a></li>
+        </ul>
+      </div>
+      <!-- Snowflake -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Snowflake</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="snowflake.html#snowflake-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="snowflake.html#snowflake-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="snowflake.html#snowflake-advantages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advantages</a></li>
+          <li><a href="snowflake.html#snowflake-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+          <li><a href="snowflake.html#snowflake-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
         </ul>
       </div>
       <!-- Airflow -->
@@ -202,7 +228,8 @@
           <li><a href="lambda.html#lambda-layers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Layers</a></li>
           <li><a href="lambda.html#lambda-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
           <li><a href="lambda.html#boto3-invoke" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Boto3 Invoke</a></li>
-          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Trigger</a></li>
+          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Job Trigger</a></li>
+          <li><a href="lambda.html#lambda-crawler-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Crawler Trigger</a></li>
         </ul>
       </div>
       <!-- SCD -->
@@ -233,6 +260,29 @@
           <li><a href="redshift.html#redshift-distribution" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Distribution</a></li>
           <li><a href="redshift.html#redshift-sort-keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort Keys</a></li>
           <li><a href="redshift.html#redshift-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+        </ul>
+      </div>
+      <!-- EMR -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>EMR</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="emr.html#emr-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="emr.html#emr-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="emr.html#emr-storage" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Storage Options</a></li>
+          <li><a href="emr.html#emr-how" class="sidebar__link"><span class="sidebar__link-icon">▸</span> How EMR Works</a></li>
+          <li><a href="emr.html#emr-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Code Example</a></li>
+          <li><a href="emr.html#emr-vs-glue" class="sidebar__link"><span class="sidebar__link-icon">▸</span> EMR vs Glue</a></li>
+        </ul>
+      </div>
+      <!-- Snowflake -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Snowflake</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="snowflake.html#snowflake-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="snowflake.html#snowflake-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="snowflake.html#snowflake-advantages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advantages</a></li>
+          <li><a href="snowflake.html#snowflake-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+          <li><a href="snowflake.html#snowflake-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
         </ul>
       </div>
       <!-- Airflow -->
@@ -357,6 +407,54 @@ def lambda_handler(event, context):
         </div>
         <p>Event contains <code>Records[0].s3.bucket.name</code> and <code>object.key</code>. Context has function name, memory, remaining time, request ID.</p>
 
+      </section>
+
+      <section id="lambda-crawler-trigger" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🔴 Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="lambda-crawler-trigger">☆</button>
+            <button class="topic-complete-btn" data-topic-id="lambda-crawler-trigger">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Invoke Glue Crawler via Lambda</h2>
+        <p>Use boto3 to trigger a Glue crawler from a Lambda function. This is event-driven — when data lands in S3, the Lambda starts the crawler automatically.</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Python</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>import json
+import boto3
+
+glue_client = boto3.client('glue')
+
+def lambda_handler(event, context):
+    crawler_name = 'landingbucket-crawler'
+    print('event received: ', json.dumps(event))
+
+    try:
+        response = glue_client.start_crawler(Name=crawler_name)
+        print('Crawler started successfully')
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Hello from Lambda!')
+        }
+    except glue_client.exceptions.CrawlerRunningException:
+        print('Crawler is already running')
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Crawler is already running')
+        }
+    except Exception as e:
+        print('Error starting crawler: ', str(e))
+        return {
+            'statusCode': 500,
+            'body': json.dumps('Error starting crawler')
+        }</code></pre>
+        </div>
+        <p>The function handles three cases: success, crawler already running, and unexpected errors. Wire this with an S3 event notification (PUT event) to trigger automatically when files arrive.</p>
       </section>
     </div>
   </main>

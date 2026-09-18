@@ -130,6 +130,8 @@
           <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
           <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
           <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+          <li><a href="programming.html#spark-configuration" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark Configuration</a></li>
+          <li><a href="programming.html#spark-submit" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark Submit</a></li>
         </ul>
       </div>
       <!-- Partitions -->
@@ -301,6 +303,8 @@
           <li><a href="programming.html#explain" class="sidebar__link"><span class="sidebar__link-icon">▸</span> explain()</a></li>
           <li><a href="programming.html#checklist" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Coding Checklist</a></li>
           <li><a href="programming.html#scenarios-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Scenarios</a></li>
+          <li><a href="programming.html#spark-configuration" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark Configuration</a></li>
+          <li><a href="programming.html#spark-submit" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Spark Submit</a></li>
         </ul>
       </div>
       <!-- Partitions -->
@@ -1292,6 +1296,147 @@ df.explain(True)</code></pre>
           <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 6 — SCD Type 2</h4>
           <p>Track historical changes using start_date, end_date, and is_current columns. Old record gets end_date populated and is_current=false. New record gets start_date=current and is_current=true.</p>
         </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 7 — Large Fact + Small Dimension</h4>
+          <p><strong>Question:</strong> A large fact table needs to be joined with a small dimension table. What join would you consider?</p>
+          <p><strong>Answer:</strong> Broadcast Join — the smaller dataset is broadcast to executor nodes so Spark can avoid shuffling the large dataset.</p>
+          <div class="code-block">
+            <div class="code-block__header">
+              <span class="code-block__lang">Python</span>
+              <button class="code-block__copy" aria-label="Copy code">Copy</button>
+            </div>
+            <pre><code>from pyspark.sql.functions import broadcast
+
+fact_df.join(
+    broadcast(dimension_df),
+    "customer_id"
+)</code></pre>
+          </div>
+          <p>Provided the dimension is sufficiently small for executor memory.</p>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 8 — CSV and JSON in the Same Folder</h4>
+          <p>If the files have different schemas/formats, don't blindly union them. Read each format separately, normalize the schema, then combine.</p>
+          <div class="code-block">
+            <div class="code-block__header">
+              <span class="code-block__lang">Python</span>
+              <button class="code-block__copy" aria-label="Copy code">Copy</button>
+            </div>
+            <pre><code>csv_df = spark.read.csv("path/to/csv_files", header=True)
+json_df = spark.read.json("path/to/json_files")
+
+final_df = csv_df.unionByName(
+    json_df,
+    allowMissingColumns=True
+)</code></pre>
+          </div>
+          <p>Provided the datasets represent compatible business data.</p>
+        </div>
+
+        <div style="background:var(--color-danger-bg);border:1px solid var(--color-danger-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h4 style="color:var(--color-danger);margin-bottom:.5rem;">🚨 Scenario 9 — 500 GB Data</h4>
+          <p><strong>Question:</strong> We have approximately 500 GB of data. Two large files arrive in S3. How would you optimize processing?</p>
+          <p><strong>Consider:</strong> File format (Parquet/ORC), Partitioning strategy, Parallelism, Join strategy, Shuffle size, Data skew, Bucketing where appropriate, AQE, Predicate pushdown, Column pruning.</p>
+          <p>For repeated large joins on stable join keys, bucketing can sometimes be useful, but it should not automatically be treated as the solution for every large dataset.</p>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Spark Configuration
+           ============================================================ -->
+      <div id="spark-configuration" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Spark Configuration — Interview Discussion</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="spark-configuration">☆</button>
+            <button class="topic-complete-btn" data-topic-id="spark-configuration">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>For a hypothetical workload of around 5 GB, walk through the configuration process:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Text</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>Input data
+   ↓
+Estimate partitions
+   ↓
+Estimate parallelism
+   ↓
+Choose executor cores
+   ↓
+Choose executor memory
+   ↓
+Run
+   ↓
+Inspect Spark UI
+   ↓
+Tune</code></pre>
+        </div>
+
+        <p>A common starting-point calculation for partitions:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Text</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>number of partitions ≈ data size / target partition size</code></pre>
+        </div>
+
+        <p>But the appropriate partition size depends on: file format, compression, transformation, shuffle, cluster size, workload, and Spark configuration.</p>
+
+        <div class="tip-card">
+          <div class="tip-card__title">Interview Tip</div>
+          <div class="tip-card__body">Do not present "5 GB = exactly 40 partitions" as a fixed rule. The right partition count depends on multiple factors.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: Spark Submit Example
+           ============================================================ -->
+      <div id="spark-submit" class="topic-section fade-in" style="margin-bottom:3rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;">
+          <div>
+            <span class="badge badge--advanced">🔴 Advanced</span>
+            <h2 style="margin-top:.5rem;margin-bottom:0;">Example Spark Submit</h2>
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;">
+            <button class="bookmark-btn" data-topic-id="spark-submit">☆</button>
+            <button class="topic-complete-btn" data-topic-id="spark-submit">Mark as Complete</button>
+          </div>
+        </div>
+
+        <p>A typical spark-submit command with common configuration flags:</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Bash</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>spark-submit \
+  --num-executors 10 \
+  --executor-cores 4 \
+  --executor-memory 10g \
+  --driver-memory 6g \
+  myfile.py</code></pre>
+        </div>
+
+        <p><strong>Flag explanations:</strong></p>
+        <ul>
+          <li><code>--num-executors</code> — Number of executor processes.</li>
+          <li><code>--executor-cores</code> — Number of CPU cores available per executor.</li>
+          <li><code>--executor-memory</code> — Memory available to each executor.</li>
+          <li><code>--driver-memory</code> — Memory available to the driver.</li>
+        </ul>
       </div>
 
     </div><!-- .main__content -->

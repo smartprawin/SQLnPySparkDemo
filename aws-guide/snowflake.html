@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>try{var k="pyspark_theme";var v=localStorage.getItem(k);var t=v?JSON.parse(v):"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snowflake - AWS Data Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">AWS Data Engineering</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="s3.html" class="navbar__btn">S3</a>
+      <a href="glue.html" class="navbar__btn">Glue</a>
+      <a href="lambda.html" class="navbar__btn">Lambda</a>
+      <a href="redshift.html" class="navbar__btn">Redshift</a>
+      <a href="snowflake.html" class="navbar__btn navbar__btn--primary">Snowflake</a>
+      <a href="airflow.html" class="navbar__btn">Airflow</a>
+      <a href="etl.html" class="navbar__btn">ETL</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-sun" style="display:none;"></span>
+        <span class="icon-moon"></span>
+      </button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger">
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+          <span class="hamburger__bar"></span>
+        </span>
+      </button>
+      <a href="../index.html" class="navbar__btn hub-mobile" title="Back to Hub Home">Hub</a>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">AWS Data Engineering</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+        <div class="sidebar__section is-collapsed">
+          <div class="sidebar__heading"><span>Snowflake</span><span class="sidebar__heading-icon"></span></div>
+          <ul class="sidebar__links">
+            <li><a href="snowflake.html#snowflake-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+            <li><a href="snowflake.html#snowflake-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+            <li><a href="snowflake.html#snowflake-advantages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advantages</a></li>
+            <li><a href="snowflake.html#snowflake-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+            <li><a href="snowflake.html#snowflake-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;"></span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Snowflake</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="snowflake.html#snowflake-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="snowflake.html#snowflake-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="snowflake.html#snowflake-advantages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advantages</a></li>
+          <li><a href="snowflake.html#snowflake-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+          <li><a href="snowflake.html#snowflake-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+
+      <section id="snowflake-intro" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="snowflake-intro">☆</button>
+            <button class="topic-complete-btn" data-topic-id="snowflake-intro">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Snowflake - Cloud Data Warehouse</h2>
+        <p>Snowflake is a cloud-native data warehouse that can be built on AWS, Azure, or GCP. It uses a multi-cluster architecture with separate storage, compute, and services layers.</p>
+      </section>
+
+      <section id="snowflake-architecture" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="snowflake-architecture">☆</button>
+            <button class="topic-complete-btn" data-topic-id="snowflake-architecture">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Architecture</h2>
+
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h3>Storage Layer</h3>
+          <ul>
+            <li>Data is stored in cloud object storage (S3 on AWS, Blob on Azure)</li>
+            <li>Data is stored in micro partitions (compressed columnar format)</li>
+            <li>Automatic indexing and metadata tracking</li>
+            <li>Supports structured and semi-structured data (JSON, Avro, Parquet, CSV, ORC)</li>
+            <li>Data is automatically partitioned (16-64 MB)</li>
+            <li>Columnar compressed, encrypted (AES 256)</li>
+          </ul>
+        </div>
+
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h3>Compute Layer</h3>
+          <ul>
+            <li>Compute is completely separated from storage</li>
+            <li>Follows MPP architecture (Massively Parallel Processing)</li>
+            <li>Virtual Warehouse (cluster) - individual computers</li>
+            <li>Can work in parallel on same data without interfering with each other</li>
+            <li>Supports Autoscaling</li>
+          </ul>
+        </div>
+
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1.25rem;margin-bottom:1rem;">
+          <h3>Cloud Service Layer</h3>
+          <p>Coordination layer: authentication, metadata management, query optimization, access control. The brain of Snowflake.</p>
+          <ul>
+            <li>Authentication: SSO, OAuth, MFA</li>
+            <li>Metadata management: tracks data, partitions, and clustering</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="snowflake-advantages" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="snowflake-advantages">☆</button>
+            <button class="topic-complete-btn" data-topic-id="snowflake-advantages">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Advantages</h2>
+        <ol>
+          <li><strong>Separation of storage from compute</strong> - Pay only for what you use and scale independently.</li>
+          <li><strong>Concurrency and multi-cluster</strong> - Multiple teams can query the same data without any interference.</li>
+          <li><strong>Zero infrastructure management</strong> - Fully managed, no servers or patching.</li>
+          <li><strong>Native semi-structured data</strong> - Can manage JSON, Avro, Parquet with SQL queries natively.</li>
+          <li><strong>Automatic optimization</strong> - Automatic vacuum, distribution key is also automatic.</li>
+          <li><strong>Security</strong> - Very secure and supports cross-region replication.</li>
+        </ol>
+      </section>
+
+      <section id="snowflake-limitations" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="snowflake-limitations">☆</button>
+            <button class="topic-complete-btn" data-topic-id="snowflake-limitations">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Limitations</h2>
+        <ol>
+          <li><strong>Per-second billing</strong> - Can be expensive.</li>
+          <li><strong>Less customizable</strong> - Not much control over nodes or servers.</li>
+          <li><strong>Sign up/sign out</strong> - Can be a lengthy process.</li>
+          <li><strong>No manual optimization</strong> - It is all taken care by Snowflake optimizer.</li>
+        </ol>
+      </section>
+
+      <section id="snowflake-components" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">Advanced</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="snowflake-components">☆</button>
+            <button class="topic-complete-btn" data-topic-id="snowflake-components">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Key Components</h2>
+
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:.9rem;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--color-border);">
+                <th style="text-align:left;padding:.75rem;color:var(--color-heading);">Component</th>
+                <th style="text-align:left;padding:.75rem;color:var(--color-heading);">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--color-border);">
+                <td style="padding:.75rem;font-weight:600;">Snowpipe</td>
+                <td style="padding:.75rem;">Continuous realtime data ingestion. Loads data as soon as it arrives.</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--color-border);">
+                <td style="padding:.75rem;font-weight:600;">Streams</td>
+                <td style="padding:.75rem;">CDC in Snowflake. Captures changes to data.</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--color-border);">
+                <td style="padding:.75rem;font-weight:600;">Tasks</td>
+                <td style="padding:.75rem;">Scheduler. Schedules when SQL queries or pipelines should get executed.</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--color-border);">
+                <td style="padding:.75rem;font-weight:600;">Time Travel</td>
+                <td style="padding:.75rem;">Retrieves historical data (up to 90 days).</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--color-border);">
+                <td style="padding:.75rem;font-weight:600;">Failsafe</td>
+                <td style="padding:.75rem;">7 days disaster recovery protection.</td>
+              </tr>
+              <tr>
+                <td style="padding:.75rem;font-weight:600;">Data Sharing</td>
+                <td style="padding:.75rem;">Share data across multiple accounts.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>AWS Data Engineering - S3, Glue, Lambda, Redshift, Snowflake, Airflow</p>
+    <p style="margin-top:.5rem;">Built for Data Engineers.</p>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
