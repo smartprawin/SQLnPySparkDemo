@@ -70,6 +70,7 @@
         <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
         <ul class="sidebar__links">
           <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
           <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
           <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
           <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
@@ -212,6 +213,7 @@
         <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
         <ul class="sidebar__links">
           <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
           <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
           <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
           <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
@@ -342,7 +344,11 @@ git pull origin develop
 git stash
 git revert &lt;commit&gt;</code></pre>
         </div>
-        <div class="warning-card"><div class="warning-card__title">Merge Conflict</div><div class="warning-card__body">2 devs edit same line (df.filter status) → <code>git pull origin develop</code> before push, resolve manually.</div></div>
+        <div class="warning-card"><div class="warning-card__title">Merge Conflicts</div><div class="warning-card__body">2 devs edit same line (df.filter status) → <code>git pull origin develop</code> before push, resolve manually. Merge conflicts: GitHub cannot decide which version to keep. Resolve conflicts manually in editor (choose correct logic), stage and commit again. Avoid with small frequent commits and PRs.</div></div>
+        <p><strong>Large files:</strong> GitHub rejects files &gt; 100MB — do not commit large data files.</p>
+        <p><strong>Accidental push to main:</strong> bypasses code review and may break production. Solution: branch protection rules — require PR before merge, block direct push to main.</p>
+        <p><strong>Secrets pushed accidentally:</strong> credentials can be exploited. Never hardcode; store in AWS Secrets Manager. If pushed, rotate immediately.</p>
+        <p>More commands from doc: <code>git rm</code> removes files, <code>git reset</code> undo commits / unstage files, <code>git pull</code> downloads updates, <code>git add &lt;file&gt;</code> stages specific files.</p>
         <p>Credentials stored in <strong>AWS Secrets Manager</strong> (all connection details).</p>
 
       </section>

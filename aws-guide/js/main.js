@@ -8,7 +8,7 @@
   // ---------------------------------------------------------------------------
   //  CONSTANTS
   // ---------------------------------------------------------------------------
-  var TOTAL_TOPICS = 39;
+  var TOTAL_TOPICS = 52;
   var STORAGE_KEYS = {
     theme:      'pyspark_theme',
     completed:  'pyspark_completed',
@@ -18,46 +18,60 @@
   };
 
   // All searchable topics (id, title, url, content summary) - AWS Data Engineering
+  // NOTE: tags mirror docs/AWS/AWS lessons.txt vocabulary so doc phrases are findable via search.
   var TOPICS = [
-    { id: 's3-features',           title: 'S3 Features',                        url: 's3.html#s3-features',                  tags: 's3 features scalable durability replication' },
-    { id: 's3-classes',            title: 'S3 Storage Classes',                 url: 's3.html#s3-classes',                   tags: 's3 classes standard intelligent tiering glacier deep archive' },
-    { id: 's3-security',           title: 'S3 Security',                        url: 's3.html#s3-security',                  tags: 's3 security encryption iam bucket policy acl sse kms' },
-    { id: 's3-versioning',         title: 'S3 Versioning',                      url: 's3.html#s3-versioning',                tags: 's3 versioning delete marker logging cloudwatch' },
-    { id: 's3-folder-structure',    title: 'S3 Folder Structure',                url: 's3.html#s3-folder-structure',           tags: 's3 folder structure ecommerce raw finance sales' },
-    { id: 's3-cross-account',      title: 'S3 Cross-Account Sharing',           url: 's3.html#s3-cross-account',             tags: 's3 cross account bucket policy access point' },
-    { id: 'glue-intro',            title: 'AWS Glue Intro',                     url: 'glue.html#glue-intro',                   tags: 'glue serverless etl pyspark versions' },
-    { id: 'glue-catalog',          title: 'Glue Data Catalog',                  url: 'glue.html#glue-catalog',                 tags: 'glue catalog crawler schema registry backward forward' },
-    { id: 'dynamic-frames',        title: 'DynamicFrames vs DataFrames',        url: 'glue.html#dynamic-frames',               tags: 'glue dynamicframe dataframe choice type' },
-    { id: 'dpu-workers',           title: 'Glue DPU Workers',                   url: 'glue.html#dpu-workers',                  tags: 'glue dpu workers g1x g2x g4x g8x' },
-    { id: 'glue-crawler',          title: 'Glue Crawler Triggers',              url: 'glue.html#glue-crawler',                 tags: 'glue crawler scheduled event lambda s3' },
-    { id: 'glue-jobs',             title: 'Glue ETL Jobs',                      url: 'glue.html#glue-jobs',                    tags: 'glue jobs pyspark dynamicframe s3 redshift' },
-    { id: 'glue-workflows',        title: 'Glue Workflows & Bookmarks',         url: 'glue.html#glue-workflows',               tags: 'glue workflows bookmarks cdc dms incremental' },
-    { id: 'lambda-intro',          title: 'Lambda Intro',                       url: 'lambda.html#lambda-intro',               tags: 'lambda serverless event driven' },
-    { id: 'lambda-layers',         title: 'Lambda Layers',                      url: 'lambda.html#lambda-layers',              tags: 'lambda layers pandas' },
-    { id: 'lambda-limitations',    title: 'Lambda Limitations',                 url: 'lambda.html#lambda-limitations',         tags: 'lambda limitations timeout memory concurrency cold start' },
-    { id: 'boto3-invoke',          title: 'Boto3 Invoke Lambda',                url: 'lambda.html#boto3-invoke',               tags: 'boto3 invoke lambda' },
-    { id: 'lambda-glue-trigger',   title: 'Lambda Glue Trigger',                url: 'lambda.html#lambda-glue-trigger',        tags: 'lambda glue trigger boto3 s3 event' },
-    { id: 'scd-types',             title: 'SCD Types',                          url: 'scd.html#scd-types',                     tags: 'scd slowly changing dimensions 0 1 2 3 4 6' },
-    { id: 'scd-2-example',         title: 'SCD2 Example',                       url: 'scd.html#scd-2-example',                 tags: 'scd2 pyspark startdate enddate flag' },
-    { id: 'etl-vs-elt',            title: 'ETL vs ELT',                         url: 'etl.html#etl-vs-elt',                    tags: 'etl elt extract transform load' },
-    { id: 'medallion',             title: 'Medallion Architecture',             url: 'etl.html#medallion',                     tags: 'medallion bronze silver gold' },
-    { id: 'incremental-loads',     title: 'Incremental Loads',                  url: 'etl.html#incremental-loads',             tags: 'incremental loads job bookmarks timestamp' },
-    { id: 'cdc-dms',               title: 'CDC & DMS',                          url: 'etl.html#cdc-dms',                       tags: 'cdc dms change data capture mysql s3' },
-    { id: 'redshift-intro',        title: 'Redshift Intro',                     url: 'redshift.html#redshift-intro',           tags: 'redshift warehouse petabyte' },
-    { id: 'redshift-architecture', title: 'Redshift Architecture',              url: 'redshift.html#redshift-architecture',    tags: 'redshift architecture mpp columnar leader compute slices' },
-    { id: 'redshift-spectrum',     title: 'Redshift Spectrum',                  url: 'redshift.html#redshift-spectrum',        tags: 'redshift spectrum athena s3' },
-    { id: 'redshift-distribution', title: 'Redshift Distribution',              url: 'redshift.html#redshift-distribution',    tags: 'redshift distribution key even all' },
-    { id: 'redshift-sort-keys',    title: 'Redshift Sort Keys',                 url: 'redshift.html#redshift-sort-keys',       tags: 'redshift sort keys compound interleaved' },
-    { id: 'redshift-optimization', title: 'Redshift Optimization',              url: 'redshift.html#redshift-optimization',    tags: 'redshift optimization distribution sort' },
-    { id: 'airflow-intro',         title: 'Airflow Intro',                      url: 'airflow.html#airflow-intro',             tags: 'airflow orchestration etl 100gb 2gb' },
-    { id: 'airflow-operators',     title: 'Airflow Operators',                  url: 'airflow.html#airflow-operators',         tags: 'airflow operators python bash s3toredshift' },
-    { id: 'airflow-sensors',       title: 'Airflow Sensors',                    url: 'airflow.html#airflow-sensors',           tags: 'airflow sensors file http sql s3key' },
-    { id: 'airflow-dag',           title: 'Airflow DAG Example',                url: 'airflow.html#airflow-dag',               tags: 'airflow dag pythonoperator s3keysensor' },
-    { id: 'airflow-catchup',       title: 'Airflow Catchup & Depends',          url: 'airflow.html#airflow-catchup',           tags: 'airflow catchup depends_on_past' },
-    { id: 'airflow-vs-stepfunctions', title: 'Airflow vs Step Functions',      url: 'airflow.html#airflow-vs-stepfunctions',  tags: 'airflow step functions managed' },
-    { id: 'git-github',            title: 'Git & GitHub',                       url: 'devops.html#git-github',                 tags: 'git github init add commit push branch' },
-    { id: 'secrets-manager',       title: 'Secrets Manager',                    url: 'devops.html#secrets-manager',            tags: 'secrets manager credentials' },
-    { id: 'status-codes',          title: 'Status Codes',                       url: 'devops.html#status-codes',               tags: 'status codes 100 200 300 400 500' }
+    { id: 's3-features',           title: 'S3 Features',                        url: 's3.html#s3-features',                  tags: 's3 features scalable durability replication security lifecycle event notifications crr logging monitoring mfa' },
+    { id: 's3-classes',            title: 'S3 Storage Classes',                 url: 's3.html#s3-classes',                   tags: 's3 classes standard intelligent tiering glacier deep archive one zone ia retrieval' },
+    { id: 's3-security',           title: 'S3 Security',                        url: 's3.html#s3-security',                  tags: 's3 security encryption iam bucket policy acl sse kms dsse client side server side in transit' },
+    { id: 's3-versioning',         title: 'S3 Versioning',                      url: 's3.html#s3-versioning',                tags: 's3 versioning versionid delete marker logging cloudwatch application system access security logs monitoring' },
+    { id: 's3-folder-structure',    title: 'S3 Folder Structure',                url: 's3.html#s3-folder-structure',           tags: 's3 folder structure ecommerce raw finance sales sftp rest api jdbc processed staging archive' },
+    { id: 's3-cross-account',      title: 'S3 Cross-Account Sharing',           url: 's3.html#s3-cross-account',             tags: 's3 cross account bucket policy access point arn account a account b' },
+    { id: 'glue-intro',            title: 'AWS Glue Intro',                     url: 'glue.html#glue-intro',                   tags: 'glue serverless etl pyspark versions glue 4 python spark pandas' },
+    { id: 'glue-components',       title: 'Glue Components',                    url: 'glue.html#glue-components',              tags: 'glue components glue can import data from multiple sources s3 datalake jdbc rds redshift mysql postgres dynamodb kinesis rest api sftp classifiers json csv parquet data catalog centralised centralized metadata repository automatic schema discovery schema registry glue studio drag and drop' },
+    { id: 'glue-catalog',          title: 'Glue Data Catalog',                  url: 'glue.html#glue-catalog',                 tags: 'glue catalog crawler schema registry backward forward full none crawlers scan schema evolution cron scheduled event lambda s3' },
+    { id: 'dynamic-frames',        title: 'DynamicFrames vs DataFrames',        url: 'glue.html#dynamic-frames',               tags: 'glue dynamicframe dataframe choice type resolvechoice flexible strict null nested errorrecords' },
+    { id: 'dpu-workers',           title: 'Glue DPU Workers',                   url: 'glue.html#dpu-workers',                  tags: 'glue dpu workers g1x g2x g4x g8x vcpu ram autoscaling' },
+    { id: 'glue-crawler',          title: 'Glue Crawler Triggers',              url: 'glue.html#glue-crawler',                 tags: 'glue crawler scheduled event lambda s3 s3event eventbridge iam' },
+    { id: 'glue-jobs',             title: 'Glue ETL Jobs',                      url: 'glue.html#glue-jobs',                    tags: 'glue jobs pyspark dynamicframe s3 redshift filtering joining deduplication fillna dropna extract transform load' },
+    { id: 'glue-workflows',        title: 'Glue Workflows & Bookmarks',         url: 'glue.html#glue-workflows',               tags: 'glue workflows bookmarks cdc dms incremental hidden table timestamp mydata prefix suffix full load' },
+    { id: 'lambda-intro',          title: 'Lambda Intro',                       url: 'lambda.html#lambda-intro',               tags: 'lambda serverless event driven components triggers stateless auto scaling python node java' },
+    { id: 'lambda-layers',         title: 'Lambda Layers',                      url: 'lambda.html#lambda-layers',              tags: 'lambda layers pandas predefined custom aws cli' },
+    { id: 'lambda-limitations',    title: 'Lambda Limitations',                 url: 'lambda.html#lambda-limitations',         tags: 'lambda limitations timeout 15 minutes memory 10gb deployment 50mb 250mb concurrency 1000 cold start' },
+    { id: 'boto3-invoke',          title: 'Boto3 Invoke Lambda',                url: 'lambda.html#boto3-invoke',               tags: 'boto3 invoke lambda aws components interact' },
+    { id: 'lambda-glue-trigger',   title: 'Lambda Glue Job Trigger',            url: 'lambda.html#lambda-glue-trigger',        tags: 'lambda glue job trigger boto3 s3 event records bucket key context' },
+    { id: 'lambda-crawler-trigger', title: 'Lambda Glue Crawler Trigger',       url: 'lambda.html#lambda-crawler-trigger',     tags: 'lambda glue crawler trigger boto3 start_crawler s3 event notification put' },
+    { id: 'scd-types',             title: 'SCD Types',                          url: 'scd.html#scd-types',                     tags: 'scd slowly changing dimensions 0 1 2 3 4 6 overwrite history' },
+    { id: 'scd-2-example',         title: 'SCD2 Example',                       url: 'scd.html#scd-2-example',                 tags: 'scd2 pyspark startdate enddate flag current_date' },
+    { id: 'etl-vs-elt',            title: 'ETL vs ELT',                         url: 'etl.html#etl-vs-elt',                    tags: 'etl elt extract transform load oltp snowflake databricks bigquery' },
+    { id: 'medallion',             title: 'Medallion Architecture',             url: 'etl.html#medallion',                     tags: 'medallion bronze silver gold raw cleaned aggregation' },
+    { id: 'incremental-loads',     title: 'Incremental Loads',                  url: 'etl.html#incremental-loads',             tags: 'incremental loads job bookmarks timestamp yyyy_mm_dd naming convention lambda prefix suffix lastupdated' },
+    { id: 'cdc-dms',               title: 'CDC & DMS',                          url: 'etl.html#cdc-dms',                       tags: 'cdc dms change data capture mysql s3 full load timestamp merge upsert' },
+    { id: 'redshift-intro',        title: 'Redshift Intro',                     url: 'redshift.html#redshift-intro',           tags: 'redshift warehouse petabyte psycopg2 boto3 jdbc multiple databases' },
+    { id: 'redshift-architecture', title: 'Redshift Architecture',              url: 'redshift.html#redshift-architecture',    tags: 'redshift architecture mpp columnar leader compute slices nodes parallel parquet orc olap' },
+    { id: 'redshift-spectrum',     title: 'Redshift Spectrum',                  url: 'redshift.html#redshift-spectrum',        tags: 'redshift spectrum athena s3 without importing serverless' },
+    { id: 'redshift-distribution', title: 'Redshift Distribution',              url: 'redshift.html#redshift-distribution',    tags: 'redshift distribution key even all slices joins shuffling' },
+    { id: 'redshift-sort-keys',    title: 'Redshift Sort Keys',                 url: 'redshift.html#redshift-sort-keys',       tags: 'redshift sort keys compound interleaved orderdate productid region disk' },
+    { id: 'redshift-optimization', title: 'Redshift Optimization',              url: 'redshift.html#redshift-optimization',    tags: 'redshift optimization distribution sort select vacuum analyze predicate pushdown column pruning partitioning compression' },
+    { id: 'emr-intro',             title: 'EMR Intro',                          url: 'emr.html#emr-intro',                     tags: 'emr elastic map reduce etl spark hadoop ec2 logs transaction clickstream' },
+    { id: 'emr-architecture',      title: 'EMR Architecture',                   url: 'emr.html#emr-architecture',              tags: 'emr architecture master node core nodes task nodes leader team' },
+    { id: 'emr-storage',           title: 'EMR Storage Options',                url: 'emr.html#emr-storage',                   tags: 'emr storage hdfs s3 emrfs local file system distributed temporary persistent' },
+    { id: 'emr-how',               title: 'How EMR Works',                      url: 'emr.html#emr-how',                       tags: 'emr how distributed processing hadoop mapreduce apache spark map reduce word count' },
+    { id: 'emr-code',              title: 'EMR Code Example',                   url: 'emr.html#emr-code',                      tags: 'emr code hourly product views logs s3 transform' },
+    { id: 'emr-vs-glue',           title: 'EMR vs Glue',                        url: 'emr.html#emr-vs-glue',                   tags: 'emr vs glue serverless cluster flexible control scalable technical expertise cost' },
+    { id: 'snowflake-intro',       title: 'Snowflake Intro',                    url: 'snowflake.html#snowflake-intro',         tags: 'snowflake datawarehouse aws azure gcp multi cluster' },
+    { id: 'snowflake-architecture', title: 'Snowflake Architecture',            url: 'snowflake.html#snowflake-architecture',  tags: 'snowflake architecture storage layer compute layer cloud service layer micro partitions virtual warehouse mpp autoscaling' },
+    { id: 'snowflake-advantages',  title: 'Snowflake Advantages',               url: 'snowflake.html#snowflake-advantages',    tags: 'snowflake advantages concurrency zero infrastructure json avro parquet automatic vacuum security' },
+    { id: 'snowflake-limitations', title: 'Snowflake Limitations',              url: 'snowflake.html#snowflake-limitations',   tags: 'snowflake limitations billing customizable manual optimization' },
+    { id: 'snowflake-components',  title: 'Snowflake Components',               url: 'snowflake.html#snowflake-components',    tags: 'snowflake components storage compute cloud snowpipe streams tasks time travel failsafe data sharing structured semi csv orc encrypted sso oauth mfa' },
+    { id: 'airflow-intro',         title: 'Airflow Intro',                      url: 'airflow.html#airflow-intro',             tags: 'airflow orchestration etl 100gb 2gb scheduling workflow monitoring sftp jdbc api' },
+    { id: 'airflow-operators',     title: 'Airflow Operators',                  url: 'airflow.html#airflow-operators',         tags: 'airflow operators python bash s3toredshift sql email dummy pysftp jdbc' },
+    { id: 'airflow-sensors',       title: 'Airflow Sensors',                    url: 'airflow.html#airflow-sensors',           tags: 'airflow sensors file http sql s3key filesensor httpsensor sqlsensor s3keysensor' },
+    { id: 'airflow-dag',           title: 'Airflow DAG Example',                url: 'airflow.html#airflow-dag',               tags: 'airflow dag pythonoperator s3keysensor hooks postgres mysql xcom push pull variables connections bitwise dependencies' },
+    { id: 'airflow-catchup',       title: 'Airflow Catchup & Depends',          url: 'airflow.html#airflow-catchup',           tags: 'airflow catchup depends_on_past depends past backfill daily cron' },
+    { id: 'airflow-vs-stepfunctions', title: 'Airflow vs Step Functions',      url: 'airflow.html#airflow-vs-stepfunctions',  tags: 'airflow step functions managed serverless orchestration aws native xcom parallel retries' },
+    { id: 'git-github',            title: 'Git & GitHub',                       url: 'devops.html#git-github',                 tags: 'git github init add commit push pull clone status log branch checkout stash revert merge conflicts branch protection large files accidental main' },
+    { id: 'secrets-manager',       title: 'Secrets Manager',                    url: 'devops.html#secrets-manager',            tags: 'secrets manager credentials aws connections hardcoded' },
+    { id: 'status-codes',          title: 'Status Codes',                       url: 'devops.html#status-codes',               tags: 'status codes 100 200 300 400 500 informational success redirection client error server error' }
   ];
 
   // ---------------------------------------------------------------------------
@@ -153,10 +167,19 @@
 
     function query(term) {
       if (!term || term.length < 2) { resultsContainer.innerHTML = ''; return; }
-      var lower = term.toLowerCase();
+      var lower = term.toLowerCase().replace(/[:\-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+      var tokens = lower.split(' ').filter(function (w) { return w.length > 1; });
+      // stop-words that should not block a match (e.g. "components: glue can import from multiple sources")
+      var stop = { can:1, from:1, the:1, and:1, for:1, with:1, into:1 };
+      tokens = tokens.filter(function (w) { return !stop[w]; });
+      if (!tokens.length) { resultsContainer.innerHTML = ''; return; }
       var matches = TOPICS.filter(function (t) {
-        return t.title.toLowerCase().indexOf(lower) !== -1 ||
-               t.tags.toLowerCase().indexOf(lower) !== -1;
+        var hay = (t.title + ' ' + t.tags + ' ' + t.id.replace(/-/g, ' ')).toLowerCase();
+        // every significant token must appear (AND); single-token falls back to substring
+        for (var i = 0; i < tokens.length; i++) {
+          if (hay.indexOf(tokens[i]) === -1) return false;
+        }
+        return true;
       });
       render(matches, term);
     }

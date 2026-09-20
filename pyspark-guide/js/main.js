@@ -8,7 +8,7 @@
   // ---------------------------------------------------------------------------
   //  CONSTANTS
   // ---------------------------------------------------------------------------
-  var TOTAL_TOPICS = 30;
+  var TOTAL_TOPICS = 73;
   var STORAGE_KEYS = {
     theme:      'pyspark_theme',
     completed:  'pyspark_completed',
@@ -19,92 +19,79 @@
 
   // All searchable topics (id, title, url, content summary) - auto-generated from sidebar
   var TOPICS = [
-    // Fundamentals
-    { id: 'what-is-spark',         title: 'What is Spark',                      url: 'fundamentals.html#what-is-spark',         tags: 'spark fundamentals apache in-memory distributed' },
-    { id: 'what-is-pyspark',       title: 'What is PySpark',                    url: 'fundamentals.html#what-is-pyspark',       tags: 'pyspark python api spark session' },
-    { id: 'rdd',                   title: 'RDD - Resilient Distributed Dataset',url: 'fundamentals.html#rdd',                   tags: 'rdd resilient distributed dataset lineage immutability' },
-    { id: 'rdd-vs-dataframe-vs-dataset', title: 'RDD vs DataFrame vs Dataset',       url: 'fundamentals.html#rdd-vs-dataframe-vs-dataset', tags: 'rdd dataframe dataset comparison type safe schema catalyst tungsten' },
-    { id: 'lazy-evaluation',       title: 'Lazy Evaluation',                    url: 'fundamentals.html#lazy-evaluation',       tags: 'lazy evaluation transformation action lineage' },
-    { id: 'transformations-actions',title: 'Transformations vs Actions',        url: 'fundamentals.html#transformations-actions',tags: 'transformations actions map filter collect count' },
-    // Execution / Architecture
-    { id: 'execution-architecture',title: 'Spark Execution Architecture',       url: 'architecture.html#execution-architecture',tags: 'execution architecture driver cluster manager executor' },
-    { id: 'driver',                title: 'Driver Program',                     url: 'architecture.html#driver',                tags: 'driver sparksession sparkcontext scheduler' },
-    { id: 'logical-plan',          title: 'Logical Plan',                       url: 'architecture.html#logical-plan',          tags: 'logical plan parse catalyst optimization' },
-    { id: 'catalyst',              title: 'Catalyst Optimizer',                 url: 'architecture.html#catalyst',              tags: 'catalyst optimizer predicate pushdown column pruning' },
-    { id: 'dag',                   title: 'DAG - Directed Acyclic Graph',       url: 'architecture.html#dag',                   tags: 'dag directed acyclic graph stages tasks' },
-    { id: 'stages',                title: 'Stages',                             url: 'architecture.html#stages',                tags: 'stages shuffle boundary tasks' },
-    { id: 'tasks-executors',       title: 'Tasks and Executors',                url: 'architecture.html#tasks-executors',       tags: 'tasks executors cores partitions parallelism' },
-    { id: 'aqe',                   title: 'Adaptive Query Execution',           url: 'architecture.html#aqe',                   tags: 'aqe adaptive query execution runtime optimization' },
-    // Transformations
-    { id: 'narrow',                title: 'Narrow Transformation',              url: 'transformations.html#narrow',             tags: 'narrow transformation map filter union no shuffle' },
-    { id: 'wide',                  title: 'Wide Transformation',                url: 'transformations.html#wide',               tags: 'wide transformation shuffle groupby join' },
-    { id: 'narrow-vs-wide',        title: 'Narrow vs Wide',                     url: 'transformations.html#narrow-vs-wide',     tags: 'narrow wide comparison shuffle performance' },
-    { id: 'common-transformations',title: 'Common Transformations',             url: 'transformations.html#common-transformations',tags: 'transformations map filter groupby join' },
-    { id: 'actions',               title: 'Actions',                            url: 'transformations.html#actions',            tags: 'actions collect count show take save' },
-    { id: 'complete-dag',          title: 'Complete DAG',                       url: 'transformations.html#complete-dag',       tags: 'complete dag example stages tasks' },
-    // Programming
-    { id: 'sparksession',          title: 'SparkSession - Entry Point',         url: 'programming.html#sparksession',           tags: 'sparksession entry point builder getorcreate' },
-    { id: 'rdd-programming',       title: 'RDD - Resilient Distributed Dataset',url: 'programming.html#rdd',                   tags: 'rdd parallelize collect count' },
-    { id: 'dataframe',             title: 'Creating a DataFrame',               url: 'programming.html#dataframe',              tags: 'dataframe create spark createdataframe schema' },
-    { id: 'read-csv',              title: 'Reading CSV Files',                  url: 'programming.html#read-csv',               tags: 'read csv header inferSchema' },
-    { id: 'manual-schema',         title: 'Defining Schema Manually',           url: 'programming.html#manual-schema',          tags: 'schema structtype structfield manual' },
-    { id: 'filter',                title: 'Filtering Data',                     url: 'programming.html#filter',                 tags: 'filter where col duration' },
-    { id: 'withcolumn',            title: 'withColumn - Create or Replace Columns', url: 'programming.html#withcolumn',        tags: 'withcolumn col maxpulse pulse' },
-    { id: 'groupby',               title: 'GroupBy Aggregations',               url: 'programming.html#groupby',                tags: 'groupby agg avg alias department salary' },
-    { id: 'sorting',               title: 'Sorting Data',                       url: 'programming.html#sorting',                tags: 'sorting orderby asc desc' },
-    { id: 'duplicates',            title: 'Removing Duplicates',                url: 'programming.html#duplicates',             tags: 'duplicates dropduplicates distinct' },
-    { id: 'joins-code',            title: 'Joining DataFrames',                 url: 'programming.html#joins-code',             tags: 'join inner orders customers merge' },
-    { id: 'window-functions',      title: 'Window Functions',                   url: 'programming.html#window-functions',       tags: 'window row_number rank dense_rank lead lag partitionby' },
-    { id: 'spark-sql',             title: 'Spark SQL',                          url: 'programming.html#spark-sql',              tags: 'spark sql createorreplaceTempView query' },
-    { id: 'udf',                   title: 'User Defined Functions (UDF)',       url: 'programming.html#udf',                   tags: 'udf user defined function python' },
-    { id: 'null-handling',         title: 'Handling Null Values',               url: 'programming.html#null-handling',          tags: 'null fillna dropna isnull' },
-    { id: 'conditional',           title: 'Creating Conditional Columns',       url: 'programming.html#conditional',            tags: 'conditional when otherwise salary category' },
-    { id: 'cache-persist',         title: 'Cache and Persist',                  url: 'programming.html#cache-persist',          tags: 'cache persist storagelevel memory disk unpersist' },
-    { id: 'repartition-coalesce',  title: 'Repartition vs Coalesce',            url: 'programming.html#repartition-coalesce',   tags: 'repartition coalesce shuffle partitions' },
-    { id: 'broadcast-join-code',   title: 'Broadcast Join in Practice',         url: 'programming.html#broadcast-join-code',    tags: 'broadcast join small large' },
-    { id: 'etl-pipeline',          title: 'ETL Pipeline - Most Important Interview Program', url: 'programming.html#etl-pipeline', tags: 'etl pipeline source transform validate write s3' },
-    { id: 'jdbc',                  title: 'JDBC - Database Integration',        url: 'programming.html#jdbc',                   tags: 'jdbc mysql database integration' },
-    { id: 's3-etl',                title: 'S3 -> Spark -> Transformation -> S3',url: 'programming.html#s3-etl',                 tags: 's3 etl spark transformation parquet' },
-    { id: 'data-skew-code',        title: 'Data Skew - Detection and Solutions',url: 'programming.html#data-skew-code',         tags: 'data skew salting aqe detection' },
-    { id: 'accumulators',          title: 'Accumulators',                       url: 'programming.html#accumulators',           tags: 'accumulators longaccumulator bad records' },
-    { id: 'catalyst-code',         title: 'Catalyst Optimizer',                 url: 'programming.html#catalyst-code',          tags: 'catalyst optimizer logical physical plan' },
-    { id: 'aqe-code',              title: 'Adaptive Query Execution (AQE)',     url: 'programming.html#aqe-code',               tags: 'aqe adaptive runtime statistics' },
-    { id: 'explain',               title: 'Using explain() - Interview Essential', url: 'programming.html#explain',            tags: 'explain plan dag catalyst' },
-    { id: 'checklist',             title: 'Interview Coding Checklist',         url: 'programming.html#checklist',              tags: 'checklist coding interview' },
-    { id: 'scenarios-code',        title: 'Production Interview Scenarios',     url: 'programming.html#scenarios-code',         tags: 'scenarios production interview' },
-    // Partitions
-    { id: 'partition-basics',      title: 'What are Partitions?',               url: 'partitions.html#partition-basics',        tags: 'partitions basics parallel tasks' },
-    { id: 'horizontal',            title: 'Horizontal Partitioning',            url: 'partitions.html#horizontal',              tags: 'horizontal partitioning rows' },
-    { id: 'vertical',              title: 'Vertical Partitioning',              url: 'partitions.html#vertical',                tags: 'vertical partitioning columns' },
-    { id: 'hash-partitioning',     title: 'Hash Partitioning',                  url: 'partitions.html#hash-partitioning',       tags: 'hash partitioning hash key mod' },
-    { id: 'range-partitioning',    title: 'Range Partitioning',                 url: 'partitions.html#range-partitioning',      tags: 'range partitioning 0-100 101-200' },
-    { id: 'round-robin',           title: 'Round-Robin Partitioning',           url: 'partitions.html#round-robin',             tags: 'round robin sequential distribution' },
-    { id: 'custom-partitioning',   title: 'Custom Partitioning',                url: 'partitions.html#custom-partitioning',     tags: 'custom partitioning logic' },
-    { id: 'repartition-coalesce-part', title: 'Repartition vs Coalesce',       url: 'partitions.html#repartition-coalesce',    tags: 'repartition coalesce shuffle' },
-    // Joins
-    { id: 'sample-tables',            title: 'Sample Tables - Simple Data',          url: 'joins.html#sample-tables',             tags: 'sample tables employees departments simple data' },
-    { id: 'join-types',            title: 'Spark Join Types',                   url: 'joins.html#join-types',                   tags: 'join types inner left right outer semi anti' },
-    { id: 'broadcast-join',        title: 'Broadcast Join',                     url: 'joins.html#broadcast-join',               tags: 'broadcast join small dimension shuffle' },
-    { id: 'sort-merge-join',       title: 'Sort-Merge Join',                    url: 'joins.html#sort-merge-join',              tags: 'sort merge join large partition sort' },
-    { id: 'join-optimization',     title: 'Join Optimization Tips',             url: 'joins.html#join-optimization',            tags: 'join optimization broadcast hint partition skew' },
-    // Performance
-    { id: 'shuffle',               title: 'Shuffle',                            url: 'performance.html#shuffle',                 tags: 'shuffle wide transformation exchange' },
-    { id: 'data-skew',             title: 'Data Skewness',                      url: 'performance.html#data-skew',              tags: 'data skew uneven workload oom' },
-    { id: 'salting',               title: 'Salting Technique',                  url: 'performance.html#salting',                tags: 'salting random prefix skewed key' },
-    { id: 'cache',                 title: 'Cache',                              url: 'performance.html#cache',                  tags: 'cache memory reuse' },
-    { id: 'persist',               title: 'Persist',                            url: 'performance.html#persist',                tags: 'persist storagelevel memory disk ser' },
-    { id: 'optimization-checklist',title: 'Performance Optimization Checklist', url: 'performance.html#optimization-checklist',  tags: 'optimization checklist shuffle cache broadcast' },
-    { id: 'catalyst-optimizer',    title: 'Catalyst Optimizer',                 url: 'performance.html#catalyst-optimizer',     tags: 'catalyst optimizer predicate pushdown' },
-    { id: 'aqe-optimization',      title: 'Adaptive Query Execution (AQE)',     url: 'performance.html#aqe-optimization',       tags: 'aqe adaptive runtime coalesce broadcast skew' },
-    // Real-World
-    { id: 'real-world-problems',   title: 'Real-World Spark Problems & Solutions', url: 'real-world.html#real-world-problems', tags: 'real world problems skew oom slow small files driver' },
-    { id: 'execution-modes',       title: 'Spark Execution Modes',              url: 'real-world.html#execution-modes',         tags: 'execution modes local standalone yarn kubernetes' },
-    // Interview
-    { id: 'interview-prep',        title: 'Interview Preparation',              url: 'interview.html#interview-prep',            tags: 'interview preparation overview' },
-    { id: 'beginner',              title: 'Beginner Questions',                 url: 'interview.html#beginner',                 tags: 'beginner spark pyspark rdd partition transformation action lazy' },
-    { id: 'intermediate',          title: 'Intermediate Questions',             url: 'interview.html#intermediate',             tags: 'intermediate narrow wide shuffle dag stage task hash range cache persist broadcast' },
-    { id: 'advanced',              title: 'Advanced Questions',                 url: 'interview.html#advanced',                 tags: 'advanced skew salting sort-merge catalyst aqe optimization' },
-    { id: 'scenarios',             title: 'Real-World Spark Interview Simulator', url: 'interview.html#scenarios',             tags: 'scenarios slow job skew oom driver small files joins' }
+    { id: 'execution-architecture', title: 'Spark Execution Architecture', url: 'architecture.html#execution-architecture', tags: 'execution architecture driver cluster manager executor' },
+    { id: 'driver', title: 'Driver Program', url: 'architecture.html#driver', tags: 'driver sparksession sparkcontext scheduler' },
+    { id: 'logical-plan', title: 'Logical Plan', url: 'architecture.html#logical-plan', tags: 'logical plan parse catalyst optimization' },
+    { id: 'catalyst', title: 'Catalyst Optimizer', url: 'architecture.html#catalyst', tags: 'catalyst optimizer predicate pushdown column pruning' },
+    { id: 'dag', title: 'DAG - Directed Acyclic Graph', url: 'architecture.html#dag', tags: 'dag directed acyclic graph stages tasks' },
+    { id: 'stages', title: 'Stages', url: 'architecture.html#stages', tags: 'stages shuffle boundary tasks' },
+    { id: 'tasks-executors', title: 'Tasks and Executors', url: 'architecture.html#tasks-executors', tags: 'tasks executors cores partitions parallelism' },
+    { id: 'aqe', title: 'Adaptive Query Execution (AQE)', url: 'architecture.html#aqe', tags: 'aqe adaptive query execution runtime optimization' },
+    { id: 'install-pyspark', title: 'Install PySpark', url: 'fundamentals.html#install-pyspark', tags: 'install pyspark fundamentals' },
+    { id: 'what-is-spark', title: 'What is Spark?', url: 'fundamentals.html#what-is-spark', tags: 'spark fundamentals apache in-memory distributed' },
+    { id: 'what-is-pyspark', title: 'What is PySpark?', url: 'fundamentals.html#what-is-pyspark', tags: 'pyspark python api spark session' },
+    { id: 'rdd', title: 'RDD - Resilient Distributed Dataset', url: 'fundamentals.html#rdd', tags: 'rdd resilient distributed dataset lineage immutability' },
+    { id: 'rdd-vs-dataframe-vs-dataset', title: 'RDD vs DataFrame vs Dataset', url: 'fundamentals.html#rdd-vs-dataframe-vs-dataset', tags: 'rdd dataframe dataset comparison type safe schema catalyst tungsten' },
+    { id: 'lazy-evaluation', title: 'Lazy Evaluation', url: 'fundamentals.html#lazy-evaluation', tags: 'lazy evaluation transformation action lineage' },
+    { id: 'transformations-actions', title: 'Transformations vs Actions', url: 'fundamentals.html#transformations-actions', tags: 'transformations actions map filter collect count' },
+    { id: 'interview-prep', title: 'Interview Preparation', url: 'interview.html#interview-prep', tags: 'interview preparation overview' },
+    { id: 'beginner', title: 'Beginner Questions', url: 'interview.html#beginner', tags: 'beginner spark pyspark rdd partition transformation action lazy' },
+    { id: 'intermediate', title: 'Intermediate Questions', url: 'interview.html#intermediate', tags: 'intermediate narrow wide shuffle dag stage task hash range cache persist broadcast' },
+    { id: 'advanced', title: 'Advanced Questions', url: 'interview.html#advanced', tags: 'advanced skew salting sort-merge catalyst aqe optimization' },
+    { id: 'scenarios', title: 'Real-World Spark Interview Simulator', url: 'interview.html#scenarios', tags: 'scenarios slow job skew oom driver small files joins' },
+    { id: 'sample-tables', title: 'Sample Tables - Simple Data', url: 'joins.html#sample-tables', tags: 'sample tables employees departments simple data' },
+    { id: 'join-types', title: 'Spark Join Types', url: 'joins.html#join-types', tags: 'join types inner left right outer semi anti' },
+    { id: 'broadcast-join', title: 'Broadcast Join', url: 'joins.html#broadcast-join', tags: 'broadcast join small dimension shuffle' },
+    { id: 'sort-merge-join', title: 'Sort-Merge Join', url: 'joins.html#sort-merge-join', tags: 'sort merge join large partition sort' },
+    { id: 'join-optimization', title: 'Join Optimization Tips', url: 'joins.html#join-optimization', tags: 'join optimization broadcast hint partition skew' },
+    { id: 'partition-basics', title: 'What are Partitions?', url: 'partitions.html#partition-basics', tags: 'partitions basics parallel tasks' },
+    { id: 'horizontal', title: 'Horizontal Partitioning', url: 'partitions.html#horizontal', tags: 'horizontal partitioning rows' },
+    { id: 'vertical', title: 'Vertical Partitioning', url: 'partitions.html#vertical', tags: 'vertical partitioning columns' },
+    { id: 'hash-partitioning', title: 'Hash Partitioning', url: 'partitions.html#hash-partitioning', tags: 'hash partitioning hash key mod' },
+    { id: 'range-partitioning', title: 'Range Partitioning', url: 'partitions.html#range-partitioning', tags: 'range partitioning 0-100 101-200' },
+    { id: 'round-robin', title: 'Round-Robin Partitioning', url: 'partitions.html#round-robin', tags: 'round robin sequential distribution' },
+    { id: 'custom-partitioning', title: 'Custom Partitioning', url: 'partitions.html#custom-partitioning', tags: 'custom partitioning logic' },
+    { id: 'repartition-coalesce', title: 'Repartition vs Coalesce', url: 'partitions.html#repartition-coalesce', tags: 'repartition coalesce shuffle partitions' },
+    { id: 'shuffle', title: 'Shuffle', url: 'performance.html#shuffle', tags: 'shuffle wide transformation exchange' },
+    { id: 'data-skew', title: 'Data Skewness', url: 'performance.html#data-skew', tags: 'data skew uneven workload oom' },
+    { id: 'salting', title: 'Salting Technique', url: 'performance.html#salting', tags: 'salting random prefix skewed key' },
+    { id: 'cache-persist', title: 'Cache and Persist', url: 'performance.html#cache-persist', tags: 'cache persist storagelevel memory disk unpersist' },
+    { id: 'optimization-checklist', title: 'Performance Optimization Checklist', url: 'performance.html#optimization-checklist', tags: 'optimization checklist shuffle cache broadcast' },
+    { id: 'catalyst-optimizer', title: 'Catalyst Optimizer', url: 'performance.html#catalyst-optimizer', tags: 'catalyst optimizer predicate pushdown' },
+    { id: 'aqe-optimization', title: 'Adaptive Query Execution (AQE)', url: 'performance.html#aqe-optimization', tags: 'aqe adaptive runtime coalesce broadcast skew' },
+    { id: 'sparksession', title: 'SparkSession - Entry Point', url: 'programming.html#sparksession', tags: 'sparksession entry point builder getorcreate' },
+    { id: 'rdd', title: 'RDD - Resilient Distributed Dataset', url: 'programming.html#rdd', tags: 'rdd resilient distributed dataset lineage immutability' },
+    { id: 'dataframe', title: 'Creating a DataFrame', url: 'programming.html#dataframe', tags: 'dataframe create spark createdataframe schema' },
+    { id: 'read-csv', title: 'Reading CSV Files', url: 'programming.html#read-csv', tags: 'read csv header inferSchema' },
+    { id: 'manual-schema', title: 'Defining Schema Manually', url: 'programming.html#manual-schema', tags: 'schema structtype structfield manual' },
+    { id: 'filter', title: 'Filtering Data', url: 'programming.html#filter', tags: 'filter where col duration' },
+    { id: 'withcolumn', title: 'withColumn - Create or Replace Columns', url: 'programming.html#withcolumn', tags: 'withcolumn col maxpulse pulse' },
+    { id: 'groupby', title: 'GroupBy Aggregations', url: 'programming.html#groupby', tags: 'groupby agg avg alias department salary' },
+    { id: 'sorting', title: 'Sorting Data', url: 'programming.html#sorting', tags: 'sorting orderby asc desc' },
+    { id: 'duplicates', title: 'Removing Duplicates', url: 'programming.html#duplicates', tags: 'duplicates dropduplicates distinct' },
+    { id: 'joins-code', title: 'Joining DataFrames', url: 'programming.html#joins-code', tags: 'join inner orders customers merge' },
+    { id: 'window-functions', title: 'Window Functions', url: 'programming.html#window-functions', tags: 'window row_number rank dense_rank lead lag partitionby' },
+    { id: 'spark-sql', title: 'Spark SQL', url: 'programming.html#spark-sql', tags: 'spark sql createorreplaceTempView query' },
+    { id: 'udf', title: 'User Defined Functions (UDF)', url: 'programming.html#udf', tags: 'udf user defined function python' },
+    { id: 'null-handling', title: 'Handling Null Values', url: 'programming.html#null-handling', tags: 'null fillna dropna isnull' },
+    { id: 'conditional', title: 'Creating Conditional Columns', url: 'programming.html#conditional', tags: 'conditional when otherwise salary category' },
+    { id: 'cache-persist', title: 'Cache and Persist', url: 'programming.html#cache-persist', tags: 'cache persist storagelevel memory disk unpersist' },
+    { id: 'repartition-coalesce', title: 'Repartition vs Coalesce', url: 'programming.html#repartition-coalesce', tags: 'repartition coalesce shuffle partitions' },
+    { id: 'broadcast-join-code', title: 'Broadcast Join in Practice', url: 'programming.html#broadcast-join-code', tags: 'broadcast join small large' },
+    { id: 'etl-pipeline', title: 'ETL Pipeline - Most Important Interview Program', url: 'programming.html#etl-pipeline', tags: 'etl pipeline source transform validate write s3' },
+    { id: 'jdbc', title: 'JDBC - Database Integration', url: 'programming.html#jdbc', tags: 'jdbc mysql database integration' },
+    { id: 's3-etl', title: 'S3 → Spark → Transformation → S3', url: 'programming.html#s3-etl', tags: 's3 etl spark transformation parquet' },
+    { id: 'data-skew-code', title: 'Data Skew - Detection and Solutions', url: 'programming.html#data-skew-code', tags: 'data skew salting aqe detection' },
+    { id: 'accumulators', title: 'Accumulators', url: 'programming.html#accumulators', tags: 'accumulators longaccumulator bad records' },
+    { id: 'catalyst-code', title: 'Catalyst Optimizer', url: 'programming.html#catalyst-code', tags: 'catalyst optimizer logical physical plan' },
+    { id: 'aqe-code', title: 'Adaptive Query Execution (AQE)', url: 'programming.html#aqe-code', tags: 'aqe adaptive runtime statistics' },
+    { id: 'explain', title: 'Using explain() - Interview Essential', url: 'programming.html#explain', tags: 'explain plan dag catalyst' },
+    { id: 'checklist', title: 'Interview Coding Checklist', url: 'programming.html#checklist', tags: 'checklist coding interview' },
+    { id: 'scenarios-code', title: 'Production Interview Scenarios', url: 'programming.html#scenarios-code', tags: 'scenarios production interview' },
+    { id: 'spark-configuration', title: 'Spark Configuration - Interview Discussion', url: 'programming.html#spark-configuration', tags: 'spark configuration interview discussion programming' },
+    { id: 'spark-submit', title: 'Example Spark Submit', url: 'programming.html#spark-submit', tags: 'spark submit example programming' },
+    { id: 'real-world-problems', title: 'Real-World Spark Problems & Solutions', url: 'real-world.html#real-world-problems', tags: 'real world problems skew oom slow small files driver' },
+    { id: 'execution-modes', title: 'Spark Execution Modes', url: 'real-world.html#execution-modes', tags: 'execution modes local standalone yarn kubernetes' },
   ];
 
   // ---------------------------------------------------------------------------
@@ -200,10 +187,17 @@
 
     function query(term) {
       if (!term || term.length < 2) { resultsContainer.innerHTML = ''; return; }
-      var lower = term.toLowerCase();
+      var lower = term.toLowerCase().replace(/[:\-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+      var tokens = lower.split(' ').filter(function (w) { return w.length > 1; });
+      var stop = { can:1, from:1, the:1, and:1, for:1, with:1, into:1 };
+      tokens = tokens.filter(function (w) { return !stop[w]; });
+      if (!tokens.length) { resultsContainer.innerHTML = ''; return; }
       var matches = TOPICS.filter(function (t) {
-        return t.title.toLowerCase().indexOf(lower) !== -1 ||
-               t.tags.toLowerCase().indexOf(lower) !== -1;
+        var hay = (t.title + ' ' + t.tags + ' ' + t.id.replace(/-/g, ' ')).toLowerCase();
+        for (var i = 0; i < tokens.length; i++) {
+          if (hay.indexOf(tokens[i]) === -1) return false;
+        }
+        return true;
       });
       render(matches, term);
     }

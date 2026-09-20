@@ -70,6 +70,7 @@
         <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
         <ul class="sidebar__links">
           <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
           <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
           <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
           <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
@@ -212,6 +213,7 @@
         <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
         <ul class="sidebar__links">
           <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
           <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
           <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
           <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
@@ -323,6 +325,31 @@
 
         <p>Glue is serverless (no backend to maintain), scales automatically, supports Python/Scala/PySpark. Versions from file: Glue 4, Python 3.11-3.13, Spark 3.3, Pandas 1.3.</p>
         <p>Sources: S3 (CSV/JSON/Parquet/Avro), JDBC (RDS/Redshift/MySQL/Postgres/SQL Server), DynamoDB, Kinesis, REST API, SFTP. Classifiers detect JSON/CSV/Parquet.</p>
+
+      </section>
+      <section id="glue-components" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--easy">🟢 Easy</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="glue-components">☆</button>
+            <button class="topic-complete-btn" data-topic-id="glue-components">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Components</h2>
+
+        <p><strong>Glue can import data from multiple sources:</strong></p>
+        <ol>
+          <li><strong>AWS S3 — Data Lake</strong> (CSV, JSON, Parquet, Avro, etc.)</li>
+          <li><strong>JDBC connections</strong> — AWS RDS, Redshift, MySQL, PostgreSQL, SQL Server</li>
+          <li><strong>Amazon DynamoDB</strong> — NoSQL database</li>
+          <li><strong>AWS Kinesis Data Streams</strong> — real-time data source</li>
+          <li><strong>REST API, SFTP</strong></li>
+        </ol>
+        <p><strong>Classifiers:</strong> JSON, CSV, Parquet, etc. — Glue uses classifiers to detect file formats and infer schemas during crawling.</p>
+        <p><strong>AWS Data Catalog:</strong> Centralised metadata repository / centralised metadata repository — metadata store that holds all definitions of data sources, tables and data schemas. Metadata = data about data (datatype, size, format).</p>
+        <p><strong>Automatic Schema Discovery:</strong> AWS Glue can automatically discover and catalog data schemas from various data sources via Crawlers. Crawlers scan the data source to infer schema and create and update tables in the Glue Data Catalog. Schema Evolution: crawlers automatically update the catalog when source schema changes. Crawlers can be scheduled at regular intervals, ensuring metadata is always up to date.</p>
+        <p><strong>AWS Glue Studio:</strong> drag and drop tool to create ETL jobs visually.</p>
+        <p><strong>AWS Glue ETL Jobs (Glue Jobs):</strong> can be written in Python, Scala, PySpark — extract from source, transform data using transformation logic (filtering, joining, deduplication, fillna, dropna, joins, aggregated columns), load to final destination (S3, Redshift, PostgreSQL, MySQL).</p>
 
       </section>
       <section id="glue-catalog" class="topic-section">
