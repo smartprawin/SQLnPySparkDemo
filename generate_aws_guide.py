@@ -2,7 +2,7 @@ import os, re
 
 base = r'F:/Data Engineering/SQLnPySparkDemo/aws-guide'
 
-# Sidebar for AWS guide
+# Sidebar for AWS guide — must stay in sync with glue.html (source of truth, 10 sections)
 sidebar_nav = '''    <nav class="sidebar-nav" style="padding:.75rem 0;">
       <!-- S3 -->
       <div class="sidebar__section is-collapsed">
@@ -21,6 +21,7 @@ sidebar_nav = '''    <nav class="sidebar-nav" style="padding:.75rem 0;">
         <div class="sidebar__heading"><span>Glue</span><span class="sidebar__heading-icon">▼</span></div>
         <ul class="sidebar__links">
           <li><a href="glue.html#glue-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="glue.html#glue-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
           <li><a href="glue.html#glue-catalog" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Data Catalog</a></li>
           <li><a href="glue.html#dynamic-frames" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DynamicFrames</a></li>
           <li><a href="glue.html#dpu-workers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> DPU & Workers</a></li>
@@ -37,7 +38,8 @@ sidebar_nav = '''    <nav class="sidebar-nav" style="padding:.75rem 0;">
           <li><a href="lambda.html#lambda-layers" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Layers</a></li>
           <li><a href="lambda.html#lambda-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
           <li><a href="lambda.html#boto3-invoke" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Boto3 Invoke</a></li>
-          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Trigger</a></li>
+          <li><a href="lambda.html#lambda-glue-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Job Trigger</a></li>
+          <li><a href="lambda.html#lambda-crawler-trigger" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Glue Crawler Trigger</a></li>
         </ul>
       </div>
       <!-- SCD -->
@@ -68,6 +70,29 @@ sidebar_nav = '''    <nav class="sidebar-nav" style="padding:.75rem 0;">
           <li><a href="redshift.html#redshift-distribution" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Distribution</a></li>
           <li><a href="redshift.html#redshift-sort-keys" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sort Keys</a></li>
           <li><a href="redshift.html#redshift-optimization" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Optimization</a></li>
+        </ul>
+      </div>
+      <!-- EMR -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>EMR</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="emr.html#emr-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="emr.html#emr-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="emr.html#emr-storage" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Storage Options</a></li>
+          <li><a href="emr.html#emr-how" class="sidebar__link"><span class="sidebar__link-icon">▸</span> How EMR Works</a></li>
+          <li><a href="emr.html#emr-code" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Code Example</a></li>
+          <li><a href="emr.html#emr-vs-glue" class="sidebar__link"><span class="sidebar__link-icon">▸</span> EMR vs Glue</a></li>
+        </ul>
+      </div>
+      <!-- Snowflake -->
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>Snowflake</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="snowflake.html#snowflake-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Intro</a></li>
+          <li><a href="snowflake.html#snowflake-architecture" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Architecture</a></li>
+          <li><a href="snowflake.html#snowflake-advantages" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Advantages</a></li>
+          <li><a href="snowflake.html#snowflake-limitations" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Limitations</a></li>
+          <li><a href="snowflake.html#snowflake-components" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Components</a></li>
         </ul>
       </div>
       <!-- Airflow -->
@@ -105,6 +130,8 @@ navbar = '''  <nav class="navbar">
       <a href="glue.html" class="navbar__btn">Glue</a>
       <a href="lambda.html" class="navbar__btn">Lambda</a>
       <a href="redshift.html" class="navbar__btn">Redshift</a>
+      <a href="emr.html" class="navbar__btn">EMR</a>
+      <a href="snowflake.html" class="navbar__btn">Snowflake</a>
       <a href="airflow.html" class="navbar__btn">Airflow</a>
       <a href="etl.html" class="navbar__btn">ETL</a>
     </div>
