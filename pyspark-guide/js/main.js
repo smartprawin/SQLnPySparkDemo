@@ -171,6 +171,8 @@
     function open() {
       if (!overlay) return;
       overlay.classList.add('is-visible');
+      overlay.classList.add('is-open');
+      overlay.classList.add('active');
       isOpen = true;
       input.value = '';
       resultsContainer.innerHTML = '';
@@ -180,6 +182,8 @@
     function close() {
       if (!overlay) return;
       overlay.classList.remove('is-visible');
+      overlay.classList.remove('is-open');
+      overlay.classList.remove('active');
       isOpen = false;
       input.value = '';
       resultsContainer.innerHTML = '';

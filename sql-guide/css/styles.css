@@ -1233,6 +1233,7 @@ div.progress-bar[style*="position:fixed"],
 }
 
 .search-overlay.is-open,
+.search-overlay.is-visible,
 .search-overlay.active {
   opacity: 1;
   visibility: visible;
@@ -1251,6 +1252,7 @@ div.progress-bar[style*="position:fixed"],
 }
 
 .search-overlay.is-open .search-modal,
+.search-overlay.is-visible .search-modal,
 .search-overlay.active .search-modal,
 .search-overlay.active .search-container {
   transform: translateY(0) scale(1);
