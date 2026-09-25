@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>try{var k="pyspark_theme";var v=localStorage.getItem(k);var t=v?JSON.parse(v):"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azure Interview Q&A - Interview Prep (Golden Questionnaire July 2026)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">Interview Prep • Golden 2026</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="python.html" class="navbar__btn">Python</a>
+      <a href="pandas.html" class="navbar__btn">Pandas</a>
+      <a href="sql.html" class="navbar__btn">SQL</a>
+      <a href="pyspark.html" class="navbar__btn">PySpark</a>
+      <a href="aws.html" class="navbar__btn">AWS</a>
+      <a href="airflow.html" class="navbar__btn">Airflow</a>
+      <a href="azure.html" class="navbar__btn">Azure</a>
+      <a href="scenarios.html" class="navbar__btn">Scenarios</a>
+      <a href="git.html" class="navbar__btn">Git</a>
+      <a href="cicd.html" class="navbar__btn">CI/CD</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">🔍</button>
+      <button class="navbar__btn" id="bookmarks-toggle" aria-label="Bookmarks" title="Bookmarks">⭐</button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme"><span class="icon-sun" style="display:none;">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation"><span class="hamburger"><span class="hamburger__bar"></span><span class="hamburger__bar"></span><span class="hamburger__bar"></span></span></button>
+      <a href="../index.html" class="navbar__btn hub-mobile" title="Back to Hub Home">🏠 Hub</a>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">🎯 Interview Prep</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🐍 Python (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="python.html#python-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. List vs Tuple vs Set vs Dictionary</a></li>
+        <li><a href="python.html#python-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. What is List & Dictionary Comprehension?</a></li>
+        <li><a href="python.html#python-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. What is Inheritance and its types?</a></li>
+        <li><a href="python.html#python-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. What is a Lambda Function?</a></li>
+        <li><a href="python.html#python-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. What are Decorators?</a></li>
+        <li><a href="python.html#python-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Shallow Copy vs Deep Copy?</a></li>
+        <li><a href="python.html#python-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. What are *args and **kwargs?</a></li>
+        <li><a href="python.html#python-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. What is a Constructor? Explain __init__()</a></li>
+        <li><a href="python.html#python-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. What are Generators?</a></li>
+        <li><a href="python.html#python-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. What are the OOP Concepts?</a></li>
+        <li><a href="python.html#python-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Multi-threading vs Multi-processing?</a></li>
+        <li><a href="python.html#python-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. How does Garbage Collection work in Python?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🐼 Pandas (7)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="pandas.html#pandas-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. DataFrame vs Series?</a></li>
+        <li><a href="pandas.html#pandas-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Read file formats (CSV, JSON, Parquet, Excel)?</a></li>
+        <li><a href="pandas.html#pandas-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Merge vs Join vs Concat?</a></li>
+        <li><a href="pandas.html#pandas-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. LOC vs ILOC?</a></li>
+        <li><a href="pandas.html#pandas-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Remove duplicate rows?</a></li>
+        <li><a href="pandas.html#pandas-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Explode nested JSON?</a></li>
+        <li><a href="pandas.html#pandas-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Pandas vs PySpark?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🗄️ SQL (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="sql.html#sql-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Normalization (1NF, 2NF, 3NF)? Pros/cons?</a></li>
+        <li><a href="sql.html#sql-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Denormalization? When/why?</a></li>
+        <li><a href="sql.html#sql-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Window Functions? ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, SUM OVER</a></li>
+        <li><a href="sql.html#sql-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Types of JOINs?</a></li>
+        <li><a href="sql.html#sql-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. CTE? Why? Advantages?</a></li>
+        <li><a href="sql.html#sql-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Indexing? Clustered vs Non-Clustered?</a></li>
+        <li><a href="sql.html#sql-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Stored Procedure? Advantages?</a></li>
+        <li><a href="sql.html#sql-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. WHERE vs HAVING (4 differences)?</a></li>
+        <li><a href="sql.html#sql-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Order of execution?</a></li>
+        <li><a href="sql.html#sql-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Primary / Foreign / Unique / Composite keys?</a></li>
+        <li><a href="sql.html#sql-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. DELETE vs DROP vs TRUNCATE? Is TRUNCATE DDL or DML?</a></li>
+        <li><a href="sql.html#sql-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. SQL optimization techniques?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>⚡ PySpark (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="pyspark.html#pyspark-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Spark Architecture?</a></li>
+        <li><a href="pyspark.html#pyspark-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. What happens after spark-submit?</a></li>
+        <li><a href="pyspark.html#pyspark-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. RDD vs DataFrame vs Dataset?</a></li>
+        <li><a href="pyspark.html#pyspark-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Lazy Evaluation? Why important?</a></li>
+        <li><a href="pyspark.html#pyspark-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Narrow vs Wide transformations?</a></li>
+        <li><a href="pyspark.html#pyspark-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Sort-Merge vs Shuffle-Hash Join?</a></li>
+        <li><a href="pyspark.html#pyspark-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Cache vs Persist?</a></li>
+        <li><a href="pyspark.html#pyspark-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Repartition vs Coalesce?</a></li>
+        <li><a href="pyspark.html#pyspark-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Data Skewness? Causes? Fixes?</a></li>
+        <li><a href="pyspark.html#pyspark-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Salting? Why + code?</a></li>
+        <li><a href="pyspark.html#pyspark-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Spark performance optimization?</a></li>
+        <li><a href="pyspark.html#pyspark-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Broadcast Join vs Salting?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>☁️ AWS (17)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="aws.html#aws-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. S3 + Storage Classes?</a></li>
+        <li><a href="aws.html#aws-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. AWS Glue? Components + features?</a></li>
+        <li><a href="aws.html#aws-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Glue DynamicFrames vs DataFrames?</a></li>
+        <li><a href="aws.html#aws-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Warehouse vs Lake vs Lakehouse?</a></li>
+        <li><a href="aws.html#aws-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Glue Job Bookmarks? Incremental?</a></li>
+        <li><a href="aws.html#aws-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Glue vs EMR vs Lambda?</a></li>
+        <li><a href="aws.html#aws-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Glue CI/CD to higher envs?</a></li>
+        <li><a href="aws.html#aws-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Lambda? Features? Limits?</a></li>
+        <li><a href="aws.html#aws-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Athena advantages?</a></li>
+        <li><a href="aws.html#aws-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Redshift architecture?</a></li>
+        <li><a href="aws.html#aws-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Athena vs Redshift vs Spectrum?</a></li>
+        <li><a href="aws.html#aws-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Optimize Athena?</a></li>
+        <li><a href="aws.html#aws-13" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q13. Redshift distribution styles + syntax?</a></li>
+        <li><a href="aws.html#aws-14" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q14. Dist Key vs Sort Key?</a></li>
+        <li><a href="aws.html#aws-15" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q15. CloudWatch? Uses?</a></li>
+        <li><a href="aws.html#aws-16" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q16. DMS + CDC?</a></li>
+        <li><a href="aws.html#aws-17" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q17. SCD Types? SCD2 example?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🌀 Airflow (6)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="airflow.html#airflow-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. DAG? How it works?</a></li>
+        <li><a href="airflow.html#airflow-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. XCom? xcom_push/pull?</a></li>
+        <li><a href="airflow.html#airflow-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Ways to trigger a DAG?</a></li>
+        <li><a href="airflow.html#airflow-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Task retries?</a></li>
+        <li><a href="airflow.html#airflow-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Airflow vs Step Functions?</a></li>
+        <li><a href="airflow.html#airflow-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Define dependencies?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🔷 Azure (10)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="azure.html#azure-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Why ADF?</a></li>
+        <li><a href="azure.html#azure-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Incremental loading in ADF?</a></li>
+        <li><a href="azure.html#azure-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. ADF activities used?</a></li>
+        <li><a href="azure.html#azure-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Unity Catalog?</a></li>
+        <li><a href="azure.html#azure-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Liquid Clustering?</a></li>
+        <li><a href="azure.html#azure-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Delta Lake? Features?</a></li>
+        <li><a href="azure.html#azure-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Managed vs External tables?</a></li>
+        <li><a href="azure.html#azure-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Key Vault?</a></li>
+        <li><a href="azure.html#azure-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Databricks? Architecture?</a></li>
+        <li><a href="azure.html#azure-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Secure PII?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🧩 Scenarios (33)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="scenarios.html#scenarios-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Duplicate daily S3 sales records?</a></li>
+        <li><a href="scenarios.html#scenarios-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Glue 10min → 1hr?</a></li>
+        <li><a href="scenarios.html#scenarios-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Spark OOM on executors?</a></li>
+        <li><a href="scenarios.html#scenarios-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Schema evolution broke ETL?</a></li>
+        <li><a href="scenarios.html#scenarios-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. On-prem SQL → Redshift migration?</a></li>
+        <li><a href="scenarios.html#scenarios-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Redshift query runs hours?</a></li>
+        <li><a href="scenarios.html#scenarios-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Airflow DAG missing connection?</a></li>
+        <li><a href="scenarios.html#scenarios-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. 3 sources, 1 failed but partial load?</a></li>
+        <li><a href="scenarios.html#scenarios-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Batch → near-real-time dashboards?</a></li>
+        <li><a href="scenarios.html#scenarios-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. CSV in S3 slow in Athena?</a></li>
+        <li><a href="scenarios.html#scenarios-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. One key = 90% rows (skew)?</a></li>
+        <li><a href="scenarios.html#scenarios-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. GDPR PII masking/encryption?</a></li>
+        <li><a href="scenarios.html#scenarios-13" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q13. SCD2 in Glue w/ perf?</a></li>
+        <li><a href="scenarios.html#scenarios-14" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q14. SLA before 8AM, volume 2x?</a></li>
+        <li><a href="scenarios.html#scenarios-15" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q15. Missing Python pkgs in prod?</a></li>
+        <li><a href="scenarios.html#scenarios-16" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q16. API → S3 with throttling/retries/incremental?</a></li>
+        <li><a href="scenarios.html#scenarios-17" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q17. Inconsistent downstream results?</a></li>
+        <li><a href="scenarios.html#scenarios-18" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q18. Monolith → micro-ETL?</a></li>
+        <li><a href="scenarios.html#scenarios-19" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q19. Training data structured+unstructured?</a></li>
+        <li><a href="scenarios.html#scenarios-20" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q20. AWS region outage?</a></li>
+        <li><a href="scenarios.html#scenarios-21" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q21. Fraud near-real-time alerts on AWS?</a></li>
+        <li><a href="scenarios.html#scenarios-22" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q22. Daily job failed, no load?</a></li>
+        <li><a href="scenarios.html#scenarios-23" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q23. TABLE1(0,1,1,2,3,NULL) TABLE2(1,2,3,NULL,NULL) joins?</a></li>
+        <li><a href="scenarios.html#scenarios-24" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q24. Resume 40%→fail w/o redo?</a></li>
+        <li><a href="scenarios.html#scenarios-25" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q25. Large files without Spark?</a></li>
+        <li><a href="scenarios.html#scenarios-26" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q26. 100 stores API every 10min + exceptions?</a></li>
+        <li><a href="scenarios.html#scenarios-27" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q27. KPI: extract/clean/load?</a></li>
+        <li><a href="scenarios.html#scenarios-28" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q28. Block duplicates downstream?</a></li>
+        <li><a href="scenarios.html#scenarios-29" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q29. New client, vendors, 15 changing metrics?</a></li>
+        <li><a href="scenarios.html#scenarios-30" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q30. E-commerce pipeline tables/cols?</a></li>
+        <li><a href="scenarios.html#scenarios-31" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q31. Oracle→ES 36hrs?</a></li>
+        <li><a href="scenarios.html#scenarios-32" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q32. Production issue faced?</a></li>
+        <li><a href="scenarios.html#scenarios-33" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q33. Project SLA?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🌿 Git & GitHub (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="git.html#git-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. How did you use Git?</a></li>
+        <li><a href="git.html#git-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Git workflow?</a></li>
+        <li><a href="git.html#git-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. What happens on git push?</a></li>
+        <li><a href="git.html#git-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Why branches?</a></li>
+        <li><a href="git.html#git-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. What is a Pull Request?</a></li>
+        <li><a href="git.html#git-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Merge conflict? Resolve?</a></li>
+        <li><a href="git.html#git-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Most-used Git commands?</a></li>
+        <li><a href="git.html#git-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Local behind remote?</a></li>
+        <li><a href="git.html#git-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Check changed files before commit?</a></li>
+        <li><a href="git.html#git-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Prod issue with Git?</a></li>
+        <li><a href="git.html#git-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. git fetch vs git pull?</a></li>
+        <li><a href="git.html#git-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Wrong file committed?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🚀 CI/CD (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="cicd.html#cicd-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. What happens on Pull Request?</a></li>
+        <li><a href="cicd.html#cicd-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Why Dev/QA/Prod?</a></li>
+        <li><a href="cicd.html#cicd-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Unit tests fail in CI?</a></li>
+        <li><a href="cicd.html#cicd-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Why never secrets in Git?</a></li>
+        <li><a href="cicd.html#cicd-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Benefit of IaC?</a></li>
+        <li><a href="cicd.html#cicd-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Same code to multiple envs?</a></li>
+        <li><a href="cicd.html#cicd-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Approval gates in Prod?</a></li>
+        <li><a href="cicd.html#cicd-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Safe prod deployment?</a></li>
+        <li><a href="cicd.html#cicd-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Monitor after deploy?</a></li>
+        <li><a href="cicd.html#cicd-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Common CI/CD prod issues?</a></li>
+        <li><a href="cicd.html#cicd-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Role of Git in CI/CD?</a></li>
+        <li><a href="cicd.html#cicd-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Reduce deployment failures?</a></li>
+        </ul>
+      </div>
+      </nav>
+    </div>
+  </aside>
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <div class="bookmarks-panel__header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <h3 style="font-size:1rem;font-weight:600;margin:0;color:var(--color-heading);">Bookmarks</h3>
+      <button class="bookmarks-panel__close" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--color-text-secondary);padding:.1rem .4rem;" aria-label="Close bookmarks">✕</button>
+    </div>
+    <div id="bookmarks-list"></div>
+  </div>
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🐍 Python (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="python.html#python-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. List vs Tuple vs Set vs Dictionary</a></li>
+        <li><a href="python.html#python-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. What is List & Dictionary Comprehension?</a></li>
+        <li><a href="python.html#python-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. What is Inheritance and its types?</a></li>
+        <li><a href="python.html#python-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. What is a Lambda Function?</a></li>
+        <li><a href="python.html#python-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. What are Decorators?</a></li>
+        <li><a href="python.html#python-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Shallow Copy vs Deep Copy?</a></li>
+        <li><a href="python.html#python-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. What are *args and **kwargs?</a></li>
+        <li><a href="python.html#python-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. What is a Constructor? Explain __init__()</a></li>
+        <li><a href="python.html#python-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. What are Generators?</a></li>
+        <li><a href="python.html#python-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. What are the OOP Concepts?</a></li>
+        <li><a href="python.html#python-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Multi-threading vs Multi-processing?</a></li>
+        <li><a href="python.html#python-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. How does Garbage Collection work in Python?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🐼 Pandas (7)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="pandas.html#pandas-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. DataFrame vs Series?</a></li>
+        <li><a href="pandas.html#pandas-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Read file formats (CSV, JSON, Parquet, Excel)?</a></li>
+        <li><a href="pandas.html#pandas-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Merge vs Join vs Concat?</a></li>
+        <li><a href="pandas.html#pandas-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. LOC vs ILOC?</a></li>
+        <li><a href="pandas.html#pandas-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Remove duplicate rows?</a></li>
+        <li><a href="pandas.html#pandas-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Explode nested JSON?</a></li>
+        <li><a href="pandas.html#pandas-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Pandas vs PySpark?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🗄️ SQL (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="sql.html#sql-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Normalization (1NF, 2NF, 3NF)? Pros/cons?</a></li>
+        <li><a href="sql.html#sql-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Denormalization? When/why?</a></li>
+        <li><a href="sql.html#sql-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Window Functions? ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, SUM OVER</a></li>
+        <li><a href="sql.html#sql-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Types of JOINs?</a></li>
+        <li><a href="sql.html#sql-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. CTE? Why? Advantages?</a></li>
+        <li><a href="sql.html#sql-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Indexing? Clustered vs Non-Clustered?</a></li>
+        <li><a href="sql.html#sql-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Stored Procedure? Advantages?</a></li>
+        <li><a href="sql.html#sql-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. WHERE vs HAVING (4 differences)?</a></li>
+        <li><a href="sql.html#sql-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Order of execution?</a></li>
+        <li><a href="sql.html#sql-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Primary / Foreign / Unique / Composite keys?</a></li>
+        <li><a href="sql.html#sql-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. DELETE vs DROP vs TRUNCATE? Is TRUNCATE DDL or DML?</a></li>
+        <li><a href="sql.html#sql-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. SQL optimization techniques?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>⚡ PySpark (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="pyspark.html#pyspark-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Spark Architecture?</a></li>
+        <li><a href="pyspark.html#pyspark-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. What happens after spark-submit?</a></li>
+        <li><a href="pyspark.html#pyspark-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. RDD vs DataFrame vs Dataset?</a></li>
+        <li><a href="pyspark.html#pyspark-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Lazy Evaluation? Why important?</a></li>
+        <li><a href="pyspark.html#pyspark-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Narrow vs Wide transformations?</a></li>
+        <li><a href="pyspark.html#pyspark-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Sort-Merge vs Shuffle-Hash Join?</a></li>
+        <li><a href="pyspark.html#pyspark-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Cache vs Persist?</a></li>
+        <li><a href="pyspark.html#pyspark-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Repartition vs Coalesce?</a></li>
+        <li><a href="pyspark.html#pyspark-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Data Skewness? Causes? Fixes?</a></li>
+        <li><a href="pyspark.html#pyspark-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Salting? Why + code?</a></li>
+        <li><a href="pyspark.html#pyspark-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Spark performance optimization?</a></li>
+        <li><a href="pyspark.html#pyspark-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Broadcast Join vs Salting?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>☁️ AWS (17)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="aws.html#aws-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. S3 + Storage Classes?</a></li>
+        <li><a href="aws.html#aws-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. AWS Glue? Components + features?</a></li>
+        <li><a href="aws.html#aws-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Glue DynamicFrames vs DataFrames?</a></li>
+        <li><a href="aws.html#aws-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Warehouse vs Lake vs Lakehouse?</a></li>
+        <li><a href="aws.html#aws-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Glue Job Bookmarks? Incremental?</a></li>
+        <li><a href="aws.html#aws-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Glue vs EMR vs Lambda?</a></li>
+        <li><a href="aws.html#aws-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Glue CI/CD to higher envs?</a></li>
+        <li><a href="aws.html#aws-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Lambda? Features? Limits?</a></li>
+        <li><a href="aws.html#aws-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Athena advantages?</a></li>
+        <li><a href="aws.html#aws-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Redshift architecture?</a></li>
+        <li><a href="aws.html#aws-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Athena vs Redshift vs Spectrum?</a></li>
+        <li><a href="aws.html#aws-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Optimize Athena?</a></li>
+        <li><a href="aws.html#aws-13" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q13. Redshift distribution styles + syntax?</a></li>
+        <li><a href="aws.html#aws-14" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q14. Dist Key vs Sort Key?</a></li>
+        <li><a href="aws.html#aws-15" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q15. CloudWatch? Uses?</a></li>
+        <li><a href="aws.html#aws-16" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q16. DMS + CDC?</a></li>
+        <li><a href="aws.html#aws-17" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q17. SCD Types? SCD2 example?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🌀 Airflow (6)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="airflow.html#airflow-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. DAG? How it works?</a></li>
+        <li><a href="airflow.html#airflow-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. XCom? xcom_push/pull?</a></li>
+        <li><a href="airflow.html#airflow-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Ways to trigger a DAG?</a></li>
+        <li><a href="airflow.html#airflow-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Task retries?</a></li>
+        <li><a href="airflow.html#airflow-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Airflow vs Step Functions?</a></li>
+        <li><a href="airflow.html#airflow-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Define dependencies?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🔷 Azure (10)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="azure.html#azure-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Why ADF?</a></li>
+        <li><a href="azure.html#azure-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Incremental loading in ADF?</a></li>
+        <li><a href="azure.html#azure-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. ADF activities used?</a></li>
+        <li><a href="azure.html#azure-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Unity Catalog?</a></li>
+        <li><a href="azure.html#azure-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Liquid Clustering?</a></li>
+        <li><a href="azure.html#azure-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Delta Lake? Features?</a></li>
+        <li><a href="azure.html#azure-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Managed vs External tables?</a></li>
+        <li><a href="azure.html#azure-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Key Vault?</a></li>
+        <li><a href="azure.html#azure-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Databricks? Architecture?</a></li>
+        <li><a href="azure.html#azure-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Secure PII?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🧩 Scenarios (33)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="scenarios.html#scenarios-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Duplicate daily S3 sales records?</a></li>
+        <li><a href="scenarios.html#scenarios-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Glue 10min → 1hr?</a></li>
+        <li><a href="scenarios.html#scenarios-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Spark OOM on executors?</a></li>
+        <li><a href="scenarios.html#scenarios-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Schema evolution broke ETL?</a></li>
+        <li><a href="scenarios.html#scenarios-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. On-prem SQL → Redshift migration?</a></li>
+        <li><a href="scenarios.html#scenarios-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Redshift query runs hours?</a></li>
+        <li><a href="scenarios.html#scenarios-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Airflow DAG missing connection?</a></li>
+        <li><a href="scenarios.html#scenarios-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. 3 sources, 1 failed but partial load?</a></li>
+        <li><a href="scenarios.html#scenarios-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Batch → near-real-time dashboards?</a></li>
+        <li><a href="scenarios.html#scenarios-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. CSV in S3 slow in Athena?</a></li>
+        <li><a href="scenarios.html#scenarios-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. One key = 90% rows (skew)?</a></li>
+        <li><a href="scenarios.html#scenarios-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. GDPR PII masking/encryption?</a></li>
+        <li><a href="scenarios.html#scenarios-13" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q13. SCD2 in Glue w/ perf?</a></li>
+        <li><a href="scenarios.html#scenarios-14" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q14. SLA before 8AM, volume 2x?</a></li>
+        <li><a href="scenarios.html#scenarios-15" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q15. Missing Python pkgs in prod?</a></li>
+        <li><a href="scenarios.html#scenarios-16" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q16. API → S3 with throttling/retries/incremental?</a></li>
+        <li><a href="scenarios.html#scenarios-17" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q17. Inconsistent downstream results?</a></li>
+        <li><a href="scenarios.html#scenarios-18" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q18. Monolith → micro-ETL?</a></li>
+        <li><a href="scenarios.html#scenarios-19" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q19. Training data structured+unstructured?</a></li>
+        <li><a href="scenarios.html#scenarios-20" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q20. AWS region outage?</a></li>
+        <li><a href="scenarios.html#scenarios-21" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q21. Fraud near-real-time alerts on AWS?</a></li>
+        <li><a href="scenarios.html#scenarios-22" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q22. Daily job failed, no load?</a></li>
+        <li><a href="scenarios.html#scenarios-23" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q23. TABLE1(0,1,1,2,3,NULL) TABLE2(1,2,3,NULL,NULL) joins?</a></li>
+        <li><a href="scenarios.html#scenarios-24" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q24. Resume 40%→fail w/o redo?</a></li>
+        <li><a href="scenarios.html#scenarios-25" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q25. Large files without Spark?</a></li>
+        <li><a href="scenarios.html#scenarios-26" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q26. 100 stores API every 10min + exceptions?</a></li>
+        <li><a href="scenarios.html#scenarios-27" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q27. KPI: extract/clean/load?</a></li>
+        <li><a href="scenarios.html#scenarios-28" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q28. Block duplicates downstream?</a></li>
+        <li><a href="scenarios.html#scenarios-29" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q29. New client, vendors, 15 changing metrics?</a></li>
+        <li><a href="scenarios.html#scenarios-30" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q30. E-commerce pipeline tables/cols?</a></li>
+        <li><a href="scenarios.html#scenarios-31" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q31. Oracle→ES 36hrs?</a></li>
+        <li><a href="scenarios.html#scenarios-32" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q32. Production issue faced?</a></li>
+        <li><a href="scenarios.html#scenarios-33" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q33. Project SLA?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🌿 Git & GitHub (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="git.html#git-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. How did you use Git?</a></li>
+        <li><a href="git.html#git-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Git workflow?</a></li>
+        <li><a href="git.html#git-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. What happens on git push?</a></li>
+        <li><a href="git.html#git-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Why branches?</a></li>
+        <li><a href="git.html#git-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. What is a Pull Request?</a></li>
+        <li><a href="git.html#git-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Merge conflict? Resolve?</a></li>
+        <li><a href="git.html#git-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Most-used Git commands?</a></li>
+        <li><a href="git.html#git-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Local behind remote?</a></li>
+        <li><a href="git.html#git-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Check changed files before commit?</a></li>
+        <li><a href="git.html#git-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Prod issue with Git?</a></li>
+        <li><a href="git.html#git-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. git fetch vs git pull?</a></li>
+        <li><a href="git.html#git-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Wrong file committed?</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🚀 CI/CD (12)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="cicd.html#cicd-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. What happens on Pull Request?</a></li>
+        <li><a href="cicd.html#cicd-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Why Dev/QA/Prod?</a></li>
+        <li><a href="cicd.html#cicd-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. Unit tests fail in CI?</a></li>
+        <li><a href="cicd.html#cicd-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. Why never secrets in Git?</a></li>
+        <li><a href="cicd.html#cicd-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Benefit of IaC?</a></li>
+        <li><a href="cicd.html#cicd-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Same code to multiple envs?</a></li>
+        <li><a href="cicd.html#cicd-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Approval gates in Prod?</a></li>
+        <li><a href="cicd.html#cicd-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Safe prod deployment?</a></li>
+        <li><a href="cicd.html#cicd-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Monitor after deploy?</a></li>
+        <li><a href="cicd.html#cicd-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Common CI/CD prod issues?</a></li>
+        <li><a href="cicd.html#cicd-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Role of Git in CI/CD?</a></li>
+        <li><a href="cicd.html#cicd-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. Reduce deployment failures?</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+      <section class="hero" style="background:linear-gradient(135deg,#2563eb 0%,#6366f1 60%,#0f172a 100%);padding:3rem 2rem;border-radius:16px;color:#fff;position:relative;overflow:hidden;margin-bottom:2rem;">
+        <div style="position:relative;z-index:1;">
+          <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);padding:.35rem .85rem;border-radius:999px;font-size:.85rem;margin-bottom:1rem;">🔷 Azure Golden Questionnaire July 2026 • 10 Questions</div>
+          <h1 style="font-size:2.2rem;font-weight:800;color:#fff;margin:.5rem 0;">Azure Interview Q&A</h1>
+          <p style="font-size:1.05rem;opacity:.92;max-width:680px;">10 Questions — ADF, Databricks, Delta Lake, Unity Catalog, Key Vault, PII</p>
+          <p style="opacity:.8;font-size:.9rem;">Source: GOLDEN_QUESTIONNAIRE_JULY_2026.pdf • Each card = interview-ready answer. Use bookmarks + Mark as Complete to track prep.</p>
+        </div>
+      </section>
+      <section id="azure-1" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-1">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-1">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q1. Why ADF?</h2>
+        <p><strong>Interview Answer:</strong> Automate/orchestrate ETL: move sources → ADLS/Databricks. Handles scheduling, monitoring, error handling, less manual effort.</p>
+      </section>
+      <section id="azure-2" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-2">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-2">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q2. Incremental loading in ADF?</h2>
+        <p><strong>Interview Answer:</strong> Watermark col (Last_Updated_Date): each run loads only new/updated rows. Faster.</p>
+      </section>
+      <section id="azure-3" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-3">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-3">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q3. ADF activities used?</h2>
+        <p><strong>Interview Answer:</strong> Copy Data (move), Lookup (config), ForEach (multi-file), If Condition (validation), Stored Procedure, Execute Pipeline.</p>
+      </section>
+      <section id="azure-4" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-4">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-4">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q4. Unity Catalog?</h2>
+        <p><strong>Interview Answer:</strong> Databricks centralized governance: tables/files/permissions/access, fine-grained security, auditing, sharing.</p>
+      </section>
+      <section id="azure-5" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-5">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-5">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q5. Liquid Clustering?</h2>
+        <p><strong>Interview Answer:</strong> Auto-organizes data w/o manual repartition. Less scanned → faster. More flexible than static partitioning.</p>
+      </section>
+      <section id="azure-6" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-6">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-6">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q6. Delta Lake? Features?</h2>
+        <p><strong>Interview Answer:</strong> Open storage layer on lake: ACID, schema enforcement/evolution, time travel, versioning. Reliable ETL.</p>
+      </section>
+      <section id="azure-7" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-7">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-7">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q7. Managed vs External tables?</h2>
+        <p><strong>Interview Answer:</strong> Managed = data+metadata in Databricks (drop deletes data). External = metadata only, data in ADLS/S3 (drop keeps data).</p>
+      </section>
+      <section id="azure-8" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-8">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-8">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q8. Key Vault?</h2>
+        <p><strong>Interview Answer:</strong> Secure secrets (passwords/keys/conn strings). No hardcoding; apps fetch securely. Better security.</p>
+      </section>
+      <section id="azure-9" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-9">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-9">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q9. Databricks? Architecture?</h2>
+        <p><strong>Interview Answer:</strong> Cloud Spark platform for big data/ML. Control Plane (clusters/notebooks) + Data Plane (Spark processing). Scalable/collaborative.</p>
+      </section>
+      <section id="azure-10" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">🟡 Intermediate</span>
+          <div class="topic-section__actions">
+            <button class="bookmark-btn" data-topic-id="azure-10">☆</button>
+            <button class="topic-complete-btn" data-topic-id="azure-10">Mark as Complete</button>
+          </div>
+        </div>
+        <h2>Q10. Secure PII?</h2>
+        <p><strong>Interview Answer:</strong> Mask/encrypt (name/email/phone), RBAC, Key Vault secrets, encryption at rest/in transit.</p>
+      </section>
+      <div style="display:flex;gap:.75rem;margin:2rem 0;flex-wrap:wrap;">
+        <a href="index.html" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:.75rem 1.25rem;text-decoration:none;font-weight:600;">← All Interview Lessons</a>
+        <a href="../index.html" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:.75rem 1.25rem;text-decoration:none;font-weight:600;">🏠 Hub Home</a>
+      </div>
+    </div>
+  </main>
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>Interview Prep — Golden Questionnaire July 2026 • Azure Interview Q&A</p>
+    <p style="margin-top:.5rem;">© 2026 Mastery Hub. Built for Data Engineers.</p>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
