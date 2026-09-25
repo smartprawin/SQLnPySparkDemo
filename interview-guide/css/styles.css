@@ -2838,7 +2838,37 @@ div.progress-bar[style*="position:fixed"],
   }
 }
 
-/* Interview Prep � bookmarks panel: navbar star opens, header X closes */
+/* Interview Prep — bookmarks panel: navbar star opens, header X closes */
 .bookmarks-panel.active { display: block !important; }
 .bookmarks-panel__header h3 { margin: 0; }
 .bookmarks-panel__close:hover { color: var(--color-text); }
+
+/* ============================================================
+   INTERVIEW PREP — CLICK-TO-REVEAL QUESTION CARDS
+   Answers are hidden until the question header is clicked.
+   ============================================================ */
+.expandable-section .expandable-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-heading);
+}
+
+.expandable-section .expandable-header .expandable-icon {
+  flex-shrink: 0;
+  margin-left: .75rem;
+}
+
+@media (max-width: 768px) {
+  /* keep answers collapsed on mobile (base rule forces max-height:none) */
+  .topic-section > .expandable-content {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    padding-top: 0;
+  }
+  .topic-section.is-open > .expandable-content {
+    max-height: none !important;
+    overflow: visible !important;
+    padding-top: 1rem;
+  }
+}

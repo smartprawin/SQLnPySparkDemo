@@ -10,8 +10,9 @@ entries = []
 total = 0
 for slug, qs in DATA.items():
     for i, q in enumerate(qs):
-        title = q[0].replace("'", "\\'")
-        tags = re.sub(r"[^a-z0-9 ]", " ", (q[0] + " " + q[1]).lower())
+        title = q["title"].replace("\\", "\\\\").replace("'", "\\'")
+        hay = " ".join([q["title"], q["prose"]] + [p.get("text", "") for p in q["parts"]])
+        tags = re.sub(r"[^a-z0-9 ]", " ", hay.lower())
         tags = re.sub(r"\s+", " ", tags)[:300]
         entries.append(f"    {{ id: '{slug}-{i+1}', title: '{title}', url: '{slug}.html#{slug}-{i+1}', tags: '{tags}' }}")
         total += 1

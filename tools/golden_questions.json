@@ -1,0 +1,946 @@
+{
+ "source": "GOLDEN_QUESTIONNAIRE_JULY_2026.pdf",
+ "sections": [
+  {
+   "key": "python",
+   "name": "🐍 Python",
+   "desc": "Covers data types, comprehensions, OOP, lambda functions, decorators, args/kwargs, generators, and more.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "List vs Tuple vs Set vs Dictionary",
+     "prose": "List, Tuple, Set, and Dictionary are the four built-in collection data types in Python. Lists are mutable and ordered, whereas tuples are immutable and ordered. Sets store only unique elements and provide very fast membership testing, while dictionaries store data as key-value pairs for efficient lookups. In my projects, I use lists for collections of records, tuples for fixed values, sets for removing duplicates, and dictionaries for mapping or lookup operations.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "What is List Comprehension and Dictionary Comprehension?",
+     "prose": "List comprehension and dictionary comprehension provide a concise way to create lists and dictionaries in a single line of code. They improve readability and are generally faster than traditional loops. List comprehension returns a list, while dictionary comprehension returns key-value pairs. I often use them for quick data transformations and filtering.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "What is Inheritance and its types?",
+     "prose": "Inheritance is an OOP concept that allows one class to inherit properties and methods from another class, promoting code reusability. Python supports Single, Multiple, Multilevel, Hierarchical, and Hybrid inheritance. It helps reduce code duplication and makes applications easier to maintain. In real projects, I use inheritance to create specialized classes from common base classes.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "What is a Lambda Function?",
+     "prose": "A lambda function is an anonymous, single-line function used for simple operations without defining a regular function. It is commonly used with functions like map(), filter(), and reduce(). Lambda functions make the code shorter and more readable for small transformations. I use them mainly for lightweight data processing tasks.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "What are Decorators?",
+     "prose": "Decorators are functions that extend or modify the behavior of another function without changing its source code. They are implemented using the @ symbol. Decorators are commonly used for logging, authentication, caching, and execution time measurement. In data engineering projects, decorators are useful for logging ETL job execution.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "What is Shallow Copy vs Deep Copy?",
+     "prose": "A shallow copy creates a new object but shares references to nested objects, so changes in nested elements affect both copies. A deep copy creates a completely independent copy of both the object and all nested objects. Python provides copy() for shallow copy and deepcopy() for deep copy. I use deep copy when working with nested data structures to avoid unintended modifications.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "What are *args and **kwargs?",
+     "prose": "*args allows a function to accept any number of positional arguments, while **kwargs allows any number of keyword arguments. Internally, *args is stored as a tuple and **kwargs as a dictionary. They make functions flexible and reusable. I use them when the number of input parameters is unknown.",
+     "parts": []
+    },
+    {
+     "n": 8,
+     "title": "What is a Constructor? Explain __init__()",
+     "prose": "A constructor is a special method that is automatically called when an object is created. In Python, the constructor is the __init__() method. It is mainly used to initialize object attributes with default or user-provided values. This ensures every object starts with the required initial state.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "What are Generators?",
+     "prose": "Generators are functions that produce values one at a time using the yield keyword instead of returning all values at once. They are memory efficient because they generate values only when needed. This makes them ideal for processing large files or streaming data. In data engineering, generators are useful for handling large datasets without consuming excessive memory.",
+     "parts": []
+    },
+    {
+     "n": 10,
+     "title": "What are the OOP Concepts?",
+     "prose": "The four main OOP concepts are Encapsulation, Abstraction, Inheritance, and Polymorphism. Encapsulation protects data by restricting direct access, abstraction hides implementation details, inheritance enables code reuse, and polymorphism allows the same interface to have multiple implementations. These principles make code modular, reusable, and maintainable.",
+     "parts": []
+    },
+    {
+     "n": 11,
+     "title": "What is Multi-threading vs Multi-processing?",
+     "prose": "Multithreading executes multiple threads within the same process and is best suited for I/O-bound tasks like API calls and file operations. Multiprocessing creates separate processes with independent memory and is ideal for CPU-intensive tasks. Unlike multithreading, multiprocessing is not limited by Python's GIL. I choose the approach based on the workload.",
+     "parts": []
+    },
+    {
+     "n": 12,
+     "title": "Do you know how Garbage Collection works in Python?",
+     "prose": "Yes. Python automatically manages memory using reference counting and a garbage collector. When an object's reference count becomes zero, its memory is released immediately. Python also detects and removes circular references using the gc module. This automatic memory management helps prevent memory leaks and improves application performance.",
+     "parts": []
+    }
+   ]
+  },
+  {
+   "key": "pandas",
+   "name": "🐼 Pandas",
+   "desc": "Covers DataFrame vs Series, GroupBy, merge/join, loc vs iloc, handling nulls, apply functions, and Pandas vs PySpark.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "What is a Pandas DataFrame vs a Series? What are the differences?",
+     "prose": "A Series is a one-dimensional data structure that stores a single column of data with an index, while a DataFrame is a two-dimensional table with rows and multiple columns. A DataFrame is essentially a collection of Series sharing the same index. In my projects, I mainly use DataFrames because ETL pipelines usually involve multiple columns and transformations.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "How do you read different file formats in Pandas (CSV, JSON, Parquet, Excel)?",
+     "prose": "Pandas provides dedicated functions to read different file formats. I use read_csv() for CSV files, read_json() for JSON, read_parquet() for Parquet files, and read_excel() for Excel files. Depending on the source system, I choose the appropriate function and then perform data cleaning before further processing.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "What is the difference between Merge, Join and Concat in Pandas?",
+     "prose": "Merge combines DataFrames based on common columns, similar to SQL joins. Join is mainly used to combine DataFrames using indexes. Concat simply appends DataFrames either row-wise or column-wise without matching keys. In ETL projects, I mostly use merge to combine customer or transaction datasets.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "What is the difference between LOC vs ILOC?",
+     "prose": "loc accesses data using row and column labels, whereas iloc accesses data using integer positions. I use loc when filtering based on column names or indexes, and iloc when selecting rows by position. Both are useful during data validation and exploratory analysis.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "How do you remove duplicate rows from a DataFrame?",
+     "prose": "I use the drop_duplicates() function to remove duplicate rows from a DataFrame. If needed, I specify particular columns using the subset parameter to identify duplicates. In ETL pipelines, removing duplicates is an important data quality step before loading data into the target system.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "How to explode a nested JSON using Pandas?",
+     "prose": "For nested JSON data, I first flatten the JSON using json_normalize(). If a column contains a list of values, I use the explode() function to convert each list element into a separate row. This makes the data easier to transform and load into relational tables.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "What is the difference between Pandas vs PySpark?",
+     "prose": "Pandas processes data on a single machine and is best for small to medium datasets that fit into memory. PySpark is built for distributed computing and can process large-scale data across multiple cluster nodes. In my projects, I use Pandas for local analysis and PySpark for big data ETL pipelines in production.",
+     "parts": []
+    }
+   ]
+  },
+  {
+   "key": "sql",
+   "name": "🗄 SQL",
+   "desc": "Covers normalization, window functions, joins, indexes, stored procedures, CTEs, keys, and query optimization.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "What is Normalization and its types (1NF, 2NF, 3NF)? What are the advantages and disadvantages?",
+     "prose": "Normalization is the process of organizing data to reduce redundancy and improve data integrity. 1NF removes repeating groups, 2NF removes partial dependency, and 3NF removes transitive dependency. The main advantage is reduced data duplication and better consistency, while the disadvantage is that too many joins can impact query performance.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "What is De-normalization? When and why would you use it?",
+     "prose": "Denormalization is the process of combining tables to reduce joins and improve query performance. It introduces some data redundancy but makes data retrieval much faster. I mainly use it in reporting or data warehouse scenarios where read performance is more important than storage.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "What are Window Functions in SQL? Give examples of ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, SUM OVER.",
+     "prose": "Window functions perform calculations across a set of rows without grouping the data. ROW_NUMBER() gives unique row numbers, RANK() skips ranks after ties, DENSE_RANK() doesn't skip ranks, LAG() and LEAD() access previous and next rows, and SUM() OVER() calculates running totals. They're commonly used in analytics and reporting.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "What are all the types of JOINs in SQL?",
+     "prose": "SQL supports INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN, CROSS JOIN, and SELF JOIN. INNER JOIN returns matching records, LEFT and RIGHT return all records from one side, FULL returns all records from both tables, CROSS creates a Cartesian product, and SELF JOIN joins a table with itself.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "What is a CTE (Common Table Expression)? Why do we use it? What are its advantages?",
+     "prose": "A CTE is a temporary result set created using the WITH clause. It improves query readability, simplifies complex SQL, and avoids repeating the same subquery multiple times. I often use CTEs for multi-step transformations and recursive queries.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "What is Indexing in SQL? What are types of indexes (Clustered and Non-Clustered)?",
+     "prose": "An index improves query performance by allowing SQL to find data quickly instead of scanning the entire table. A Clustered Index stores data physically in sorted order, so only one can exist per table. A Non-Clustered Index stores pointers to the data and multiple indexes can be created on a table.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "What is a Stored Procedure? How is it advantageous over normal querying?",
+     "prose": "A stored procedure is a precompiled collection of SQL statements stored in the database. It improves performance because the execution plan is reused and reduces network traffic. It also provides better security and makes complex business logic easier to maintain.",
+     "parts": []
+    },
+    {
+     "n": 8,
+     "title": "WHERE clause vs HAVING clause (4 differences)",
+     "prose": "WHERE filters individual rows before grouping, whereas HAVING filters grouped or aggregated data after GROUP BY. WHERE cannot use aggregate functions, but HAVING can. WHERE executes earlier than HAVING, making it generally faster.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "What is the order of execution in SQL?",
+     "prose": "The logical execution order is FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY. SQL first identifies the source table, filters rows, groups data, filters groups, selects required columns, and finally sorts the result. Understanding this order helps in writing optimized queries.",
+     "parts": []
+    },
+    {
+     "n": 10,
+     "title": "What is the difference between Primary Key, Foreign Key, Unique Key, and Composite Key?",
+     "prose": "A Primary Key uniquely identifies each row and cannot contain NULL values. A Foreign Key creates a relationship between two tables. A Unique Key also ensures uniqueness but allows one NULL value in most databases. A Composite Key is formed by combining two or more columns to uniquely identify a record.",
+     "parts": []
+    },
+    {
+     "n": 11,
+     "title": "What is DELETE vs DROP vs TRUNCATE? Is TRUNCATE DDL or DML?",
+     "prose": "DELETE removes selected rows and can be rolled back. TRUNCATE removes all rows quickly without logging individual row deletions and is a DDL command. DROP deletes the entire table structure along with its data. TRUNCATE is faster than DELETE because it deallocates data pages instead of deleting rows one by one.",
+     "parts": []
+    },
+    {
+     "n": 12,
+     "title": "What are the optimization techniques in SQL?",
+     "prose": "I optimize SQL queries by creating proper indexes, selecting only required columns instead of using SELECT *, filtering data early with the WHERE clause, and avoiding unnecessary subqueries or functions on indexed columns. I also analyze execution plans, use joins efficiently, and partition large tables when needed. These techniques improve query performance and reduce execution time.",
+     "parts": []
+    }
+   ]
+  },
+  {
+   "key": "pyspark",
+   "name": "⚡ PySpark",
+   "desc": "Covers Spark architecture, RDDs, lazy evaluation, transformations vs actions, cache vs persist, partitioning, skew, and salting.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "Explain Spark Architecture in detail.",
+     "prose": "Spark follows a master-worker architecture. When a Spark job starts, the Driver creates the execution plan and coordinates the job. The Cluster Manager allocates resources, and Executors on worker nodes execute the tasks and store data in memory. This distributed architecture enables Spark to process large datasets efficiently.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "What happens after a spark-submit?",
+     "prose": "After spark-submit, the Driver program starts and requests resources from the Cluster Manager. Executors are launched on worker nodes, and the Driver builds a DAG (Directed Acyclic Graph) based on the transformations. When an action is triggered, Spark schedules tasks and executors process the data in parallel before returning the results.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "RDD vs DataFrame vs Dataset (4 differences with examples)",
+     "prose": "RDD is the low-level distributed collection with full control but no optimization. DataFrame is a structured table with schema and uses the Catalyst Optimizer for better performance. Dataset combines DataFrame optimization with compile-time type safety, mainly in Scala and Java. In PySpark, I mostly use DataFrames because they are faster and easier to work with.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "What is Lazy Evaluation in Spark? Why is it important?",
+     "prose": "Spark doesn't execute transformations immediately. Instead, it records them in a DAG and executes only when an action like show(), count(), or collect() is called. This is called Lazy Evaluation. It helps Spark optimize execution, reduce unnecessary computations, and improve overall performance.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "Narrow Transformation vs Wide Transformation (4 differences with examples)",
+     "prose": "Narrow transformations process data within the same partition and don't require data movement, such as map(), filter(), and flatMap(). Wide transformations require shuffling data across partitions, such as groupBy(), join(), and reduceByKey(). Narrow transformations are faster because they avoid network communication.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "What is a Sort-Merge Join vs Shuffle-Hash Join?",
+     "prose": "Sort-Merge Join first shuffles and sorts both datasets before joining them. It's best for large datasets and is Spark's default join strategy. Shuffle-Hash Join also shuffles data but builds a hash table on the smaller side instead of sorting. It is faster when one dataset is significantly smaller.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "Cache vs Persist (4 differences and when to use each)",
+     "prose": "Both cache() and persist() store data for reuse. cache() stores data only in memory using the default storage level. persist() allows different storage options such as memory, disk, or both. I use cache() for frequently accessed small datasets and persist() when the dataset is too large to fit entirely in memory.",
+     "parts": []
+    },
+    {
+     "n": 8,
+     "title": "Repartition vs Coalesce (4 differences and when to use each)",
+     "prose": "Repartition() increases or decreases partitions and performs a full shuffle, making it suitable for balancing data before joins. Coalesce() mainly reduces partitions without a full shuffle, making it faster. I use repartition() for better parallelism and coalesce() before writing output files to reduce the number of files.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "What is Data Skewness? What causes it and how do you handle it?",
+     "prose": "Data skewness occurs when a few partitions contain much more data than others, causing some executors to take longer. It is usually caused by uneven key distribution during joins or aggregations. I handle it using techniques like salting, broadcast joins, repartitioning, or filtering skewed data.",
+     "parts": []
+    },
+    {
+     "n": 10,
+     "title": "What is Salting? Why and how do you implement it in Spark? Provide code example.",
+     "prose": "Salting is a technique used to handle data skew by adding a random value to skewed keys, distributing records across multiple partitions. This prevents one executor from processing all records for the same key and improves join performance.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Example",
+       "text": "from pyspark.sql.functions import concat, lit, rand, floor\ndf1 = df1.withColumn(\n    \"salted_key\",\n    concat(df1.id, lit(\"_\"), floor(rand()*5))\n)"
+      }
+     ]
+    },
+    {
+     "n": 11,
+     "title": "What are the optimization techniques to improve Spark performance?",
+     "prose": "I improve Spark performance by using partitioning, broadcast joins, caching, avoiding unnecessary shuffle operations, selecting only required columns, and using efficient file formats like Parquet. I also tune executor memory, optimize partition sizes, and monitor jobs using the Spark UI.",
+     "parts": []
+    },
+    {
+     "n": 12,
+     "title": "What is Broadcast Join vs Salting?",
+     "prose": "Broadcast Join is used when one table is small. Spark sends the small table to all executors, avoiding expensive shuffles. Salting is used to solve data skew by distributing heavily repeated keys across multiple partitions. I use broadcast for small lookup tables and salting when joins are slowed down by skewed data.",
+     "parts": []
+    }
+   ]
+  },
+  {
+   "key": "aws",
+   "name": "☁ AWS",
+   "desc": "Covers S3, Glue, Lambda, Redshift, DMS, Kinesis, IAM, Data Warehouse vs Data Lake, CI/CD, and more.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "What is Amazon S3? What are the different S3 Storage Classes?",
+     "prose": "Amazon S3 is an object storage service used to store large amounts of structured and unstructured data with high durability and scalability. Common storage classes include Standard, Intelligent-Tiering, Standard-IA, One Zone-IA, Glacier Instant Retrieval, Glacier Flexible Retrieval, and Glacier Deep Archive. I typically store raw and processed data in S3 for ETL pipelines.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "What is AWS Glue? What are the components and key features of it?",
+     "prose": "AWS Glue is a serverless ETL service used to discover, transform, and load data. Its main components are the Data Catalog, Crawler, ETL Jobs, Triggers, Workflows, and Job Bookmarks. Key features include automatic schema discovery, serverless execution, Spark-based processing, and easy integration with S3, Redshift, and Athena.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "What are AWS Glue Dynamic Frames? How do they differ from Spark DataFrames?",
+     "prose": "Dynamic Frames are AWS Glue's data structure designed for semi-structured and inconsistent data. Unlike Spark DataFrames, they can automatically handle schema variations and missing fields without failing. When I need Spark SQL functions or better performance, I convert Dynamic Frames into DataFrames.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "What is the difference between Data Warehouse vs Data Lake vs Data Lakehouse?",
+     "prose": "A Data Warehouse stores structured, curated data for reporting and BI. A Data Lake stores raw structured and unstructured data at low cost. A Data Lakehouse combines the flexibility of a data lake with the reliability and ACID capabilities of a data warehouse, making it suitable for both analytics and machine learning.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "What are Glue Job Bookmarks? How do they enable incremental loads?",
+     "prose": "Glue Job Bookmarks track the data that has already been processed in previous job runs. During the next execution, Glue processes only new or modified records instead of the entire dataset. This enables efficient incremental loading, reduces processing time, and lowers costs.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "What is the difference between Glue vs EMR vs Lambda? When do you use each?",
+     "prose": "Glue is a serverless ETL service for data integration. EMR is a managed Hadoop and Spark cluster used for large-scale big data processing with more control. Lambda is a serverless compute service for short eventdriven tasks. I use Glue for ETL, EMR for complex Spark workloads, and Lambda for automation and event-based processing.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "How do you deploy your Glue code to higher environments (CI/CD)?",
+     "prose": "In my projects, Glue scripts are stored in Git for version control. A CI/CD pipeline using services like CodePipeline, CodeBuild, or Jenkins validates and deploys the code to Dev, QA, and Production environments. Configuration values such as bucket names and IAM roles are managed separately to avoid code changes.",
+     "parts": []
+    },
+    {
+     "n": 8,
+     "title": "What is AWS Lambda? What are its key features? What are its limitations?",
+     "prose": "AWS Lambda is a serverless compute service that runs code in response to events without managing servers. Key features include automatic scaling, event-driven execution, and pay-per-use pricing. Its limitations include a maximum execution time of 15 minutes, deployment package size limits, memory limits, and concurrency limits.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "What are the advantages of Athena?",
+     "prose": "Amazon Athena is a serverless query service that allows SQL queries directly on data stored in S3. It requires no infrastructure management, integrates with the Glue Data Catalog, supports multiple file formats like Parquet and ORC, and charges only for the amount of data scanned. It is ideal for ad hoc analytics.",
+     "parts": []
+    },
+    {
+     "n": 10,
+     "title": "Explain the architecture of Amazon Redshift.",
+     "prose": "Amazon Redshift follows a Massively Parallel Processing (MPP) architecture. It consists of a Leader Node, which receives SQL queries and creates execution plans, and multiple Compute Nodes, which process data in parallel. Data is stored in a columnar format, enabling high-performance analytical queries.",
+     "parts": []
+    },
+    {
+     "n": 11,
+     "title": "Difference between Athena vs Redshift vs Redshift Spectrum.",
+     "prose": "Athena queries data directly from S3 without storing it. Redshift is a fully managed data warehouse optimized for high-performance analytics on stored data. Redshift Spectrum allows Redshift to query external data stored in S3 without loading it into Redshift. I use Athena for ad hoc queries, Redshift for BI dashboards, and Spectrum for combining warehouse and data lake data.",
+     "parts": []
+    },
+    {
+     "n": 12,
+     "title": "How do you optimize Athena query performance?",
+     "prose": "I optimize Athena by storing data in Parquet or ORC format, partitioning large datasets, compressing files, selecting only required columns instead of SELECT *, and avoiding scanning unnecessary partitions. These techniques reduce the amount of data scanned, improve query performance, and lower query costs.",
+     "parts": []
+    },
+    {
+     "n": 13,
+     "title": "What are the distribution styles in Redshift? What is the syntax for Distribution Key?",
+     "prose": "Redshift supports AUTO, EVEN, KEY, and ALL distribution styles. EVEN distributes rows equally, KEY distributes rows based on a selected column, ALL copies small tables to every node, and AUTO lets Redshift choose the best option. I usually use DISTKEY on frequently joined columns to reduce data movement.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Syntax",
+       "text": "CREATE TABLE employee (\n    emp_id INT,\n    dept_id INT,\n    name VARCHAR(50)\n) DISTSTYLE KEY DISTKEY(dept_id);"
+      }
+     ]
+    },
+    {
+     "n": 14,
+     "title": "Dist Key vs Sort Key in Redshift (4 differences)",
+     "prose": "Dist Key determines how data is distributed across compute nodes, while Sort Key determines how data is physically sorted within each node. Dist Key improves join performance by minimizing data movement, whereas Sort Key improves query performance by reducing data scanned. I use Dist Key on join columns and Sort Key on frequently filtered columns like dates.",
+     "parts": []
+    },
+    {
+     "n": 15,
+     "title": "What is Amazon CloudWatch? What is it used for?",
+     "prose": "Amazon CloudWatch is a monitoring service for AWS resources and applications. It collects metrics, logs, and events, allowing us to monitor system health and performance. I use CloudWatch to monitor Glue jobs, Lambda executions, EC2 instances, and to create alarms for job failures or high resource usage.",
+     "parts": []
+    },
+    {
+     "n": 16,
+     "title": "What is AWS DMS (Database Migration Service)? How does it capture updates using CDC?",
+     "prose": "AWS DMS is a managed service used to migrate data between databases with minimal downtime. It supports both full data load and Change Data Capture (CDC). CDC continuously reads database transaction logs to capture inserts, updates, and deletes, and replicates only those changes to the target database.",
+     "parts": []
+    },
+    {
+     "n": 17,
+     "title": "What are SCD Types? Explain SCD Type 2 with an example.",
+     "prose": "Slowly Changing Dimensions (SCD) are techniques used to manage changes in dimension data. Common types are Type 1, Type 2, and Type 3. SCD Type 2 preserves history by creating a new record whenever a value changes, while marking the old record as inactive using effective dates or an active flag.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Example",
+       "text": "Before Update\nCustomer_ID City Start_Date End_Date Active\n101 Delhi 2024-01-01 NULL Y\nAfter Update\nCustomer_ID City Start_Date End_Date Active\n101 Delhi 2024-01-01 2025-06-30 N\n101 Mumbai 2025-07-01 NULL Y"
+      },
+      {
+       "type": "closing",
+       "text": "In one of my ETL projects, I implemented SCD Type 2 using PySpark by checking changed records, expiring the old record with an end date, and inserting a new active record. This helped maintain complete historical customer information for reporting and auditing."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "airflow",
+   "name": "🌀 Airflow",
+   "desc": "Covers DAGs, operators, task dependencies, scheduling, retries, and pipeline orchestration best practices.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "What is a DAG in Apache Airflow? How does it work?",
+     "prose": "A DAG (Directed Acyclic Graph) is a workflow that defines the sequence of tasks in Apache Airflow. Each task represents a step in the pipeline, and dependencies decide the execution order. Airflow schedules the DAG, executes the tasks, and monitors their status. I use DAGs to automate ETL pipelines.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "What is XCom (Cross-Communication) in Airflow? How do you use xcom_push and xcom_pull?",
+     "prose": "XCom (Cross-Communication) is used to share small amounts of data between Airflow tasks. xcom_push() stores a value from one task, and xcom_pull() retrieves that value in another task. I use XCom to pass file names, IDs, or status information between tasks.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Example",
+       "text": "# Task 1\nti.xcom_push(key=\"file_name\", value=\"sales.csv\")\n# Task 2\nfile = ti.xcom_pull(key=\"file_name\")"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "title": "What are the different ways to trigger a DAG in Airflow?",
+     "prose": "A DAG can be triggered in multiple ways. It can run on a schedule using cron expressions, be triggered manually from the Airflow UI, through the Airflow CLI, using the REST API, or by another DAG using TriggerDagRunOperator. The method depends on the project requirement.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "How does Airflow handle task retries?",
+     "prose": "If a task fails, Airflow can retry it automatically based on the retry configuration. We define the number of retries and the retry delay in the DAG. If the task still fails after all retries, it is marked as failed and alerts can be sent.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "Difference between Airflow vs Step Functions",
+     "prose": "Apache Airflow is mainly used for scheduling and orchestrating ETL and data pipelines. AWS Step Functions are used to coordinate AWS services like Lambda, Glue, and ECS in serverless workflows. I use Airflow for complex data workflows and Step Functions for AWS event-driven applications.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "How do you define dependencies in Airflow DAGs?",
+     "prose": "Dependencies define the order in which tasks run. In Airflow, I use >> or << operators, or methods like set_upstream() and set_downstream(). This ensures that one task starts only after the previous task completes successfully.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Example",
+       "text": "task1 >> task2 >> task3\nor\ntask2.set_upstream(task1)\ntask2.set_downstream(task3)"
+      },
+      {
+       "type": "closing",
+       "text": "In my ETL project, I defined dependencies so that data extraction completed first, then transformation ran, and finally the processed data was loaded into the target system."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "azure",
+   "name": "🔷 Azure",
+   "desc": "Covers Azure Data Factory, Databricks, Delta Lake, Unity Catalog, managed vs external tables, PII security, and more.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "Why did you use Azure Data Factory (ADF) in the project?",
+     "prose": "We used Azure Data Factory to automate and orchestrate our ETL pipeline. It helped us move data from different source systems to Azure Data Lake and Databricks. ADF also handled scheduling, monitoring, and error handling, reducing manual effort.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "How did you implement incremental loading in ADF?",
+     "prose": "We implemented incremental loading using a Watermark column such as Last_Updated_Date. During each pipeline run, ADF loaded only the new or updated records instead of the entire dataset. This reduced processing time and improved performance.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "Which ADF activities were used?",
+     "prose": "In my project, I used Copy Data Activity to move data, Lookup Activity to read configuration values, ForEach Activity to process multiple files, If Condition for validations, Stored Procedure Activity for database operations, and Execute Pipeline to call another pipeline.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "What is Unity Catalog?",
+     "prose": "Unity Catalog is Databricks' centralized data governance solution. It helps manage tables, files, permissions, and data access from one place. It provides fine-grained security, auditing, and easy data sharing across teams.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "What is Liquid Clustering?",
+     "prose": "Liquid Clustering is a Databricks feature that automatically organizes data without manually repartitioning it. It improves query performance by reducing the amount of data scanned. It is more flexible than traditional partitioning because data can be reorganized automatically.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "What is Delta Lake? What are its features?",
+     "prose": "Delta Lake is an open-source storage layer built on top of a data lake. It provides ACID transactions, schema enforcement, schema evolution, time travel, and data versioning. These features make data more reliable and suitable for ETL pipelines.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "What is the difference between Managed Tables and External Tables?",
+     "prose": "Managed Tables store both data and metadata inside Databricks. If the table is deleted, the data is also deleted. External Tables store only the metadata in Databricks, while the actual data remains in external storage like ADLS or S3. Deleting the table does not delete the data.",
+     "parts": []
+    },
+    {
+     "n": 8,
+     "title": "How does Azure Key Vault help?",
+     "prose": "Azure Key Vault securely stores secrets such as passwords, API keys, and connection strings. Instead of hardcoding credentials in the code, applications retrieve them securely from Key Vault. This improves security and simplifies secret management.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "What is Databricks and what is the Architecture of Databricks?",
+     "prose": "Azure Databricks is a cloud-based platform for big data processing and machine learning using Apache Spark. Its architecture includes a Control Plane, which manages clusters and notebooks, and a Data Plane, where Spark clusters process the data. This architecture provides scalability, performance, and easy collaboration.",
+     "parts": []
+    },
+    {
+     "n": 10,
+     "title": "How do you secure PII data?",
+     "prose": "I secure PII data by masking or encrypting sensitive columns such as names, email IDs, and phone numbers. I use role-based access control so only authorized users can view the data. I also store secrets in Azure Key Vault and enable encryption for data at rest and in transit.",
+     "parts": []
+    }
+   ]
+  },
+  {
+   "key": "scenarios",
+   "name": "🧩 Scenario-Based Questions",
+   "desc": "Real-world data engineering problems covering pipelines, failures, performance, schema evolution, SCD, API ingestion, PII, and more.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "You are ingesting daily sales data into S3. One day, the pipeline ingests duplicate records. How will you detect and handle this duplication?",
+     "prose": "In this situation, I would first identify duplicate records using the primary key or a combination of business keys. In Spark, I would use dropDuplicates() to remove duplicates before loading the data. I would also check the source to understand why duplicates were generated. Finally, I would add data quality checks so duplicates are detected automatically in future pipeline runs.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "A Glue job that usually runs in 10 minutes is now taking 1 hour. How do you debug and optimize it?",
+     "prose": "First, I would check the Glue job logs in CloudWatch to identify the bottleneck. Then, I would check for data skew, unnecessary shuffles, or an increase in input data size. I would optimize the job using partitioning, caching if needed, and converting files to Parquet. Finally, I would monitor the job again to verify the improvement.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "Your Spark job is failing with an Out Of Memory (OOM) error on the executor nodes. What steps will you take to resolve it?",
+     "prose": "I would first check the Spark UI to identify which stage is causing the memory issue. Then, I would avoid collect() on large datasets, increase executor memory if required, reduce data shuffling, and repartition the data properly. If the issue is caused by data skew, I would use salting or broadcast joins.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "You are asked to implement schema evolution in your pipeline. Yesterday the source added a new column, breaking your ETL job. How will you handle it in Glue or Spark?",
+     "prose": "I would enable schema evolution so the pipeline can handle new columns automatically. In AWS Glue, I would update the Glue Crawler or Data Catalog. In Spark, I would use schema merging while reading the data. This ensures the pipeline continues to run even when new columns are added.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "You are migrating a SQL-based on-prem data warehouse to AWS Redshift. What are the key factors you will consider to ensure performance and cost efficiency?",
+     "prose": "I would choose the correct Distribution Key and Sort Key, use column compression, and load data in bulk using S3. I would also convert frequently used queries into optimized SQL and monitor query performance. This improves both performance and reduces storage and compute costs.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "Your Redshift query is running for hours without finishing. How do you debug and optimize it?",
+     "prose": "I would first check the Redshift query plan and system tables to identify the slow operation. Then, I would verify the Distribution Key and Sort Key, create or update statistics using ANALYZE, and remove unnecessary joins. I would also rewrite the query if required to improve performance.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "An Airflow DAG failed in production due to a missing connection configuration. How will you troubleshoot and fix the issue?",
+     "prose": "I would first check the Airflow logs to identify the missing connection. Then, I would verify the connection details in the Airflow UI under Admin → Connections. After updating the correct credentials, I would test the connection and rerun the failed task. Finally, I would document the configuration to avoid similar issues.",
+     "parts": []
+    },
+    {
+     "n": 8,
+     "title": "Your data pipeline has upstream dependencies (3 sources). One source failed, but the pipeline still ingested incomplete data. How will you implement data quality checks?",
+     "prose": "I would add validation checks before starting the ETL process. The pipeline should verify that all three source files are available and complete. If any source is missing, the pipeline should stop, send an alert, and avoid loading incomplete data. This ensures data accuracy.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "A client requests near-real-time dashboards, but your system only supports batch processing. How will you redesign the pipeline to support near real-time analytics?",
+     "prose": "I would redesign the pipeline using streaming technologies such as Kafka, Spark Structured Streaming, or AWS Kinesis. Incoming data would be processed continuously and stored in the target system. This would allow dashboards to refresh every few seconds or minutes instead of waiting for batch jobs.",
+     "parts": []
+    },
+    {
+     "n": 10,
+     "title": "Your data is landing in S3 as CSV files, but analysts are complaining about query performance in Athena. How would you improve performance without changing the source system?",
+     "prose": "I would convert the CSV files into Parquet format using AWS Glue because Parquet is columnar and much faster for Athena queries. I would also partition the data based on columns like date or region and compress the files. This reduces the amount of data scanned, improving both query performance and cost.",
+     "parts": []
+    },
+    {
+     "n": 11,
+     "title": "In a PySpark job, you notice data skew where one key has 90% of the records. How would you handle this issue?",
+     "prose": "I would first identify the skewed key using the Spark UI or by checking the data distribution. Then, I would use salting to split the heavy key into multiple partitions or use a broadcast join if one table is small. This helps distribute the data evenly and improves job performance.",
+     "parts": []
+    },
+    {
+     "n": 12,
+     "title": "You are handling GDPR-compliant data. How will you ensure PII data masking and encryption in your ETL pipeline?",
+     "prose": "I would identify all PII columns such as name, email, and phone number. Sensitive data would be masked or encrypted before storing it. I would also use IAM roles and encryption for S3 to ensure only authorized users can access the data.",
+     "parts": []
+    },
+    {
+     "n": 13,
+     "title": "You are asked to design an SCD Type 2 pipeline in Glue. How will you track history while keeping query performance acceptable?",
+     "prose": "I would compare the source and target data to identify changed records. The old record would be marked as inactive, and a new record would be inserted with the updated information. I would store the data in Parquet format and partition it to improve query performance.",
+     "parts": []
+    },
+    {
+     "n": 14,
+     "title": "Your batch ETL pipeline has strict SLAs (must finish before 8 AM daily). What steps will you take to ensure timely completion even when data volume doubles?",
+     "prose": "I would optimize Spark jobs by reducing shuffles, using partitioning, and processing only incremental data instead of the full dataset. I would also monitor job performance and increase cluster resources if needed. This helps the pipeline finish within the SLA.",
+     "parts": []
+    },
+    {
+     "n": 15,
+     "title": "During a production release, your Spark job failed because of missing Python packages. How would you package and deploy external dependencies reliably in Glue/Lambda/Spark?",
+     "prose": "I would package all required Python libraries before deployment and include them with the Glue job or Lambda function. I would test the deployment in the development environment before releasing it to production. This ensures all dependencies are available during execution.",
+     "parts": []
+    },
+    {
+     "n": 16,
+     "title": "You are asked to integrate third-party API data into your S3 data lake. How will you handle API throttling, retries, and incremental loads?",
+     "prose": "I would implement retry logic with delays if the API limit is reached. I would load only new or updated records using timestamps or IDs instead of fetching all data every time. This reduces API calls and improves pipeline performance.",
+     "parts": []
+    },
+    {
+     "n": 17,
+     "title": "A downstream analytics team reports inconsistent results from the same dataset at different times of the day. How do you debug and ensure data consistency?",
+     "prose": "I would first verify whether the ETL pipeline completed successfully. Then, I would compare the source and target data, check for partial loads, and validate row counts. Finally, I would add data quality checks and alerts to ensure only complete data is available for reporting.",
+     "parts": []
+    },
+    {
+     "n": 18,
+     "title": "Your team wants to move from a monolithic ETL pipeline to modular micro-ETL jobs. What benefits will this provide, and how would you implement it?",
+     "prose": "I would divide the large pipeline into smaller independent ETL jobs. This makes the pipeline easier to maintain, test, and troubleshoot. Each job can run separately, making deployments faster and failures easier to isolate.",
+     "parts": []
+    },
+    {
+     "n": 19,
+     "title": "A data scientist asks you to provide training data from multiple sources (structured + unstructured). How do you design a pipeline to ensure clean, joined, and high-quality data?",
+     "prose": "I would collect data from all sources, clean and validate it, remove duplicates, and standardize the format. Then, I would join the datasets using common keys and perform data quality checks before storing the final dataset in the data lake.",
+     "parts": []
+    },
+    {
+     "n": 20,
+     "title": "Your data pipeline is built on AWS services. A regionwide outage occurs. How will you design for fault tolerance and high availability?",
+     "prose": "I would store backup data in another AWS region using cross-region replication. I would enable automated backups and design the pipeline to fail over to the secondary region if the primary region becomes unavailable. This ensures business continuity with minimum downtime.",
+     "parts": []
+    },
+    {
+     "n": 21,
+     "title": "The business team requests near real-time alerts when fraud transactions are detected. How would you implement this on AWS?",
+     "prose": "I would use Amazon Kinesis to capture streaming data, process it using AWS Lambda or Spark Streaming, and apply fraud detection rules. If a suspicious transaction is found, I would send an alert using Amazon SNS or email. This provides near real-time notifications.",
+     "parts": []
+    },
+    {
+     "n": 22,
+     "title": "Every day we load data and the job is scheduled, but today it failed. Data will not be loaded. What do you do?",
+     "prose": "First, I would check the job logs in CloudWatch or Airflow to find the root cause. After fixing the issue, I would rerun only the failed job instead of the entire pipeline. Then, I would validate the loaded data and notify the stakeholders once the job is completed.",
+     "parts": []
+    },
+    {
+     "n": 23,
+     "title": "You have TABLE1 (0, 1, 1, 2, 3, NULL) and TABLE2 (1, 2, 3, NULL, NULL). Give the output of Cross Join, Left Outer Join, Right Outer Join, Full Outer Join.",
+     "prose": "Cross Join: Every row of TABLE1 joins with every row of TABLE2 (6 × 5 = 30 rows). Left Join: Returns all rows from TABLE1 and matching rows from TABLE2. Unmatched rows show NULL. Right Join: Returns all rows from TABLE2 and matching rows from TABLE1. Full Outer Join: Returns all matching and non-matching rows from both tables.",
+     "parts": []
+    },
+    {
+     "n": 24,
+     "title": "If you have a pipeline that has completed 40% of the job but then fails, how do you ensure the rest 60% completes without re-executing the first 40%?",
+     "prose": "I would use checkpointing or incremental processing. The pipeline stores the last successfully processed record or batch. After fixing the issue, it resumes from that point instead of starting from the beginning. This saves both time and compute cost.",
+     "parts": []
+    },
+    {
+     "n": 25,
+     "title": "You are processing large files without using Spark. How do you approach this?",
+     "prose": "I would process the file in smaller chunks instead of loading the entire file into memory. Depending on the requirement, I would use Python generators, Pandas chunk processing, or batch processing. This prevents memory issues and improves performance.",
+     "parts": []
+    },
+    {
+     "n": 26,
+     "title": "You have 100 stores connected via API and want data from all stores every 10 minutes with exception handling. How do you design this?",
+     "prose": "I would schedule the API calls using Airflow or Lambda. Each store would have its own task with retry logic and error handling. Failed API calls would be logged and retried without affecting the successful stores. Finally, all data would be stored in S3.",
+     "parts": []
+    },
+    {
+     "n": 27,
+     "title": "Keeping a KPI in mind, explain how you are extracting, cleaning, and loading data.",
+     "prose": "I first extract data from the source system or API. Then I clean the data by removing duplicates, handling missing values, and validating business rules. Finally, I load the cleaned data into Redshift or S3, ensuring the KPI calculations are accurate.",
+     "parts": []
+    },
+    {
+     "n": 28,
+     "title": "How do you restrict duplicate records from passing downstream in your pipeline?",
+     "prose": "I remove duplicate records using business keys or primary keys before loading the data. In Spark, I use dropDuplicates() and perform data quality checks. This ensures only unique records are sent to downstream systems.",
+     "parts": []
+    },
+    {
+     "n": 29,
+     "title": "You have a new client with different data vendors and 15 key metrics that change weekly or monthly. How would you set up an ETL pipeline?",
+     "prose": "I would create separate ingestion jobs for each vendor and store the raw data in S3. Then I would build transformation jobs to standardize the data and calculate the required metrics. Airflow would schedule the jobs, and the final data would be loaded into Redshift for reporting.",
+     "parts": []
+    },
+    {
+     "n": 30,
+     "title": "Design a pipeline for an e-commerce application. What tables and columns do you need?",
+     "prose": "I would create tables such as Customers, Products, Orders, Order_Items, Payments, and Shipments. Important columns include Customer_ID, Product_ID, Order_ID, Quantity, Price, Payment_Status, Order_Date, and Delivery_Status. The pipeline extracts data, cleans it, and loads it into the data warehouse for analytics.",
+     "parts": []
+    },
+    {
+     "n": 31,
+     "title": "It takes 36 hours in Elasticsearch for Oracle data to be ingested and processed. How do you optimize this?",
+     "prose": "I would use incremental loading instead of full loading, process data in parallel, optimize batch size, and reduce unnecessary transformations. I would also monitor the pipeline to identify bottlenecks and tune resources. This helps reduce the processing time significantly.",
+     "parts": []
+    },
+    {
+     "n": 32,
+     "title": "What production issue did you face?",
+     "prose": "One production issue I faced was duplicate records being loaded because the source system resent the same file. I identified the issue using row count validation and removed duplicates using business keys before loading the data. I also added duplicate validation checks to prevent the issue in future runs.",
+     "parts": []
+    },
+    {
+     "n": 33,
+     "title": "What was the SLA of your project?",
+     "prose": "Our project SLA was that the complete ETL pipeline had to finish before 8:00 AM every day so that business users could access fresh reports. We continuously monitored the pipeline, optimized Spark jobs, and configured alerts to ensure the SLA was always met.",
+     "parts": []
+    }
+   ]
+  },
+  {
+   "key": "git",
+   "name": "Git & GitHub",
+   "desc": "Covers Git basics, branching, merging, pull requests, Git workflow, common commands, merge conflicts, git fetch vs pull, and real-world scenarios.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "How did you use Git in your project?",
+     "prose": "In my project, we used Git for version control. Every developer worked on a separate branch, committed their changes locally, and pushed them to GitHub. After code review through a Pull Request, the changes were merged into the main branch. This helped us collaborate without affecting the production code.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "What is the Git workflow followed in your project?",
+     "prose": "Our workflow was: Clone the repository → Create a feature branch → Make code changes → Commit the changes → Push to GitHub → Create a Pull Request → Code Review → Merge into the main branch → Deploy the application.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Notes",
+       "text": "Clone\nCopy the repository\nlocally\nFeature Branch\nCreate a branch for\nwork\nCode & Commit\nMake changes and\ncommit\nPush & PR\nPush, open pull\nrequest"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "title": "What happens when you run git push?",
+     "prose": "git push uploads all committed changes from the local repository to the remote GitHub repository. It allows other team members to access the latest code. Usually, after pushing the code, we create a Pull Request for review before merging.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "Why do we create branches in Git?",
+     "prose": "We create branches to develop new features or fix bugs without affecting the main code. Every developer works on their own branch. Once the work is completed and reviewed, it is merged into the main branch.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "What is a Pull Request (PR)?",
+     "prose": "A Pull Request is a request to merge code from one branch into another. It allows team members to review the code, suggest changes, and approve it before merging. This helps maintain code quality and avoid production issues.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "What is a Merge Conflict? How did you resolve it?",
+     "prose": "A merge conflict occurs when two developers modify the same part of the same file. Git cannot decide which change to keep automatically. I resolved it by reviewing both changes, keeping the correct code, testing it, and then committing the resolved version.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Notes",
+       "text": "Commit\nResolvedTest Code\nKeep\nCorrect\nCode\nReview\nChanges"
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "title": "What Git commands do you use most often?",
+     "prose": "In my daily work, I mostly use git clone, git status, git add, git commit, git pull, git push, git branch, git checkout, and git merge. These commands are enough for most day-to-day development tasks.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Notes",
+       "text": "git clone git status git add\ngit commit git pull git push\ngit branch git checkout git merge"
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "title": "What will you do if your local branch is behind the remote branch?",
+     "prose": "First, I would run git pull to fetch the latest changes from the remote repository. If there are any conflicts, I would resolve them, test the code, and then push my updated changes back to GitHub.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "How do you check which files have changed before committing?",
+     "prose": "I use the git status command to check modified, staged, and untracked files. If I want to see the exact code changes, I use git diff before committing.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Notes",
+       "text": "git status\nCheck modified, staged, and untracked files\ngit diff\nSee the exact code changes before committing"
+      }
+     ]
+    },
+    {
+     "n": 10,
+     "title": "What production issue did you face while using Git?",
+     "prose": "One issue I faced was a merge conflict when two developers modified the same file. We resolved the conflict by reviewing both changes, testing the final code, and then merging it. After that, we informed the team to pull the latest code before making further changes.",
+     "parts": []
+    },
+    {
+     "n": 11,
+     "title": "What is the difference between git fetch and git pull?",
+     "prose": "git fetch only downloads the latest changes from the remote repository but does not merge them. git pull downloads the changes and automatically merges them into the current branch. I usually use git pull to keep my branch updated.",
+     "parts": [
+      {
+       "type": "code",
+       "label": "Notes",
+       "text": "git fetch\nDownloads the latest changes from the remote repository but\ndoes not merge them\ngit pull\nDownloads the changes and automatically merges them into\nthe current branch"
+      }
+     ]
+    },
+    {
+     "n": 12,
+     "title": "Suppose you accidentally committed a wrong file. What will you do?",
+     "prose": "If the commit is only in my local repository, I can undo it and recommit the correct files. If it has already been pushed, I would use Git commands like git revert or create a new commit to fix the mistake, depending on the team's process.",
+     "parts": [
+      {
+       "type": "note",
+       "text": "These questions closely match the Git topics covered in your PDF (workflow, commands, branching, merging, tracking, and merge conflicts) and are well suited for Data Engineer interviews."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "cicd",
+   "name": "CI/CD Pipeline Interview Q&A",
+   "desc": "Covers CI/CD pipelines, Pull Requests, environment management, unit testing, secrets management, Infrastructure as Code, deployment strategies, approval gates, monitoring, and more.",
+   "questions": [
+    {
+     "n": 1,
+     "title": "What happens when a developer raises a Pull Request?",
+     "prose": "When a developer raises a Pull Request, the CI pipeline is triggered automatically. It runs code quality checks, unit tests, SQL validation, PySpark tests, and Airflow DAG validation. If all tests pass and the PR is approved, the code is merged into the main branch and becomes ready for deployment.",
+     "parts": []
+    },
+    {
+     "n": 2,
+     "title": "Why do we use separate Dev, QA, and Production environments?",
+     "prose": "Separate environments help us test code safely before releasing it to users. Developers make changes in Dev, testers validate them in QA, and only approved code is deployed to Production. This reduces the risk of production failures and improves software quality.",
+     "parts": []
+    },
+    {
+     "n": 3,
+     "title": "What happens if unit tests fail during CI?",
+     "prose": "If unit tests fail, the CI pipeline stops immediately and the code is not deployed further. The developer checks the test logs, fixes the issue, and pushes the updated code. The pipeline is then triggered again until all tests pass.",
+     "parts": []
+    },
+    {
+     "n": 4,
+     "title": "Why should secrets never be stored in Git?",
+     "prose": "Secrets such as passwords, API keys, and database credentials should never be stored in Git because they can be exposed to unauthorized users. Instead, we use AWS Secrets Manager, Parameter Store, or Azure Key Vault to securely manage sensitive information.",
+     "parts": []
+    },
+    {
+     "n": 5,
+     "title": "What is the benefit of Infrastructure as Code (IaC)?",
+     "prose": "Infrastructure as Code allows us to create and manage cloud resources using code instead of manually creating them. Tools like Terraform and AWS CDK help automate infrastructure deployment. This provides consistency, version control, and faster deployments.",
+     "parts": []
+    },
+    {
+     "n": 6,
+     "title": "How do you deploy the same code to multiple environments?",
+     "prose": "We use the same application code across all environments and change only the configuration values. Parameters such as S3 buckets, database names, IAM roles, and secrets are stored separately for Dev, QA, and Production. This makes deployments safer and easier to maintain.",
+     "parts": []
+    },
+    {
+     "n": 7,
+     "title": "What is the purpose of approval gates in Production?",
+     "prose": "Approval gates ensure that production deployment happens only after manual approval. Before approving, we verify test results, deployment logs, and release notes. This reduces the risk of deploying incorrect or unstable code to production.",
+     "parts": []
+    },
+    {
+     "n": 8,
+     "title": "How do you ensure safe production deployment?",
+     "prose": "Before deployment, I make sure all unit tests, integration tests, and data quality checks have passed. I also validate the deployment in Dev and QA environments. If required, I keep a rollback plan ready in case any production issue occurs.",
+     "parts": []
+    },
+    {
+     "n": 9,
+     "title": "How do you monitor a pipeline after deployment?",
+     "prose": "After deployment, I monitor CloudWatch logs, Glue job status, Airflow DAG runs, execution time, and failure alerts. I also compare source and target record counts to verify successful data processing. Any failures are immediately notified to the support team.",
+     "parts": []
+    },
+    {
+     "n": 10,
+     "title": "What are some common production issues in CI/CD?",
+     "prose": "Common production issues include failed unit tests, missing Python packages, IAM permission errors, broken Airflow DAGs, schema mismatches, and incorrect environment variables. I troubleshoot these issues using pipeline logs, fix the root cause, and redeploy the application.",
+     "parts": []
+    },
+    {
+     "n": 11,
+     "title": "What is the role of Git in CI/CD?",
+     "prose": "Git is used as the version control system to manage source code. Developers create feature branches, commit changes, and raise Pull Requests. Whenever code is merged into the main branch, the CI/CD pipeline is automatically triggered for testing and deployment.",
+     "parts": []
+    },
+    {
+     "n": 12,
+     "title": "How do you reduce deployment failures?",
+     "prose": "I reduce deployment failures by using automated testing, code reviews, environment-specific configurations, and proper secret management. I also validate deployments in Dev and QA before moving them to Production. This ensures stable and reliable deployments.",
+     "parts": []
+    }
+   ]
+  }
+ ]
+}
