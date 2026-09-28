@@ -20,6 +20,7 @@
     <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
       <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
       <a href="index.html" class="navbar__btn navbar__btn--primary">Home</a>
+      <a href="introduction.html" class="navbar__btn">Intro</a>
       <a href="python.html" class="navbar__btn">Python</a>
       <a href="pandas.html" class="navbar__btn">Pandas</a>
       <a href="sql.html" class="navbar__btn">SQL</a>
@@ -44,6 +45,19 @@
     <div style="padding:1.5rem 1.25rem 1rem;">
       <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">🎯 Interview Prep</div>
       <nav class="sidebar-nav" style="padding:.75rem 0;">
+        <div class="sidebar__section is-collapsed">
+          <div class="sidebar__heading"><span>🎙️ Introduction (35)</span><span class="sidebar__heading-icon">▼</span></div>
+          <ul class="sidebar__links">
+          <li><a href="introduction.html#sample-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Introduction</a></li>
+          <li><a href="introduction.html#toc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Table of Contents (all 35 Qs)</a></li>
+          <li><a href="introduction.html#intro-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Tell me about yourself</a></li>
+          <li><a href="introduction.html#intro-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Architecture + why Airflow?</a></li>
+          <li><a href="introduction.html#intro-15" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q15. PySpark transformation in Glue?</a></li>
+          <li><a href="introduction.html#intro-18" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q18. Validate in Athena?</a></li>
+          <li><a href="introduction.html#intro-24" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q24. Scale 100 GB to 1 TB/day?</a></li>
+          <li><a href="introduction.html#intro-33" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q33. Challenge 1 — debug & fix?</a></li>
+          </ul>
+        </div>
         <div class="sidebar__section is-collapsed">
           <div class="sidebar__heading"><span>🐍 Python (12)</span><span class="sidebar__heading-icon">▼</span></div>
           <ul class="sidebar__links">
@@ -259,17 +273,18 @@
         <div style="position:relative;z-index:1;">
           <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);padding:.35rem .85rem;border-radius:999px;font-size:.85rem;margin-bottom:1rem;">🎯 Interview Preparation • GOLDEN_QUESTIONNAIRE_JULY_2026.pdf</div>
           <h1 style="font-size:2.6rem;font-weight:800;color:#fff;margin:.5rem 0;">Interview Prep Track</h1>
-          <p style="font-size:1.15rem;opacity:.92;max-width:680px;">10 dedicated interview lessons — 133 real questions with interview-ready answers, code snippets and tips, straight from your Golden Questionnaire (July 2026). Separate from the SQL/PySpark/AWS guides.</p>
+          <p style="font-size:1.15rem;opacity:.92;max-width:680px;">11 dedicated interview lessons — 168 real questions with interview-ready answers, code snippets and tips, straight from your Golden Questionnaire (July 2026) + docs/introduction/intro.md. Separate from the SQL/PySpark/AWS guides.</p>
           <div style="display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap;">
-            <a href="python.html" class="hero__btn" style="background:#fff;color:#db2777;padding:.85rem 1.4rem;border-radius:8px;font-weight:600;text-decoration:none;">Start with Python →</a>
+            <a href="introduction.html" class="hero__btn" style="background:#fff;color:#db2777;padding:.85rem 1.4rem;border-radius:8px;font-weight:600;text-decoration:none;">Start with Introduction →</a>
             <a href="scenarios.html" class="hero__btn" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:.85rem 1.4rem;border-radius:8px;font-weight:600;text-decoration:none;">Scenario Questions (33)</a>
           </div>
         </div>
       </section>
 
       <h2 style="text-align:center;">Lesson Path</h2>
-      <p style="text-align:center;color:var(--color-text-secondary);margin-bottom:2rem;">10 lessons • 133 questions • each with answer, code & tip — mark as complete as you go</p>
+      <p style="text-align:center;color:var(--color-text-secondary);margin-bottom:2rem;">11 lessons • 168 questions • each with answer, code & tip — mark as complete as you go</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:3rem;">
+        <a href="introduction.html" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:1.5rem;display:block;"><div style="font-size:1.4rem;">🎙️ 00</div><h3>Introduction & Basics</h3><p style="color:var(--color-text-secondary);font-size:.9rem;">35 Qs — self-intro, pipeline architecture, S3/Glue/Athena/Redshift, scenarios & challenges</p><span style="color:#db2777;font-weight:600;">Explore →</span></a>
         <a href="python.html" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:1.5rem;display:block;"><div style="font-size:1.4rem;">🐍 01</div><h3>Python</h3><p style="color:var(--color-text-secondary);font-size:.9rem;">12 Qs — comprehension, decorators, generators, *args, GC, threading</p><span style="color:#22c55e;font-weight:600;">Explore →</span></a>
         <a href="pandas.html" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:1.5rem;display:block;"><div style="font-size:1.4rem;">🐼 02</div><h3>Pandas</h3><p style="color:var(--color-text-secondary);font-size:.9rem;">7 Qs — Series vs DataFrame, merge/join/concat, loc/iloc, dedup, explode</p><span style="color:#22c55e;font-weight:600;">Explore →</span></a>
         <a href="sql.html" style="text-decoration:none;background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:1.5rem;display:block;"><div style="font-size:1.4rem;">🗄️ 03</div><h3>SQL</h3><p style="color:var(--color-text-secondary);font-size:.9rem;">12 Qs — normalization, window functions, indexes, CTE, execution order, DELETE vs TRUNCATE</p><span style="color:#0ea5e9;font-weight:600;">Explore →</span></a>
@@ -285,7 +300,7 @@
     </div>
   </main>
   <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
-    <p>Interview Prep — Golden Questionnaire July 2026 • 133 questions across 10 lessons</p>
+    <p>Interview Prep — Golden Questionnaire July 2026 + intro.md • 168 questions across 11 lessons</p>
     <p style="margin-top:.5rem;">© 2026 Mastery Hub. Built for Data Engineers. <a href="../index.html" style="color:var(--color-primary);">← Back to Hub</a></p>
   </footer>
   <script src="js/main.js"></script>

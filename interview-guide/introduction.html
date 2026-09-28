@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>try{var k="pyspark_theme";var v=localStorage.getItem(k);var t=v?JSON.parse(v):"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction & Basics Q&A - Interview Prep (docs/introduction/intro.md)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="navbar__title">Interview Prep • Golden 2026</span>
+    </a>
+    <div class="navbar__spacer"></div>
+    <div class="navbar__links" style="display:flex;gap:.25rem;align-items:center;flex-wrap:nowrap;overflow-x:auto;">
+      <a href="../index.html" class="navbar__btn" title="Back to Hub Home">🏠 Hub</a>
+      <a href="index.html" class="navbar__btn">Home</a>
+      <a href="introduction.html" class="navbar__btn navbar__btn--primary">Intro</a>
+      <a href="python.html" class="navbar__btn">Python</a>
+      <a href="pandas.html" class="navbar__btn">Pandas</a>
+      <a href="sql.html" class="navbar__btn">SQL</a>
+      <a href="pyspark.html" class="navbar__btn">PySpark</a>
+      <a href="aws.html" class="navbar__btn">AWS</a>
+      <a href="airflow.html" class="navbar__btn">Airflow</a>
+      <a href="azure.html" class="navbar__btn">Azure</a>
+      <a href="scenarios.html" class="navbar__btn">Scenarios</a>
+      <a href="git.html" class="navbar__btn">Git</a>
+      <a href="cicd.html" class="navbar__btn">CI/CD</a>
+    </div>
+    <div class="navbar__actions">
+      <button class="navbar__btn search-trigger" aria-label="Search" title="Search (Ctrl+K)">🔍</button>
+      <button class="navbar__btn" id="bookmarks-toggle" aria-label="Bookmarks" title="Bookmarks">⭐</button>
+      <button class="navbar__btn theme-toggle" id="theme-toggle" aria-label="Toggle theme"><span class="icon-sun" style="display:none;">☀️</span><span class="icon-moon">🌙</span></button>
+      <button class="sidebar-toggle" id="hamburger" aria-label="Toggle navigation"><span class="hamburger"><span class="hamburger__bar"></span><span class="hamburger__bar"></span><span class="hamburger__bar"></span></span></button>
+      <a href="../index.html" class="navbar__btn hub-mobile" title="Back to Hub Home">🏠 Hub</a>
+    </div>
+  </nav>
+  <div class="sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="sidebar" id="mobile-nav" aria-label="Mobile navigation">
+    <div style="padding:1.5rem 1.25rem 1rem;">
+      <div style="font-weight:700;font-size:1.125rem;color:var(--color-heading);margin-bottom:1rem;">🎯 Interview Prep</div>
+      <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <div class="sidebar__section">
+        <div class="sidebar__heading"><span>🎙️ Introduction (35)</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="introduction.html#intro-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Tell me about yourself</a></li>
+        <li><a href="introduction.html#intro-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Role of a Data Engineer / your role</a></li>
+        <li><a href="introduction.html#intro-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. ETL vs ELT — which did you use?</a></li>
+        <li><a href="introduction.html#intro-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. 2-minute architecture walkthrough</a></li>
+        <li><a href="introduction.html#intro-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Why this stack?</a></li>
+        <li><a href="introduction.html#intro-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. How to structure a strong intro?</a></li>
+        <li><a href="introduction.html#intro-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Architecture + why Airflow?</a></li>
+        <li><a href="introduction.html#intro-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Glue vs EMR vs Lambda?</a></li>
+        <li><a href="introduction.html#intro-15" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q15. PySpark transformation in Glue?</a></li>
+        <li><a href="introduction.html#intro-18" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q18. Validate in Athena before Redshift?</a></li>
+        <li><a href="introduction.html#intro-21" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q21. API fails — retry without blocking?</a></li>
+        <li><a href="introduction.html#intro-24" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q24. Scale 100 GB/day to 1 TB/day?</a></li>
+        <li><a href="introduction.html#intro-27" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q27. Secure customer data in S3?</a></li>
+        <li><a href="introduction.html#intro-29" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q29. S3 Key Sensor found nothing?</a></li>
+        <li><a href="introduction.html#intro-31" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q31. Optimize Glue PySpark / OOM?</a></li>
+        <li><a href="introduction.html#intro-33" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q33. Challenge 1 — describe & solve</a></li>
+        </ul>
+      </div>
+      </nav>
+    </div>
+  </aside>
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-modal">
+      <div class="search-modal__input-wrapper">
+        <span class="search-modal__icon">🔍</span>
+        <input id="search-input" class="search-modal__input" type="text" placeholder="Search topics..." />
+        <span class="search-modal__shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results" class="search-modal__results"></div>
+    </div>
+  </div>
+  <div class="bookmarks-panel" id="bookmarks-panel" style="position:fixed;top:var(--nav-height);right:0;width:320px;max-height:calc(100vh - var(--nav-height));background:var(--color-surface);border-left:1px solid var(--color-border);z-index:150;overflow-y:auto;padding:1.25rem;display:none;">
+    <div class="bookmarks-panel__header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <h3 style="font-size:1rem;font-weight:600;margin:0;color:var(--color-heading);">Bookmarks</h3>
+      <button class="bookmarks-panel__close" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--color-text-secondary);padding:.1rem .4rem;" aria-label="Close bookmarks">✕</button>
+    </div>
+    <div id="bookmarks-list"></div>
+  </div>
+  <div class="progress-bar" style="position:fixed;top:var(--nav-height);left:var(--sidebar-width);right:0;height:4px;z-index:90;background:var(--color-bg-tertiary);">
+    <div class="progress-bar__track" style="height:4px;">
+      <div class="progress-bar__fill" id="progress-bar-fill" style="width:0%;"></div>
+    </div>
+  </div>
+  <aside class="sidebar" id="sidebar">
+    <div style="padding:.5rem 1.25rem .75rem;border-bottom:1px solid var(--color-border);">
+      <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;padding:.25rem;color:var(--color-text-secondary);font-size:.8rem;display:flex;align-items:center;gap:.375rem;width:100%;justify-content:space-between;">
+        <span style="font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);">Contents • Intro (35)</span>
+        <span style="font-size:.625rem;">◀</span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" style="padding:.75rem 0;">
+      <div class="sidebar__section">
+        <div class="sidebar__heading"><span>📋 Table of Contents</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+          <li><a href="#sample-intro" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Sample Introduction</a></li>
+          <li><a href="#toc" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Full Table of Contents</a></li>
+          <li><a href="#basics" class="sidebar__link"><span class="sidebar__link-icon">▸</span> A. Basics (Q1–Q6)</a></li>
+          <li><a href="#general" class="sidebar__link"><span class="sidebar__link-icon">▸</span> B. General Project (Q7–Q11)</a></li>
+          <li><a href="#extraction" class="sidebar__link"><span class="sidebar__link-icon">▸</span> C. Extraction (Q12–Q14)</a></li>
+          <li><a href="#transformation" class="sidebar__link"><span class="sidebar__link-icon">▸</span> D. Transformation (Q15–Q17)</a></li>
+          <li><a href="#loading" class="sidebar__link"><span class="sidebar__link-icon">▸</span> E. Loading (Q18–Q20)</a></li>
+          <li><a href="#scenarios" class="sidebar__link"><span class="sidebar__link-icon">▸</span> F. Scenarios (Q21–Q32)</a></li>
+          <li><a href="#challenges" class="sidebar__link"><span class="sidebar__link-icon">▸</span> G. Challenges (Q33–Q35)</a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section is-collapsed">
+        <div class="sidebar__heading"><span>🎙️ All 35 Questions</span><span class="sidebar__heading-icon">▼</span></div>
+        <ul class="sidebar__links">
+        <li><a href="introduction.html#intro-1" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q1. Tell me about yourself</a></li>
+        <li><a href="introduction.html#intro-2" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q2. Role of a Data Engineer / your role</a></li>
+        <li><a href="introduction.html#intro-3" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q3. ETL vs ELT</a></li>
+        <li><a href="introduction.html#intro-4" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q4. 2-minute architecture walkthrough</a></li>
+        <li><a href="introduction.html#intro-5" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q5. Why this stack?</a></li>
+        <li><a href="introduction.html#intro-6" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q6. Structure a strong intro</a></li>
+        <li><a href="introduction.html#intro-7" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q7. Architecture + why Airflow?</a></li>
+        <li><a href="introduction.html#intro-8" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q8. Role of S3? raw vs transformed?</a></li>
+        <li><a href="introduction.html#intro-9" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q9. Athena vs Redshift decision?</a></li>
+        <li><a href="introduction.html#intro-10" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q10. Glue vs EMR vs Lambda?</a></li>
+        <li><a href="introduction.html#intro-11" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q11. Airflow DAG dependencies?</a></li>
+        <li><a href="introduction.html#intro-12" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q12. JDBC MySQL from Airflow?</a></li>
+        <li><a href="introduction.html#intro-13" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q13. API auth for Google?</a></li>
+        <li><a href="introduction.html#intro-14" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q14. Schema changes in SFTP files?</a></li>
+        <li><a href="introduction.html#intro-15" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q15. PySpark transformation in Glue?</a></li>
+        <li><a href="introduction.html#intro-16" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q16. Crawlers + Catalog + Athena?</a></li>
+        <li><a href="introduction.html#intro-17" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q17. Glue job fails midway?</a></li>
+        <li><a href="introduction.html#intro-18" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q18. Validate in Athena?</a></li>
+        <li><a href="introduction.html#intro-19" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q19. S3 → Redshift operator?</a></li>
+        <li><a href="introduction.html#intro-20" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q20. DISTKEY / SORTKEY?</a></li>
+        <li><a href="introduction.html#intro-21" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q21. API fails — retry gracefully?</a></li>
+        <li><a href="introduction.html#intro-22" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q22. Crawler schema mismatch?</a></li>
+        <li><a href="introduction.html#intro-23" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q23. Redshift load fails (OOM/bad key)?</a></li>
+        <li><a href="introduction.html#intro-24" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q24. Scale 100 GB to 1 TB/day?</a></li>
+        <li><a href="introduction.html#intro-25" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q25. Athena slow — small files?</a></li>
+        <li><a href="introduction.html#intro-26" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q26. Power BI stale data trace?</a></li>
+        <li><a href="introduction.html#intro-27" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q27. Secure customer data in S3?</a></li>
+        <li><a href="introduction.html#intro-28" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q28. Column-level access / PII?</a></li>
+        <li><a href="introduction.html#intro-29" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q29. S3 Key Sensor no files?</a></li>
+        <li><a href="introduction.html#intro-30" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q30. Duplicates in Redshift?</a></li>
+        <li><a href="introduction.html#intro-31" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q31. Optimize Glue PySpark / OOM?</a></li>
+        <li><a href="introduction.html#intro-32" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q32. Partition S3 for Athena?</a></li>
+        <li><a href="introduction.html#intro-33" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q33. Challenge 1 — debug & fix?</a></li>
+        <li><a href="introduction.html#intro-34" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q34. Challenge 2 — alternatives?</a></li>
+        <li><a href="introduction.html#intro-35" class="sidebar__link"><span class="sidebar__link-icon">▸</span> Q35. Rebuild pipeline today?</a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+  <main class="main" style="margin-left:var(--sidebar-width);">
+    <div class="main__content">
+      <section class="hero" style="background:linear-gradient(135deg,#db2777 0%,#f59e0b 55%,#0f172a 100%);padding:3rem 2rem;border-radius:16px;color:#fff;position:relative;overflow:hidden;margin-bottom:2rem;">
+        <div style="position:relative;z-index:1;">
+          <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);padding:.35rem .85rem;border-radius:999px;font-size:.85rem;margin-bottom:1rem;">🎙️ Introduction &amp; Basics • docs/introduction/intro.md • 35 Questions</div>
+          <h1 style="font-size:2.2rem;font-weight:800;color:#fff;margin:.5rem 0;">Introduction &amp; Basics Q&amp;A</h1>
+          <p style="font-size:1.05rem;opacity:.92;max-width:680px;">Sample self-introduction + project-based, scenario-based and challenge-based questions from your pipeline (Airflow → S3 → Glue → Athena → Redshift → PowerBI).</p>
+          <p style="opacity:.8;font-size:.9rem;">Source: docs/introduction/intro.md • Answers are hidden — click a question to reveal its full interview answer. Use bookmarks + Mark as Complete to track prep.</p>
+        </div>
+      </section>
+
+      <section id="sample-intro" class="topic-section" style="border:1px solid rgba(219,39,119,.35);">
+        <div class="topic-section__header">
+          <span class="badge badge--advanced">🎙️ Sample Introduction — always visible • exact copy from docs/introduction/intro.md</span>
+        </div>
+        <h2 style="margin:.5rem 0;">SAMPLE INTRODUCTION</h2>
+        <p>Hi, I’m YOUR NAME, based in YOUR WORK LOCATION. I hold a YOUR QUALIFICATION/DEGREE from COLLEGE/UNIVERSITY AND YEAR OF PASSING.</p>
+        <p>I have EXPERIENCE IN YEARS of experience as a Data Engineer. Currently, I’m working at CURRENT COMPANY, where I’m working on a project called PROJECT NAME. My client, wanted our team to build 6 Dashboards, out of which I was part of 3. First, we had to  identify the source of our data which included sources like mysql databases through JDBC connections for Internal data (transactional and customer data), API integrations into google (trends and analytics) and SFTP folders where the flat files landed. We chose Apache Airflow as our orchestration tool and AWS services such as S3 to store both the raw and processed data, Glue as our ETL tool, Athena for serverless querying and Redshift as our data warehouse. Python scripts were used, using libraries to extract data from various sources and Bash Commands to push data into the S3 bucket. We initiated Glue Crawlers to collect metadata and Glue Data Catalog database to store the metadata. Glue jobs were then initiated using Pyspark code to transform the data based on requirement. Athena was integrated as a serverless query engine using SQL queries to check/validate the data. The filtered data was then loaded into the centralized data repository in S3 Transformed Bucket. When the S3 key sensor sensed data in the S3 bucket it signalled the S3 to Redshift Operator to push clean data from the S3 transformed bucket into Redshift Data Lake, from where the data was consumed by our analytical team through PowerBI. I was primarily responsible for writing functions in Apache Airflow, extracting data from the three data sources, writing PySpark code in Glue jobs and writing SQL query in Athena.</p>
+        <p>There are a few challenges I have faced in my project. One of them is FIRST CHALLENGE AND IT'S SOLUTION. Another challenge that i have faced is SECOND CHALLENGE AND IT'S SOLUTION.</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">intro.md — exact text (copy)</span>
+            <button class="code-block__copy" aria-label="Copy code">Copy</button>
+          </div>
+          <pre><code>SAMPLE INTRODUCTION
+Hi, I’m YOUR NAME, based in YOUR WORK LOCATION. I hold a YOUR QUALIFICATION/DEGREE from COLLEGE/UNIVERSITY AND YEAR OF PASSING.
+I have EXPERIENCE IN YEARS of experience as a Data Engineer. Currently, I’m working at CURRENT COMPANY, where I’m working on a project called PROJECT NAME. My client, wanted our team to build 6 Dashboards, out of which I was part of 3. First, we had to  identify the source of our data which included sources like mysql databases through JDBC connections for Internal data (transactional and customer data), API integrations into google (trends and analytics) and SFTP folders where the flat files landed. We chose Apache Airflow as our orchestration tool and AWS services such as S3 to store both the raw and processed data, Glue as our ETL tool, Athena for serverless querying and Redshift as our data warehouse. Python scripts were used, using libraries to extract data from various sources and Bash Commands to push data into the S3 bucket. We initiated Glue Crawlers to collect metadata and Glue Data Catalog database to store the metadata. Glue jobs were then initiated using Pyspark code to transform the data based on requirement. Athena was integrated as a serverless query engine using SQL queries to check/validate the data. The filtered data was then loaded into the centralized data repository in S3 Transformed Bucket. When the S3 key sensor sensed data in the S3 bucket it signalled the S3 to Redshift Operator to push clean data from the S3 transformed bucket into Redshift Data Lake, from where the data was consumed by our analytical team through PowerBI. I was primarily responsible for writing functions in Apache Airflow, extracting data from the three data sources, writing PySpark code in Glue jobs and writing SQL query in Athena.
+There are a few challenges I have faced in my project. One of them is FIRST CHALLENGE AND IT'S SOLUTION. Another challenge that i have faced is SECOND CHALLENGE AND IT'S SOLUTION.</code></pre>
+        </div>
+        <p style="color:var(--color-text-secondary);font-size:.9rem;">Word-for-word from <code>docs/introduction/intro.md</code> lines 1–4, including CAPS placeholders and original wording/spacing. Fill the CAPS parts with your details before the interview. Tip: end with 2 challenges + solutions — interviewers always ask a follow-up (see Q33–Q34).</p>
+      </section>
+
+      <section id="toc" class="topic-section">
+        <div class="topic-section__header">
+          <span class="badge badge--intermediate">📋 Table of Contents</span>
+        </div>
+        <h2 style="margin:.5rem 0;">Table of Contents — 35 questions</h2>
+        <ol style="line-height:1.9;font-size:.95rem;">
+          <li><a href="#basics">A. Introduction Basics (Q1–Q6)</a> — self-intro, role, ETL vs ELT, architecture pitch, stack choice, intro structure</li>
+          <li><a href="#general">B. General Project Understanding (Q7–Q11)</a> — architecture + Airflow, S3 raw/transformed, Athena vs Redshift, Glue vs EMR/Lambda, DAG dependencies</li>
+          <li><a href="#extraction">C. Extraction — MySQL, API, SFTP (Q12–Q14)</a> — JDBC, Google API auth, SFTP schema changes</li>
+          <li><a href="#transformation">D. Transformation — Glue + PySpark (Q15–Q17)</a> — sample transform, Crawlers/Catalog/Athena, Glue retry/recovery</li>
+          <li><a href="#loading">E. Loading — Athena + Redshift (Q18–Q20)</a> — Athena validation, S3-to-Redshift operator, DISTKEY/SORTKEY</li>
+          <li><a href="#scenarios">F. Scenario-Based (Q21–Q32)</a> — API failure, crawler mismatch, Redshift OOM, 1 TB scale, small files, stale PowerBI, S3 security, PII columns, S3 sensor debug, duplicates, PySpark OOM, S3 partitioning</li>
+          <li><a href="#challenges">G. Challenge-Based (Q33–Q35)</a> — challenge 1, challenge 2, rebuild today</li>
+        </ol>
+      </section>
+
+      <h2 id="basics" style="margin:2rem 0 1rem;">A. Introduction Basics (Q1–Q6)</h2>
+
+      <section id="intro-1" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--beginner">🟢 Beginner</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-1">☆</button><button class="topic-complete-btn" data-topic-id="intro-1">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q1</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Tell me about yourself / walk me through your profile?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer — say exactly this (from intro.md):</strong></p><p>Hi, I’m YOUR NAME, based in YOUR WORK LOCATION. I hold a YOUR QUALIFICATION/DEGREE from COLLEGE/UNIVERSITY AND YEAR OF PASSING.</p><p>I have EXPERIENCE IN YEARS of experience as a Data Engineer. Currently, I’m working at CURRENT COMPANY, where I’m working on a project called PROJECT NAME. My client, wanted our team to build 6 Dashboards, out of which I was part of 3. First, we had to  identify the source of our data which included sources like mysql databases through JDBC connections for Internal data (transactional and customer data), API integrations into google (trends and analytics) and SFTP folders where the flat files landed. We chose Apache Airflow as our orchestration tool and AWS services such as S3 to store both the raw and processed data, Glue as our ETL tool, Athena for serverless querying and Redshift as our data warehouse. Python scripts were used, using libraries to extract data from various sources and Bash Commands to push data into the S3 bucket. We initiated Glue Crawlers to collect metadata and Glue Data Catalog database to store the metadata. Glue jobs were then initiated using Pyspark code to transform the data based on requirement. Athena was integrated as a serverless query engine using SQL queries to check/validate the data. The filtered data was then loaded into the centralized data repository in S3 Transformed Bucket. When the S3 key sensor sensed data in the S3 bucket it signalled the S3 to Redshift Operator to push clean data from the S3 transformed bucket into Redshift Data Lake, from where the data was consumed by our analytical team through PowerBI. I was primarily responsible for writing functions in Apache Airflow, extracting data from the three data sources, writing PySpark code in Glue jobs and writing SQL query in Athena.</p><p>There are a few challenges I have faced in my project. One of them is FIRST CHALLENGE AND IT'S SOLUTION. Another challenge that i have faced is SECOND CHALLENGE AND IT'S SOLUTION.</p></div>
+      </section>
+
+      <section id="intro-2" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--beginner">🟢 Beginner</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-2">☆</button><button class="topic-complete-btn" data-topic-id="intro-2">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q2</span><h2 style="margin:0;font-size:1rem;font-weight:600;">What does a Data Engineer do? What was your specific role?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> A Data Engineer is responsible for making raw data reliable, clean, and easily queryable for analytics. That means ingesting data from different sources, validating it, transforming it into a usable shape, loading it into the right storage, and then orchestrating and monitoring the whole flow.</p><p>In this project, my contribution was quite hands-on. I wrote Airflow functions and DAG tasks for extraction and loading, I built the Python extraction logic for all three sources — MySQL over JDBC, the Google APIs, and the SFTP files — and pushed everything into S3. I also wrote the PySpark transformation code inside the Glue jobs, and I wrote the SQL validation queries in Athena that gated the Redshift load. The analytics team then consumed that clean Redshift data directly in PowerBI.</p></div>
+      </section>
+
+      <section id="intro-3" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--beginner">🟢 Beginner</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-3">☆</button><button class="topic-complete-btn" data-topic-id="intro-3">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q3</span><h2 style="margin:0;font-size:1rem;font-weight:600;">What is ETL vs ELT? Which did your pipeline use?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> ETL means you extract the data, transform it, and only then load it into the warehouse. ELT is the reverse: you load the raw data first and then transform it inside the warehouse or lakehouse.</p><p>Our pipeline follows the ETL style, but with a data lake in the middle. We first extract everything into the S3 raw bucket, then we transform it using Glue PySpark jobs and write the clean output to the S3 transformed bucket. Only after that do we load it into Redshift. We also use Athena to query the transformed S3 data for validation, so any bad or incomplete data is caught before it ever reaches PowerBI.</p></div>
+      </section>
+
+      <section id="intro-4" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-4">☆</button><button class="topic-complete-btn" data-topic-id="intro-4">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q4</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Explain your end-to-end pipeline architecture in 2 minutes?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Sure, let me walk you through it from left to right. On the source side, we had three very different inputs: MySQL tables for transactional and customer data, Google Trends and Analytics data coming through APIs, and flat files landing in SFTP folders.</p><p>Airflow extracts all three using Python logic — JDBC reads for MySQL, authenticated API calls for Google, and file reads for SFTP — and Bash commands push the output into the S3 raw bucket. From there, Glue Crawlers infer the schema and register it in the Glue Data Catalog. Our Glue PySpark jobs then transform the data and write clean, partitioned output to the S3 transformed bucket. We validate that output with Athena SQL queries, and once it looks good, the S3 Key Sensor triggers the S3-to-Redshift operator, which COPYs the data into Redshift. Finally, the analytical team consumes it in PowerBI. Out of the six dashboards, I personally owned three end to end.</p></div>
+      </section>
+
+      <section id="intro-5" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-5">☆</button><button class="topic-complete-btn" data-topic-id="intro-5">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q5</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Why did you choose Airflow + S3 + Glue + Athena + Redshift + PowerBI?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Each tool was picked for a specific reason. We used Airflow because it is Python-native, so our extraction logic, retries, and sensors all live in one DAG that is easy to monitor. S3 was the natural choice for storage because it is cheap, durable, and it lets us keep the raw and transformed layers separate, which makes replays very easy.</p><p>For transformation, we chose Glue because it gives us serverless Spark with Crawlers and the Data Catalog built in, so we could just write PySpark instead of managing clusters. Athena was ideal for validation because it lets us run SQL directly on S3 without loading anything. Redshift works well as the central warehouse for fast BI joins, and PowerBI was already the tool our analytics team used, so it made sense to serve from Redshift straight into PowerBI.</p></div>
+      </section>
+
+      <section id="intro-6" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--beginner">🟢 Beginner</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-6">☆</button><button class="topic-complete-btn" data-topic-id="intro-6">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q6</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How do you structure a strong 2-minute introduction?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> I follow a simple structure: present, past, project, role, and then challenges. First, I give my name, location, and degree. Then I mention my years of experience as a Data Engineer and my current company.</p><p>After that, I describe the project in one flow: we had to build six dashboards, I owned three, here were the three sources, here is how Airflow, S3, Glue, Athena, Redshift, and PowerBI fit together — just one line per system. Then I clearly state what I personally did: the Airflow functions, the three-source extraction, the Glue PySpark work, and the Athena SQL validation. I close with two challenges and how I solved them. I keep the whole thing under two minutes, and I pause briefly after the architecture so the interviewer can ask follow-up questions.</p></div>
+      </section>
+
+      <h2 id="general" style="margin:2rem 0 1rem;">B. General Project Understanding (Q7–Q11)</h2>
+
+      <section id="intro-7" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-7">☆</button><button class="topic-complete-btn" data-topic-id="intro-7">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q7</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Walk me through the ETL architecture. Why Apache Airflow for orchestration?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Our flow starts with MySQL data over JDBC, Google API data, and SFTP flat files. Airflow picks all of that up through Python and Bash tasks and lands it in S3 raw. Glue Crawlers then register the schema in the Catalog, Glue PySpark jobs transform the data into the S3 transformed bucket, Athena validates it with SQL, and finally the S3 Sensor triggers the S3-to-Redshift load into Redshift for PowerBI.</p><p>We chose Airflow specifically because our sources are so different from each other. The DAG makes the extract, transform, and load dependencies very explicit, and we get retries, the S3 Key Sensor, and the PythonOperator for custom extraction logic out of the box. It also gave us a single place to monitor the three sources and the three dashboards I was responsible for.</p></div>
+      </section>
+
+      <section id="intro-8" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-8">☆</button><button class="topic-complete-btn" data-topic-id="intro-8">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q8</span><h2 style="margin:0;font-size:1rem;font-weight:600;">What is the role of S3? Why separate raw and transformed buckets?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> S3 acts as our durable data lake for both the landing and the curated layers. The raw bucket keeps immutable copies of whatever arrived from the source, which is extremely useful for audits and for replaying the pipeline. The transformed bucket, on the other hand, holds cleaned, correctly typed, and partitioned data that is ready for Athena and Redshift.</p><p>We keep them separate for three reasons. First, bad data can never overwrite history. Second, we can re-run a Glue job without having to re-extract from MySQL, the API, or SFTP. And third, the S3 Key Sensor can safely trigger the Redshift load only when a curated key appears in the transformed bucket.</p></div>
+      </section>
+
+      <section id="intro-9" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-9">☆</button><button class="topic-complete-btn" data-topic-id="intro-9">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q9</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How did you decide which data goes to Athena vs Redshift?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> We use Athena for exploration and validation, and Redshift for serving BI. Athena queries the transformed S3 data directly, so I can quickly check row counts, null rates, duplicates, and whether the source and transformed counts reconcile — all without loading anything or paying for a warehouse.</p><p>Only the filtered and validated data is COPYed into Redshift. Redshift is much better for the repeated joins and aggregations that PowerBI runs, thanks to its columnar storage and DIST and SORT keys. So the rule of thumb is simple: explore and validate in Athena, and serve the dashboards from Redshift.</p></div>
+      </section>
+
+      <section id="intro-10" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-10">☆</button><button class="topic-complete-btn" data-topic-id="intro-10">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q10</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Why Glue for ETL over EMR or Lambda?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Glue was the best fit because it is serverless Spark with Crawlers, the Data Catalog, and PySpark jobs built in. That meant we could focus on writing transformation logic instead of provisioning and tuning clusters, which we would have had to do with EMR.</p><p>Lambda, on the other hand, is great for small event-driven tasks, but it has strict time and memory limits, so it cannot handle our larger batch transforms. EMR makes sense for long-running, heavily tuned clusters, while Lambda fits lightweight triggers. Since ours is a scheduled batch workload for dashboards, Glue jobs triggered from Airflow were the most practical option.</p></div>
+      </section>
+
+      <section id="intro-11" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-11">☆</button><button class="topic-complete-btn" data-topic-id="intro-11">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q11</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How does your Airflow DAG handle dependencies between extraction, transformation, and loading?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> The DAG is designed as a linear chain with a sensor in the middle. The three extraction tasks for MySQL, the API, and SFTP run in parallel, and only when all of them land data in S3 raw do we move forward to the Crawler and then the Glue job.</p><p>After the Glue job writes to the transformed prefix, an S3 Key Sensor waits for that exact key before the S3-to-Redshift operator is allowed to run. In code, it looks like <code>extract &gt;&gt; crawl &gt;&gt; transform &gt;&gt; sense &gt;&gt; load</code>. This guarantees the load never runs on partial data, and because retries are configured per task, retrying one source does not force us to rerun everything.</p></div>
+      </section>
+
+      <h2 id="extraction" style="margin:2rem 0 1rem;">C. Extraction — MySQL, API, SFTP (Q12–Q14)</h2>
+
+      <section id="intro-12" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-12">☆</button><button class="topic-complete-btn" data-topic-id="intro-12">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q12</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How did you establish JDBC connections from Airflow to MySQL?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> We never hard-code credentials. The MySQL host, port, database, username, and password are stored as an Airflow Connection, and the DAG task reads them through a JdbcHook or MySqlHook inside a PythonOperator.</p><p>The task itself runs parameterized SELECT queries against the transactional and customer tables, writes the result out, and then uploads it to the S3 raw bucket using Python and Bash. If there is a transient network or JDBC failure, Airflow's retry logic kicks in automatically, which has saved us quite a few times.</p></div>
+      </section>
+
+      <section id="intro-13" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-13">☆</button><button class="topic-complete-btn" data-topic-id="intro-13">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q13</span><h2 style="margin:0;font-size:1rem;font-weight:600;">What authentication did you use for Google Analytics/Trends APIs?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> For the Google Trends and Analytics APIs, we use OAuth 2.0 with a service account. The credentials are stored securely in Airflow Connections and Variables, and the Python extraction function handles the token refresh automatically.</p><p>Because these APIs are paginated and rate-limited, we loop through the pages carefully, respect the quotas with backoff logic, and land the raw JSON in S3. We also log the request counts and response codes, so if an authentication or quota failure happens, it shows up clearly in the Airflow logs well before the Glue job runs.</p></div>
+      </section>
+
+      <section id="intro-14" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-14">☆</button><button class="topic-complete-btn" data-topic-id="intro-14">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q14</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How do you handle schema changes in incoming SFTP flat files?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Flat files change all the time, so we designed for it. First, we always land the file in S3 raw exactly as it arrived, without modification. Then we let the Glue Crawler detect any new or renamed columns.</p><p>In the PySpark code itself, we select columns by name rather than position, we cast types defensively, we fill sensible null defaults for missing columns, and we flag or drop anything unexpected. On top of that, our Athena validation checks catch sudden shifts in row counts or null ratios before the Redshift load. And if the delimiter or header itself changes, the SFTP task fails loudly, so we fix the mapping in one place.</p></div>
+      </section>
+
+      <h2 id="transformation" style="margin:2rem 0 1rem;">D. Transformation — Glue + PySpark (Q15–Q17)</h2>
+
+      <section id="intro-15" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-15">☆</button><button class="topic-complete-btn" data-topic-id="intro-15">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q15</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Explain a PySpark transformation you wrote in Glue?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> One representative transformation combined all three sources. I read the raw MySQL, API, and SFTP frames, standardized the date and amount fields, removed duplicates on the business keys, joined the customer data to the transactions, filtered out invalid rows, and wrote the result as partitioned Parquet to S3 transformed.</p><p>The typical pattern looks like this: <code>dropDuplicates(["txn_id"]) → withColumn("amount", col("amount").cast("decimal(12,2)")) → join(customers, "customer_id", "left") → filter("amount IS NOT NULL")</code>. Partitioning the output by date made both the Athena validation and the later Redshift load much more efficient.</p></div>
+      </section>
+
+      <section id="intro-16" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-16">☆</button><button class="topic-complete-btn" data-topic-id="intro-16">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q16</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How do Glue Crawlers update metadata in the Catalog, and how does Athena use it?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Crawlers scan the S3 raw and transformed locations, infer the table names, column types, and partitions, and then create or update those definitions in the Glue Data Catalog database.</p><p>Athena uses that same Catalog as its metastore. That means the moment the Crawler registers a table or a new partition, I can query it immediately in Athena with standard SQL for validation, without moving or copying any data. It keeps the metadata and the validation layer perfectly in sync.</p></div>
+      </section>
+
+      <section id="intro-17" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-17">☆</button><button class="topic-complete-btn" data-topic-id="intro-17">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q17</span><h2 style="margin:0;font-size:1rem;font-weight:600;">If a Glue job fails midway, how does the pipeline recover or retry?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Recovery works at two levels. At the orchestration level, Airflow automatically retries the Glue job task with backoff, so transient failures resolve on their own. At the storage level, the Glue job writes to a staging prefix first and only publishes to the final transformed prefix on success.</p><p>Because of that, partial files can never trigger the downstream S3 Sensor. We also use job bookmarks and checkpoints, so a retry only reprocesses the incomplete partitions instead of the full dataset. Finally, the CloudWatch and Airflow logs tell us exactly which stage failed, and we rerun just that task.</p></div>
+      </section>
+
+      <h2 id="loading" style="margin:2rem 0 1rem;">E. Loading — Athena + Redshift (Q18–Q20)</h2>
+
+      <section id="intro-18" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-18">☆</button><button class="topic-complete-btn" data-topic-id="intro-18">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q18</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How did you validate data in Athena before pushing to Redshift?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Before anything goes to Redshift, I run a set of Athena SQL checks against the Catalog tables sitting on S3 transformed. I compare row counts between the source and the transformed output, I check null rates on the key columns, I look for duplicates on the business keys, and I verify that amounts and dates fall in sensible ranges. I also run a few sample joins to make sure relationships still hold.</p><p>Only when all of those counts reconcile and the checks pass does the DAG move on to the S3-to-Redshift load. If any check fails, the downstream sensor is blocked and we get alerted, so bad data never reaches the dashboards.</p></div>
+      </section>
+
+      <section id="intro-19" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-19">☆</button><button class="topic-complete-btn" data-topic-id="intro-19">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q19</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How did you use the S3 → Redshift operator? What parameters were required?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> The operator runs only after the S3 Key Sensor confirms that the transformed key actually exists. It then executes a Redshift COPY from S3 into the target table.</p><p>The main parameters we pass are the S3 key or prefix, the destination Redshift table, the IAM role used for access, the file format along with delimiters for CSV or the Parquet setting, and COPY options such as TRUNCATECOLUMNS, TIMEFORMAT, and NULL AS. All credentials come from Airflow connections and IAM roles rather than code, and the task is sequenced to run strictly after the Athena validation succeeds.</p></div>
+      </section>
+
+      <section id="intro-20" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-20">☆</button><button class="topic-complete-btn" data-topic-id="intro-20">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q20</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Did you use DISTKEY or SORTKEY in Redshift to optimize queries?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Yes, we did. We set the DISTKEY on the most common join key, which in our case was customer_id. That co-locates matching rows on the same slice, so joins do not require expensive shuffles across the cluster.</p><p>We set the SORTKEY on the date column that the dashboards filter on most often, which gives us efficient range pruning. Smaller dimension tables use DISTSTYLE ALL so every node has a local copy. We confirmed the benefit using EXPLAIN plans and the STL system tables, and the PowerBI queries became noticeably faster.</p></div>
+      </section>
+
+      <h2 id="scenarios" style="margin:2rem 0 1rem;">F. Scenario-Based (Q21–Q32)</h2>
+
+      <section id="intro-21" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-21">☆</button><button class="topic-complete-btn" data-topic-id="intro-21">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q21</span><h2 style="margin:0;font-size:1rem;font-weight:600;">If the API fails, how do you retry gracefully without blocking other tasks?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> The key is isolation. Each source — MySQL, the API, and SFTP — runs in its own Airflow task with its own retries and exponential backoff, plus a failure callback for alerting. That way, if the API goes down, the MySQL and SFTP extractions keep going in parallel instead of being blocked.</p><p>Downstream, the Glue step waits on all three sources when we need a complete day, or it proceeds with a data-quality gate when partial data is acceptable. For quota errors specifically, we use longer delays and pagination checkpoints, so a retry resumes from where it stopped rather than restarting from scratch.</p></div>
+      </section>
+
+      <section id="intro-22" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-22">☆</button><button class="topic-complete-btn" data-topic-id="intro-22">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q22</span><h2 style="margin:0;font-size:1rem;font-weight:600;">What if the Glue Crawler fails due to schema mismatch? Fix and prevent?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> First, I would look at the crawler logs to find the exact conflicting column — usually it is a type change or a shifted header. Then I would quarantine that bad SFTP or API file in S3 raw so it cannot poison downstream data, fix the Catalog schema or the explicit mapping, and rerun the crawler and the job.</p><p>To prevent it in production, we added Athena checks that alert on sudden null-ratio changes, we made the PySpark casts tolerant with sensible defaults, and we version our table definitions. That way, a newly added column simply appears as an addition instead of breaking the whole pipeline.</p></div>
+      </section>
+
+      <section id="intro-23" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-23">☆</button><button class="topic-complete-btn" data-topic-id="intro-23">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q23</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Redshift load fails — OOM or bad distribution key. Steps?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> I would start with the system tables, particularly STL_LOAD_ERRORS and SVL_QLOG, to see whether it is the COPY itself failing or a downstream query running out of memory. Very often the root cause is skew, where one slice gets hot because of a poor DISTKEY choice.</p><p>The fix is to stage the load separately, pick a high-cardinality column that is actually used in joins as the DISTKEY, add a SORTKEY on the date, and run VACUUM and ANALYZE afterwards. If the transformation itself is too wide for Redshift, I would push that logic back into Glue. And because Athena validates the batch first, we avoid reloading the same bad data twice.</p></div>
+      </section>
+
+      <section id="intro-24" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-24">☆</button><button class="topic-complete-btn" data-topic-id="intro-24">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q24</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Scale from 100 GB/day to 1 TB/day. What changes?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> A tenfold jump means every layer has to become incremental and partitioned. In S3, I would enforce date and source partitioning and standardize on Parquet. In Glue, I would increase DPUs and parallelism and rely on job bookmarks so we only process new data instead of full reloads.</p><p>In Airflow, I would raise concurrency and split per-source work into sub-DAGs so one slow source does not hold up the rest. For serving, I would tighten Athena partitioning and scale Redshift with the right node count, proper DIST and SORT keys, and workload management. Finally, I would add CloudWatch monitoring and data-quality gates, because at one terabyte a day, a small failure rate becomes a very large operational problem.</p></div>
+      </section>
+
+      <section id="intro-25" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-25">☆</button><button class="topic-complete-btn" data-topic-id="intro-25">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q25</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Athena is slow — too many small files in S3. Optimize?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> The problem with thousands of tiny files is that Athena has to perform a huge number of S3 LIST and GET calls, which makes queries slow and expensive. The fix is compaction inside the Glue job.</p><p>I would coalesce or repartition the output into fewer, larger Parquet files — roughly 128 to 256 MB each — partitioned by date, and write them to the transformed prefix. After that, I would update the Catalog partitions. Fewer objects combined with columnar Parquet dramatically reduces both scan time and cost.</p></div>
+      </section>
+
+      <section id="intro-26" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-26">☆</button><button class="topic-complete-btn" data-topic-id="intro-26">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q26</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Power BI shows stale data. Trace across Airflow → Glue → Redshift?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> I trace it backwards, starting from the user and moving upstream. First, I check the PowerBI refresh time, then I look at the maximum loaded timestamp in Redshift. If Redshift is behind, I check whether the S3-to-Redshift COPY actually ran.</p><p>If the COPY did not run, I check whether the S3 Sensor fired — meaning, is the transformed key even present? If it is missing, I check whether the Glue job succeeded, and if that failed, whether the Airflow extracts landed anything in S3 raw. The first gap I find is the culprit. Longer term, we added Athena freshness checks and Airflow SLA alerts so staleness pages us before users notice it.</p></div>
+      </section>
+
+      <section id="intro-27" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-27">☆</button><button class="topic-complete-btn" data-topic-id="intro-27">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q27</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How do you secure sensitive customer data in S3?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Security has to cover every layer. At rest, we use SSE-S3 or SSE-KMS encryption, and in transit everything goes over TLS. Access is controlled with bucket policies and IAM least-privilege per prefix, so the raw and transformed areas have different permissions. We also block all public access and enable access logging with CloudTrail for auditing.</p><p>Most importantly, sensitive PII columns are masked or tokenized inside the Glue job itself, before the data ever reaches the transformed bucket. That way, Athena and Redshift only ever see the safe version, never the raw personal data.</p></div>
+      </section>
+
+      <section id="intro-28" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-28">☆</button><button class="topic-complete-btn" data-topic-id="intro-28">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q28</span><h2 style="margin:0;font-size:1rem;font-weight:600;">New client wants column-level access — Power BI must not see PII. Implement?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> I would solve this with a dedicated PII-free layer. In Glue, we either drop the sensitive columns like email and phone entirely or replace them with hashed values, and we write that masked dataset to its own transformed prefix.</p><p>Then, in Redshift, we create a view over the masked data and GRANT access only on that view. The PowerBI service connects with a role that simply cannot SELECT the base PII tables. We do the same in Athena by exposing only the masked Catalog view. So access control is enforced by roles and views, not by trusting users to avoid certain columns.</p></div>
+      </section>
+
+      <section id="intro-29" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-29">☆</button><button class="topic-complete-btn" data-topic-id="intro-29">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q29</span><h2 style="margin:0;font-size:1rem;font-weight:600;">DAG failed — S3 Key Sensor never detected files. Debug and fix?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> When the sensor times out, it is usually one of three things: a wrong bucket, prefix, or key pattern, a date-templating mistake such as execution_date versus ds, or a missing IAM permission. I start by checking those, and then I verify whether Glue actually wrote to a different prefix or failed silently upstream.</p><p>Once I find it, I correct the key template or the prefix, backfill the missed run, and then harden the DAG. I add a sensible sensor timeout with an alert, plus an explicit S3 or Athena existence check, so the next silent upstream miss pages us quickly instead of failing quietly.</p></div>
+      </section>
+
+      <section id="intro-30" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-30">☆</button><button class="topic-complete-btn" data-topic-id="intro-30">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q30</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Duplicate records in Redshift — detect and clean?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> I detect duplicates by grouping on the business key with <code>GROUP BY business_key HAVING COUNT(*) &gt; 1</code> in Athena or Redshift, and I also compare source counts against warehouse counts to see where the extra rows came from.</p><p>To clean them, I load the data into a staging table, keep only the latest record per key using <code>ROW_NUMBER() OVER (PARTITION BY key ORDER BY updated_at DESC)</code> where rn equals one, and then swap it into the final table. To prevent recurrence, we deduplicate in Glue with <code>dropDuplicates</code> on the business keys and add a key-uniqueness check before the S3-to-Redshift COPY runs.</p></div>
+      </section>
+
+      <section id="intro-31" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-31">☆</button><button class="topic-complete-btn" data-topic-id="intro-31">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q31</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How do you optimize PySpark jobs in Glue to prevent OOM?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Out-of-memory errors almost always come from shuffles, skew, or reading too much data too early. So I start by filtering as early as possible and selecting only the columns I actually need. Then I make sure the data is repartitioned to match the available parallelism.</p><p>For joins, I broadcast the small customer table instead of shuffling it, and I salt any hot transaction keys that cause skew. I persist only the frames that are genuinely reused, and if needed, I scale up to larger G.1X or G.2X workers with more executor memory. I also check the Glue metrics for spill and garbage-collection pressure before adding resources, and I always write the final output as partitioned Parquet.</p></div>
+      </section>
+
+      <section id="intro-32" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--intermediate">🟡 Intermediate</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-32">☆</button><button class="topic-complete-btn" data-topic-id="intro-32">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q32</span><h2 style="margin:0;font-size:1rem;font-weight:600;">How do you partition S3 data for better Athena performance?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> I use Hive-style prefixes like <code>year=/month=/day=/source=</code> in the transformed bucket, stored as Parquet. This matches the way our dashboards filter, which is almost always by date, so Athena can prune entire partitions instead of scanning everything.</p><p>I also keep file sizes balanced so we avoid both tiny files and giant ones, and I make sure the Catalog partitions are updated after every Glue run. One thing I avoid is partitioning on very high-cardinality columns like customer_id, because that creates far too many tiny partitions and hurts performance instead of helping it.</p></div>
+      </section>
+
+      <h2 id="challenges" style="margin:2rem 0 1rem;">G. Challenge-Based (Q33–Q35)</h2>
+
+      <section id="intro-33" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-33">☆</button><button class="topic-complete-btn" data-topic-id="intro-33">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q33</span><h2 style="margin:0;font-size:1rem;font-weight:600;">You mentioned FIRST CHALLENGE. Describe it, debugging, and final solution?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> You should replace this template with your real story, but here is how I would frame it. In my case, the SFTP headers kept changing every week, which broke the Glue job. I debugged it by checking the crawler errors and noticing sudden null spikes in the Athena validation queries.</p><p>To fix it, I quarantined the bad files in S3 raw so they could not flow downstream, I made the PySpark code tolerant to header changes with an explicit column mapping and default values, and I added an Athena header check as a gate before the Redshift load. After that fix, we had zero broken dashboard loads from that cause. The key is to always close with a measurable result.</p></div>
+      </section>
+
+      <section id="intro-34" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-34">☆</button><button class="topic-complete-btn" data-topic-id="intro-34">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q34</span><h2 style="margin:0;font-size:1rem;font-weight:600;">Tell me about SECOND CHALLENGE. What alternatives did you evaluate?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> Again, use your own experience here. As an example, my second challenge was a Glue out-of-memory failure caused by a heavily skewed join. I evaluated three options: simply adding bigger workers, using a broadcast join, or applying salting to the hot keys.</p><p>I ended up combining the last two: I broadcast the small customer table and salted the hot transaction key. That turned out to be both the cheapest and the fastest solution. When you answer, walk through the trade-offs clearly — cost versus speed versus complexity — and explain why the option you picked won.</p></div>
+      </section>
+
+      <section id="intro-35" class="topic-section expandable-section">
+        <div class="topic-section__header"><span class="badge badge--advanced">🔴 Advanced</span><div class="topic-section__actions"><button class="bookmark-btn" data-topic-id="intro-35">☆</button><button class="topic-complete-btn" data-topic-id="intro-35">Mark as Complete</button></div></div>
+        <div class="expandable-header"><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--color-primary);">Q35</span><h2 style="margin:0;font-size:1rem;font-weight:600;">If you rebuilt this pipeline today, what would you change?</h2><span style="font-size:.7rem;color:var(--color-text-tertiary);">click to reveal answer</span></div><span class="expandable-icon">▶</span></div>
+        <div class="expandable-content"><p><strong>Interview Answer:</strong> I would keep the same overall stack, because it fits the workload well, but I would make it properly incremental, idempotent, and observable from day one. First, I would standardize on Parquet with date partitioning right away, so Athena and Redshift pruning work from the start.</p><p>Second, I would use Glue bookmarks for incremental loads instead of reprocessing full days. Third, I would add proper data-quality gates in Athena before the Redshift load, similar to a Great Expectations suite. I would also parameterize the Airflow DAGs per dashboard so each one can run and backfill independently, create masked views for any PII columns, and add CloudWatch and SLA alerts on sensor timeouts and data freshness. The result would be the same architecture, but cheaper to run in Athena and Redshift, and noticeably faster and more reliable for PowerBI users.</p></div>
+      </section>
+
+      <div style="display:flex;gap:.75rem;margin:2rem 0;flex-wrap:wrap;">
+        <a href="index.html" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:.75rem 1.25rem;text-decoration:none;font-weight:600;">← All Interview Lessons</a>
+        <a href="../index.html" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:.75rem 1.25rem;text-decoration:none;font-weight:600;">🏠 Hub Home</a>
+      </div>
+    </div>
+  </main>
+  <footer style="margin-left:var(--sidebar-width);padding:2rem 3rem;border-top:1px solid var(--color-border);text-align:center;color:var(--color-text-tertiary);font-size:.875rem;">
+    <p>Interview Prep — docs/introduction/intro.md • Introduction &amp; Basics Q&amp;A (35)</p>
+    <p style="margin-top:.5rem;">© 2026 Mastery Hub. Built for Data Engineers.</p>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
